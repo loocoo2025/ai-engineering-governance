@@ -158,8 +158,8 @@ C00 原则上不直接承担：
 
 本轮需求工作结束时，至少应达到：
 
-- P0/P1 需求问题已经闭环；
-- 关键 P2 问题已经闭环或明确延期；
+- `QUESTION_PRIORITY` P0/P1 需求问题已经闭环；
+- 关键 `QUESTION_PRIORITY` P2 问题已经闭环或明确延期；
 - 需求可以被验证；
 - 重要需求有编号；
 - 重要验收标准已经定义；
@@ -1310,9 +1310,10 @@ C04-Independent-Review-v04
 输出：
 
 - 独立问题清单；
-- 风险等级；
+- C04 Finding Severity；
 - 必须整改项；
-- 可接受遗留项。
+- 非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT`；
+- 已正式批准的 Exception / Risk Acceptance 引用。
 
 ## C05
 
@@ -1421,10 +1422,10 @@ C04-Independent-Review-v04
    - 问题是什么；
    - 为什么重要；
    - 影响什么；
-   - 风险等级；
+   - C04 Finding Severity（S0/S1/S2/S3）；
    - 需要什么证据才能关闭。
 
-你原则上只提交评审意见，不直接偷偷修改被评审对象。
+先按工程总则第 38.7 节记录 Review Readiness。`REVIEW_NOT_READY` 时只记录缺失的前置条件，不产生 Gate Decision。只有 `READY` 时才能输出 `PASS / CHANGES_REQUESTED`。你只提交评审记录，不修改被评审对象、不参与整改设计、不批准 Exception，也不关闭自己提出的 Finding。
 ```
 
 ---
@@ -1557,6 +1558,7 @@ C04 Independent Review Session
 → 使用全新独立上下文
 → 从正式文件和精确 Git Review Target 重建事实
 → 不继承实现 AI 的私有推理
+→ 先记录 Review Readiness，只有 READY 时才产生 Gate Decision
 ```
 
 执行角色在 Session 内发起的辅助 Model / CLI / API 调用不是新的治理 Session，沿用调用者 Role 和权限边界，其输出仅为 `ADVISORY / AUXILIARY`。只有按照正式独立评审流程建立的 `C04 Independent Review Session` 才能产生 C04 Gate 结论。
@@ -1574,9 +1576,9 @@ Primary 命中工程总则的 Expert Escalation 触发条件时：
 5. Expert 输出 `HUMAN DECISION REQUIRED = NO` 时，结论返回原角色和原 `ACTIVE_TASK` 自动继续；
 6. 只有输出 `YES` 且命中人工权威边界时，才由 C00 向项目负责人提出一个最重要问题。
 
-Primary 执行中发现的 P0/P1 首先触发 Expert Escalation，不直接等同于人工阻塞。P2/P3 在当前批准范围内默认由 Primary 自动整改。
+Primary 执行中 `QUESTION_PRIORITY / WORK_PRIORITY` 为 P0/P1 的问题首先触发 Expert Escalation，不直接等同于人工阻塞。P2/P3 在当前批准范围内默认由 Primary 自动处理。P0～P3 不是 C04 Finding Severity。
 
-C04 发现 P0/P1 时只形成 Finding、定级、给出关闭条件和 `CHANGES_REQUESTED`，然后停止。后续编排必须为：
+C04 形成 S0/S1 Finding 时只记录 Finding、给出关闭条件和 `CHANGES_REQUESTED`，然后停止。后续编排必须为：
 
 ```text
 Primary Executor / C00
@@ -1587,6 +1589,8 @@ Primary Executor / C00
 ```
 
 C04 不得加入被审对象的整改设计 Session，也不得自行关闭自己提出的 Finding。Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭。
+
+S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并启动全新独立 C04 Session 复审。Severity 只决定风险表达、优先顺序和默认路由；任一 Open Finding 都阻断 `PASS`。
 
 ## 41.3 C04 Provider 与独立性
 

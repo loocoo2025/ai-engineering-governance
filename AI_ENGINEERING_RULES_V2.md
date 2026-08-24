@@ -689,16 +689,16 @@ AI 不得在没有说明原因的情况下推翻已经 Accepted 的 ADR。
    - 测试设计；
    - 当前开发工作的事项。
 6. 当前阶段还不需要处理的问题，记录为“后续质询项”，不要提前无限展开。
-7. 建议按优先级分类：
+7. 建议按 `QUESTION_PRIORITY` 分类：
 
 ```text
-P0：不回答就无法继续正确设计
-P1：不回答可能造成重大返工或架构错误
-P2：会明显影响当前代码质量、测试或维护性
-P3：以后优化即可，当前可以暂缓
+QUESTION_PRIORITY P0：不回答就无法继续正确设计
+QUESTION_PRIORITY P1：不回答可能造成重大返工或架构错误
+QUESTION_PRIORITY P2：会明显影响当前代码质量、测试或维护性
+QUESTION_PRIORITY P3：以后优化即可，当前可以暂缓
 ```
 
-当前质询主要处理 P0、P1、P2。
+当前质询主要处理 `QUESTION_PRIORITY` P0、P1、P2。
 
 结束条件：
 
@@ -1880,8 +1880,8 @@ C00 原则上不直接承担：
 
 本轮需求工作结束时，至少应达到：
 
-- P0/P1 需求问题已经闭环；
-- 关键 P2 问题已经闭环或明确延期；
+- `QUESTION_PRIORITY` P0/P1 需求问题已经闭环；
+- 关键 `QUESTION_PRIORITY` P2 问题已经闭环或明确延期；
 - 需求可以被验证；
 - 重要需求有编号；
 - 重要验收标准已经定义；
@@ -3017,9 +3017,10 @@ C04-Independent-Review-v04
 输出：
 
 - 独立问题清单；
-- 风险等级；
+- C04 Finding Severity；
 - 必须整改项；
-- 可接受遗留项。
+- 非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT`；
+- 已正式批准的 Exception / Risk Acceptance 引用。
 
 ## C05
 
@@ -3128,10 +3129,10 @@ C04-Independent-Review-v04
    - 问题是什么；
    - 为什么重要；
    - 影响什么；
-   - 风险等级；
+   - C04 Finding Severity（S0/S1/S2/S3）；
    - 需要什么证据才能关闭。
 
-你原则上只提交评审意见，不直接偷偷修改被评审对象。
+先按第 38.7 节记录 Review Readiness。`REVIEW_NOT_READY` 时只记录缺失的前置条件，不产生 Gate Decision。只有 `READY` 时才能输出 `PASS / CHANGES_REQUESTED`。你只提交评审记录，不修改被评审对象、不参与整改设计、不批准 Exception，也不关闭自己提出的 Finding。
 ```
 
 ---
@@ -3484,10 +3485,10 @@ Primary Executor 遇到以下任一情况时，必须停止自行扩张 Current 
 6. 根因经过两次认真尝试仍无法确定；
 7. 同一个实现问题连续两次修复失败；
 8. 需要大范围重构才能继续；
-9. Primary Executor 或 C00 收到 C04 已定级的 P0/P1 Finding；
+9. Primary Executor 或 C00 收到 C04 已定级的 S0/S1 Finding；
 10. 当前任务明确要求独立高级技术判断。
 
-P0/P1 不等于必然找项目负责人。正确路由是：
+`QUESTION_PRIORITY` 为 P0/P1 的问题，以及 C04 定级为 S0/S1 的 Finding，都不等于必然找项目负责人。正确路由是：
 
 ```text
 Primary Executor
@@ -3498,7 +3499,7 @@ Primary Executor
 → 只有需要负责人权威时才转 HUMAN_PROJECT_OWNER
 ```
 
-C04 不是上述整改链的执行者。C04 形成 P0/P1 Finding 后停止，由 Primary Executor 或 C00 启动 Expert Escalation、完成受控整改并形成新的精确 Review Target，再启动全新独立 C04 Session 复审。
+C04 不是上述整改链的执行者。C04 形成 S0/S1 Finding 后停止，由 Primary Executor 或 C00 启动 Expert Escalation、完成受控整改并形成新的精确 Review Target，再启动全新独立 C04 Session 复审。
 
 Expert 可以直接解决在现有 Current Truth 和既有授权范围内能够确定答案的技术问题，但不得因为“更合理”而自行改变已批准需求、验收阈值、产品行为或正式 Baseline。
 
@@ -3527,7 +3528,7 @@ Primary Executor 可在当前明确批准的最小工作范围内执行，但在
 
 ### SUPERVISED_AUTO
 
-模板推荐默认模式。Primary Executor 在当前已授权阶段和文件范围内连续自动执行；P2/P3、编译失败、测试失败、实现 Bug、测试缺陷、文档同步、Traceability 修复、状态同步和事实所属记录更新默认自动处理。复杂问题自动形成 Escalation Package 交给 Expert。不得自动跨越尚未人工批准的 Gate 或 Milestone。
+模板推荐默认模式。Primary Executor 在当前已授权阶段和文件范围内连续自动执行；`QUESTION_PRIORITY / WORK_PRIORITY` 为 P2/P3 的普通问题、编译失败、测试失败、实现 Bug、测试缺陷、文档同步、Traceability 修复、状态同步和事实所属记录更新默认自动处理。复杂问题自动形成 Escalation Package 交给 Expert。不得自动跨越尚未人工批准的 Gate 或 Milestone。
 
 ### FULL_AUTO
 
@@ -3537,7 +3538,7 @@ Primary Executor 可以在既定 Current Truth 和授权范围内，自动跨越
 
 - 自动执行已授权阶段；
 - 自动实现、构建和测试；
-- 自动整改 P2/P3；
+- 自动整改 `QUESTION_PRIORITY / WORK_PRIORITY` 为 P2/P3 的普通问题；
 - 自动调用 Expert Escalation；
 - 自动运行独立 C04 Review Loop 并推进状态。
 
@@ -3597,22 +3598,121 @@ TEST/VALIDATION REQUIRED
 HUMAN DECISION REQUIRED = YES/NO
 ```
 
-## 38.7 C04 独立性
+## 38.7 C04 独立评审治理
 
 > **AUXILIARY / ADVISORY != FORMAL C04.**
+>
+> 本节是 Review Readiness、Question Priority 与 C04 Finding Severity 的分离边界、C04 Finding Severity、Finding / Advisory 边界和 Review Decision Matrix 的唯一权威来源。Question Priority 的具体定义仍由第 10 章的质询规则维护；其他文件只能引用、执行或记录实例。
 
-执行角色可以在现有授权范围内调用 Codex、DeepSeek、Kimi 或其他 Model / Harness / Tool 进行只读分析、Bug 定位、方案咨询、设计预审或复杂问题辅助推理。这些输出只能视为 `ADVISORY / AUXILIARY`，不能直接作为正式 Gate 结论，也不能因为调用了 `codex exec` 或某个常用于 Reviewer 的 Model 就宣称完成 C04。
+执行角色可以在现有授权范围内调用 Codex、DeepSeek、Kimi 或其他 Model / Harness / Tool 进行只读分析、Bug 定位、方案咨询、设计预审或复杂问题辅助推理。这些输出只能视为 `ADVISORY / AUXILIARY`，不能直接作为正式 Gate 结论，也不能因为调用了 `codex exec` 或某个常用于 Reviewer 的 Model 就宣称完成 C04。C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
 
-正式 C04 必须同时满足：
+正式 C04 必须由独立评审流程明确发起，针对已冻结的 Review Target，使用精确不可变 Git Commit 或受控版本，与被评审对象的实现和整改过程保持角色独立，并产生正式 C04 Review Record。只有 Review Readiness 为 `READY` 时才能产生正式 `PASS / CHANGES_REQUESTED`。
 
-- 由独立评审流程明确发起；
-- 针对已经冻结的 Review Target；
-- 明确精确 Git Commit / HEAD；
-- 与被评审对象的实现和整改过程保持角色独立；
-- 产生正式 C04 Review Record；
-- 输出正式 `PASS / CHANGES_REQUESTED`。
+### 38.7.1 Review Readiness
 
-C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
+正式 C04 进入实质评审前，必须先记录：
+
+```text
+REVIEW_ID: {{REVIEW_ID}}
+REVIEW_TARGET: {{TARGET}}
+EXACT_GIT_COMMIT_OR_CONTROLLED_VERSION: {{COMMIT_OR_VERSION}}
+TARGET_FROZEN: YES / NO
+INDEPENDENT_REVIEW_SESSION: {{SESSION_ID_OR_REFERENCE}}
+FORMAL_REVIEW_RECORD_LOCATION_DEFINED: YES / NO
+FORMAL_REVIEW_RECORD: {{PATH_OR_ID}}
+REVIEW_READINESS: READY / REVIEW_NOT_READY
+```
+
+`FORMAL_REVIEW_RECORD_LOCATION_DEFINED` 只要求 Review Record ID、模板或写入位置已预先定义，不要求记录在评审开始前已完成。允许先建立 Review Record shell。
+
+精确 Git Review Target 必须记录不可变的完整 Commit Hash。如果输入使用 `HEAD`，必须立即解析并记录其完整 Hash；只记录可移动的 `HEAD` 不满足正式评审条件。非 Git 文档必须记录可唯一定位的受控版本。
+
+以下任一情况必须记录 `REVIEW_NOT_READY`：
+
+- Review Target 未冻结、不完整或不可复现；
+- 无精确 Commit 或受控版本；
+- 必要输入或证据缺失；
+- 无法建立全新独立 C04 Session；
+- Formal Review Record 写入位置未定义；
+- 权威 Current Truth 来源之间存在实质冲突，导致无法确定适用判定标准。
+
+`REVIEW_NOT_READY` 是正式评审的前置状态，不是 Gate Decision。此时 Review Record shell 只记录未就绪原因、缺失输入、后续责任人和重新发起条件，不输出 `PASS`、`CHANGES_REQUESTED` 或正式 Finding。
+
+Review Readiness 的规则定义归本节；每次评审的实例值只写入对应正式 C04 Review Record。`CURRENT_STATE.md` 只在需要时引用 Review ID / Record 和当前 Gate，不复制 Readiness 检查表。`REVIEW_NOT_READY` 不产生新的项目状态 Owner。
+
+### 38.7.2 Question Priority != C04 Finding Severity
+
+`QUESTION_PRIORITY` 的 P0～P3 定义见第 10 章，用于未决问题、澄清请求和设计前提。现有产物 Owner 内的 `WORK_PRIORITY` 字段仍可使用 `P0 / P1 / P2 / P3` 进行工作排序。两者都不是正式 C04 Finding Severity。
+
+正式 C04 Finding 使用 `C04_FINDING_SEVERITY`：
+
+- `S0 — Critical`：可能造成严重安全、合规、数据完整性或不可逆后果；立即停止相关推进、通知 C00 并启动 Expert Escalation。
+- `S1 — Major`：违反关键 Current Truth、已批准需求、系统边界、公共接口、架构约束或 Acceptance Threshold，或可能造成重大返工、系统性失效或 Gate 错误；启动 Expert Escalation。
+- `S2 — Moderate`：对功能正确性、可测试性、可维护性、追溯性或受控交付有实质影响；通常由 Primary Executor 在授权范围内整改。
+- `S3 — Minor`：范围有限但仍违反适用要求、标准或受控接受条件；通常由 Primary Executor 在授权范围内整改。
+
+S0～S3 都是正式 Finding，在当前 Review Target 被接受前都必须关闭。Severity 决定风险表达、整改优先顺序和默认路由；Finding 是否 Open 决定能否 `PASS`。
+
+### 38.7.3 Finding、Advisory 与关闭
+
+正式 Finding 是可验证的缺陷、遗漏、矛盾、不可验证性、证据不足、不可接受风险或其他实质阻断，导致 Review Target 无法满足适用的 Current Truth、已批准需求、Acceptance Criteria / Threshold、Gate、安全或合规要求、Traceability、已批准架构/接口/设计约束或工程治理要求。Finding 不局限于必须字面引用一条已写明的规则，但必须说明判定依据或对接受的实质影响。
+
+必须区分：
+
+- 权威 Current Truth 来源互相冲突，无法确定评审标准 → `REVIEW_NOT_READY`；
+- Review Target 与清晰、已冻结的 Current Truth 冲突 → Finding → `CHANGES_REQUESTED`。
+
+`ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 只用于不影响当前接受的非阻断事项，不分配 S0～S3，不阻断 `PASS`。正式 C04 结论禁止使用 `PASS_WITH_ACTIONS / CONDITIONAL_PASS / FAIL / APPROVED_WITH_COMMENTS` 或其他未定义的第三种 Gate Decision。
+
+“可接受遗留项”不得表示仍然 Open 的 Finding，只能是：
+
+1. `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT`；或
+2. 由现有 Decision Owner、Risk Owner 或 Human Project Owner 在既有权限下正式批准的 Exception / Risk Acceptance。
+
+C04 不批准 Exception / Risk Acceptance。批准记录必须说明批准人、范围、理由及有效边界。它可作为 Finding 的一种受控关闭方式，但只有面向新精确 Review Target 的全新独立 C04 Session 验证批准证据和适用范围后，才能将 Finding 标记为已关闭。Finding 状态至少使用：
+
+```text
+OPEN
+CLOSED_BY_FIX
+CLOSED_BY_APPROVED_EXCEPTION
+```
+
+### 38.7.4 Review Decision Matrix
+
+| 条件 | Readiness | 正式 Gate Decision | 默认后续路由 | Human Project Owner |
+|---|---|---|---|---|
+| Review Target 未冻结/不可复现、无精确版本、必要输入缺失、独立 Session 或 Record Location 未建立 | `REVIEW_NOT_READY` | 无 | Primary Executor / C00 补齐后重新发起 C04 | 通常不需要 |
+| 权威 Current Truth 来源冲突，无法确定判定标准 | `REVIEW_NOT_READY` | 无 | C00 按现有事实 Owner 体系澄清，必要时调用 Expert | 只有需要改变 Current Truth 时 |
+| Review Target 与清晰、已冻结的 Current Truth 或批准要求冲突 | `READY` | `CHANGES_REQUESTED` | 按 Finding Severity 路由 | 只有超出既有授权时 |
+| 存在任一 Open S0 Finding | `READY` | `CHANGES_REQUESTED` | 停止相关推进 → C00 / Expert → Primary Executor → 新 Review Target → 新 C04 | 仅命中保留决策时 |
+| 存在任一 Open S1 Finding | `READY` | `CHANGES_REQUESTED` | Expert → Primary Executor → 新 Review Target → 新 C04 | 仅命中保留决策时 |
+| 存在任一 Open S2 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
+| 存在任一 Open S3 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
+| 适用的 Traceability Gate 未闭合且无正式批准的 Exception | `READY` | `CHANGES_REQUESTED` | 对应现有 Owner 整改 | 通常不需要 |
+| 必须改变已批准需求、产品目标、系统边界、公共接口、架构、Acceptance Threshold 或未预授权 Current Truth | `READY` | `CHANGES_REQUESTED` | C00 按现有权限体系转交保留决策 Owner | 需要 |
+| 必须接受重大风险或执行未授权 Release | `READY` | `CHANGES_REQUESTED` | 现有 Risk / Release Owner | 需要 |
+| 仅存在 Advisory / Observation / Future Improvement，无 Open Finding | `READY` | `PASS` | 进入既有下一阶段；非阻断事项可进入后续工作 | 不需要 |
+| 所有适用强制检查完成、证据充分、Open Findings = 0，所有 Exception 已由正确 Owner 批准 | `READY` | `PASS` | C00 / 既有下一阶段 | 不需要 |
+
+机械判定：
+
+```text
+REVIEW_READINESS = REVIEW_NOT_READY
+→ NO GATE DECISION
+
+REVIEW_READINESS = READY
+AND OPEN_FINDINGS > 0
+→ CHANGES_REQUESTED
+
+REVIEW_READINESS = READY
+AND ALL_APPLICABLE_MANDATORY_CHECKS_COMPLETED
+AND OPEN_FINDINGS = 0
+AND REQUIRED_EVIDENCE_COMPLETE
+AND ALL_APPLICABLE_EXCEPTIONS_APPROVED_BY_CORRECT_OWNER
+→ PASS
+```
+
+### 38.7.5 C04 独立性与复审
 
 C04 必须：
 
@@ -3620,18 +3720,15 @@ C04 必须：
 - 不继承实现 AI 的私有推理或自我辩护；
 - 从项目正式文件和精确 Git Review Target 重建事实；
 - 使用 fallback 时仍重新建立独立 C04 Session；
-- 只执行“发现 Finding → 定级 → 给出关闭条件 → `PASS / CHANGES_REQUESTED` → 停止”；
+- 先检查 Readiness；只有 `READY` 时才执行“发现 Finding → 定级 → 给出关闭条件 → `PASS / CHANGES_REQUESTED` → 停止”；
 - 不参与被审对象的整改设计或实现；
+- 不得批准 Exception / Risk Acceptance；
 - 不得自行关闭自己提出的 Finding；Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭；
 - 不因 Reviewer Provider、Model 或 Harness 改变而改变评审输入、审查标准或结论格式。
 
-C04 形成 P0/P1 Finding 后必须停止。Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，必须由新的独立 C04 Session 复审。
+C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，必须由新的独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并由新的独立 C04 Session 复审。
 
-如果某 Expert 实质参与了当前整改方案，C04 优先选择另一 Reviewer Provider。若另一 Provider 不可用，允许使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
-
-Reviewer Provider 只是 Reviewer Model/Harness 的运行选择属性，不是新角色、新 Owner 或新 Current Truth 来源。
-
-C04 的判断权限来自角色和正式评审规则，不来自具体 Model 或 Harness。
+如果某 Expert 实质参与了当前整改方案，C04 优先选择另一 Reviewer Provider。若另一 Provider 不可用，允许使用同 Provider 的全新独立 Session，但上下文必须完全隔离。Reviewer Provider 只是 Reviewer Model/Harness 的运行选择属性，不是新角色、新 Owner 或新 Current Truth 来源。C04 的判断权限来自角色和正式评审规则，不来自具体 Model 或 Harness。
 
 ## 38.8 Model / Harness Substitution
 

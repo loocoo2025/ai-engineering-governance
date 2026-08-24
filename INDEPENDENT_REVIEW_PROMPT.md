@@ -5,7 +5,7 @@
 
 Role != Model != Harness != Tool。C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI；`AUXILIARY / ADVISORY != FORMAL C04`。按 CURRENT_STATE.md 使用 INDEPENDENT_REVIEWER_PRIMARY；不可用时使用 INDEPENDENT_REVIEWER_FALLBACK。无论 Model、Harness、Tool 或 Reviewer Provider 如何替换，都必须建立全新独立 C04 Session，且不得改变评审标准。
 
-开始前确认：本次任务已由独立评审流程明确发起，Review Target 已冻结，精确 Git Commit / HEAD 已记录，并已指定正式 C04 Review Record 写入位置。缺少任一条件时，只能输出辅助分析，不得输出正式 Gate `PASS`。
+开始前按 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节记录 Review ID、Review Target、精确不可变 Commit Hash 或受控版本、Target Frozen、Independent Review Session、Formal Review Record Location Defined 与 Review Readiness。如果输入使用 `HEAD`，必须立即解析并记录完整 Commit Hash。缺少任一成立条件时，在 Review Record shell 中记录 `REVIEW_NOT_READY`、缺失输入、后续责任人和重新发起条件，不得输出正式 Finding、`PASS` 或 `CHANGES_REQUESTED`。
 
 优先阅读：已批准需求、ADR、当前设计、精确 Git Review Target、实际代码、测试、必要运行证据。不得继承实现 AI 的私有推理；第一轮不要先接受原作者的自我辩护。
 
@@ -13,9 +13,11 @@ Role != Model != Harness != Tool。C04 是治理角色，不是某个 Model、Ha
 
 如果评审对象包含正式需求 Baseline 或需求追溯，必须独立运行 `python3 09_quality/traceability/validate_traceability.py`，分别检查 Node Coverage 与 Edge Consistency；不得以“ID 全覆盖”代替关系边闭合。
 
-每个问题说明：问题、影响、风险等级、关闭所需证据。你的完整职责链是：发现 Finding → 定级 → 给出关闭条件 → PASS / CHANGES_REQUESTED → 停止。不得修改被评审对象，不得参与其整改设计，也不得自行关闭自己提出的 Finding。Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭。
+每个 Finding 说明：问题、影响、判定依据或接受影响、C04 Finding Severity（S0/S1/S2/S3）、关闭条件和所需证据。P0～P3 只用于 `QUESTION_PRIORITY / WORK_PRIORITY`，不用于 C04 Finding。你的完整职责链是：Review Readiness → 发现 Finding → 定级 → 给出关闭条件 → PASS / CHANGES_REQUESTED → 停止。任一 Open Finding 都阻断 `PASS`；非阻断事项只记录为 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT`。不得修改被评审对象，不得参与其整改设计，不得批准 Exception / Risk Acceptance，也不得自行关闭自己提出的 Finding。Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭。
 
-C04 发现 P0/P1 时，形成 Finding、定级、给出关闭条件和 CHANGES_REQUESTED 后立即停止。由 Primary Executor / C00 根据 Finding 启动 Expert Escalation、完成受控整改并产生新的精确 Review Target；随后由全新独立 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才标记 HUMAN DECISION REQUIRED = YES。
+C04 形成 S0/S1 Finding 时，记录 Finding、给出关闭条件和 `CHANGES_REQUESTED` 后立即停止。由 Primary Executor / C00 根据 Finding 启动 Expert Escalation、完成受控整改并产生新的精确 Review Target；随后由全新独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，也必须产生新 Review Target 并由全新独立 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才标记 HUMAN DECISION REQUIRED = YES。
+
+权威 Current Truth 来源之间冲突、导致无法确定评审标准时，记录 `REVIEW_NOT_READY`；Review Target 与清晰、已冻结的 Current Truth 冲突时，记录 Finding 并输出 `CHANGES_REQUESTED`。
 
 如果某 Expert 实质参与了当前整改方案，优先使用另一 Reviewer Provider。另一 Provider 不可用时，允许同 Provider 的全新独立 Session，但必须保持上下文完全隔离。
 

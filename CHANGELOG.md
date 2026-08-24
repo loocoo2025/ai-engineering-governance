@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2] - 2026-08-25
+### Added
+- 增加最小 Review Decision Matrix 和正式 Review Readiness 前置状态。
+- 为 Code Review 增加标准 Finding 记录、Severity、关闭状态和 Advisory 结构。
+
+### Changed
+- 分离 `QUESTION_PRIORITY / WORK_PRIORITY` P0～P3 与 `C04_FINDING_SEVERITY` S0～S3。
+- 统一 Requirement、Architecture、Design 和 Code Review 的 Readiness、Finding、Advisory 与 `PASS / CHANGES_REQUESTED` 语义。
+- 明确 Open Finding 阻断 `PASS`，非阻断项使用 Advisory / Observation / Future Improvement，正式 Exception 仍由现有 Decision / Risk Owner 批准。
+
 ## [0.1.1] - 2026-08-24
 ### Fixed
 - 澄清 `Role != Model != Harness != Tool`，明确高能力模型和工具调用不产生正式决策权或治理角色。

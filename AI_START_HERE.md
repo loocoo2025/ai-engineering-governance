@@ -607,19 +607,19 @@ MISSING
 14. 当前最合理的下一步：
     -
 
-15. 是否存在需要 Expert Escalation 的 P0/P1 问题：
+15. 是否存在需要 Expert Escalation 的 `QUESTION_PRIORITY` P0/P1 问题：
     YES / NO
 ```
 
-如果存在 P0/P1：
+如果存在 `QUESTION_PRIORITY` P0/P1：
 
-> Primary Executor / C00 先形成最小 Escalation Package 交给 Expert。Expert 能依据现有 Current Truth 和授权解决时，自动返回执行。如果 P0/P1 由 C04 发现，C04 只输出 Finding、定级、关闭条件和 `CHANGES_REQUESTED` 后停止，不得自行关闭 Finding；由 Primary Executor / C00 组织整改并产生新 Review Target，再启动全新 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向项目负责人一次提出一个最重要问题。
+> Primary Executor / C00 先形成最小 Escalation Package 交给 Expert。Expert 能依据现有 Current Truth 和授权解决时，自动返回执行。C04 Finding 不使用 P0～P3；C04 形成 S0/S1 Finding 时，只输出 Finding、定级、关闭条件和 `CHANGES_REQUESTED` 后停止，不得自行关闭 Finding；由 Primary Executor / C00 组织 Expert Escalation 和受控整改，产生新 Review Target 后再启动全新 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向项目负责人一次提出一个最重要问题。
 
-如果不存在 P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内：
+如果不存在 `QUESTION_PRIORITY` P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内：
 
 > 不要等待用户再次下令，直接执行当前最合理的下一步。
 
-> 不存在 P0/P1 不构成新的阶段授权，也不允许跨越当前 Gate 或授权边界。
+> 不存在 `QUESTION_PRIORITY` P0/P1 不构成新的阶段授权，也不允许跨越当前 Gate 或授权边界。
 
 ---
 
@@ -762,6 +762,6 @@ MISSING
 6. 如果是老项目，阅读旧项目规范化迁移指南；
 7. 只读检查项目；
 8. 输出“项目接管报告”；
-9. 如果存在 P0/P1，按工程总则由 Primary Executor / C00 组织 Expert Escalation；C04 只形成 Finding 和评审结论后停止。如果不存在 P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内，直接执行下一项最合理工作。不存在 P0/P1 不构成新的阶段授权。
+9. 如果存在 `QUESTION_PRIORITY` P0/P1，按工程总则由 Primary Executor / C00 组织 Expert Escalation；C04 Finding 使用 S0～S3，C04 只形成 Finding 和评审结论后停止。如果不存在 `QUESTION_PRIORITY` P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内，直接执行下一项最合理工作。不存在 `QUESTION_PRIORITY` P0/P1 不构成新的阶段授权。
 
 **在完成项目接管报告之前，不得大规模修改代码或目录。**

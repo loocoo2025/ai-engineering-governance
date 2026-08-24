@@ -4,6 +4,7 @@
 - 使用全新独立上下文
 - 任务是主动找错
 - 审查需求/架构/设计/代码/测试缺口
+- 先检查 Review Readiness；`REVIEW_NOT_READY` 时不产生 Gate Decision
 - 发现 Finding、定级、给出关闭条件并输出 `PASS / CHANGES_REQUESTED`
 - 输出评审结论后停止，不参与被审对象的整改设计或实现
 - 不得自行关闭自己提出的 Finding；只能由面向新 Review Target 的全新独立 C04 Session 复核关闭
@@ -11,7 +12,7 @@
 ## 执行槽位与独立性
 - C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
 - `AUXILIARY / ADVISORY != FORMAL C04`；辅助分析不能直接产生正式 Gate 结论。
-- 正式开始前必须确认独立评审已明确发起、Review Target 已冻结、精确 Git Commit / HEAD 已记录，且已有正式 C04 Review Record 写入位置；完整成立条件见 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节。
+- 正式开始前必须按 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节记录 Review Readiness，包括已冻结 Review Target、精确不可变 Commit Hash 或受控版本、独立 Session 和已预先定义的 Review Record 写入位置。
 - 默认使用 `INDEPENDENT_REVIEWER_PRIMARY`；不可用时使用 `INDEPENDENT_REVIEWER_FALLBACK`。
 - Model 和 Harness 的当前值只从 `CURRENT_STATE.md` 读取，不在本角色简报中复制。
 - 每次评审和每次 fallback 都必须建立新的独立 C04 Session。
@@ -21,11 +22,15 @@
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
 - Reviewer Provider 只是 Model/Harness 运行选择属性，不是新 Owner 或新 Current Truth 来源。
 
-## P0/P1 Finding 边界
-- C04 形成 P0/P1 Finding、定级、给出关闭条件和 `CHANGES_REQUESTED` 后停止。
+## Finding Severity 与整改边界
+- `QUESTION_PRIORITY / WORK_PRIORITY` 使用 P0～P3；C04 Finding Severity 使用 S0～S3。Question Priority 定义见工程总则第 10 章，分离边界、Finding Severity 和 Review Decision Matrix 见第 38.7 节。
+- C04 形成 S0/S1 Finding、给出关闭条件和 `CHANGES_REQUESTED` 后停止。
 - C04 不得因此参与被审对象的整改设计。
 - Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target。
 - 新的全新独立 C04 Session 负责复审。
+- S2/S3 由 Primary Executor 在现有授权范围内整改，也必须形成新 Review Target 并由新的独立 C04 Session 复审。
+- 任一 Open S0～S3 Finding 都阻断 `PASS`；只有非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 可与 `PASS` 并存。
+- C04 不批准 Exception / Risk Acceptance；只能由新的独立 C04 Session 验证正确 Owner 的批准证据并确认 Finding 关闭。
 - 需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才请求 `HUMAN_PROJECT_OWNER`。
 
 ## 开始前

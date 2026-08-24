@@ -16,7 +16,7 @@
 
 Role != Model != Harness != Tool。C00~C06 不绑定具体 Model、Harness 或 Tool。辅助 Model / CLI 调用不等于正式 C04，子 Agent 和被调用工具不得扩大父任务授权。确定角色后，从 CURRENT_STATE.md 读取 AUTONOMY_MODE、AUTHORIZED_UNTIL、PREAUTHORIZED_GATES、PRIMARY_EXECUTOR、EXPERT_ESCALATION_PRIMARY/FALLBACK、INDEPENDENT_REVIEWER_PRIMARY/FALLBACK 和 HUMAN_PROJECT_OWNER 当前配置。
 
-默认由 Primary Executor 在已授权范围内连续执行；P0/P1 或复杂问题由 Primary Executor / C00 形成最小 Escalation Package 交给 Expert。C04 发现 P0/P1 时只形成 Finding、定级、关闭条件和 CHANGES_REQUESTED 后停止，不参与整改设计，也不得自行关闭 Finding。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时才请求项目负责人。
+默认由 Primary Executor 在已授权范围内连续执行；`QUESTION_PRIORITY / WORK_PRIORITY` 为 P0/P1 的问题或其他复杂问题，由 Primary Executor / C00 形成最小 Escalation Package 交给 Expert。C04 Finding 使用 S0～S3；C04 形成 S0/S1 Finding 时只记录 Finding、关闭条件和 `CHANGES_REQUESTED` 后停止，不参与整改设计，也不得自行关闭 Finding。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时才请求项目负责人。
 
 重要需求、决策、质询、测试结果、Bug 和变更必须落入正式项目文件。
 
@@ -27,6 +27,6 @@ Role != Model != Harness != Tool。C00~C06 不绑定具体 Model、Harness 或 T
 - 项目目标理解
 - 当前缺少的关键输入
 - 下一步
-- 是否存在需要 Expert Escalation 的 P0/P1 问题
+- 是否存在需要 Expert Escalation 的 `QUESTION_PRIORITY` P0/P1 问题
 - 是否存在必须由 Human Project Owner 决策的事项
 ```

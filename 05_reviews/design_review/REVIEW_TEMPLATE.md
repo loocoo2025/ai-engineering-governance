@@ -1,19 +1,63 @@
-# 评审记录
+# 设计评审记录
 
-评审对象：
-评审角色：C04
-版本/Commit：
+## Review Readiness
 
-## 结论
-PASS / CHANGES_REQUESTED
+```text
+REVIEW_ID: {{REVIEW_ID}}
+REVIEW_TARGET: {{TARGET}}
+EXACT_GIT_COMMIT_OR_CONTROLLED_VERSION: {{COMMIT_OR_VERSION}}
+TARGET_FROZEN: YES / NO
+INDEPENDENT_REVIEW_SESSION: {{SESSION_ID_OR_REFERENCE}}
+FORMAL_REVIEW_RECORD_LOCATION_DEFINED: YES / NO
+FORMAL_REVIEW_RECORD: {{PATH_OR_ID}}
+REVIEW_READINESS: READY / REVIEW_NOT_READY
+NOT_READY_REASONS: {{REASONS_OR_NOT_APPLICABLE}}
+MISSING_INPUTS: {{INPUTS_OR_NOT_APPLICABLE}}
+RESPONSIBLE_OWNER: {{OWNER_OR_NOT_APPLICABLE}}
+RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
+```
 
-| ID | 风险 | 问题 | 影响 | 关闭证据 |
+`REVIEW_NOT_READY` 时只记录未就绪原因、责任人和重新发起条件，不填写 Finding 或正式 Gate Decision。完整规则见 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节。
+
+## Review Scope
+
+- 适用需求 / Baseline：
+- 适用 ADR / 架构 / 接口 / 设计约束：
+- 证据：
+- 明确排除：
+
+## Finding Summary
+
+```text
+OPEN_FINDINGS:
+S0: {{COUNT}}
+S1: {{COUNT}}
+S2: {{COUNT}}
+S3: {{COUNT}}
+
+ADVISORIES: {{COUNT}}
+```
+
+| Finding ID | Severity | Finding | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Status | Closure Evidence |
+|---|---|---|---|---|---|---|---|
+| REV-001 | S0/S1/S2/S3 | | | | | OPEN | |
+
+## Advisory / Observation / Future Improvement
+
+| Advisory ID | Type | Observation | Suggested Follow-up | Non-blocking Confirmation |
 |---|---|---|---|---|
-| REV-001 | P0/P1/P2/P3 | | | |
+| ADV-001 | ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT | | | YES |
 
-## 建议改进
--
-## 关闭条件
--
+## Formal Decision
 
-Finding 不得由提出它的 C04 Session 自行关闭；整改后必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
+只有 `REVIEW_READINESS: READY` 时才填写：
+
+```text
+ALL_APPLICABLE_MANDATORY_CHECKS_COMPLETED: YES / NO
+REQUIRED_EVIDENCE_COMPLETE: YES / NO
+ALL_APPLICABLE_EXCEPTIONS_APPROVED_BY_CORRECT_OWNER: YES / NO / NOT_APPLICABLE
+FORMAL_DECISION: PASS / CHANGES_REQUESTED
+DECISION_BASIS: {{SUMMARY}}
+```
+
+任一 Open Finding 都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。

@@ -26,7 +26,7 @@ Verification / Release
 
 Users and agents do **not** need to read every template file for every task. Load only the task-relevant Current Truth and engineering artifacts routed by `AI_START_HERE.md`.
 
-Status: **v0.1.1**
+Status: **v0.1.2**
 
 ## Why this framework exists
 
