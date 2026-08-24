@@ -3416,9 +3416,26 @@ MIGRATION_LOG.md
 
 # 38. Primary Executor + Expert Escalation + Independent Reviewer + Human Authority
 
-## 38.1 Role != Model != Harness
+> 本章是 Role / Model / Harness / Tool 语义、辅助调用边界、权限继承和正式 C04 身份的唯一权威来源；其他文件只提供入口提示或 Session 编排引用。当前运行槽位和授权值仍只由 `CURRENT_STATE.md` 维护。
 
-`C00～C06` 是稳定的工程角色，Model 是推理与生成能力，Harness 是承载模型执行的代理、工具和会话环境。三者必须分离：角色职责保持不变，Model 和 Harness 都可以替换。
+## 38.1 Role != Model != Harness != Tool
+
+`C00～C06` 是稳定的工程角色。四个维度必须分离：
+
+- Role：决定职责、权限和 Gate 身份；
+- Model：提供推理与生成能力；
+- Harness：承载 Agent 执行、上下文和会话；
+- Tool / CLI / API：只是被 Role 通过 Harness 调用的工具。
+
+角色职责保持不变，Model、Harness 和 Tool 都可以替换。技术上能够调用某个 Model、CLI 或 API，不会自动获得该 Model 在其他场景中通常承担的治理角色、Gate 身份或审批权限。例如：
+
+```text
+DeepSeek -> codex exec -> GPT
+!=
+C03 -> C04
+```
+
+Codex 或其他高能力 Model 可以承担高难度产品分析、架构分析、设计建议和独立复核，但其输出是否具有治理效力取决于本次正式分配的 Role 和流程。重大产品需求、系统边界、公共接口、架构及其他需要正式批准的决定，只有经过 `HUMAN_PROJECT_OWNER` 或获得明确授权的 C00 按正式 Gate 批准并冻结后才生效。AI / Model 不得自行把分析、建议或辅助结论提升为正式项目决定。
 
 运行时使用以下可配置槽位：
 
@@ -3439,7 +3456,7 @@ MODEL: {{MODEL}}
 HARNESS: {{HARNESS}}
 ```
 
-Model 和 Harness 均属于当前运行配置，不属于产品 Current Truth。当前槽位值、Autonomy Mode 和自动授权上限只在 `CURRENT_STATE.md` 维护；不得复制到 `BASELINE_INDEX.md`、`DECISION_INDEX.md`、`CONVERSATION_MAP.md` 或 `ACTIVE_TASKS.md`。
+Model 和 Harness 均属于当前运行配置，不属于产品 Current Truth。Tool 可用性和实际操作权限受当前授权边界及执行环境约束，也不产生新的治理角色。当前槽位值、Autonomy Mode 和自动授权上限只在 `CURRENT_STATE.md` 维护；不得复制到 `BASELINE_INDEX.md`、`DECISION_INDEX.md`、`CONVERSATION_MAP.md` 或 `ACTIVE_TASKS.md`。
 
 ## 38.2 C00～C06 默认槽位分配
 
@@ -3535,6 +3552,23 @@ Primary Executor 可以在既定 Current Truth 和授权范围内，自动跨越
 
 任何 Autonomy Mode 都不得扩张实际文件、系统、账户或外部服务权限，也不得绕过 Current Truth、正式 Gate、测试治理或破坏性操作审批。
 
+### 权限继承
+
+```text
+SUBAGENT_PERMISSION <= CALLER_PERMISSION
+```
+
+子 Agent、子模型、CLI、API 或其他被调用工具只能在调用者的任务范围、文件范围和副作用权限内工作，不得通过嵌套调用扩大父任务授权。如果调用者当前仅获准 `READ_ONLY / NO_COMMIT / NO_PUSH`，所有被调用执行单元同样不得：
+
+- 擅自修改文件；
+- commit；
+- push；
+- 创建 PR；
+- 修改远程系统；
+- 扩大任务范围。
+
+只有 `HUMAN_PROJECT_OWNER` 或获得明确授权的 C00 才能按正式流程扩大副作用范围；调用者不能借助更高能力 Model、不同 Harness 或可执行 CLI 绕过当前授权边界。
+
 ## 38.6 Escalation Package
 
 Primary Executor 向 Expert 交接时必须提供最小问题包：
@@ -3564,6 +3598,21 @@ HUMAN DECISION REQUIRED = YES/NO
 ```
 
 ## 38.7 C04 独立性
+
+> **AUXILIARY / ADVISORY != FORMAL C04.**
+
+执行角色可以在现有授权范围内调用 Codex、DeepSeek、Kimi 或其他 Model / Harness / Tool 进行只读分析、Bug 定位、方案咨询、设计预审或复杂问题辅助推理。这些输出只能视为 `ADVISORY / AUXILIARY`，不能直接作为正式 Gate 结论，也不能因为调用了 `codex exec` 或某个常用于 Reviewer 的 Model 就宣称完成 C04。
+
+正式 C04 必须同时满足：
+
+- 由独立评审流程明确发起；
+- 针对已经冻结的 Review Target；
+- 明确精确 Git Commit / HEAD；
+- 与被评审对象的实现和整改过程保持角色独立；
+- 产生正式 C04 Review Record；
+- 输出正式 `PASS / CHANGES_REQUESTED`。
+
+C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
 
 C04 必须：
 

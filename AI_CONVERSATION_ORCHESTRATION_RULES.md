@@ -282,6 +282,8 @@ C04 必须使用一个没有参与当前实现推导过程的干净上下文。
 
 > 主动找错。
 
+能够调用 Reviewer Model、Harness 或 CLI 不等于当前 Session 已成为 C04。`AUXILIARY / ADVISORY != FORMAL C04`；正式身份和成立条件以 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节为准。
+
 ## 6.2 主要职责
 
 负责：
@@ -1538,7 +1540,7 @@ D. 验证
 
 # 41. 模型路由下的对话编排
 
-稳定的执行槽位、升级触发条件、人工权威边界和 Model/Harness 替换规则，以 `AI_ENGINEERING_RULES_V2.md` 第 38 章为唯一权威来源。本文件只规定 Session、上下文和交接如何编排；当前实际 Model/Harness 槽位值、Autonomy Mode 和自动授权上限见 `CURRENT_STATE.md`。
+稳定的 Role / Model / Harness / Tool 定义、执行槽位、升级触发条件、人工权威边界、辅助调用边界和权限继承规则，以 `AI_ENGINEERING_RULES_V2.md` 第 38 章为唯一权威来源。本文件只规定 Session、上下文和交接如何编排；当前实际 Model/Harness 槽位值、Autonomy Mode 和自动授权上限见 `CURRENT_STATE.md`。
 
 ## 41.1 三类执行 Session
 
@@ -1557,7 +1559,9 @@ C04 Independent Review Session
 → 不继承实现 AI 的私有推理
 ```
 
-角色编号、Session 执行 Model 和 Harness 是三个独立维度。`CONVERSATION_MAP.md` 继续只维护角色、对话版本和生命周期，不登记 Model/Harness 路由。
+执行角色在 Session 内发起的辅助 Model / CLI / API 调用不是新的治理 Session，沿用调用者 Role 和权限边界，其输出仅为 `ADVISORY / AUXILIARY`。只有按照正式独立评审流程建立的 `C04 Independent Review Session` 才能产生 C04 Gate 结论。
+
+角色编号、Session 执行 Model、Harness 和 Tool 是四个独立维度。`CONVERSATION_MAP.md` 继续只维护角色、对话版本和生命周期，不登记 Model/Harness 路由或工具调用。
 
 ## 41.2 升级与返回
 
@@ -1585,6 +1589,8 @@ Primary Executor / C00
 C04 不得加入被审对象的整改设计 Session，也不得自行关闭自己提出的 Finding。Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭。
 
 ## 41.3 C04 Provider 与独立性
+
+`AUXILIARY / ADVISORY != FORMAL C04`。Primary、Expert 或其他执行 Session 调用一次 Codex、DeepSeek、Kimi、`codex exec` 或其他 Tool，只能产生辅助结论；正式 C04 的冻结 Review Target、精确 Git Commit / HEAD、角色独立性、Review Record 和结论要求见工程总则第 38.7 节。
 
 C04 默认使用 `INDEPENDENT_REVIEWER_PRIMARY`，不可用时使用 `INDEPENDENT_REVIEWER_FALLBACK`，具体 Model/Harness 只从 `CURRENT_STATE.md` 解析。每次切换和每次复审都必须新建独立 C04 Session；不得复用实现或整改 Session，也不得因 Reviewer Provider、Model 或 Harness 替换而改变评审输入、标准或结论格式。
 

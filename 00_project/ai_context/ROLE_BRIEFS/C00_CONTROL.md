@@ -93,6 +93,7 @@ Baseline 身份与组成
 - 默认执行槽位：`PRIMARY_EXECUTOR`；
 - 从 `CURRENT_STATE.md` 读取当前 Autonomy Mode、Model/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 与人工 Gate；
 - 命中工程总则的强制升级条件时，组织最小 Escalation Package，优先交给 `EXPERT_ESCALATION_PRIMARY`，不可用时使用 fallback；
+- 按工程总则第 38 章区分 Role、Model、Harness 和 Tool；Expert 或辅助调用的分析建议不得自行升级为正式决定或 C04 Gate 结论；
 - Expert 能在现有 Current Truth 和授权内解决时，将结论返回原角色继续执行；
 - 收到 C04 P0/P1 Finding 时，由 Primary Executor / C00 启动 Expert、组织受控整改、形成新的精确 Review Target，再启动全新独立 C04 Session 复审；
 - 需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向 `HUMAN_PROJECT_OWNER` 提出一个最重要问题；

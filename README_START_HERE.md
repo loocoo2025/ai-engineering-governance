@@ -24,7 +24,7 @@ Lite keeps the same non-negotiable principles:
 
 - Current Truth;
 - One Fact, One Owner;
-- Role != Model != Harness;
+- Role != Model != Harness != Tool;
 - independent C04 review;
 - explicit human authority boundaries;
 - Baseline Relearn after context/model/harness replacement.

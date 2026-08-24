@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-08-24
+### Fixed
+- 澄清 `Role != Model != Harness != Tool`，明确高能力模型和工具调用不产生正式决策权或治理角色。
+- 明确辅助调用不等于正式 C04，并规定子 Agent、子模型和工具不得扩大调用者授权。
+
 ## [0.1.0] - 2026-08-24
 ### Added
 - 增加 `Primary Executor + Expert Escalation + Independent Reviewer + Human Authority` 可配置执行路由。

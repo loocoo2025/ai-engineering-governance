@@ -26,7 +26,7 @@ Verification / Release
 
 Users and agents do **not** need to read every template file for every task. Load only the task-relevant Current Truth and engineering artifacts routed by `AI_START_HERE.md`.
 
-Status: **v0.1.0 Release Candidate**
+Status: **v0.1.1**
 
 ## Why this framework exists
 
@@ -49,7 +49,7 @@ This framework turns those failure modes into explicit ownership, routing, revie
 | Conflicting or stale project facts | **Current Truth** |
 | Duplicated state across documents | **One Fact, One Owner** |
 | Model or harness replacement | **Baseline Relearn** |
-| Roles coupled to a specific runtime | **Role != Model != Harness** |
+| Roles coupled to a specific runtime or tool | **Role != Model != Harness != Tool** |
 | Routine work mixed with advanced judgment | **Expert Escalation** and **Multi-model Workflow** |
 | Self-review and self-approval | **Independent C04 Review** |
 | Claimed coverage without evidence links | **Requirements → Architecture → Design → Code → Test Traceability** |
@@ -71,7 +71,7 @@ flowchart TD
     V -->|Evidence and governed state update| CT
 ```
 
-The stable rule is `Role != Model != Harness`. Roles define authority and responsibility; models and harnesses are replaceable runtime configuration.
+The stable rule is `Role != Model != Harness != Tool`. Roles define authority, responsibility, and Gate identity; models provide reasoning, harnesses provide agent execution environments, and tools/CLIs/APIs are callable mechanisms. Calling a tool or model does not grant its commonly associated governance role or approval authority.
 
 ## Start in five minutes
 

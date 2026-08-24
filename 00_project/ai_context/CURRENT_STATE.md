@@ -132,7 +132,7 @@ HUMAN_PROJECT_OWNER:
 Project Owner
 ```
 
-以上是可替换的当前运行配置，不属于产品 Current Truth。Role、Model 和 Harness 是三个独立维度；Model 或 Harness 替换本身都不改变需求、架构、Baseline 或 Gate。
+以上是可替换的当前运行配置，不属于产品 Current Truth。Role、Model、Harness 和 Tool 是四个独立维度；Model、Harness 或 Tool 替换本身都不改变需求、架构、Baseline 或 Gate。稳定语义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。
 
 ## 3.2 自动允许范围
 

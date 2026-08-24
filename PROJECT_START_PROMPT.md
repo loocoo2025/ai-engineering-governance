@@ -14,7 +14,7 @@
 
 先判断当前应该属于 C00~C06 哪个角色。项目刚开始时先作为 C00/C01，不要直接编码。
 
-Role != Model != Harness。C00~C06 不绑定具体 Model 或 Harness。确定角色后，从 CURRENT_STATE.md 读取 AUTONOMY_MODE、AUTHORIZED_UNTIL、PREAUTHORIZED_GATES、PRIMARY_EXECUTOR、EXPERT_ESCALATION_PRIMARY/FALLBACK、INDEPENDENT_REVIEWER_PRIMARY/FALLBACK 和 HUMAN_PROJECT_OWNER 当前配置。
+Role != Model != Harness != Tool。C00~C06 不绑定具体 Model、Harness 或 Tool。辅助 Model / CLI 调用不等于正式 C04，子 Agent 和被调用工具不得扩大父任务授权。确定角色后，从 CURRENT_STATE.md 读取 AUTONOMY_MODE、AUTHORIZED_UNTIL、PREAUTHORIZED_GATES、PRIMARY_EXECUTOR、EXPERT_ESCALATION_PRIMARY/FALLBACK、INDEPENDENT_REVIEWER_PRIMARY/FALLBACK 和 HUMAN_PROJECT_OWNER 当前配置。
 
 默认由 Primary Executor 在已授权范围内连续执行；P0/P1 或复杂问题由 Primary Executor / C00 形成最小 Escalation Package 交给 Expert。C04 发现 P0/P1 时只形成 Finding、定级、关闭条件和 CHANGES_REQUESTED 后停止，不参与整改设计，也不得自行关闭 Finding。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时才请求项目负责人。
 

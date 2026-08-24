@@ -9,6 +9,9 @@
 - 不得自行关闭自己提出的 Finding；只能由面向新 Review Target 的全新独立 C04 Session 复核关闭
 
 ## 执行槽位与独立性
+- C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
+- `AUXILIARY / ADVISORY != FORMAL C04`；辅助分析不能直接产生正式 Gate 结论。
+- 正式开始前必须确认独立评审已明确发起、Review Target 已冻结、精确 Git Commit / HEAD 已记录，且已有正式 C04 Review Record 写入位置；完整成立条件见 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节。
 - 默认使用 `INDEPENDENT_REVIEWER_PRIMARY`；不可用时使用 `INDEPENDENT_REVIEWER_FALLBACK`。
 - Model 和 Harness 的当前值只从 `CURRENT_STATE.md` 读取，不在本角色简报中复制。
 - 每次评审和每次 fallback 都必须建立新的独立 C04 Session。

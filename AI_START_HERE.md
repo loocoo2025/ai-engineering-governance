@@ -220,9 +220,9 @@ C06  Bug、现场问题、变更闭环
 
 > C03 编写的代码，不得在同一个连续上下文中假装成 C04 完成“独立评审”。
 
-## 3.1 角色、Model 与 Harness 分离
+## 3.1 Role、Model、Harness 与 Tool 分离
 
-`Role != Model != Harness`。`C00～C06` 是工程角色，Model 是推理能力，Harness 是代理、工具和会话执行环境。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL` 和 `PREAUTHORIZED_GATES`。
+`Role != Model != Harness != Tool`。`C00～C06` 是工程角色，Model 提供推理能力，Harness 提供 Agent 执行和会话环境，Tool / CLI / API 只是被调用工具。技术上能够调用某个 Model 或 Tool 不会自动获得对应治理角色或审批权限；稳定定义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL` 和 `PREAUTHORIZED_GATES`。
 
 默认路由：
 
