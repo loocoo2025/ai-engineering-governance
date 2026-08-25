@@ -1,4 +1,4 @@
-# Traceability Mechanical Gate
+# 追溯关系机械门禁
 
 本目录提供正式需求追溯的机械校验。
 

@@ -1,61 +1,61 @@
-# Contributing
+# 贡献指南
 
-Thank you for improving the AI Software Engineering Governance Framework.
+感谢你帮助改进 AI 软件工程治理框架。
 
-## Report governance issues
+## 报告治理问题
 
-Open an issue that identifies:
+请创建 Issue，并说明：
 
-- the conflicting or unsafe behavior;
-- the affected rule or artifact;
-- a minimal generic example;
-- the expected governance outcome.
+- 存在冲突或不安全的行为；
+- 受影响的规则或产物；
+- 最小化的通用示例；
+- 期望的治理结果。
 
-Report security-sensitive findings privately according to `SECURITY.md`.
+涉及安全的发现请按照 `SECURITY.md` 私下报告。
 
-## Propose rule changes
+## 提议修改规则
 
-Explain the evidence, the smallest generic correction, affected roles or fact owners, compatibility impact, and how the proposal was reviewed. Do not add a new owner or Current Truth source when an existing owner can hold the fact.
+请说明证据、最小通用修正、受影响的角色或事实所有者、兼容性影响，以及该提议经过了怎样的评审。如果已有所有者能够维护某项事实，不要新增所有者或 Current Truth 来源。
 
-## Submit pull requests
+## 提交 Pull Request
 
-Keep pull requests narrow. Include:
+Pull Request 应保持范围收敛，并包含：
 
-- the governance problem;
-- the smallest proposed change;
-- files and roles affected;
-- validation performed;
-- any migration impact for existing adopters.
+- 治理问题；
+- 最小修改方案；
+- 受影响的文件和角色；
+- 已完成的验证；
+- 对现有采用者的迁移影响。
 
-Run at minimum:
+至少运行：
 
 ```bash
 git diff --check
 ```
 
-When requirement traceability rules or artifacts change, also run:
+当需求追溯规则或产物发生变化时，还应运行：
 
 ```bash
 python3 09_quality/traceability/validate_traceability.py
 ```
 
-## Generic changes only
+## 只接受通用修改
 
-Never submit credentials, private prompts, customer information, user names, email addresses, local filesystem paths, private repository URLs, server addresses, or real internal project facts. Use explicit placeholders in examples.
+禁止提交凭据、私有 Prompt、客户信息、用户名、电子邮件地址、本地文件系统路径、私有仓库地址、服务器地址或真实的内部项目事实。示例中应使用明确的占位符。
 
-Changes learned from a real project must be generalized before they enter this repository.
+从真实项目中获得的改进，在进入本仓库前必须先完成通用化。
 
-## Backport philosophy
+## 回迁原则
 
 ```text
-Real project evidence
-→ generic fix
-→ independent review
-→ template
+真实项目证据
+→ 通用修正
+→ 独立评审
+→ 模板
 ```
 
-Backport the reusable governance correction, not the originating project's facts, decisions, identifiers, or implementation details.
+只回迁可复用的治理修正，不回迁原项目的事实、决策、标识符或实现细节。
 
-## License
+## 许可证
 
-By submitting a contribution, you agree that it will be licensed under the Apache License 2.0 applicable to this repository.
+提交贡献即表示你同意该贡献采用本仓库适用的 Apache License 2.0 许可证。

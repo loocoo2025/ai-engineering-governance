@@ -1,43 +1,43 @@
-# Quick Start
+# 快速开始
 
-## Prerequisites
+## 前置条件
 
-- Git;
-- a coding agent or harness that can read and edit repository files;
-- Python 3 only when running the provided traceability validator.
+- Git；
+- 能够读取和编辑仓库文件的编码 Agent 或 Harness；
+- 仅在运行随附的追溯校验器时需要 Python 3。
 
-No specific model vendor is required.
+本框架不要求使用特定模型厂商。
 
-## Full Template setup
+## Full Template 设置
 
-1. Copy or extract the complete release archive into the target project root.
-2. If the target is an existing project, do not overwrite conflicting files. Follow `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` first.
-3. Replace `{{PROJECT_NAME}}`, dates, gates, and other placeholders relevant to the project.
-4. Configure the current stage, authorization, `AUTONOMY_MODE`, model/harness slots, `AUTHORIZED_UNTIL`, and `PREAUTHORIZED_GATES` in `00_project/ai_context/CURRENT_STATE.md`.
-5. Initialize Git if needed and create a stable anchor before implementation.
-6. Give the active agent `PROJECT_START_PROMPT.md`.
-7. For a new project, start with C00/C01 and establish product requirements before architecture or implementation.
+1. 将完整发布 Archive 复制或解压到目标项目根目录。
+2. 如果目标是已有项目，不要覆盖冲突文件；先遵循 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`。
+3. 替换 `{{PROJECT_NAME}}`、日期、Gate 以及与项目相关的其他占位符。
+4. 在 `00_project/ai_context/CURRENT_STATE.md` 中配置当前阶段、授权、`AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL` 和 `PREAUTHORIZED_GATES`。
+5. 如有需要，初始化 Git，并在开始实现前建立稳定锚点。
+6. 将 `PROJECT_START_PROMPT.md` 交给当前 Agent。
+7. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
 
-## Lite setup
+## Lite 设置
 
-Copy the Lite file set documented in `docs/FULL_VS_LITE.md`. Keep the original paths for all selected files so cross-references and fact ownership remain valid.
+复制 `docs/FULL_VS_LITE.md` 中列出的 Lite 文件集。所有选中文件都应保留原始路径，以确保交叉引用和事实所有权仍然有效。
 
-At minimum:
+最低要求：
 
-1. configure `CURRENT_STATE.md`;
-2. establish current decisions and baseline references;
-3. create an active task;
-4. select the active C00-C06 role;
-5. require a fresh independent C04 session for review;
-6. use Baseline Relearn when switching model, harness, or long-running context.
+1. 配置 `CURRENT_STATE.md`；
+2. 建立当前决策和 Baseline 引用；
+3. 创建一个活动任务；
+4. 选择当前 C00～C06 角色；
+5. 评审时使用全新、独立的 C04 Session；
+6. 切换 Model、Harness 或长周期上下文时执行 Baseline Relearn。
 
-## Five-minute verification
+## 五分钟核验
 
-- The agent can state the current role, stage, authorization, and next task.
-- Every dynamic fact has one owner file.
-- The current model/harness routing exists only in `CURRENT_STATE.md`.
-- The review target is an exact Git target.
-- C04 cannot modify the reviewed object or close its own Finding.
-- Human approval boundaries are explicit.
+- Agent 能说明当前角色、阶段、授权和下一项任务。
+- 每个动态事实只有一个所有者文件。
+- 当前 Model/Harness 路由只存在于 `CURRENT_STATE.md`。
+- Review Target 是精确的 Git Target。
+- C04 不能修改被评审对象，也不能关闭自己的 Finding。
+- 人类审批边界明确。
 
-If any answer is unclear, remain in C00 and resolve governance state before implementation.
+如果任何答案不清楚，请停留在 C00，先解决治理状态问题，再进入实现。

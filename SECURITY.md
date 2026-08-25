@@ -1,36 +1,36 @@
-# Security Policy
+# 安全政策
 
-## Reporting a vulnerability
+## 报告安全漏洞
 
-Do not report security vulnerabilities in a public issue.
+请勿在公开 Issue 中报告安全漏洞。
 
-Use the repository's private vulnerability reporting feature or a private GitHub Security Advisory. If private reporting is not yet enabled, contact the repository owner through a private channel and provide only the minimum information needed to establish a secure reporting path.
+请使用仓库的私有漏洞报告功能或私有 GitHub Security Advisory。如果尚未启用私有报告，请通过私密渠道联系仓库所有者，并仅提供建立安全报告路径所需的最少信息。
 
-Include:
+报告应包含：
 
-- affected file, script, or governance rule;
-- impact and realistic abuse scenario;
-- reproduction steps or a minimal proof of concept;
-- suggested mitigation, if known;
-- whether any secret or private project data may have been exposed.
+- 受影响的文件、脚本或治理规则；
+- 影响和现实的滥用场景；
+- 复现步骤或最小概念验证；
+- 已知情况下的缓解建议；
+- 是否可能泄露任何密钥或私有项目数据。
 
-## Scope
+## 范围
 
-Security reports may cover:
+安全报告可以涵盖：
 
-- unsafe automation or authorization boundaries;
-- destructive or remote-operation escalation defects;
-- accidental secret or private-data disclosure;
-- traceability validator vulnerabilities;
-- template behavior that can cause agents to bypass Current Truth, review, or human authority;
-- supply-chain or dependency concerns in repository scripts.
+- 不安全的自动化或授权边界；
+- 破坏性操作或远程操作的升级缺陷；
+- 意外泄露密钥或私有数据；
+- 追溯校验器漏洞；
+- 可能导致 Agent 绕过 Current Truth、评审或人类权威的模板行为；
+- 仓库脚本的供应链或依赖风险。
 
-General governance suggestions and documentation corrections should use the normal contribution process.
+一般治理建议和文档修正应使用常规贡献流程。
 
-## Supported versions
+## 支持的版本
 
-The latest published release is the supported public baseline. The default branch receives fixes intended for the next release candidate but may contain unreleased changes.
+最新公开 Release 是受支持的公开 Baseline。默认分支接收计划进入下一 Release Candidate 的修正，因此可能包含尚未发布的修改。
 
-## Secret handling
+## 密钥处理
 
-This repository must not contain live credentials, tokens, private keys, internal server addresses, customer data, or real project secrets. If sensitive data is discovered, stop distribution, rotate affected credentials where applicable, and report privately before preparing another release package.
+本仓库不得包含真实凭据、Token、私钥、内部服务器地址、客户数据或真实项目密钥。如果发现敏感数据，应立即停止分发，在适用情况下轮换受影响的凭据，并先通过私密渠道报告，再准备新的发布包。

@@ -1,44 +1,44 @@
-# Start Here
+# 从这里开始
 
-This is the operator entry point for adopting the AI Software Engineering Governance Framework in a project.
+本文档是项目采用 AI 软件工程治理框架时面向操作者的入口。
 
-For a five-minute overview, read [README.md](README.md). For execution details, use [docs/QUICK_START.md](docs/QUICK_START.md).
+如需五分钟概览，请阅读 [README.md](README.md)；如需具体执行步骤，请阅读 [docs/QUICK_START.md](docs/QUICK_START.md)。
 
-## Choose an adoption profile
+## 选择采用方式
 
 ### Full Template
 
-Use the complete repository when the project is long-running, safety- or quality-sensitive, multidisciplinary, brownfield, or requires formal traceability and release evidence.
+如果项目周期较长、对安全或质量敏感、涉及多学科、属于旧项目，或要求正式追溯和发布证据，请使用完整仓库。
 
-1. Copy or extract the complete template.
-2. Replace project placeholders.
-3. Initialize or verify Git.
-4. Configure `00_project/ai_context/CURRENT_STATE.md`.
-5. Start the agent with `PROJECT_START_PROMPT.md`.
+1. 复制或解压完整模板。
+2. 替换项目占位符。
+3. 初始化或核验 Git。
+4. 配置 `00_project/ai_context/CURRENT_STATE.md`。
+5. 使用 `PROJECT_START_PROMPT.md` 启动 Agent。
 
 ### Lite
 
-Use the Lite file set for small or low-risk projects that need governance without the full lifecycle directory tree. The exact file list and upgrade triggers are in [docs/FULL_VS_LITE.md](docs/FULL_VS_LITE.md).
+对于需要治理、但不需要完整生命周期目录树的小型或低风险项目，可使用 Lite 文件集。准确的文件清单和升级触发条件见 [docs/FULL_VS_LITE.md](docs/FULL_VS_LITE.md)。
 
-Lite keeps the same non-negotiable principles:
+Lite 保留以下不可弱化的原则：
 
-- Current Truth;
-- One Fact, One Owner;
-- Role != Model != Harness != Tool;
-- independent C04 review;
-- explicit human authority boundaries;
-- Baseline Relearn after context/model/harness replacement.
+- 当前事实（Current Truth）；
+- 一个事实，一个所有者（One Fact, One Owner）；
+- Role != Model != Harness != Tool；
+- 独立 C04 评审；
+- 明确的人类权限边界；
+- 上下文、Model 或 Harness 替换后的 Baseline Relearn。
 
-## Mandatory first agent read
+## Agent 首次必读顺序
 
-Ask the active agent to read, in order:
+要求当前 Agent 按顺序读取：
 
-1. `AI_START_HERE.md`;
-2. `AI_ENGINEERING_RULES_V2.md`;
-3. `AI_CONVERSATION_ORCHESTRATION_RULES.md`;
-4. `00_project/ai_context/CURRENT_STATE.md`;
-5. the active role brief under `00_project/ai_context/ROLE_BRIEFS/`.
+1. `AI_START_HERE.md`；
+2. `AI_ENGINEERING_RULES_V2.md`；
+3. `AI_CONVERSATION_ORCHESTRATION_RULES.md`；
+4. `00_project/ai_context/CURRENT_STATE.md`；
+5. `00_project/ai_context/ROLE_BRIEFS/` 下当前角色对应的简报。
 
-For a new project, begin with C00/C01. For an existing project, follow `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` and inventory the project before moving or rewriting files.
+新项目从 C00/C01 开始。已有项目先按 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 盘点，再移动或改写文件。
 
-Important decisions must be written to their formal fact owner. Chat history is not a durable project truth source.
+重要决策必须写入其正式事实所有者。聊天历史不是持久的项目事实来源。

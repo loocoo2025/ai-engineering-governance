@@ -1,20 +1,20 @@
-# Optional Codex Harness Bootstrap
+# 可选的 Codex Harness 启动配置
 
-This directory contains conservative local defaults for users who run the framework through the Codex harness. It is an optional harness adapter, not a second project template or governance source.
+本目录为通过 Codex Harness 使用框架的用户提供保守的本地默认配置。它是可选的 Harness 适配层，不是第二套项目模板或治理来源。
 
-The framework itself lives at the repository root. Always use the root `AI_START_HERE.md`, engineering rules, project files, and role briefs as the project authority.
+框架本身位于仓库根目录。始终以根目录的 `AI_START_HERE.md`、工程规则、项目文件和角色简报作为项目权威来源。
 
-## Optional one-time local setup
+## 可选的一次性本地设置
 
-Review the files before copying them:
+复制前请先检查文件：
 
-- `global_codex_home/AGENTS.md` -> `~/.codex/AGENTS.md`
-- `global_codex_home/config.toml` -> `~/.codex/config.toml`
+- `global_codex_home/AGENTS.md` → `~/.codex/AGENTS.md`
+- `global_codex_home/config.toml` → `~/.codex/config.toml`
 
-The supplied configuration keeps writes inside the active workspace, disables network access by default, and requests approval before broader operations.
+随附配置把写入范围限制在当前工作区内，默认禁用网络访问，并在执行更广泛的操作前请求批准。
 
-Do not copy these files blindly over an existing personal Codex configuration. Merge only the settings you intend to adopt.
+不要直接用这些文件覆盖现有的个人 Codex 配置。只合并你明确希望采用的设置。
 
-## Project setup
+## 项目设置
 
-For Full or Lite project installation, return to the root [README](../README.md) and [Quick Start](../docs/QUICK_START.md). Model or harness choice does not change Current Truth or C00-C06 role authority.
+安装 Full 或 Lite 项目时，请返回根目录的 [README](../README.md) 和[快速开始](../docs/QUICK_START.md)。选择何种 Model 或 Harness 不会改变 Current Truth，也不会改变 C00～C06 的角色权限。

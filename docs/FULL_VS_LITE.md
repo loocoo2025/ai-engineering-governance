@@ -1,23 +1,23 @@
-# Full Template vs Lite
+# Full Template 与 Lite
 
-The framework supports two adoption profiles. They share the same governance principles; they differ only in how much lifecycle structure is adopted initially.
+本框架支持两种采用方式。它们遵循相同的治理原则，仅在初始采用的生命周期结构规模上有所不同。
 
-## Comparison
+## 对比
 
-| Area | Full Template | Lite |
+| 范围 | Full Template | Lite |
 |---|---|---|
-| Recommended project type | Long-running, high-risk, regulated, multidisciplinary, brownfield | Small, low-risk, pilot, or evaluation |
-| C00-C06 roles | Complete | Complete role boundaries, selectively activated |
-| Product/system requirements | Full document set | Existing project documents may be referenced |
-| Architecture and ADRs | Full structure | Add when architectural decisions become material |
-| Traceability | Included and mechanically validated | Optional until required by risk or acceptance needs |
-| Test governance | Full test design and evidence structure | Core testing rules retained; folders added as needed |
-| Brownfield migration | Complete migration workflow | Upgrade to Full before broad restructuring |
-| Release/operations | Included | Add before governed release or field operation |
+| 推荐项目类型 | 长周期、高风险、受监管、多学科或旧项目 | 小型、低风险、试点或评估项目 |
+| C00～C06 角色 | 完整启用 | 保留完整角色边界，按需启用 |
+| 产品/系统需求 | 完整文档集 | 可引用已有项目文档 |
+| 架构与 ADR | 完整结构 | 当架构决策变得重要时再增加 |
+| 追溯 | 包含且进行机械校验 | 在风险或验收要求需要前可选 |
+| 测试治理 | 完整测试设计和证据结构 | 保留核心测试规则，按需增加目录 |
+| 旧项目迁移 | 完整迁移工作流 | 大范围重构前升级到 Full |
+| 发布/运维 | 包含 | 在受治理发布或现场运行前增加 |
 
-## Lite file set
+## Lite 文件集
 
-Keep these files at their original paths:
+以下文件必须保留原始路径：
 
 ```text
 AGENTS.md
@@ -37,27 +37,27 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 ```
 
-Add `09_quality/traceability/validate_traceability.py` when formal requirement traceability is used.
+使用正式需求追溯时，增加 `09_quality/traceability/validate_traceability.py`。
 
-## Non-negotiable in Lite
+## Lite 中不可弱化的规则
 
-Lite may reduce artifacts, but it must not weaken:
+Lite 可以减少产物，但不得弱化：
 
-- Current Truth and fact ownership;
-- accepted requirement and decision authority;
-- independent review context;
-- human approval boundaries;
-- test scope governance;
-- context reset and Baseline Relearn;
-- Git-based review targets and history.
+- Current Truth 和事实所有权；
+- 已接受需求和决策的权威性；
+- 独立评审上下文；
+- 人类审批边界；
+- 测试范围治理；
+- 上下文重置和 Baseline Relearn；
+- 基于 Git 的 Review Target 和历史记录。
 
-## Upgrade to Full when
+## 何时升级到 Full
 
-- the project becomes long-running or multidisciplinary;
-- safety, data integrity, compliance, or field reliability becomes material;
-- product and system requirements need formal traceability;
-- multiple teams or suppliers need interface control;
-- a brownfield restructuring is planned;
-- release, deployment, or operational evidence must be governed.
+- 项目变成长周期或多学科项目；
+- 安全、数据完整性、合规或现场可靠性变得重要；
+- 产品和系统需求需要正式追溯；
+- 多个团队或供应商需要接口控制；
+- 计划对旧项目进行结构重组；
+- 必须治理发布、部署或运行证据。
 
-Lite is not a fork of the governance rules. Stable rules remain in the same root governance documents, preventing Full and Lite from becoming competing Current Truth sources.
+Lite 不是治理规则的分叉版本。稳定规则仍保留在同一组根目录治理文档中，从而避免 Full 与 Lite 演变为互相竞争的 Current Truth 来源。
