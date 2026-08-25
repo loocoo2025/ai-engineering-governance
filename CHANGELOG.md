@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.3] - 2026-08-25
+### Added
+- 将现有术语表扩展为中英文专有名词、缩写、编号前缀、治理角色、分级和受控状态索引。
+- 增加可复用的跨版本治理升级执行协议，支持已知版本和 `UNKNOWN_LEGACY` 项目升级到精确指定版本或上游最新稳定版本。
+
+### Changed
+- 将治理模板升级记录扩展为完整执行流程：自动解析稳定 SemVer Tag、逐版本读取迁移信息、分类合并治理文件并形成独立本地 Commit。
+- 增加只读 `UPGRADE_READINESS_GATE`，在工作区不干净、正式 C04 进行中、Current Truth 冲突、目标版本不可验证或存在未授权 Breaking Change 时停止升级。
+
 ## [0.1.2] - 2026-08-25
 ### Added
 - 增加最小 Review Decision Matrix 和正式 Review Readiness 前置状态。
