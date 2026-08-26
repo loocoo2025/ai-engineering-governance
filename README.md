@@ -73,7 +73,7 @@ flowchart TD
 
 1. 选择 [Full 或 Lite 采用方式](docs/FULL_VS_LITE.md)。
 2. 将选定模板复制或解压到新项目或已有项目中。
-3. 要求主要 Agent 依次读取 `AI_START_HERE.md`、`AI_ENGINEERING_RULES_V2.md`、`AI_CONVERSATION_ORCHESTRATION_RULES.md` 和 `00_project/ai_context/CURRENT_STATE.md`。
+3. 要求主要 Agent 首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序；README 不维护另一份缩短清单。
 4. 替换项目占位符，并在 `CURRENT_STATE.md` 中设置当前授权和 Model/Harness 路由。
 5. 新项目从 C00/C01 开始；已有项目从旧项目只读盘点流程开始。
 

@@ -73,37 +73,9 @@ Git 应用于：
 
 # 2. AI 默认读取什么
 
-新 AI 或新对话默认只读取：
+新 AI 或新对话必须首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本文件不维护另一份竞争性的默认读取清单。
 
-```text
-AI_START_HERE.md
-↓
-当前工程治理规则
-↓
-DECISION_INDEX.md
-↓
-CURRENT_STATE.md
-↓
-BASELINE_INDEX.md
-↓
-当前 CONFIRMED / APPROVED 需求
-↓
-当前 ACCEPTED ADR
-↓
-当前有效架构
-↓
-当前有效详细设计
-↓
-当前有效测试设计
-↓
-当前代码
-↓
-当前测试
-↓
-当前未决问题
-↓
-当前任务
-```
+Baseline Relearn 期间，在该权威顺序内只使用当前正式治理规则、Current Truth、Baseline、有效决定、当前需求/架构/设计/代码/测试和 Open 问题；默认不扩展到旧聊天、历史 HANDOFF 链、Archive 或 `SUPERSEDED` 内容。
 
 默认不读取：
 
@@ -384,28 +356,11 @@ milestone/M3
 
 ---
 
-# 13. 大重置后新 AI 的读取顺序
+# 13. 大重置后新 AI 的读取入口
 
-```text
-1. AI_START_HERE.md
-2. AI_ENGINEERING_RULES_V2.md
-3. AI_CONVERSATION_ORCHESTRATION_RULES.md
-4. 本文件
-5. AI_TESTING_GOVERNANCE_RULES.md（涉及测试时）
-6. DECISION_INDEX.md
-7. CURRENT_STATE.md
-8. BASELINE_INDEX.md
-9. 当前 APPROVED 产品需求
-10. 当前 APPROVED 系统需求
-11. 当前 ACCEPTED ADR
-12. 当前架构
-13. 当前详细设计
-14. 当前测试设计
-15. 当前代码
-16. 当前测试
-17. OPEN_QUESTIONS.md
-18. ACTIVE_TASKS.md
-```
+首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本文件只补充 Baseline Relearn 的校验行为，不复制启动顺序。
+
+在该顺序内，必须核实当前 Decision、Current State、Baseline、已批准需求、已接受 ADR、架构、详细设计、测试设计、代码、测试、Open Questions 和 Active Tasks；涉及测试时应用 Testing Governance。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
 
 默认不读取旧聊天、旧 HANDOFF 链和 Archive。
 
@@ -664,7 +619,7 @@ C03 编码时默认只使用当前基线。
 17. 必要时创建 Git Tag
 18. 关闭旧对话
 19. 新建干净对话
-20. 新 AI 按 Baseline Relearn 顺序重新读取
+20. 新 AI 从 `AI_START_HERE.md` 的权威启动顺序重新读取
 21. 输出 BASELINE-RELEARN-CHECK
 22. 校验正确后继续开发
 ```
@@ -705,7 +660,7 @@ C03 编码时默认只使用当前基线。
 不要读取或依赖旧聊天。
 请只从当前项目正式文件重新学习。
 
-按本规则第 13 节顺序读取。
+首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序读取；本规则第 13 节只补充 Baseline Relearn 校验范围。
 默认不要读取旧聊天、历史 HANDOFF 链、Archive、SUPERSEDED ADR、旧 PRD、旧架构。
 
 读取完成后先输出 BASELINE-RELEARN-CHECK。
