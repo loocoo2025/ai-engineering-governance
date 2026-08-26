@@ -1658,6 +1658,13 @@ NEW_INDEPENDENT_SESSION_REQUEST:
     release: false
     remote_mutation: false
 
+  authorization:
+    source_type: "{{PREAUTHORIZED_GATE|EXPLICIT_CONFIRMATION}}"
+    source_reference: "{{GATE_OR_CONFIRMATION_RECORD}}"
+    valid_for: "ONE_INDEPENDENT_SESSION"
+    dispatch_limit: 1
+    capability_enablement_is_authorization: false
+
   placement:
     target: "RESOLVE_FROM_CONFIG"
     default_target: "CURRENT_AI_ENVIRONMENT"
@@ -1682,6 +1689,7 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 5. 本地创建失败不得自动 fallback 到外部；应输出 `LOCAL_INDEPENDENT_SESSION_CREATION_UNAVAILABLE` 和可复制的手动创建指令；
 6. 子 Session 权限不得超过 Caller；一个 `request_id` 最多创建一次；失败或超时不得自动再次付费调用；
 7. 正式 C04 还必须满足 Review Readiness，且 `formal_gate_authority` 只能由正式分配的 C04 使用。
+8. `authorization.source_reference` 必须指向适用于本请求的预授权 Gate 或明确确认记录，`valid_for` 必须为 `ONE_INDEPENDENT_SESSION`，`dispatch_limit` 必须为 `1`；外部能力开关、Profile 启用或技术可调用性本身都不是调用授权。
 
 ## 41.6 当前 Session 外部 AI 调用与独立 Session 的分离
 

@@ -38,6 +38,15 @@ independent_session_creation:
     - "INDEPENDENT_ADVISORY_ANALYSIS"
     - "OTHER_PREAUTHORIZED_INDEPENDENT_SESSION"
 
+  authorization_policy:
+    capability_enablement_is_call_authorization: false
+    require_request_authorization_source: true
+    allowed_source_types:
+      - "PREAUTHORIZED_GATE"
+      - "EXPLICIT_CONFIRMATION"
+    required_validity: "ONE_INDEPENDENT_SESSION"
+    dispatch_limit: 1
+
 target_policy:
   require_full_immutable_commit_for_formal_c04: true
   allow_exact_historical_commit: true
