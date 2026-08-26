@@ -250,10 +250,7 @@ C06 历史 Bug、现场问题、变更闭环
 
 你的任务不是推倒重写，而是在保证现有功能、构建、部署、接口、数据和正在进行的开发尽量不受影响的前提下，把项目逐步迁移到规范化软件工程体系。
 
-先完整阅读：
-1. AI_ENGINEERING_RULES_V2.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md
+先完整阅读 `AI_START_HERE.md`，严格遵循它维护的权威启动顺序，再阅读 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`。本提示词不维护另一份竞争性的启动顺序。
 
 第一阶段只允许只读盘点，禁止大规模修改代码、移动目录、架构重写或技术栈升级。
 

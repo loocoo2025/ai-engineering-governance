@@ -301,3 +301,21 @@ PASS / CHANGES_REQUESTED
 REVIEW_NOT_READY
 → 评审前置状态，不是 Gate Decision
 ```
+
+## 14. v0.1.4 运行与升级术语
+
+| 术语 | 中文解释 | 使用边界 |
+|---|---|---|
+| `Owner Decision Package` | 负责人决策包 | 面向负责人概括待决定内容、变化、风险、选项、建议和精确授权边界；原权威文件仍是事实来源。 |
+| `Gate Package` | 门禁包 | 按同一决策边界组织相关产物；不得借合包跳过强制证据、追溯或独立评审。 |
+| `Work Package` | 工作包 | 可递归拆分的有界执行单元，包含目标、边界、输入、输出、风险和完成条件；不自动新增人工 Gate。 |
+| `Assurance Cadence` | 保障/评审频率 | 决定保障活动何时触发及采用何种 Profile；不得关闭非可选控制。 |
+| `Persistent C00 Control Channel` | 持续逻辑 C00 控制通道 | 项目负责人持续使用的逻辑管理通道；底层物理 Session 可受控轮换。 |
+| `Physical Session` | 物理会话 | 具体 AI 环境中的一次上下文实例，达到阈值或隔离触发时可交接到新实例。 |
+| `Independent Session` | 独立会话 | 为满足角色、上下文或评审独立性而新建的隔离 Session；不自动扩大权限。 |
+| `In-Session External-AI Tool Call` | 当前会话内外部 AI 工具调用 | 返回 Auxiliary/Advisory 结果，可静默执行但必须服从配置与权限；不等于新独立 Session 或正式 C04。 |
+| `NEW_INDEPENDENT_SESSION_REQUEST` | 新独立会话请求包 | 机器可读的独立 Session 创建请求，包含触发原因、目标 Role、精确目标、最小输入、权限和返回路由。 |
+| `GOVERNANCE_MIGRATION_COMMITTED` | 治理迁移已提交 | 升级迁移 Commit 已形成，但尚未证明已完成要求的独立评审、Baseline 采用和 Relearn。 |
+| `READY_FOR_BASELINE_ADOPTION` | 可进入 Baseline 采用 | 精确 Candidate 已通过所需 C04，等待按既有 Baseline Owner 规则完成 `CANDIDATE -> CURRENT`。 |
+| `GOVERNANCE_UPGRADE_COMPLETE` | 治理升级完成 | Candidate 已正式采用为 Current，所需 Baseline Relearn 和采用后检查已完成。 |
+| `POST_C04_RECORD_ONLY_DESCENDANT` | C04 后仅记录后代 Commit | 只增加受控评审/迁移/Baseline 状态记录、且机械证明治理产物和产品事实零漂移的精确后代；不是通用免评审规则。 |

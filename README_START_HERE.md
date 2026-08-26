@@ -29,15 +29,9 @@ Lite 保留以下不可弱化的原则：
 - 明确的人类权限边界；
 - 上下文、Model 或 Harness 替换后的 Baseline Relearn。
 
-## Agent 首次必读顺序
+## Agent 首次必读入口
 
-要求当前 Agent 按顺序读取：
-
-1. `AI_START_HERE.md`；
-2. `AI_ENGINEERING_RULES_V2.md`；
-3. `AI_CONVERSATION_ORCHESTRATION_RULES.md`；
-4. `00_project/ai_context/CURRENT_STATE.md`；
-5. `00_project/ai_context/ROLE_BRIEFS/` 下当前角色对应的简报。
+首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本说明不维护另一份可能漂移的阅读清单。
 
 新项目从 C00/C01 开始。已有项目先按 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 盘点，再移动或改写文件。
 

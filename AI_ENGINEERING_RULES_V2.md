@@ -3,7 +3,7 @@
 
 > **用途**  
 > 本文件是本项目的软件工程最高级工作规则之一。  
-> 每次开始一个新项目时，应先把本文件交给参与项目的 AI 阅读。  
+> 每次开始一个新项目时，必须先完整阅读 `AI_START_HERE.md`，再按其权威启动顺序阅读本文件。
 > AI 在进行需求分析、架构设计、详细设计、编码、测试、修复、重构和发布前，都必须遵守本文件。
 >
 > **核心目标**  
@@ -142,7 +142,8 @@
 ```text
 Project/
 │
-├── AI_ENGINEERING_RULES.md
+├── AI_START_HERE.md
+├── AI_ENGINEERING_RULES_V2.md
 │
 ├── 00_project/
 │   ├── project_overview.md
@@ -1656,7 +1657,7 @@ AI 可以：
 可以把下面的话直接发给 AI：
 
 ```text
-请先完整阅读项目根目录中的 AI_ENGINEERING_RULES.md。
+请先完整阅读项目根目录中的 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。
 
 本项目必须遵循其中定义的：
 迭代式 V 模型、
@@ -1748,13 +1749,13 @@ AI 独立评审、
 
 ---
 
-# 1. 默认建立几个对话
+# 1. 默认逻辑角色与物理 Session
 
-每个正式软件项目，默认建立 **7 个长期角色对话**。
+每个正式软件项目保留 C00～C06 七个逻辑角色，但不要求启动时预先建立七个长期物理 Session。
 
-除非项目极小，否则不要把 7 个角色全部合并成一个长对话。
+默认由持续逻辑 C00 控制通道面对项目负责人。只要当前 Role、授权、上下文健康和独立性要求兼容，就继续当前 Session；当工作边界、保障节奏或独立性规则明确要求时，再创建对应 Worker / Expert / Reviewer Session。
 
-标准对话如下：
+标准逻辑角色如下：
 
 ```text
 C00  项目控制 / 总控对话
@@ -1766,7 +1767,7 @@ C05  测试、验证、CI 与发布对话
 C06  现场问题、Bug 与变更闭环对话
 ```
 
-推荐命名：
+物理 Session 被实际创建时，推荐命名：
 
 ```text
 <项目名>-C00-Control-v01
@@ -1791,6 +1792,8 @@ ProjectA-C03-Implementation-v02
 ↓
 ProjectA-C03-Implementation-v03
 ```
+
+C04 每次正式评审和复审都必须新建独立 Session。普通阶段切换、轻量澄清或当前 Session 内 Auxiliary/Advisory 工具调用不自动要求新建用户可见 Session。
 
 ---
 
@@ -2333,8 +2336,8 @@ Baseline 组成 → BASELINE_INDEX.md
 6. AI 对文件版本、Commit、接口版本产生混淆；
 7. AI 开始把旧 Bug 的临时方案当正式方案；
 8. AI 连续两次出现明显上下文记忆错误；
-9. 一个对话已经跨越两个以上重大里程碑；
-10. 本阶段工作已经结束，即将进入新阶段；
+9. 非 C00 的阶段专用工作 Session 已跨越两个以上重大里程碑，导致职责或事实范围明显混杂；
+10. 阶段专用工作 Session 的职责已经结束，下一阶段需要不同上下文；用户面对的 C00 逻辑控制通道不因普通阶段切换自动关闭；
 11. 完成一次大型重构；
 12. 完成一个重要发布版本；
 13. 即将开始一个与前一任务几乎无关的大型子系统。
@@ -2356,6 +2359,8 @@ Baseline 组成 → BASELINE_INDEX.md
 特别是：
 
 > **独立评审必须优先使用新上下文。**
+
+这些建议主要约束阶段专用 Worker / Expert / Reviewer Session。C00 作为项目负责人面对的逻辑控制通道默认持续存在；物理 C00 Session 只在上下文阈值、完整性失效或明确 Clean Context Reset / Baseline Relearn 触发时切换为 `C00-vNext`。
 
 ---
 
@@ -2511,20 +2516,13 @@ C03-v05-to-v06-2026-08-21.md
 
 新对话不得先阅读整个旧聊天记录。
 
-默认读取顺序：
+权威读取入口：
 
 ```text
-1. AI_ENGINEERING_RULES.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. 00_project/ai_context/CURRENT_STATE.md
-4. 00_project/ai_context/BASELINE_INDEX.md
-5. 00_project/ai_context/CONVERSATION_MAP.md
-6. 本角色 ROLE_BRIEF
-7. 最新 HANDOFF（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-8. 当前任务直接相关的需求
-9. 当前任务直接相关的 ADR
-10. 当前任务直接相关的设计
-11. 当前任务直接相关的代码和测试
+1. 首先完整阅读 AI_START_HERE.md
+2. 严格遵循 AI_START_HERE.md 维护的当前权威启动顺序
+3. 应用本角色 ROLE_BRIEF 和任务最小相关输入
+4. 普通连续 Session 按规则读取最新 HANDOFF；C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理
 ```
 
 原因：
@@ -3065,16 +3063,9 @@ C04-Independent-Review-v04
 ```text
 你现在是本项目的【CXX 角色名称】。
 
-你必须先阅读并遵守：
+你必须首先完整阅读 `AI_START_HERE.md`，再遵循它维护的权威启动顺序。本提示词不复制另一份顺序。
 
-1. AI_ENGINEERING_RULES.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. 00_project/ai_context/CURRENT_STATE.md
-4. 00_project/ai_context/BASELINE_INDEX.md
-5. 00_project/ai_context/CONVERSATION_MAP.md
-6. 你的 ROLE_BRIEF
-7. 该角色最新 HANDOFF（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-8. 当前任务直接相关的需求、ADR、设计、代码和测试
+随后应用你的 ROLE_BRIEF 和当前任务最小相关输入。普通连续 Session 按规则读取最新 HANDOFF；C04 使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理。
 
 规则：
 
@@ -3171,7 +3162,8 @@ C04-Independent-Review-v04
 每个新项目建议先建立：
 
 ```text
-AI_ENGINEERING_RULES.md
+AI_START_HERE.md
+AI_ENGINEERING_RULES_V2.md
 AI_CONVERSATION_ORCHESTRATION_RULES.md
 
 00_project/
@@ -3212,7 +3204,7 @@ D. 验证
 
 > 独立评审不能和实现角色在同一个连续上下文里完成。
 
-正式长期产品仍推荐使用标准 7 对话结构。
+正式长期产品仍保留标准 C00～C06 七个逻辑角色；物理 Session 按实际触发创建。
 
 ---
 
@@ -3220,7 +3212,7 @@ D. 验证
 
 如果 AI 只能记住十条，就记下面十条：
 
-1. **默认建立 7 个角色对话。**
+1. **保留 C00～C06 七个逻辑角色；默认持续 C00，按需建立物理 Session。**
 2. **一个角色只做自己的事。**
 3. **聊天记录不是项目真相，正式文件才是。**
 4. **重要决策必须落盘并编号。**
@@ -3608,6 +3600,8 @@ HUMAN DECISION REQUIRED = YES/NO
 
 正式 C04 必须由独立评审流程明确发起，针对已冻结的 Review Target，使用精确不可变 Git Commit 或受控版本，与被评审对象的实现和整改过程保持角色独立，并产生正式 C04 Review Record。只有 Review Readiness 为 `READY` 时才能产生正式 `PASS / CHANGES_REQUESTED`。
 
+Primary Executor 的完成报告、变更摘要、测试摘要和自检结果可以作为导航与待核验证据输入，但不能预先决定 C04 结论。C04 必须从冻结 Target 和适用正式证据独立验证这些主张；报告缺失不自动证明 Target 失败，报告声称成功也不自动证明 Target 通过。
+
 ### 38.7.1 Review Readiness
 
 正式 C04 进入实质评审前，必须先记录：
@@ -3625,7 +3619,7 @@ REVIEW_READINESS: READY / REVIEW_NOT_READY
 
 `FORMAL_REVIEW_RECORD_LOCATION_DEFINED` 只要求 Review Record ID、模板或写入位置已预先定义，不要求记录在评审开始前已完成。允许先建立 Review Record shell。
 
-精确 Git Review Target 必须记录不可变的完整 Commit Hash。如果输入使用 `HEAD`，必须立即解析并记录其完整 Hash；只记录可移动的 `HEAD` 不满足正式评审条件。非 Git 文档必须记录可唯一定位的受控版本。
+精确 Git Review Target 必须记录不可变的完整 Commit Hash。当前 Commit 或历史 Commit 都可以作为正式 C04 Target，但必须可读取、可复现，并明确适用 Baseline 和 Review Purpose；结论只适用于该精确 Commit，不自动覆盖后代或当前 `HEAD`。如果输入使用 `HEAD`，必须立即解析并记录其完整 Hash；只记录可移动的 `HEAD` 不满足正式评审条件。非 Git 文档必须记录可唯一定位的受控版本。具体触发与 Target 边界见 `00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md`。
 
 以下任一情况必须记录 `REVIEW_NOT_READY`：
 
@@ -3744,3 +3738,159 @@ C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Findi
 4. 输出 `BASELINE-RELEARN-CHECK`；
 5. 确认理解一致后继续当前 `ACTIVE_TASK`；
 6. 不重新执行已经正式关闭的阶段。
+
+# 41. 面向负责人的审批、变更与工作包治理
+
+> 本章是面向项目负责人的批准请求、阈值说明、文档修改分级、语义识别、Gate Package、Work Package、影响驱动重审批和反馈闭环的权威规则。具体实例状态仍由各自产物 Owner 维护。
+
+## 41.1 不得假设负责人已读完正文
+
+请求项目负责人批准 PRD、SRS、Baseline、架构、阈值、重大风险或 Release 时，不得只给文件名或要求“确认通过”。必须先提供最小 `OWNER_DECISION_PACKAGE`：
+
+```text
+DECISION_ID
+WHAT_IS_BEING_DECIDED
+CONCRETE_SUMMARY
+WHAT_CHANGED
+KEY_RISKS_AND_TRADEOFFS
+APPROVAL_BOUNDARY
+WHAT_APPROVAL_ENABLES
+WHAT_REMAINS_UNAUTHORIZED
+AUTHORITATIVE_SOURCE
+RECOMMENDED_OPTION_AND_REASON
+```
+
+摘要只帮助负责人理解和决策，不成为第二 Current Truth。正文和正式记录仍是事实 Owner。
+
+负责人标准决定为：
+
+```text
+APPROVED
+CHANGES_REQUESTED
+DEFERRED
+REJECTED
+```
+
+AI 必须解释每个可选决定的直接后果。`DEFERRED` 保持当前 Baseline 有效，可以继续已授权范围，但不得越过被暂缓的边界。
+
+## 41.2 缩写与技术术语
+
+面向负责人的聊天、批准包和完成报告中，缩写或专业术语第一次出现时应给出英文全称和中文解释。例如：
+
+```text
+SRS (Software Requirements Specification，软件需求规格说明书)
+```
+
+随后可以使用缩写。正式文件可通过 `00_project/glossary.md` 统一解释，不要求在每一行重复全称。Git 的 tracked/untracked/staged/Commit、Fixture 等状态必须同时说明它对提交、丢失风险、升级或评审的实际影响。
+
+## 41.3 阈值批准包
+
+需要负责人批准的 Acceptance Criteria / Threshold 必须同时说明：
+
+- 数值和单位；
+- 适用环境和前置条件；
+- 测量开始/结束边界；
+- 包含项与排除项；
+- 对用户体验、成本和风险的实际意义；
+- 推荐该值的依据与替代值；
+- 验证方法和证据；
+- 批准后未来修改所需的影响分析和重新批准。
+
+禁止要求负责人批准没有测量语义的孤立数字。
+
+## 41.4 多阶段路线和 Gate Package
+
+中等以上多阶段工作开始前，应先展示：
+
+```text
+OVERALL_OBJECTIVE
+PHASES
+OUTPUTS_PER_PHASE
+DEPENDENCIES
+MERGEABLE_PHASES
+DEFERRABLE_PHASES
+GATES_AND_OWNERS
+CURRENT_AUTHORIZATION_SCOPE
+STOP_CONDITIONS
+```
+
+路线认可不自动授权后续全部阶段。Gate 针对决策边界，不针对文件数量；PRD/SRS 可以形成需求 Baseline Package，架构/ADR/详细设计/测试设计可以形成设计 Baseline Package，但合并审批不得跳过适用证据、Traceability、独立评审或 Current Truth 权限。
+
+## 41.5 已批准文档的修改分级
+
+已批准文档仍可完善，但修改前必须按语义分类：
+
+- `EDITORIAL`：错别字、格式、失效链接等，不改变含义；
+- `CLARIFICATION`：表达更清楚，必须证明需求、边界、阈值和行为没有变化；
+- `SUBSTANTIVE`：改变需求、阈值、接口、架构、验收、风险或受控行为，必须执行影响分析和正确 Owner 的重新批准。
+
+分类名称不能掩盖真实语义。无法证明为 `EDITORIAL / CLARIFICATION` 时，按 `SUBSTANTIVE` 或 `UNKNOWN` 处理并停止自动生效。
+
+## 41.6 稳定语义优先于固定字段名
+
+AI 应识别异名同义，但不得为了“智能”拼凑缺失事实：
+
+1. 先识别受控语义和所属 Owner；
+2. 字段名不同但语义、范围和状态一致时，可以建立显式 Alias Mapping；
+3. 不得仅因标题或字段名不同就宣称信息缺失；
+4. 多个来源含义冲突、Owner 不清或证据不足时标记 `UNKNOWN / CONFLICT` 并停止；
+5. Alias Mapping 不创建新事实，也不能把非正式摘要提升为正式决定。
+
+## 41.7 Impact-Based Reapproval
+
+上游变化后必须先分析影响，再决定修改、验证和重审批范围：
+
+- 只修改真实受影响的下游内容；
+- 明确列出不受影响且继续有效的批准内容；
+- 只重新验证受影响链路和必要回归范围；
+- 编辑性变化不触发全链路重审批；
+- 重大语义变化、安全/合规/数据完整性风险或无法确定影响时扩大范围；
+- 不得用“影响较小”跳过正确 Owner 或适用 Gate。
+
+具体实例使用 `13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md`。
+
+## 41.8 Bounded Work Package
+
+大型项目可以递归拆分 Work Package。每个包必须至少包含：
+
+```text
+WORK_PACKAGE_ID
+OBJECTIVE
+BOUNDARY
+INPUTS
+OUTPUTS
+DEPENDENCIES
+RISKS
+APPLICABLE_REQUIREMENTS_AND_DECISIONS
+VERIFICATION
+DEFINITION_OF_DONE
+OWNER_ROLE
+STATUS
+```
+
+任务实例和状态归 `ACTIVE_TASKS.md`。上层包只维护关系、依赖和集成证据；拆包本身不自动增加人工 Gate，也不能把跨包集成风险藏在局部 `DONE` 中。
+
+## 41.9 治理反馈闭环
+
+使用中提出的治理建议不得只在聊天中回答“知道了”。必须进入：
+
+```text
+USER_FEEDBACK
+-> FB RECORD
+-> CLASSIFICATION
+-> EXPLANATION / DEFECT / CHANGE / DECISION / FUTURE_IMPROVEMENT
+-> IMPLEMENTATION_OR_DISPOSITION
+-> VERIFICATION
+-> CLOSURE_EVIDENCE
+```
+
+反馈记录实例归 `15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md`。反馈本身不自动批准模板变化；稳定版保护和预发布规则归 `00_project/versioning_rules.md`。
+
+## 41.10 保障节奏和外部 AI 引用
+
+- 何时必须执行保障活动或建立独立 Session：`00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md`；
+- Session 连续、独立请求格式和结果返回：`AI_CONVERSATION_ORCHESTRATION_RULES.md`；
+- 外部 AI 当前配置值：`00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml`；
+- 当前采用的 Profile、Autonomy Mode 和执行路由：`CURRENT_STATE.md`。
+
+这些文件各自维护一种事实，不得互相复制当前值。

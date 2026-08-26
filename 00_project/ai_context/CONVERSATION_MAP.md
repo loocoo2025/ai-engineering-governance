@@ -21,6 +21,14 @@
 | C05 | Verification/Release | v01 | READY | 验证/质量/发布 | `06/08/09/10/11/14` |
 | C06 | Issues/Change | v01 | READY | Bug/变更/运维闭环 | `12/13/15` |
 
+## 1.1 持续 C00 控制通道
+
+- 项目负责人默认停留在逻辑 C00 控制通道；
+- Expert、C04 和阶段 Worker 可以作为子 Session 创建，结果返回 C00；
+- 普通阶段切换不自动关闭逻辑 C00；
+- 物理 C00 Session 达到上下文阈值、完整性失效或需要 Clean Context Reset 时，记录 `C00-v01 -> C00-v02`，旧实例标记 `READ_ONLY`，新实例标记 `ACTIVE`；
+- 自动创建本地或手动配置外部独立 Session 的规则见对话编排与外部 AI 配置，本文件只记录实际生命周期实例。
+
 ---
 
 # 2. 对话状态定义

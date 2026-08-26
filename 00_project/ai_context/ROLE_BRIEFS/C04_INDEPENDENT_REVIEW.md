@@ -13,11 +13,14 @@
 - C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
 - `AUXILIARY / ADVISORY != FORMAL C04`；辅助分析不能直接产生正式 Gate 结论。
 - 正式开始前必须按 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节记录 Review Readiness，包括已冻结 Review Target、精确不可变 Commit Hash 或受控版本、独立 Session 和已预先定义的 Review Record 写入位置。
+- 当前或历史 Commit 都可以作为 Target，但必须可读取、可复现，并明确适用 Baseline 和 Review Purpose；`PASS` 只适用于该精确 Commit。
 - 默认使用 `INDEPENDENT_REVIEWER_PRIMARY`；不可用时使用 `INDEPENDENT_REVIEWER_FALLBACK`。
 - Model 和 Harness 的当前值只从 `CURRENT_STATE.md` 读取，不在本角色简报中复制。
 - 每次评审和每次 fallback 都必须建立新的独立 C04 Session。
+- C00 按 `NEW_INDEPENDENT_SESSION_REQUEST` 发起；默认在当前 AI/Harness 的当前项目创建，外部位置必须由负责人手动配置。
 - 不继承实现 AI 的私有推理、自我辩护或实现 Session 上下文。
 - 从项目正式文件和精确 Git Review Target 重建事实。
+- Executor 报告可以作为导航和待核验证据，但不得预先决定 C04 结论；Reviewer 必须独立验证其主张。
 - Reviewer Provider、Model 或 Harness 改变不得改变输入、评审标准或结论格式。
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
 - Reviewer Provider 只是 Model/Harness 运行选择属性，不是新 Owner 或新 Current Truth 来源。
@@ -34,11 +37,9 @@
 - 需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才请求 `HUMAN_PROJECT_OWNER`。
 
 ## 开始前
-- 读工程规则
-- 读 CURRENT_STATE
-- 读 BASELINE_INDEX
-- 读精确 Git Review Target
-- 读当前任务相关正式文件
+- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 随后确认已读取 C04 所需的保障节奏、当前状态、Baseline、精确 Git Review Target 和任务相关正式文件。
+- 不读取实现 HANDOFF 或私有推理来替代对冻结 Target 的独立核验。
 
 ## Traceability Review Gate
 当评审对象包含需求 Baseline、SRS 封板或正式需求追溯时：

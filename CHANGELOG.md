@@ -1,5 +1,27 @@
 # 变更日志
 
+## [0.1.4-beta.1] - 2026-08-27
+### 新增
+- 增加可配置的保障/评审频率权威规则，并固定不可关闭控制与强制正式 C04 触发类别。
+- 增加模型无关的外部 AI 交互配置，区分当前 Session 内 Auxiliary/Advisory 调用与新独立 Session 创建。
+- 增加负责人决策包、Gate Package、Work Package、完整反馈闭环以及 Candidate Baseline 采用记录字段。
+
+### 变更
+- 建立持续逻辑 C00 控制通道；物理 Session 仍按上下文阈值和独立性触发受控交接。
+- 正式 C04 可评审可检索、可复现的当前或历史精确 Commit，结论只适用于该精确目标。
+- 明确 `GOVERNANCE_MIGRATION_COMMITTED -> READY_FOR_BASELINE_ADOPTION -> GOVERNANCE_UPGRADE_COMPLETE`，并限定 C04 后仅记录后代 Commit 的适用条件。
+- 统一负责人审批说明、首次术语解释、阈值审批、四种决定结果、文档变更分类、影响范围复核与语义别名处理。
+- Prerelease 升级必须显式选择精确 Tag 和 Commit，并保留稳定版本与回滚锚点。
+
+### 修复
+- 统一启动顺序：始终先读 `AI_START_HERE.md`，启动提示不再维护竞争性阅读清单。
+
+### 升级
+- `v0.1.3` 项目直接使用既有治理升级协议；`v0.1.0`～`v0.1.2` 项目先以只读方式取得最新独立升级协议，再执行同一受控语义迁移；`UNKNOWN_LEGACY` 无法安全识别治理边界时停止。
+- 本 Prerelease 不会被 `LATEST_STABLE_VERSION` 选中。采用时必须显式提供 `ALLOW_PRERELEASE: YES`、`TARGET_VERSION: v0.1.4-beta.1` 和发布后公布的完整精确 Commit，并验证 Tag、Release 元数据和 Commit 一致。
+- 升级只改变治理体系，不自动改变项目所处 M5 或其他阶段，不重开已经完成的产品阶段，并保留 PRD、SRS、ADR、架构、代码、测试和产品 Current Truth。
+- 本版本改变启动、Session、权限路由和保障频率语义，采用后 `BASELINE_RELEARN: REQUIRED`；采用前必须保留可回滚锚点。
+
 ## [0.1.3] - 2026-08-25
 ### 新增
 - 将现有术语表扩展为中英文专有名词、缩写、编号前缀、治理角色、分级和受控状态索引。

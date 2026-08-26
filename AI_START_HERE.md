@@ -117,24 +117,26 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 2. `README_START_HERE.md`
 3. `AI_ENGINEERING_RULES_V2.md`
 4. `AI_CONVERSATION_ORCHESTRATION_RULES.md`
-5. `00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`
-6. `00_project/project_overview.md`
-7. `00_project/ai_context/DECISION_INDEX.md`
-8. `00_project/ai_context/CURRENT_STATE.md`
-9. `00_project/ai_context/BASELINE_INDEX.md`
-10. `00_project/ai_context/CONVERSATION_MAP.md`
-11. `00_project/ai_context/OPEN_QUESTIONS.md`
-12. `00_project/ai_context/ACTIVE_TASKS.md`
-13. 当前角色对应的 `ROLE_BRIEFS`
-14. 最新 `HANDOFF`（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-15. 当前任务相关 PRD / SRS / ADR / 架构 / 详细设计 / 测试
-16. 当前任务相关代码
-17. 当前任务相关测试
+5. `00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md`
+6. `00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml`
+7. `00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`
+8. `00_project/project_overview.md`
+9. `00_project/ai_context/DECISION_INDEX.md`
+10. `00_project/ai_context/CURRENT_STATE.md`
+11. `00_project/ai_context/BASELINE_INDEX.md`
+12. `00_project/ai_context/CONVERSATION_MAP.md`
+13. `00_project/ai_context/OPEN_QUESTIONS.md`
+14. `00_project/ai_context/ACTIVE_TASKS.md`
+15. 当前角色对应的 `ROLE_BRIEFS`
+16. 最新 `HANDOFF`（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
+17. 当前任务相关 PRD / SRS / ADR / 架构 / 详细设计 / 测试
+18. 当前任务相关代码
+19. 当前任务相关测试
 
 如果是老项目，同时阅读：
 
-18. `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`
-19. `00_project/migration/` 下已有迁移资料
+20. `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`
+21. `00_project/migration/` 下已有迁移资料
 
 如果某个文件不存在：
 
@@ -216,13 +218,15 @@ C06  Bug、现场问题、变更闭环
 
 不得把所有角色长期混在同一个对话里。
 
+项目负责人可以持续使用逻辑 C00 控制通道。C00 协调 Primary 工作并自动建立需要隔离的 Expert/C04 子 Session；这不等于让同一个物理上下文同时冒充多个独立角色。普通阶段切换不强制关闭逻辑 C00，物理 C00 Session 仍按上下文阈值和完整性规则切换。
+
 特别是：
 
 > C03 编写的代码，不得在同一个连续上下文中假装成 C04 完成“独立评审”。
 
 ## 3.1 Role、Model、Harness 与 Tool 分离
 
-`Role != Model != Harness != Tool`。`C00～C06` 是工程角色，Model 提供推理能力，Harness 提供 Agent 执行和会话环境，Tool / CLI / API 只是被调用工具。技术上能够调用某个 Model 或 Tool 不会自动获得对应治理角色或审批权限；稳定定义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL` 和 `PREAUTHORIZED_GATES`。
+`Role != Model != Harness != Tool`。`C00～C06` 是工程角色，Model 提供推理能力，Harness 提供 Agent 执行和会话环境，Tool / CLI / API 只是被调用工具。技术上能够调用某个 Model 或 Tool 不会自动获得对应治理角色或审批权限；稳定定义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 和 `ASSURANCE_CADENCE_PROFILE`。
 
 默认路由：
 
@@ -235,7 +239,7 @@ C04
 → 不可用时 INDEPENDENT_REVIEWER_FALLBACK
 ```
 
-Model 或 Harness 替换都不改变 Current Truth。新 Session 必须执行 Baseline Relearn，并在 `BASELINE-RELEARN-CHECK` 通过后继续原任务。当前 Model/Harness 路由只由 `CURRENT_STATE.md` 维护。
+Model 或 Harness 替换都不改变 Current Truth。Model/Harness 替换后的新 Session 按工程总则执行 Baseline Relearn，并在 `BASELINE-RELEARN-CHECK` 通过后继续原任务；正式 C04 使用自身 Review Readiness 和精确 Target 重建事实。当前 Model/Harness 路由只由 `CURRENT_STATE.md` 维护。
 
 ---
 
@@ -668,7 +672,7 @@ MISSING
 
 ---
 
-# 12. 上下文过长时必须切换
+# 12. 物理 Session 上下文过长时必须切换
 
 遵守：
 
@@ -705,6 +709,8 @@ MISSING
 → 旧对话 READ ONLY
 → 新对话继续
 ```
+
+Harness 支持且权限允许时，C00 可以自动完成本地 `C00-vNext` 建立和受控交接；项目负责人仍停留在同一逻辑 C00 管理链。
 
 ---
 

@@ -16,6 +16,17 @@
 
 本次类型：
 
+### 2.1 文档语义变化等级
+
+`EDITORIAL / CLARIFICATION / SUBSTANTIVE / NOT_APPLICABLE / UNKNOWN`
+
+本次等级：
+
+- `EDITORIAL`：错别字、格式、链接等，不改变含义；
+- `CLARIFICATION`：表达更清楚，必须证明要求、边界、阈值和行为没有改变；
+- `SUBSTANTIVE`：改变要求、阈值、接口、架构、验收、风险或受控行为；
+- 无法证明不是实质变化时使用 `UNKNOWN` 并停止自动生效。
+
 ## 3. 状态
 `PROPOSED / DISCUSSED / APPROVED / CONFIRMED / ACCEPTED / SUPERSEDED / REJECTED`
 
@@ -77,6 +88,7 @@
 CHANGE CLASSIFICATION
 
 类型：
+文档语义变化等级：
 状态：
 是否正式决定：
 
@@ -94,3 +106,5 @@ YES / NO / PARTIAL
 ```
 
 > “最后讨论过”不等于“最后正式决定”。只有明确批准的变更才允许覆盖 Current Truth。
+>
+> 分类看实际语义，不看提交标题或文件名。不得把实质变化标成 `EDITORIAL / CLARIFICATION` 来绕过影响分析和重新批准。

@@ -13,6 +13,17 @@
 - 当前 Baseline ID：
 - 当前 Git Commit：
 
+## 1.1 负责人决策包
+
+- 本次具体决定：
+- 内容摘要：
+- 相比当前正式事实的变化：
+- 主要收益、风险和取舍：
+- 批准边界：
+- 批准后允许继续的阶段/Gate：
+- 仍未授权事项：
+- 权威正文/证据：
+
 ## 2. 变更分类
 `REQUIREMENT_CHANGE / ARCHITECTURE_CHANGE / DESIGN_CHANGE / INTERFACE_CHANGE / TEST_CHANGE / OTHER`
 
@@ -72,6 +83,19 @@ SUPERSEDES:
 ## 9. 明确不受影响
 -
 
+原批准继续有效的证据：
+-
+
+## 9.1 重新批准与回归范围
+
+- 必须重新批准：
+- 无需重新批准：
+- 必须重新验证：
+- 必要回归：
+- 未扩大到全链路的理由：
+
+> 只修改和重新批准真实受影响的内容；重大语义、安全、合规、数据完整性变化或影响不明时扩大范围。
+
 ## 10. 修改顺序
 ```text
 正式决定
@@ -119,6 +143,9 @@ BASELINE_INDEX
 
 新 Baseline ID：
 Git Commit：
+
+Baseline Package / Gate 决策边界：
+-
 
 ## 13. 给 AI 的直接指令
 ```text

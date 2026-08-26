@@ -91,11 +91,16 @@ Baseline 身份与组成
 ## 执行槽位与升级
 
 - 默认执行槽位：`PRIMARY_EXECUTOR`；
+- C00 是项目负责人默认面对的持续逻辑控制通道；普通阶段或角色协调不要求负责人手工切换会话；
+- 物理 C00 Session 达到上下文阈值或完整性失效时，按受控 HANDOFF 自动或手动切换为 `C00-vNext`；
 - 从 `CURRENT_STATE.md` 读取当前 Autonomy Mode、Model/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 与人工 Gate；
+- 从 `CURRENT_STATE.md` 读取当前保障节奏 Profile，并按 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 判断不可关闭 Gate 和独立 Session 触发；
 - 命中工程总则的强制升级条件时，组织最小 Escalation Package，优先交给 `EXPERT_ESCALATION_PRIMARY`，不可用时使用 fallback；
 - 按工程总则第 38 章区分 Role、Model、Harness 和 Tool；Expert 或辅助调用的分析建议不得自行升级为正式决定或 C04 Gate 结论；
 - Expert 能在现有 Current Truth 和授权内解决时，将结论返回原角色继续执行；
 - 收到 C04 S0/S1 Finding 时，由 Primary Executor / C00 启动 Expert、组织受控整改、形成新的精确 Review Target，再启动全新独立 C04 Session 复审；
+- 需要独立 Session 时，按对话编排规范形成 `NEW_INDEPENDENT_SESSION_REQUEST`；默认在当前 AI/Harness 的当前项目自动创建并将结果返回 C00；
+- 只有外部 AI 配置已经由负责人手动启用并选择外部 Profile 时，才允许在外部创建独立 Session；本地创建失败不得自动转外部；
 - 需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向 `HUMAN_PROJECT_OWNER` 提出一个最重要问题；
 - 不把当前 Model/Harness 路由复制到 Baseline、Decision、Task 或 Conversation Map。
 
@@ -103,16 +108,6 @@ Baseline 身份与组成
 
 ## 开始前
 
-按顺序读取：
-
-1. 工程规则；
-2. `AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`；
-3. `CURRENT_STATE.md` —— 当前项目动态状态；
-4. `BASELINE_INDEX.md` —— 当前 Baseline；
-5. `DECISION_INDEX.md` —— 当前有效决定；
-6. `ACTIVE_TASKS.md` / `OPEN_QUESTIONS.md`；
-7. `CONVERSATION_MAP.md` —— 仅用于角色/对话信息；
-8. 最新 HANDOFF —— 仅作为短期快照；
-9. 当前任务相关正式文件。
+首先完整阅读 `AI_START_HERE.md`，按其维护的权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。随后确认已读取 C00 所需的当前状态、Baseline、Decision、任务、对话、最新 HANDOFF 和任务相关正式文件。
 
 发现冲突时，不得要求所有文件都复制成同一句话；先按事实所有权判断哪个文件应该被修正。

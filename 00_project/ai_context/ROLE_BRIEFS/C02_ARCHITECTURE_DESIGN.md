@@ -12,8 +12,5 @@
 - Expert 可以在现有需求、ADR 和授权内确定技术答案；需要重大产品取舍或负责人风险接受时才转人工。
 
 ## 开始前
-- 读工程规则
-- 读 CURRENT_STATE
-- 读 BASELINE_INDEX
-- 读最新 HANDOFF
-- 读当前任务相关正式文件
+- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 随后确认已读取 C02 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。

@@ -28,3 +28,30 @@ CANCELLED
 - 一个任务 `READY_FOR_REVIEW` 不等于 C04 `ACCEPTED`；
 - 项目级结论只能写入 `CURRENT_STATE.md` 或正式 review/baseline 记录；
 - 历史完成任务可归档，不应把旧任务状态复制回 `CURRENT_STATE.md`。
+
+## 有边界的 Work Package
+
+大型任务可以递归拆分为 Work Package。每个包的状态仍由本文件维护，不新增任务状态 Owner。
+
+```text
+WORK_PACKAGE_ID:
+PARENT_WORK_PACKAGE_ID:
+OBJECTIVE:
+BOUNDARY:
+INPUTS:
+OUTPUTS:
+DEPENDENCIES:
+RISKS:
+APPLICABLE_REQUIREMENTS_AND_DECISIONS:
+OWNER_ROLE:
+VERIFICATION:
+DEFINITION_OF_DONE:
+STATUS:
+```
+
+规则：
+
+- 子包 `DONE` 不自动等于父包或项目 Gate 通过；
+- 父包负责跨包关系、集成和剩余风险；
+- 拆包不自动增加人工 Gate；
+- 不得通过拆包隐藏跨包接口、追溯或集成风险。

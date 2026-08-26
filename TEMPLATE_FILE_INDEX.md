@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：138
+预建文件数：140
 
 ```text
 .gitignore
@@ -23,6 +23,8 @@
 00_project/glossary.md
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
+00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/migration/LEGACY_INVENTORY.md
 00_project/migration/LEGACY_STRUCTURE_MAP.md
 00_project/migration/MIGRATION_LOG.md

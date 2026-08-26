@@ -444,6 +444,27 @@ OLD_UPSTREAM
 
 上游不可访问时，不得把本地缓存自动宣称为最新版本。只有负责人提供并批准精确目标版本、Tag Object（如适用）和 Commit，且可信本地副本能够验证三者关系时才可离线继续。
 
+### 5.2.1 显式 Prerelease 目标
+
+Prerelease 永远不得被 `LATEST_STABLE_VERSION` 自动选中。只有同时满足以下条件才允许解析 Prerelease 目标：
+
+```text
+ALLOW_PRERELEASE: YES
+TARGET_VERSION: {{EXACT_PRERELEASE_TAG}}
+TARGET_COMMIT: {{FULL_IMMUTABLE_COMMIT}}
+```
+
+执行者必须确认：
+
+1. 调用者明确选择了该 Prerelease，而不是只要求“升级到最新”；
+2. Tag 精确匹配 `TARGET_VERSION`，并解析到 `TARGET_COMMIT`；
+3. 可用的 GitHub Release 元数据将其标记为 Prerelease，且不是 Draft；
+4. 目标 `CHANGELOG.md` 和专用 Migration Notes 明确包含该版本；
+5. 已建立升级前回滚锚点；
+6. 不使用浮动 Branch、`HEAD` 或“latest beta”作为目标。
+
+Tag、Release 元数据和 Commit 任一不一致时，停止为 `UPSTREAM_TARGET_RESOLUTION: UNKNOWN`。`ALLOW_PRERELEASE: YES` 只授权采用调用者指定的精确 Prerelease，不授权自动选择其他 Prerelease。
+
 ### 5.3 目标自身完整性
 
 在临时只读副本中检查：
@@ -463,8 +484,8 @@ OLD_UPSTREAM
 
 如果跨越多个版本：
 
-1. 枚举从当前版本之后到目标版本之间的全部稳定版本；
-2. 按 SemVer 正序阅读每个版本的 `CHANGELOG`、Release Notes 和 Migration Notes；
+1. 枚举从当前版本之后到目标版本之间的全部稳定版本；显式选择 Prerelease 时，再把该精确目标 Prerelease 作为路径终点；
+2. 按 SemVer 正序阅读每个中间稳定版本和精确目标版本的 `CHANGELOG`、Release Notes 和 Migration Notes；
 3. 建立累计差异表；
 4. 识别新增、修改、重命名、废弃和删除的治理项；
 5. 先按中间版本迁移语义，最终文件以目标版本为准；
@@ -478,8 +499,10 @@ v0.1.0
 → 读取 v0.1.1 迁移语义
 → 读取 v0.1.2 迁移语义
 → ...
-→ 形成目标稳定版本的最终治理状态
+→ 形成精确目标版本的最终治理状态
 ```
+
+Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定版本”被自动插入路径。
 
 ### 6.1 破坏性或重大治理变化
 
@@ -615,19 +638,19 @@ v0.1.0
 - 整改后按目标版本建立新的精确 Review Target 和独立 C04；
 - 不得在同一正式 Review Record 中途切换评审规则。
 
-### 8.2 Baseline Relearn
+### 8.2 Baseline Relearn 判定
 
-如果升级修改以下任一内容，至少标记 `BASELINE_RELEARN: RECOMMENDED`：
+迁移记录必须机械选择一个结果：
 
-- 启动规则；
-- Current Truth / Baseline 所有权；
-- C00～C06 Role Brief；
-- Model / Harness / Tool 权限；
-- Review / Testing / Traceability Governance；
-- Autonomy Mode；
-- 上下文重置和交接规则。
+| 结果 | 判定条件 | 后续动作 |
+|---|---|---|
+| `REQUIRED` | 启动顺序、Current Truth / Baseline Owner、C00～C06 Role、权限、Review / Testing / Traceability、Autonomy、Session / Handoff 或其他执行语义发生实质变化 | 完成 Baseline 采用后、继续产品开发或发起下一次正式 C04 前，必须从升级后的正式文件执行 Baseline Relearn |
+| `RECOMMENDED` | 治理语义有实质改进，但不改变当前执行入口、Owner、权限或 Gate 行为 | 在下一个安全检查点完成；未完成前必须记录 Remaining Risk |
+| `NOT_REQUIRED` | 只修改术语解释、展示文字、Release 元数据或不影响运行语义的文档 | 记录理由后可继续既有工作 |
 
-继续产品开发或发起下一次正式 C04 前，应从升级后正式文件执行一次 Baseline Relearn。旧聊天记忆不得覆盖新治理规则。
+不得按文件数量或版本号机械判断。语义影响不明确时标记 `UNKNOWN` 并停止，由正确 Owner 裁决。
+
+本协议引入 Persistent C00、独立 Session 路由、保障频率或外部 AI 权限配置等运行语义的版本，`BASELINE_RELEARN` 必须为 `REQUIRED`。旧聊天记忆不得覆盖新治理规则。
 
 ---
 
@@ -725,21 +748,57 @@ REMOTE_MUTATION: NO
 
 除非调用者另行明确授权，否则本地 Commit 后停止。
 
-### 10.1 项目明确要求正式 C04 时
+### 10.1 升级状态与 Baseline 采用
 
-本协议本身不新增 C04 Gate。如果当前项目已有规则明确要求治理升级经过正式 C04，则：
+迁移 Commit 不等于升级完成。所有升级都必须按以下状态推进：
+
+1. 迁移 Commit 形成后，记录 `GOVERNANCE_MIGRATION_COMMITTED`；
+2. 将目标治理 Baseline 建立为 `CANDIDATE`，不得直接覆盖 `CURRENT`；
+3. 完成目标版本和项目当前规则要求的 C04、验证或采用 Gate；
+4. 所有适用前置条件满足后，记录 `READY_FOR_BASELINE_ADOPTION`；
+5. 按 `BASELINE_INDEX.md` 的既有 Owner 和授权规则显式执行 `CANDIDATE -> CURRENT`；
+6. 完成要求的 Baseline Relearn 和采用后检查后，才记录 `GOVERNANCE_UPGRADE_COMPLETE`。
+
+如果项目尚未单独管理 Governance Baseline，迁移记录必须把治理版本和精确 Upstream Commit 作为当前项目 Baseline 的一个受控组成采用，不得以“不单列”为由跳过明确采用结果。
+
+Baseline 采用是否需要 Human Project Owner 再次批准，由项目当前 Baseline 配置和保留决策边界决定。没有触及保留决策、且既有规则允许 C00 在已授权升级范围内采用时，不额外制造人工 Gate；需要改变 Current Truth、Owner、Acceptance Threshold、重大风险接受或 Release 权限时，必须请求正确 Owner。
+
+### 10.2 目标或项目规则要求正式 C04 时
+
+本协议不要求每个纯展示性升级都新增 C04。但目标版本的保障节奏策略或项目当前规则明确要求治理升级经过正式 C04 时：
 
 1. 将升级内容 Commit 作为冻结 Candidate Review Target；
 2. 立即记录其完整不可变 Commit Hash；
 3. 使用新的独立 C04 Session，不继承迁移实现 Session 的私有上下文；
 4. C04 只执行 Finding、Severity、关闭条件和 `PASS / CHANGES_REQUESTED`；
-5. `PASS` 后才输出 `GOVERNANCE_UPGRADE_COMPLETE`；
+5. C04 对精确 Candidate Commit 输出 `PASS` 后，才能进入 `READY_FOR_BASELINE_ADOPTION`；
 6. `CHANGES_REQUESTED` 后由 C00 / Primary Executor 在授权内整改并形成新 Commit；
 7. 新 Commit 必须作为新的 Review Target，由新的独立 C04 Session 复审；
 8. 不得 amend、重写或 force-update 已经接受评审的 Candidate Commit；
 9. 无法建立独立 Session 时输出 `READY_FOR_INDEPENDENT_C04`，不得伪造 `PASS`。
 
 如果旧规则与目标规则对本次迁移应使用哪套 C04 判定语义存在冲突，停止并请求项目负责人明确迁移 Gate，不得由执行者自行选择有利规则。
+
+### 10.3 `POST_C04_RECORD_ONLY_DESCENDANT`
+
+正式 C04 的 `PASS` 默认只适用于被评审的精确 Commit。只有同时满足以下条件，才允许把 C04 后的记录 Commit 认定为 `POST_C04_RECORD_ONLY_DESCENDANT`，并在不重跑 C04 的情况下完成 Baseline 采用：
+
+1. Descendant 是被评审 Commit 的直接可验证后代；
+2. 变更严格限制在项目预先声明的迁移记录、Review Record、Baseline 采用记录或动态状态 Anchor 文件白名单内；
+3. 变更只记录已经发生的 Commit、C04 结论、采用决定和状态引用，不改变任何治理规则或产品事实；
+4. 对被评审治理文件、产品文件、测试证据和 Review Target 的机械 Diff 为零；
+5. C04 Review Record 明确记录被评审 Commit，采用记录同时记录该 Commit 和 Record-only Descendant；
+6. 验证命令、文件白名单、零漂移证据和执行者写入迁移记录。
+
+出现以下任一情况时，该例外立即失效，必须形成新的精确 Review Target 和新的独立 C04：
+
+- 修改被评审治理文件或其语义；
+- 修改产品事实、需求、接口、架构、代码、测试结论或 Acceptance Threshold；
+- 修改 Review Target、Finding、关闭条件或 C04 Decision；
+- 变更文件超出已声明白名单；
+- 无法机械证明零漂移。
+
+`POST_C04_RECORD_ONLY_DESCENDANT` 是精确目标继承条件，不是新的 Owner、Role 或宽泛的“文档变更免评审”规则。
 
 ---
 
@@ -795,6 +854,13 @@ TARGET_UPSTREAM_COMMIT:
 VERSIONS_TRAVERSED:
 PRE_UPGRADE_PROJECT_COMMIT:
 GOVERNANCE_UPGRADE_COMMIT:
+MIGRATION_STATE:
+C04_REVIEW_TARGET:
+C04_DECISION:
+BASELINE_CANDIDATE_ID:
+BASELINE_ADOPTION_DECISION:
+BASELINE_ADOPTION_EVIDENCE:
+POST_C04_RECORD_ONLY_DESCENDANT:
 CURRENT_STAGE_BEFORE:
 CURRENT_STAGE_AFTER:
 FILES_ADDED:
@@ -821,6 +887,20 @@ REMAINING_RISKS:
 
 FINAL_STATUS:
 GOVERNANCE_UPGRADE_COMPLETE
+```
+
+迁移 Commit 已形成、但尚未完成要求的独立 C04 时输出：
+
+```text
+FINAL_STATUS:
+GOVERNANCE_MIGRATION_COMMITTED
+```
+
+独立 C04 已 `PASS`、但尚未完成 Baseline 采用时输出：
+
+```text
+FINAL_STATUS:
+READY_FOR_BASELINE_ADOPTION
 ```
 
 无需升级时输出：
@@ -931,7 +1011,8 @@ GOVERNANCE_BASELINE_CHANGE: YES
 ### 13.8 Baseline Relearn
 
 ```text
-BASELINE_RELEARN: YES / NO / RECOMMENDED
+BASELINE_RELEARN: REQUIRED / RECOMMENDED / NOT_REQUIRED / UNKNOWN
+BASELINE_RELEARN_STATUS: NOT_STARTED / IN_PROGRESS / COMPLETE / NOT_APPLICABLE
 ```
 
 理由：
@@ -950,9 +1031,18 @@ BASELINE_RELEARN: YES / NO / RECOMMENDED
 
 ### 13.10 迁移后状态
 
-- 新 Governance Baseline ID（如项目适用）：
+- Candidate Governance Baseline ID（如项目适用）：
+- Candidate 建立证据：
+- `CANDIDATE -> CURRENT` 采用决定：
+- 采用 Owner / 授权依据：
+- 采用时间与证据：
+- Current Governance Baseline ID（采用后）：
 - 目标 Upstream Commit：
 - 治理升级 Commit：由本记录所在 Git Commit / 最终报告解析
+- 正式 C04 Review Target：
+- 正式 C04 Decision / Record：
+- `POST_C04_RECORD_ONLY_DESCENDANT`：`NO / YES`
+- Record-only 文件白名单与零漂移证据：
 - 当前 PRD：
 - 当前 SRS：
 - 当前 ACCEPTED ADR：
@@ -982,4 +1072,12 @@ UPGRADE_READINESS_GATE；只有结果为 READY 才自动完成治理语义迁移
 ```text
 TARGET_VERSION: {{VERSION}}
 TARGET_COMMIT: {{FULL_COMMIT_HASH}}
+```
+
+如果目标是 Prerelease，还必须追加：
+
+```text
+ALLOW_PRERELEASE: YES
+TARGET_VERSION: {{EXACT_PRERELEASE_TAG}}
+TARGET_COMMIT: {{FULL_PRERELEASE_COMMIT_HASH}}
 ```

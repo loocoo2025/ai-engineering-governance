@@ -26,13 +26,13 @@
 
 ---
 
-# 1. 默认建立几个对话
+# 1. 默认逻辑角色与物理 Session
 
-每个正式软件项目，默认建立 **7 个长期角色对话**。
+每个正式软件项目保留 C00～C06 七个逻辑角色，但不要求启动时预先建立七个长期物理 Session。
 
-除非项目极小，否则不要把 7 个角色全部合并成一个长对话。
+默认由持续逻辑 C00 控制通道面对项目负责人。只要当前 Role、授权、上下文健康和独立性要求兼容，就继续当前 Session；当工作边界、保障节奏或独立性规则明确要求时，再创建对应 Worker / Expert / Reviewer Session。
 
-标准对话如下：
+标准逻辑角色如下：
 
 ```text
 C00  项目控制 / 总控对话
@@ -44,7 +44,7 @@ C05  测试、验证、CI 与发布对话
 C06  现场问题、Bug 与变更闭环对话
 ```
 
-推荐命名：
+物理 Session 被实际创建时，推荐命名：
 
 ```text
 <项目名>-C00-Control-v01
@@ -69,6 +69,8 @@ ProjectA-C03-Implementation-v02
 ↓
 ProjectA-C03-Implementation-v03
 ```
+
+C04 每次正式评审和复审都必须新建独立 Session。普通阶段切换、轻量澄清或当前 Session 内 Auxiliary/Advisory 工具调用不自动要求新建用户可见 Session。
 
 ---
 
@@ -626,8 +628,8 @@ C06 确认问题闭环
 6. AI 对文件版本、Commit、接口版本产生混淆；
 7. AI 开始把旧 Bug 的临时方案当正式方案；
 8. AI 连续两次出现明显上下文记忆错误；
-9. 一个对话已经跨越两个以上重大里程碑；
-10. 本阶段工作已经结束，即将进入新阶段；
+9. 非 C00 的阶段专用工作 Session 已跨越两个以上重大里程碑，导致职责或事实范围明显混杂；
+10. 阶段专用工作 Session 的职责已经结束，下一阶段需要不同上下文；用户面对的 C00 逻辑控制通道不因普通阶段切换自动关闭；
 11. 完成一次大型重构；
 12. 完成一个重要发布版本；
 13. 即将开始一个与前一任务几乎无关的大型子系统。
@@ -649,6 +651,8 @@ C06 确认问题闭环
 特别是：
 
 > **独立评审必须优先使用新上下文。**
+
+这些建议主要约束阶段专用 Worker / Expert / Reviewer Session。C00 作为项目负责人面对的逻辑控制通道默认持续存在；物理 C00 Session 只在上下文阈值、完整性失效或明确 Clean Context Reset / Baseline Relearn 触发时切换为 `C00-vNext`。
 
 ---
 
@@ -804,20 +808,13 @@ C03-v05-to-v06-2026-08-21.md
 
 新对话不得先阅读整个旧聊天记录。
 
-默认读取顺序：
+权威读取入口：
 
 ```text
-1. AI_ENGINEERING_RULES.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. 00_project/ai_context/CURRENT_STATE.md
-4. 00_project/ai_context/BASELINE_INDEX.md
-5. 00_project/ai_context/CONVERSATION_MAP.md
-6. 本角色 ROLE_BRIEF
-7. 最新 HANDOFF（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-8. 当前任务直接相关的需求
-9. 当前任务直接相关的 ADR
-10. 当前任务直接相关的设计
-11. 当前任务直接相关的代码和测试
+1. 首先完整阅读 AI_START_HERE.md
+2. 严格遵循 AI_START_HERE.md 维护的当前权威启动顺序
+3. 应用本角色 ROLE_BRIEF 和任务最小相关输入
+4. 普通连续 Session 按规则读取最新 HANDOFF；C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理
 ```
 
 原因：
@@ -1358,16 +1355,9 @@ C04-Independent-Review-v04
 ```text
 你现在是本项目的【CXX 角色名称】。
 
-你必须先阅读并遵守：
+你必须首先完整阅读 `AI_START_HERE.md`，再遵循它维护的权威启动顺序。本提示词不复制另一份顺序。
 
-1. AI_ENGINEERING_RULES.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. 00_project/ai_context/CURRENT_STATE.md
-4. 00_project/ai_context/BASELINE_INDEX.md
-5. 00_project/ai_context/CONVERSATION_MAP.md
-6. 你的 ROLE_BRIEF
-7. 该角色最新 HANDOFF（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-8. 当前任务直接相关的需求、ADR、设计、代码和测试
+随后应用你的 ROLE_BRIEF 和当前任务最小相关输入。普通连续 Session 按规则读取最新 HANDOFF；C04 使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理。
 
 规则：
 
@@ -1464,7 +1454,8 @@ C04-Independent-Review-v04
 每个新项目建议先建立：
 
 ```text
-AI_ENGINEERING_RULES.md
+AI_START_HERE.md
+AI_ENGINEERING_RULES_V2.md
 AI_CONVERSATION_ORCHESTRATION_RULES.md
 
 00_project/
@@ -1505,7 +1496,7 @@ D. 验证
 
 > 独立评审不能和实现角色在同一个连续上下文里完成。
 
-正式长期产品仍推荐使用标准 7 对话结构。
+正式长期产品仍保留标准 C00～C06 七个逻辑角色；物理 Session 按实际触发创建。
 
 ---
 
@@ -1513,7 +1504,7 @@ D. 验证
 
 如果 AI 只能记住十条，就记下面十条：
 
-1. **默认建立 7 个角色对话。**
+1. **保留 C00～C06 七个逻辑角色；默认持续 C00，按需建立物理 Session。**
 2. **一个角色只做自己的事。**
 3. **聊天记录不是项目真相，正式文件才是。**
 4. **重要决策必须落盘并编号。**
@@ -1563,6 +1554,14 @@ C04 Independent Review Session
 
 执行角色在 Session 内发起的辅助 Model / CLI / API 调用不是新的治理 Session，沿用调用者 Role 和权限边界，其输出仅为 `ADVISORY / AUXILIARY`。只有按照正式独立评审流程建立的 `C04 Independent Review Session` 才能产生 C04 Gate 结论。
 
+项目负责人默认停留在持续的逻辑 C00 控制通道。C00 可以协调兼容的 Primary 工作、发起当前 Session 内 Auxiliary/Advisory Tool 调用、建立 Expert/C04 子 Session，并把受控结果收回当前任务。子 Session 不要求负责人手工切换查看；只有命中负责人保留决策时才向负责人提出问题。
+
+```text
+DEFAULT_SESSION_ACTION: CONTINUE_CURRENT_SESSION
+```
+
+需要独立 Session 时必须先明确输出并形成第 41.5 节请求包；不得静默停止并假设负责人会自行创建会话。
+
 角色编号、Session 执行 Model、Harness 和 Tool 是四个独立维度。`CONVERSATION_MAP.md` 继续只维护角色、对话版本和生命周期，不登记 Model/Harness 路由或工具调用。
 
 ## 41.2 升级与返回
@@ -1605,3 +1604,104 @@ Reviewer Provider 只是 Reviewer Model/Harness 的运行选择属性，不是�
 ## 41.4 Model/Harness 替换后的恢复
 
 Model 或 Harness 替换后，不传递旧 Session 的私有推理链。新 Session 从稳定 Git Anchor 和当前正式文件执行 Baseline Relearn，输出 `BASELINE-RELEARN-CHECK` 后继续原 `ACTIVE_TASK`，不得重新打开已经正式关闭的阶段。
+
+## 41.5 独立 Session 请求与自动创建
+
+何时必须建立独立 Session 由 `00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md` 唯一定义。请求格式由本节唯一维护。
+
+```yaml
+NEW_INDEPENDENT_SESSION_REQUEST:
+  schema_version: "1.0"
+  request_id: "{{UNIQUE_REQUEST_ID}}"
+  action: "CREATE_INDEPENDENT_SESSION"
+  independent_session_required: true
+  reason_code: "{{ALLOWED_INDEPENDENCE_REASON}}"
+  trigger_rule_reference: "{{AUTHORITATIVE_RULE_REFERENCE}}"
+  trigger_evidence: "{{FACT_OR_RECORD_PROVING_THE_TRIGGER}}"
+
+  caller:
+    session_id: "{{CURRENT_SESSION_ID}}"
+    role: "{{CURRENT_ROLE}}"
+
+  governance_identity:
+    target_role: "{{C04|EXPERT|ADVISORY}}"
+    formal_gate_authority: "{{C04_ONLY|NONE}}"
+    execution_slot: "{{EXECUTION_SLOT}}"
+    provider_separation_required: false
+
+  task:
+    self_contained: true
+    objective: "{{ONE_PRECISE_OBJECTIVE}}"
+    exact_question: "{{QUESTION_TO_ANSWER}}"
+    exact_git_target: "{{FULL_COMMIT_HASH_OR_NOT_APPLICABLE}}"
+    applicable_baseline: "{{BASELINE_ID_OR_NOT_APPLICABLE}}"
+    required_inputs:
+      - "{{PATH_OR_CONTROLLED_REFERENCE}}"
+    must_not_assume:
+      - "{{EXCLUDED_CONTEXT_OR_UNAPPROVED_FACT}}"
+    expected_output: "{{OUTPUT_CONTRACT}}"
+
+  context_package:
+    mode: "MINIMUM_SUFFICIENT_SELF_CONTAINED"
+    package_complete: true
+    include_full_chat_history: false
+    include_private_reasoning: false
+    handoff_or_review_record: "{{PATH_OR_NOT_APPLICABLE}}"
+
+  permissions:
+    filesystem: "{{READ_ONLY|SCOPED_WRITE}}"
+    allowed_write_paths:
+      - "{{PATH_OR_NONE}}"
+    commit: false
+    push: false
+    pull_request: false
+    release: false
+    remote_mutation: false
+
+  placement:
+    target: "RESOLVE_FROM_CONFIG"
+    default_target: "CURRENT_AI_ENVIRONMENT"
+    project_binding: "CURRENT_PROJECT"
+    external_profile: "RESOLVE_FROM_CONFIG_OR_NULL"
+
+  return_route:
+    destination_session_id: "{{CALLER_SESSION_ID}}"
+    result_record: "{{PATH_OR_MESSAGE_CHANNEL}}"
+
+  failure_policy:
+    automatic_retry: false
+    on_failure: "RETURN_TO_CALLER"
+```
+
+机械要求：
+
+1. 请求必须通过 Schema、Reason Code、触发证据、自足输入、权限和唯一 `request_id` 校验；
+2. 默认在当前 AI/Harness 的当前项目自动创建；
+3. 同一环境的新 Session 也必须拥有真正独立上下文，不继承实现/整改私有推理；
+4. 只有 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 已由负责人手动启用并选择外部 Profile 时，才允许把独立 Session 建到外部 AI；
+5. 本地创建失败不得自动 fallback 到外部；应输出 `LOCAL_INDEPENDENT_SESSION_CREATION_UNAVAILABLE` 和可复制的手动创建指令；
+6. 子 Session 权限不得超过 Caller；一个 `request_id` 最多创建一次；失败或超时不得自动再次付费调用；
+7. 正式 C04 还必须满足 Review Readiness，且 `formal_gate_authority` 只能由正式分配的 C04 使用。
+
+## 41.6 当前 Session 外部 AI 调用与独立 Session 的分离
+
+必须区分：
+
+```text
+CURRENT_SESSION
+-> EXTERNAL_AI_TOOL_CALL
+-> AUXILIARY / ADVISORY RESULT
+-> RETURN_TO_CURRENT_SESSION
+```
+
+和：
+
+```text
+INDEPENDENCE_TRIGGER
+-> NEW_INDEPENDENT_SESSION_REQUEST
+-> NEW LOCAL OR MANUALLY-CONFIGURED EXTERNAL SESSION
+```
+
+前者在配置和当前授权允许时可以静默调用，不创建新的治理 Session，由 Caller 提供上下文、保持任务 Owner、判断结果并继续工作；它不得产生正式 C04 Gate Decision。后者只用于权威规则明确要求独立性、且最小输入包已经自足的任务。
+
+外部 AI 当前调用、确认、预算、重试、并发和放置值只由 `00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护。本文件只维护交互语义和请求格式。

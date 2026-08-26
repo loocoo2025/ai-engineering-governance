@@ -20,8 +20,5 @@ T2/T3 测试不得自行升级为当前必须完成项。
 - Expert 能在现有测试要求内解决时自动继续；Release 和需要负责人接受的剩余风险必须转人工 Gate。
 
 ## 开始前
-- 读工程规则
-- 读 CURRENT_STATE
-- 读 BASELINE_INDEX
-- 读最新 HANDOFF
-- 读当前任务相关正式文件
+- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 随后确认已读取 C05 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。

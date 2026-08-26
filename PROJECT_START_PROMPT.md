@@ -3,18 +3,15 @@
 ```text
 你现在参与一个新的正式软件项目。第一步不要写代码。
 
-先完整阅读：
-1. AI_ENGINEERING_RULES_V2.md
-2. AI_CONVERSATION_ORCHESTRATION_RULES.md
-3. README_START_HERE.md
-4. 00_project/ai_context/CURRENT_STATE.md
-5. 你的 ROLE_BRIEF
+必须首先完整阅读 `AI_START_HERE.md`，然后严格按照该文件维护的权威启动顺序继续。不得在本提示词中建立另一份竞争性的阅读顺序。
 
 本项目采用：迭代式 V 模型 + 需求追溯 + ADR + AI 独立评审 + 自动化验证 + 真实环境验证 + 多对话交接。
 
 先判断当前应该属于 C00~C06 哪个角色。项目刚开始时先作为 C00/C01，不要直接编码。
 
-Role != Model != Harness != Tool。C00~C06 不绑定具体 Model、Harness 或 Tool。辅助 Model / CLI 调用不等于正式 C04，子 Agent 和被调用工具不得扩大父任务授权。确定角色后，从 CURRENT_STATE.md 读取 AUTONOMY_MODE、AUTHORIZED_UNTIL、PREAUTHORIZED_GATES、PRIMARY_EXECUTOR、EXPERT_ESCALATION_PRIMARY/FALLBACK、INDEPENDENT_REVIEWER_PRIMARY/FALLBACK 和 HUMAN_PROJECT_OWNER 当前配置。
+项目负责人默认停留在持续逻辑 C00 控制通道。需要独立 Expert/C04 Session 时，由 C00 按权威请求格式明确提出并在当前 AI 环境/当前项目优先自动创建；物理 C00 Session 只在上下文阈值或完整性触发时受控交接。
+
+Role != Model != Harness != Tool。C00~C06 不绑定具体 Model、Harness 或 Tool。辅助 Model / CLI 调用不等于正式 C04，子 Agent 和被调用工具不得扩大父任务授权。确定角色后，从 CURRENT_STATE.md 读取 AUTONOMY_MODE、AUTHORIZED_UNTIL、PREAUTHORIZED_GATES、ASSURANCE_CADENCE_PROFILE、PRIMARY_EXECUTOR、EXPERT_ESCALATION_PRIMARY/FALLBACK、INDEPENDENT_REVIEWER_PRIMARY/FALLBACK 和 HUMAN_PROJECT_OWNER 当前配置。
 
 默认由 Primary Executor 在已授权范围内连续执行；`QUESTION_PRIORITY / WORK_PRIORITY` 为 P0/P1 的问题或其他复杂问题，由 Primary Executor / C00 形成最小 Escalation Package 交给 Expert。C04 Finding 使用 S0～S3；C04 形成 S0/S1 Finding 时只记录 Finding、关闭条件和 `CHANGES_REQUESTED` 后停止，不参与整改设计，也不得自行关闭 Finding。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时才请求项目负责人。
 

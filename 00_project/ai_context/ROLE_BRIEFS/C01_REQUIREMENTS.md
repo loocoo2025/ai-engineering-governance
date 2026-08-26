@@ -12,11 +12,8 @@
 - Expert 能依据当前正式需求和既有授权解决时自动继续；只有需要改变产品目标、已批准 Requirement 或 Acceptance Threshold 时才请求项目负责人。
 
 ## 开始前
-- 读工程规则
-- 读 CURRENT_STATE
-- 读 BASELINE_INDEX
-- 读最新 HANDOFF
-- 读当前任务相关正式文件
+- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 随后确认已读取 C01 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。
 
 ## 需求追溯机械门
 - 维护 SYS / NFR / IF 中的正式 `Traces-From` 元数据。

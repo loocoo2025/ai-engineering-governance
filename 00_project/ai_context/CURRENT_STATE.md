@@ -108,6 +108,13 @@ AUTHORIZED_UNTIL:
 PREAUTHORIZED_GATES:
 - {{GATE}}
 
+ASSURANCE_CADENCE_PROFILE: STANDARD
+ASSURANCE_CADENCE_POLICY: 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
+
+EXTERNAL_AI_TRANSFER_CONFIG: 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+
+PERSISTENT_CONTROL_CHANNEL: C00
+
 PRIMARY_EXECUTOR:
 MODEL: DeepSeek V4 Flash High
 HARNESS: OpenCode
@@ -133,6 +140,8 @@ Project Owner
 ```
 
 以上是可替换的当前运行配置，不属于产品 Current Truth。Role、Model、Harness 和 Tool 是四个独立维度；Model、Harness 或 Tool 替换本身都不改变需求、架构、Baseline 或 Gate。稳定语义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。
+
+`ASSURANCE_CADENCE_PROFILE` 只选择保障节奏 Profile；Profile 定义和不可关闭控制项由 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 维护。外部 AI 的开关、预算和 Session 放置值只由 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护，本文件仅引用，不复制其中字段。
 
 ## 3.2 自动允许范围
 
