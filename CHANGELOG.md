@@ -1,8 +1,8 @@
 # 变更日志
 
-## [0.1.5-candidate] - 2026-08-29
+## [0.1.5] - 2026-08-29
 
-> 内部候选身份；尚未创建 Tag、发布或采用为正式 Baseline。
+> 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。
 
 ### 新增
 - 增加岗位交互与可执行治理权威政策，以及对应的机器可读治理合同目录。
@@ -27,7 +27,7 @@
 - 不改变 Current Truth、One Fact One Owner、C00～C06 基本职责、V 模型、ADR、Testing Governance、Traceability、C04 Finding/Decision Matrix 或既有产品事实。
 - 从 v0.1.4-beta.1 采用时必须增加两个新治理 Authority / Contract 文件，生成当前 Dynamic Role Profile / Knowledge Manifest，选择 Enforcement Mode，映射现有 Task 状态，并补齐当前 Interaction / Authorization。
 - 本版本改变启动、权限、交互、Review Line、Task 和 Session 连续性语义；正式采用后 `BASELINE_RELEARN: REQUIRED`。
-- `v0.1.5-candidate` 不是发布 Tag；在形成精确 Commit、独立 C04、显式 Baseline Adoption 和后续发布授权前不得作为正式发布版宣称。
+- `v0.1.5` 是稳定发布目标；已有项目采用时仍必须锁定精确 Tag 与完整 Commit，并按治理升级协议完成 Candidate、正式 C04、显式 Baseline Adoption 和 Baseline Relearn。
 
 ## [0.1.4-beta.1] - 2026-08-27
 ### 新增

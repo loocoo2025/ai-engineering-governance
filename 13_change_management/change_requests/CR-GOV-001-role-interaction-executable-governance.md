@@ -160,3 +160,35 @@ OUTPUT_MARKETING_FILES: EXCLUDED_AND_UNTOUCHED
 - 形成新的精确 Commit，并针对该 Commit 发起全新独立 C04 复审。
 
 本轮仍不授权 Baseline Adoption、Tag、Push、PR、Release 或 Formal Seal；不得修改 `output/marketing/` 中其他会话的文件。
+
+## 10. v0.1.5 正式发布授权
+
+在精确整改 Commit `70a1f11ca502f53f8f04debcd071b562e571e131` 获得全新独立 C04 `PASS` 后，Human Project Owner 明确要求“正式发布 v0.1.5”。本授权唯一绑定以下发布 Package：
+
+```text
+RELEASE_AUTHORIZATION_ID: HPO-RELEASE-v0.1.5-20260829
+AUTHORITY_OWNER: Human Project Owner
+TARGET_VERSION: v0.1.5
+TARGET_REPOSITORY: loocoo2025/ai-engineering-governance
+TARGET_REMOTE: origin
+RELEASE_CHANNEL: STABLE
+
+AUTHORIZED_ACTIONS:
+- 将候选版本展示元数据收口为正式 v0.1.5
+- 记录上一轮正式 C04 PASS
+- 形成精确 Release Commit
+- 对 Release Commit 执行全新独立正式 C04
+- Push origin/main
+- 创建并 Push v0.1.5 Tag
+- 创建公开 GitHub Release v0.1.5
+- 上传由该 Tag 生成的正式 Git archive
+
+FORMAL_SEAL: NOT_AUTHORIZED / NOT_ISSUED
+DOWNSTREAM_BASELINE_ADOPTION: NOT_AUTHORIZED / NOT_PERFORMED
+GITEE_PUSH: NOT_AUTHORIZED
+HISTORY_REWRITE: NOT_AUTHORIZED
+FORCE_PUSH: NOT_AUTHORIZED
+OUTPUT_MARKETING_FILES: EXCLUDED_AND_UNTOUCHED
+```
+
+Release、Tag、Push 和 GitHub Release 必须解析到同一精确 Commit。最终独立 C04 不是 Formal Seal，也不替任何下游项目执行 Governance Baseline Adoption。

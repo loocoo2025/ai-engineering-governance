@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：145
+预建文件数：148
 
 ```text
 .gitignore
@@ -59,6 +59,7 @@
 04_design/module_design/MODULE_DESIGN_TEMPLATE.md
 04_design/protocol_design/PROTOCOL_DESIGN_TEMPLATE.md
 04_design/state_machine/STATE_MACHINE_TEMPLATE.md
+05_reviews/C04-GOV-001-v0.1.5-candidate-rereview.md
 05_reviews/C04-GOV-001-v0.1.5-candidate.md
 05_reviews/ai_challenge_records/AI_CHALLENGE_TEMPLATE.md
 05_reviews/architecture_review/REVIEW_TEMPLATE.md
@@ -113,6 +114,7 @@
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
+13_change_management/release_notes/RELEASE_NOTES_v0.1.5.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
 13_change_management/templates/代码实现-IMPLEMENTATION_BUG_FIX_TEMPLATE.md
@@ -123,6 +125,7 @@
 14_release/packages/README.md
 14_release/release_checklist.md
 14_release/release_records/RELEASE_RECORD_TEMPLATE.md
+14_release/release_records/RELEASE_RECORD_v0.1.5.md
 15_operations/deployment_manual.md
 15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md
 15_operations/maintenance_manual.md
