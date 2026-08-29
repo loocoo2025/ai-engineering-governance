@@ -36,12 +36,14 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
+00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 ```
 
 使用正式需求追溯时，增加 `09_quality/traceability/validate_traceability.py`。
 
-复制后必须机械确认上述文件全部存在，且 `AI_START_HERE.md`、`CURRENT_STATE.md` 和 Role Brief 中不存在指向缺失治理 Authority / Configuration 的必需引用。Lite 不得通过省略文件关闭保障节奏策略中的九项不可关闭控制。
+复制后必须机械确认上述文件全部存在，且 `AI_START_HERE.md`、`CURRENT_STATE.md` 和 Role Brief 中不存在指向缺失治理 Authority / Configuration 的必需引用。Lite 不得通过省略文件关闭保障节奏策略中的任何不可关闭控制。
 
 ## Lite 中不可弱化的规则
 
@@ -54,7 +56,10 @@ Lite 可以减少产物，但不得弱化：
 - 测试范围治理；
 - 保障节奏中的不可关闭控制和强制 C04 触发；
 - 外部 AI 的权限继承、默认关闭、单次授权与本地/外部 Session 放置边界；
-- 上下文重置和 Baseline Relearn；
+- Dynamic Role Profile、最小知识加载、Rule Gap、标准 Interaction 与通用 Authorization；
+- `Role != Model != Runtime != Harness != Session != Tool`；
+- `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 使用同一治理语义；
+- 上下文重置、Knowledge Continuation 和 Baseline Relearn；
 - 基于 Git 的 Review Target 和历史记录。
 
 ## 何时升级到 Full

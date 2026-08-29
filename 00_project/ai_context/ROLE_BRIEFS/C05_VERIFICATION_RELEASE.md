@@ -20,5 +20,6 @@ T2/T3 测试不得自行升级为当前必须完成项。
 - Expert 能在现有测试要求内解决时自动继续；Release 和需要负责人接受的剩余风险必须转人工 Gate。
 
 ## 开始前
-- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
-- 随后确认已读取 C05 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。
+- 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 生成或核验 C05 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
+- Release、Formal Seal、Acceptance Threshold 和重大风险接受分别需要自身精确授权，不得由测试通过或其他动作推导。

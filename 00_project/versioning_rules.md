@@ -8,6 +8,7 @@
 ## 发布身份与历史
 
 - 正式版本使用 `vMAJOR.MINOR.PATCH`；Prerelease 使用 SemVer 后缀，例如 `v0.1.4-beta.1`、`v0.1.4-rc.1`。
+- 内部候选身份可写为 `vMAJOR.MINOR.PATCH-candidate`，只表示尚未正式采用或发布的审核候选；它可以先存在于工作树，随后绑定精确 Candidate Commit，但不是 SemVer 发布 Tag，也不得被解析为已发布 Prerelease。进入可发布阶段时必须另行选择正式版本或标准 `-alpha.N / -beta.N / -rc.N` 标识。
 - 已发布的稳定版本和 Prerelease Tag 都是不可变审计锚点；不得 amend、rebase、force-push 或移动 Tag 来模拟修复。
 - 稳定版本发布后即冻结。普通问题进入后续版本；不得重写已发布历史。
 - Tag、Release 元数据和完整 Commit 必须一致。发生冲突时状态为 `UNKNOWN`，不得猜测目标。

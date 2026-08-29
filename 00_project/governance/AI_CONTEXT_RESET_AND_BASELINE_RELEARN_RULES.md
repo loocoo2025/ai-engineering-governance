@@ -246,6 +246,12 @@ Baseline Relearn 是：
 
 大重置后，新 AI 默认不继承旧聊天，不依赖历史 HANDOFF 链。
 
+## 8.1 Knowledge Continuation 不是 Baseline Relearn
+
+Provider、Model、Runtime 或 Harness 切换时，逻辑 C00 可以保持连续。只有 Role、Task、Scope、Authority、Baseline、Gate 和上下文完整性均兼容时，才允许按 `ROLE_INTERACTION_EXECUTION_POLICY.md` 执行较小的 `KNOWLEDGE_CONTINUATION_CHECK`。
+
+Knowledge Continuation 只确认当前岗位和任务能够安全续接，不清理或重建完整 Baseline。条件不满足、上下文连续性无法证明或出现事实混淆时，必须执行本文件定义的 Baseline Relearn。正式 C04 始终创建新的独立 Session，不适用 Knowledge Continuation 例外。
+
 ---
 
 # 9. 大重置前必须执行知识压缩
@@ -358,9 +364,9 @@ milestone/M3
 
 # 13. 大重置后新 AI 的读取入口
 
-首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本文件只补充 Baseline Relearn 的校验行为，不复制启动顺序。
+首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的最小知识加载与按需检索流程。本文件只补充 Baseline Relearn 的校验行为，不复制启动顺序。
 
-在该顺序内，必须核实当前 Decision、Current State、Baseline、已批准需求、已接受 ADR、架构、详细设计、测试设计、代码、测试、Open Questions 和 Active Tasks；涉及测试时应用 Testing Governance。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
+在该流程内，必须重新生成或核验 Dynamic Role Profile 与 Knowledge Manifest，并核实当前 Decision、Current State、Baseline、已批准需求、已接受 ADR、架构、详细设计、测试设计、代码、测试、Open Questions 和 Active Tasks；涉及测试时应用 Testing Governance。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
 
 默认不读取旧聊天、旧 HANDOFF 链和 Archive。
 
@@ -386,6 +392,9 @@ BASELINE-RELEARN-CHECK
 当前正在进行的任务：
 当前未决问题：
 当前重大风险：
+当前 Dynamic Role Profile：
+当前 Knowledge Manifest：
+当前 Enforcement Mode：
 以下历史内容我默认没有加载：
 我认为当前下一步是：
 ```
@@ -408,7 +417,7 @@ BASELINE-RELEARN-CHECK
 8. AI 无法准确复述当前基线；
 9. AI 开始依赖“之前聊天里说过”而不是正式文件；
 10. 项目阶段发生重大转换；
-11. 主要 AI 模型或负责人发生更换；
+11. Provider / Model / Runtime / Harness 更换且不满足 `KNOWLEDGE_CONTINUATION_CHECK` 条件，或 Human Project Owner 发生更换；
 12. 项目负责人要求清空历史上下文。
 
 ---
@@ -569,6 +578,8 @@ C00 是本规则的主要执行角色，必须：
 - 组织大重置；
 - 组织知识压缩；
 - 维护 Archive 边界；
+- 判断运行身份切换应使用 Knowledge Continuation Check 还是 Baseline Relearn；
+- 维护逻辑 C00 连续性，同时防止物理上下文未经校验继承权威；
 - 确保新 AI 不默认加载历史垃圾；
 - 确保 Baseline Relearn 后项目仍可追溯。
 
@@ -621,7 +632,8 @@ C03 编码时默认只使用当前基线。
 19. 新建干净对话
 20. 新 AI 从 `AI_START_HERE.md` 的权威启动顺序重新读取
 21. 输出 BASELINE-RELEARN-CHECK
-22. 校验正确后继续开发
+22. 生成或核验 Dynamic Role Profile 与 Knowledge Manifest
+23. 校验正确后继续开发
 ```
 
 ---
@@ -660,7 +672,7 @@ C03 编码时默认只使用当前基线。
 不要读取或依赖旧聊天。
 请只从当前项目正式文件重新学习。
 
-首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序读取；本规则第 13 节只补充 Baseline Relearn 校验范围。
+首先完整阅读 `AI_START_HERE.md`，按其最小知识加载与按需检索流程读取；本规则第 13 节只补充 Baseline Relearn 校验范围。
 默认不要读取旧聊天、历史 HANDOFF 链、Archive、SUPERSEDED ADR、旧 PRD、旧架构。
 
 读取完成后先输出 BASELINE-RELEARN-CHECK。

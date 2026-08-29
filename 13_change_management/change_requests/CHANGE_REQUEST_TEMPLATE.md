@@ -4,16 +4,25 @@
 日期：
 优先级：
 
-## 负责人决策包
+## Human Determination Package（负责人决策包）
+
+- Determination ID：
 - 本次具体要决定什么：
-- 内容摘要：
-- 相比当前 Baseline 改了什么：
+- 为什么需要 Human Project Owner 裁定：
+- 已确认事实：
+- 未决问题：
+- 选项及差异：
 - 主要收益、风险与取舍：
-- 本次批准边界：
-- 批准后允许继续到哪里：
-- 仍未授权的事项：
-- 权威正文/证据：
 - 推荐选项及理由：
+- `APPROVED` 的精确后果与允许边界：
+- `CHANGES_REQUESTED` 的后果：
+- `DEFERRED` 的后果：
+- `REJECTED` 的后果：
+- 明确未授权事项：
+- 权威正文/证据：
+- 可复制回复格式：`DECISION: APPROVED / CHANGES_REQUESTED / DEFERRED / REJECTED; DETERMINATION_ID: {{ID}}; AUTHORIZED_SCOPE: {{SCOPE_OR_NONE}}`
+
+> “批准”只有在唯一待决 Package、Target、Action、Scope 和后果均明确时才有效；否则必须请求澄清。
 
 ## 原因
 -
@@ -41,3 +50,4 @@
 决定人/Owner：
 决定日期：
 决定依据：
+是否签发 Formal Seal：NO / YES（YES 时必须另附 Human Project Owner 的精确 Seal 记录）

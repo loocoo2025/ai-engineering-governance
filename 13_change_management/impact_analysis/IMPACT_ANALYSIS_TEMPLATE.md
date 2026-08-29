@@ -16,6 +16,13 @@
 - [ ] 配置/部署/升级
 - [ ] 测试
 - [ ] 文档
+- [ ] Role / Dynamic Role Profile
+- [ ] Knowledge Manifest / Rule Gap
+- [ ] Interaction Contract
+- [ ] Authorization Contract / Side Effect
+- [ ] Review Line / C04 Independence
+- [ ] Enforcement Mode / Evidence
+- [ ] Formal Seal
 
 ## 受影响链路
 
@@ -48,6 +55,11 @@
 - 是否需要新 ADR：`YES / NO / REVIEW`
 - 是否需要新 Baseline：`YES / NO / REVIEW`
 - Traceability 是否需要更新：`YES / NO`
+- 是否触发 Human Determination：`YES / NO / UNKNOWN`
+- 现有 Authorization 是否继续有效：`YES / NO / PARTIAL / UNKNOWN`
+- 是否需要新/更新 Dynamic Role Profile：`YES / NO`
+- Enforcement Mode 是否受影响：`YES / NO / UNKNOWN`
+- Formal Seal 是否要求或失效：`YES / NO / NOT_APPLICABLE / UNKNOWN`
 
 ## 结论
 

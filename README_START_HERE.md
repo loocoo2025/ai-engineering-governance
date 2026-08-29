@@ -24,10 +24,11 @@ Lite 保留以下不可弱化的原则：
 
 - 当前事实（Current Truth）；
 - 一个事实，一个所有者（One Fact, One Owner）；
-- Role != Model != Harness != Tool；
+- Role != Model != Runtime != Harness != Session != Tool；
 - 独立 C04 评审；
 - 明确的人类权限边界；
-- 上下文、Model 或 Harness 替换后的 Baseline Relearn。
+- Dynamic Role Profile、标准 Interaction 与精确 Authorization；
+- 上下文、Model、Runtime 或 Harness 替换后的 Knowledge Continuation / Baseline Relearn。
 
 ## Agent 首次必读入口
 

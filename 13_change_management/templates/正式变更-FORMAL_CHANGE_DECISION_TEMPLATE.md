@@ -13,16 +13,25 @@
 - 当前 Baseline ID：
 - 当前 Git Commit：
 
-## 1.1 负责人决策包
+## 1.1 Human Determination Package（负责人决策包）
 
+- Determination ID：
 - 本次具体决定：
-- 内容摘要：
-- 相比当前正式事实的变化：
+- 为什么需要 Human Project Owner 裁定：
+- 已确认事实：
+- 未决问题：
+- 选项及差异：
 - 主要收益、风险和取舍：
-- 批准边界：
-- 批准后允许继续的阶段/Gate：
-- 仍未授权事项：
+- 推荐选项及理由：
+- `APPROVED` 的精确后果、Action、Target、Scope 与允许继续的阶段/Gate：
+- `CHANGES_REQUESTED` 的后果：
+- `DEFERRED` 的后果：
+- `REJECTED` 的后果：
+- 明确未授权事项：
 - 权威正文/证据：
+- 可复制回复格式：`DECISION: APPROVED / CHANGES_REQUESTED / DEFERRED / REJECTED; DETERMINATION_ID: {{ID}}; AUTHORIZED_SCOPE: {{SCOPE_OR_NONE}}`
+
+> “批准”只有在唯一待决 Package、Target、Action、Scope 和后果均明确时才有效；模型不得把分析建议提升为人类裁定。
 
 ## 2. 变更分类
 `REQUIREMENT_CHANGE / ARCHITECTURE_CHANGE / DESIGN_CHANGE / INTERFACE_CHANGE / TEST_CHANGE / OTHER`
@@ -146,6 +155,20 @@ Git Commit：
 
 Baseline Package / Gate 决策边界：
 -
+
+采用执行者：Human Project Owner / C00 / {{EXISTING_BASELINE_OWNER}}
+Authorization Contract ID：
+
+> C00 仅可依据 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 第 5.1 节所定义的精确预授权执行 `BASELINE_ADOPTION`。
+
+## 12.1 Formal Seal（如适用）
+
+- 是否要求：YES / NO
+- Seal ID：
+- 精确 Target / Purpose / Scope：
+- Human Project Owner 明确回复与证据：
+
+Formal Seal 与本变更决定、Commit、C04 PASS、Baseline Adoption 和 Release 均为独立 Action；不得互相推导授权。
 
 ## 13. 给 AI 的直接指令
 ```text

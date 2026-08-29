@@ -13,5 +13,6 @@
 - Expert 结论不要求改变 Current Truth 时返回原 Bug/Change 任务继续；需要正式需求、架构、验收或重大风险变更时才转项目负责人。
 
 ## 开始前
-- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
-- 随后确认已读取 C06 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。
+- 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 生成或核验 C06 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
+- 学习更多治理知识不扩大整改、Commit、Baseline 或 Release 权限；规则不唯一时停止并发起 Rule Gap Report。

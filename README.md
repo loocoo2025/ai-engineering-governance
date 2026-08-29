@@ -20,7 +20,7 @@ AI Agent 擅长连续工作数小时，而软件项目往往持续数月。长�
 验证 / 发布（Verification / Release）
 ```
 
-用户和 Agent **不需要**为每项任务读取所有模板文件，只需按照 `AI_START_HERE.md` 的路由加载与任务相关的 Current Truth 和工程产物。
+用户和 Agent **不需要**为每项任务读取所有模板文件，只需按照 `AI_START_HERE.md` 的路由加载最小必要知识、任务相关的 Current Truth 和工程产物，并在规则不足时按需检索或报告 Rule Gap。
 
 当前已发布基线：**v0.1.3**
 
@@ -44,8 +44,9 @@ AI 编码 Agent 在单项任务中表现出色，但长周期项目通常会以�
 |---|---|---|
 | **Current Truth** | 为每一类关键事实确定唯一有效的当前答案；历史仍可追溯，但不再与现状竞争 | 项目事实冲突、过期决策被误用 |
 | **One Fact, One Owner** | 每个动态事实只由一个权威文件维护，其他文档只引用、不复制 | 多处重复维护导致状态漂移 |
-| **Baseline Relearn** | Model、Harness 或上下文切换后，先重载当前基线并完成核验，再继续执行 | 新 Agent 重开已定决策、丢失项目约束 |
-| **Role != Model != Harness != Tool** | 将治理角色和批准权限与模型、运行环境及工具能力解耦 | 更换模型或工具后发生越权、职责混乱 |
+| **Knowledge Continuation / Baseline Relearn** | Model、Runtime、Harness 或上下文切换后，根据连续性证据选择最小接续核验或完整基线重学习 | 新 Agent 重开已定决策、丢失项目约束 |
+| **Role != Model != Runtime != Harness != Session != Tool** | 将治理角色和批准权限与模型、运行时、Agent 环境、会话及工具能力解耦 | 更换执行单元或工具后发生越权、职责混乱 |
+| **Executable Governance Contracts** | 用 Dynamic Role Profile、Knowledge Manifest、Interaction、Authorization 和执行证据表达同一治理语义 | Markdown 指导与工具机械执行形成两套规则 |
 | **Primary Executor + Expert Escalation** | 常规执行由主要执行者负责，复杂或高不确定问题按规则升级给专家 | 日常工作频繁打断人类，关键问题又缺少权威判断 |
 | **Independent C04 Review** | 使用全新上下文和精确 Git Review Target 独立评审；评审者不能修改对象或关闭自己的 Finding | 自我评审、自我批准、评审目标漂移 |
 | **端到端可追溯** | 建立“需求 → 架构 → 设计 → 代码 → 测试 → 证据”的闭环 | 声称完成却缺少可验证证据 |
@@ -67,14 +68,14 @@ flowchart TD
     V -->|证据与受控状态更新| CT
 ```
 
-稳定规则是 `Role != Model != Harness != Tool`。角色定义权限、责任与 Gate 身份；模型提供推理能力；Harness 提供 Agent 执行环境；工具、CLI 和 API 是可调用机制。调用某个工具或模型，不会自动获得通常与其关联的治理角色或批准权限。
+稳定规则是 `Role != Model != Runtime != Harness != Session != Tool`。角色定义权限、责任与 Gate 身份；模型提供推理能力；Runtime 执行 Agent Loop 和控制协议；Harness 承载编排与工具接入；Session 绑定具体上下文和授权；工具、CLI 和 API 是动作入口。改变或调用任一维度，不会自动取得其他维度的治理角色或批准权限。
 
 ## 五分钟开始使用
 
 1. 选择 [Full 或 Lite 采用方式](docs/FULL_VS_LITE.md)。
 2. 将选定模板复制或解压到新项目或已有项目中。
 3. 要求主要 Agent 首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序；README 不维护另一份缩短清单。
-4. 替换项目占位符，并在 `CURRENT_STATE.md` 中设置当前授权和 Model/Harness 路由。
+4. 替换项目占位符，并在 `CURRENT_STATE.md` 中设置当前授权、Model/Runtime/Harness 路由、Dynamic Role Profile 和 Enforcement Mode。
 5. 新项目从 C00/C01 开始；已有项目从旧项目只读盘点流程开始。
 
 完整顺序见[快速开始](docs/QUICK_START.md)。
@@ -107,6 +108,8 @@ Lite 是一种采用方式，不是第二套治理事实来源。项目可以从
 - `AI_START_HERE.md` — Agent 必读入口。
 - `AI_ENGINEERING_RULES_V2.md` — 稳定的工程治理规则。
 - `AI_CONVERSATION_ORCHESTRATION_RULES.md` — 上下文、会话和交接治理规则。
+- `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` — 岗位、知识、交互、授权、审核/裁定运行线和执行保障模式。
+- `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` — 可供工具消费的治理合同字段和枚举。
 - `00_project/ai_context/` — 当前状态、Baseline、决策、任务、问题和角色简报。
 - `01_product_requirements/` 至 `15_operations/` — 完整 Full Template 生命周期结构。
 - `09_quality/traceability/` — 机械化追溯校验。

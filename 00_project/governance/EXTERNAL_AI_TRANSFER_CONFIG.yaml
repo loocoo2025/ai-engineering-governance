@@ -1,7 +1,9 @@
 schema_version: "1.0"
 
 # 本文件只维护外部 AI 调用与独立 Session 放置的当前配置值。
-# Role、权限继承和正式 C04 语义由 AI_ENGINEERING_RULES_V2.md 维护；
+# 固定 Role、Dynamic Role Profile、Interaction、通用 Authorization 和六维分离由 ROLE_INTERACTION_EXECUTION_POLICY.md 维护；
+# 执行槽位、权限继承和正式 C04 Finding/Decision 语义由 AI_ENGINEERING_RULES_V2.md 维护；
+# 机器必填字段与枚举由 GOVERNANCE_EXECUTION_CONTRACTS.yaml 维护；
 # Session 请求格式由 AI_CONVERSATION_ORCHESTRATION_RULES.md 维护；
 # 独立 Session 触发条件由 PROJECT_ASSURANCE_CADENCE_POLICY.md 维护。
 
@@ -91,5 +93,7 @@ permissions:
   default_pull_request: false
   default_release: false
   default_remote_mutation: false
+
+# 外部 Profile 如声明 Model / Runtime / Harness，只改变运行配置；不得改变 Role、Session 独立性或权限。
 
 external_profiles: {}

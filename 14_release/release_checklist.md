@@ -19,3 +19,7 @@ Commit：
 - [ ] 回滚方案
 - [ ] Release Notes
 - [ ] 发布记录
+- [ ] Human Project Owner 已明确授权本次 `RELEASE`
+- [ ] Formal Seal 状态已记录：`NOT_REQUIRED / HUMAN_ISSUED / NOT_ISSUED`
+
+> Release、Formal Seal、Baseline Adoption、Commit、Tag、Push 是独立 Action Class；本检查表中的一项通过不自动授权其他项。

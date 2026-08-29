@@ -113,35 +113,52 @@ ASSURANCE_CADENCE_POLICY: 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY
 
 EXTERNAL_AI_TRANSFER_CONFIG: 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 
+ENFORCEMENT_MODE: PROCEDURAL_FALLBACK
+ROLE_INTERACTION_EXECUTION_POLICY: 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
+GOVERNANCE_EXECUTION_CONTRACTS: 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
+
+CURRENT_ROLE_ASSIGNMENT: {{ROLE_ASSIGNMENT_ID_OR_NOT_ESTABLISHED}}
+CURRENT_DYNAMIC_ROLE_PROFILE: {{PROFILE_ID_OR_NOT_ESTABLISHED}}
+CURRENT_KNOWLEDGE_MANIFEST: {{MANIFEST_ID_OR_NOT_ESTABLISHED}}
+CURRENT_INTERACTION: {{INTERACTION_ID_OR_NOT_APPLICABLE}}
+CURRENT_AUTHORIZATION: {{AUTHORIZATION_ID_OR_NOT_APPLICABLE}}
+
 PERSISTENT_CONTROL_CHANNEL: C00
 
 PRIMARY_EXECUTOR:
 MODEL: DeepSeek V4 Flash High
+RUNTIME: HARNESS_NATIVE
 HARNESS: OpenCode
 
 EXPERT_ESCALATION_PRIMARY:
 MODEL: GPT-5.6 Sol
+RUNTIME: HARNESS_NATIVE
 HARNESS: Codex
 
 EXPERT_ESCALATION_FALLBACK:
 MODEL: Kimi K3 High/Max
+RUNTIME: HARNESS_NATIVE
 HARNESS: OpenCode
 
 INDEPENDENT_REVIEWER_PRIMARY:
 MODEL: GPT-5.6 Sol
+RUNTIME: HARNESS_NATIVE
 HARNESS: Codex
 
 INDEPENDENT_REVIEWER_FALLBACK:
 MODEL: Kimi K3
+RUNTIME: HARNESS_NATIVE
 HARNESS: OpenCode
 
 HUMAN_PROJECT_OWNER:
 Project Owner
 ```
 
-以上是可替换的当前运行配置，不属于产品 Current Truth。Role、Model、Harness 和 Tool 是四个独立维度；Model、Harness 或 Tool 替换本身都不改变需求、架构、Baseline 或 Gate。稳定语义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。
+以上是可替换的当前运行配置，不属于产品 Current Truth。`Role != Model != Runtime != Harness != Session != Tool`；任一运行维度替换本身都不改变需求、架构、Baseline 或 Gate。固定岗位、动态 Profile、Interaction、通用授权和执行保障模式见 `ROLE_INTERACTION_EXECUTION_POLICY.md`；执行槽位、辅助调用、权限继承和正式 C04 见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。
 
 `ASSURANCE_CADENCE_PROFILE` 只选择保障节奏 Profile；Profile 定义和不可关闭控制项由 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 维护。外部 AI 的开关、预算和 Session 放置值只由 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护，本文件仅引用，不复制其中字段。
+
+`ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。
 
 ## 3.2 自动允许范围
 
@@ -176,9 +193,12 @@ STOP_FOR_HUMAN_IF:
 - product goal must change
 - product behavior must change
 - acceptance threshold must change
-- unapproved major architecture tradeoff requires owner choice
+- new system boundary, public interface, cross-system dependency, safety/data-integrity design, or major irreversible architecture tradeoff requires owner choice
 - major risk acceptance requires owner approval
+- formal seal is requested
+- formal baseline adoption lacks an exact applicable C00 preauthorization
 - unapproved release requires owner approval
+- authorization is ambiguous, conflicting, or may expand side effects
 - remote dangerous/destructive operation requires separate approval
 ```
 
@@ -287,6 +307,7 @@ SUPERSEDED ADR：默认不读
 - 当前 Gate / 评审状态变化；
 - 当前授权边界变化；
 - 当前 Autonomy Mode 或运行路由变化；
+- 当前 Enforcement Mode、Role Assignment、Dynamic Role Profile 或受控 Interaction 引用变化；
 - 当前执行焦点变化；
 - 当前项目级阻塞变化；
 - 当前下一步变化；

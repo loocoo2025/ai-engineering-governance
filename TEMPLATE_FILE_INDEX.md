@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：140
+预建文件数：144
 
 ```text
 .gitignore
@@ -24,7 +24,9 @@
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
+00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 00_project/migration/LEGACY_INVENTORY.md
 00_project/migration/LEGACY_STRUCTURE_MAP.md
 00_project/migration/MIGRATION_LOG.md
@@ -106,7 +108,9 @@
 12_issues/root_cause_analysis/RCA_TEMPLATE.md
 13_change_management/baselines/BASELINE_TEMPLATE.md
 13_change_management/change_requests/CHANGE_REQUEST_TEMPLATE.md
+13_change_management/change_requests/CR-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
+13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md

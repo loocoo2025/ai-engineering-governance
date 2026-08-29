@@ -133,12 +133,12 @@ PREAUTHORIZED_GATES:
 ### 1.2 权限继承
 
 ```text
-Role != Model != Harness != Tool
+Role != Model != Runtime != Harness != Session != Tool
 SUBAGENT_PERMISSION <= CALLER_PERMISSION
 AUXILIARY / ADVISORY != FORMAL C04
 ```
 
-任何子 Agent、Model、Harness、CLI、API 或其他工具都不得扩大本协议授权。读取远程上游是允许的只读操作；push、PR、Release、远程设置变更和破坏性操作默认禁止。
+任何子 Agent、Model、Runtime、Harness、Session、CLI、API 或其他工具都不得扩大本协议授权。读取远程上游是允许的只读操作；push、PR、Release、远程设置变更和破坏性操作默认禁止。
 
 ---
 
@@ -149,6 +149,7 @@ AUXILIARY / ADVISORY != FORMAL C04
 - 使用精确、可复现的上游治理版本；
 - 保留当前正式产品事实；
 - 补齐新增治理文件、规则和必要状态字段；
+- 补齐目标版本要求的 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode；
 - 消除旧治理规则与目标版本之间的冲突；
 - 保留项目已经批准的本地治理扩展；
 - 形成独立、可回退的治理升级 Commit；
@@ -294,6 +295,7 @@ UPGRADE_READINESS: NOT_READY
 - 当前 Baseline；
 - 当前阶段、Gate、授权和下一步；
 - 当前正式 Review 状态。
+- 当前 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode（目标版本要求时）。
 
 尚未建立的对象可以标记 `MISSING / NOT_APPLICABLE`，但不得编造。若同一事实存在多个冲突 Owner 或无法判断当前有效版本：
 
@@ -409,6 +411,8 @@ OLD_UPSTREAM
 - 当前版本和上游 Commit 已精确等于目标：输出 `ALREADY_CURRENT`，不创建空 Commit；
 - 当前版本高于所选目标：判定为潜在降级，输出 `DOWNGRADE_NOT_AUTHORIZED` 并停止；
 - 当前项目含有目标版本之后的本地治理扩展：保留扩展，检查兼容性，不得静默回退。
+
+内部 `vX.Y.Z-candidate` 只表示上游未发布的审核前工作身份，不是可供正式项目采用的 Tag。除非项目负责人明确授权测试该候选、提供精确不可变 Commit 并接受非发布版本风险，否则升级目标必须是正式版本或标准 SemVer Prerelease。
 
 ---
 
@@ -621,13 +625,15 @@ Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定
 8. 保持 C 类产品事实不变；
 9. 默认不覆盖 D 类产品仓库文件；
 10. 增加目标版本必需的新治理文件；
-11. 受控处理明确的重命名和废弃项；
-12. 检查旧表述是否与目标规则冲突；
-13. 检查 One Fact One Owner；
-14. 记录所有保留的项目扩展和 Remaining Risks；
-15. 根据第 9 节执行验证；
-16. 根据第 10 节形成独立本地 Commit；
-17. 输出最终报告后停止，不继续产品开发。
+11. 建立或迁移 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode；
+12. 将现有 Task 映射到目标版本状态机，不自动推进状态；
+13. 受控处理明确的重命名和废弃项；
+14. 检查旧表述是否与目标规则冲突；
+15. 检查 One Fact One Owner；
+16. 记录所有保留的项目扩展和 Remaining Risks；
+17. 根据第 9 节执行验证；
+18. 根据第 10 节形成独立本地 Commit；
+19. 输出最终报告后停止，不继续产品开发。
 
 ### 8.1 历史 Review Record
 
@@ -688,9 +694,13 @@ git status --short --branch
 - 项目批准的治理扩展仍存在；
 - 旧冲突规则已修正或明确阻断；
 - 没有新增重复 Current Truth Owner；
-- 没有把 C04 绑定到某个 Model、Harness 或 Tool；
+- 没有把 C04 绑定到某个 Model、Runtime、Harness、Session 或 Tool；
 - 没有把辅助调用宣称为正式 C04；
 - 没有扩大子 Agent 或工具权限；
+- Dynamic Role Profile / Knowledge Manifest 不成为新的 Current Truth Owner；
+- Interaction / Authorization 的 Action、Scope、Target、Side Effect、消费事件和终态完整；
+- `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 没有形成两套治理语义；
+- Task 状态转换符合目标版本的正式状态机；
 - 历史 Review Record 未被重写；
 - `GOV-MIG` 记录完整。
 
@@ -756,12 +766,12 @@ REMOTE_MUTATION: NO
 2. 将目标治理 Baseline 建立为 `CANDIDATE`，不得直接覆盖 `CURRENT`；
 3. 完成目标版本和项目当前规则要求的 C04、验证或采用 Gate；
 4. 所有适用前置条件满足后，记录 `READY_FOR_BASELINE_ADOPTION`；
-5. 按 `BASELINE_INDEX.md` 的既有 Owner 和授权规则显式执行 `CANDIDATE -> CURRENT`；
+5. 按 `BASELINE_INDEX.md` 和 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 的既有 Owner 与授权规则显式执行 `CANDIDATE -> CURRENT`；
 6. 完成要求的 Baseline Relearn 和采用后检查后，才记录 `GOVERNANCE_UPGRADE_COMPLETE`。
 
 如果项目尚未单独管理 Governance Baseline，迁移记录必须把治理版本和精确 Upstream Commit 作为当前项目 Baseline 的一个受控组成采用，不得以“不单列”为由跳过明确采用结果。
 
-Baseline 采用是否需要 Human Project Owner 再次批准，由项目当前 Baseline 配置和保留决策边界决定。没有触及保留决策、且既有规则允许 C00 在已授权升级范围内采用时，不额外制造人工 Gate；需要改变 Current Truth、Owner、Acceptance Threshold、重大风险接受或 Release 权限时，必须请求正确 Owner。
+Baseline 采用是否需要 Human Project Owner 再次批准，由项目当前 Baseline 配置和保留决策边界决定。C00 只有在正确 Owner 已对精确 Candidate、`BASELINE_ADOPTION` Action、Scope、Target、Validity、消费事件和终态完成预授权，必要 C04 / 验证已通过、Open Finding 为 0 且 Current Truth 未变化时，才可执行采用。缺少任一条件或涉及产品目标、重大架构裁定、Acceptance Threshold、重大风险、Formal Seal、Release 时，必须请求 Human Determination。
 
 ### 10.2 目标或项目规则要求正式 C04 时
 
@@ -855,11 +865,18 @@ VERSIONS_TRAVERSED:
 PRE_UPGRADE_PROJECT_COMMIT:
 GOVERNANCE_UPGRADE_COMMIT:
 MIGRATION_STATE:
+CANDIDATE_IDENTITY:
 C04_REVIEW_TARGET:
 C04_DECISION:
 BASELINE_CANDIDATE_ID:
 BASELINE_ADOPTION_DECISION:
 BASELINE_ADOPTION_EVIDENCE:
+CURRENT_DYNAMIC_ROLE_PROFILE:
+CURRENT_KNOWLEDGE_MANIFEST:
+CURRENT_INTERACTION:
+CURRENT_AUTHORIZATION:
+ENFORCEMENT_MODE:
+TASK_STATE_MAPPING:
 POST_C04_RECORD_ONLY_DESCENDANT:
 CURRENT_STAGE_BEFORE:
 CURRENT_STAGE_AFTER:
@@ -1001,6 +1018,17 @@ GOVERNANCE_BASELINE_CHANGE: YES
 |---|---|---|---|---|
 | | A / B / C / D | ADD / MODIFY / RENAME / REMOVE / PRESERVE | | |
 
+### 13.6.1 可执行治理迁移
+
+- Dynamic Role Profile：
+- Knowledge Manifest：
+- 当前 Interaction Contract / Operation：
+- 当前 Authorization Contract / 状态：
+- Enforcement Mode：`PROCEDURAL_FALLBACK / TOOL_ENFORCED`
+- Tool Enforcement / Procedural Evidence：
+- 现有 Task 状态映射：
+- Rule Gap / Compatibility Alias：
+
 ### 13.7 项目扩展与例外
 
 - 保留的项目治理扩展：
@@ -1034,8 +1062,12 @@ BASELINE_RELEARN_STATUS: NOT_STARTED / IN_PROGRESS / COMPLETE / NOT_APPLICABLE
 - Candidate Governance Baseline ID（如项目适用）：
 - Candidate 建立证据：
 - `CANDIDATE -> CURRENT` 采用决定：
-- 采用 Owner / 授权依据：
+- 采用执行者 / Authority Owner：
+- Authorization Contract ID / Action / Target / Scope / Validity：
+- 授权消费事件 / 终态 / 对账证据：
 - 采用时间与证据：
+- Formal Seal：`NOT_REQUIRED / NOT_REQUESTED / HUMAN_ISSUED / NOT_ISSUED`
+- Formal Seal ID / Target（如适用）：
 - Current Governance Baseline ID（采用后）：
 - 目标 Upstream Commit：
 - 治理升级 Commit：由本记录所在 Git Commit / 最终报告解析

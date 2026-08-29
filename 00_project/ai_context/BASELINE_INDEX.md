@@ -25,6 +25,7 @@
 ```text
 当前评审/Gate状态 → CURRENT_STATE.md
 当前授权/等待授权 → CURRENT_STATE.md
+当前 Dynamic Role Profile / Interaction / Enforcement Mode → CURRENT_STATE.md
 当前任务状态 → ACTIVE_TASKS.md
 当前未决问题状态 → OPEN_QUESTIONS.md
 当前有效决定正文/状态 → DECISION_INDEX.md
@@ -100,8 +101,11 @@ Baseline Tag：{{TAG_OR_NONE}}
 - [ ] 测试基线明确；
 - [ ] `DECISION_INDEX.md` 不存在同一主题多个冲突的当前有效决定；
 - [ ] 不存在未说明的 Baseline 内部重大偏差。
+- [ ] `CANDIDATE -> CURRENT` 存在 Human Project Owner / 既有 Baseline Owner 明确采用证据，或满足 `ROLE_INTERACTION_EXECUTION_POLICY.md` 第 5.1 节的精确 C00 预授权条件；
 
 > 当前项目是否正在 REVIEW / REWORK / READY、是否允许进入下一阶段，不在本文件判定；见 `CURRENT_STATE.md`。
+
+> Baseline Adoption 与 Formal Seal、Release、Commit、C04 和其他 Action Class 相互独立。Baseline `CURRENT` 不表示已经取得 Formal Seal。
 
 ---
 

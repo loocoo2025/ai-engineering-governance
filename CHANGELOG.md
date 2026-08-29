@@ -1,5 +1,29 @@
 # 变更日志
 
+## [0.1.5-candidate] - 2026-08-29
+
+> 内部候选身份；尚未创建 Tag、发布或采用为正式 Baseline。
+
+### 新增
+- 增加岗位交互与可执行治理权威政策，以及对应的机器可读治理合同目录。
+- 增加 Dynamic Role Profile、Knowledge Manifest、Rule Gap、Interaction Contract / Operation 和通用 Authorization 生命周期。
+- 增加 `INDEPENDENT_REVIEW / CONTEXTUAL_REVIEW / SELF_REVIEW / HUMAN_DETERMINATION` 四条审核与裁决运行线。
+- 增加只保留给 Human Project Owner 的 Formal Seal，以及 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 双执行保障模式。
+- 增加正式 Task 状态转换矩阵和 C04 独立性证据字段。
+
+### 变更
+- 稳定分离规则扩展为 `Role != Model != Runtime != Harness != Session != Tool`；C00～C06 仍为固定标准岗位。
+- 项目启动改为最小必要知识加载、按需检索和规则缺口失败关闭，不再要求每个岗位默认读取全部治理文件。
+- 逻辑 C00 在 Model / Runtime / Harness 切换时保持连续；物理上下文根据证据执行 Knowledge Continuation Check 或 Baseline Relearn。
+- Baseline Adoption 仍允许 C00 执行，但只限正确 Owner 对精确 Candidate 和 `BASELINE_ADOPTION` Action 完成预授权、必要 Gate 已通过且 Current Truth 未变化的情形。
+- 新系统边界、公共接口、跨系统依赖、安全/数据完整性设计和重大不可逆架构取舍统一进入 Human Determination。
+
+### 兼容与升级
+- 不改变 Current Truth、One Fact One Owner、C00～C06 基本职责、V 模型、ADR、Testing Governance、Traceability、C04 Finding/Decision Matrix 或既有产品事实。
+- 从 v0.1.4-beta.1 采用时必须增加两个新治理 Authority / Contract 文件，生成当前 Dynamic Role Profile / Knowledge Manifest，选择 Enforcement Mode，映射现有 Task 状态，并补齐当前 Interaction / Authorization。
+- 本版本改变启动、权限、交互、Review Line、Task 和 Session 连续性语义；正式采用后 `BASELINE_RELEARN: REQUIRED`。
+- `v0.1.5-candidate` 不是发布 Tag；在形成精确 Commit、独立 C04、显式 Baseline Adoption 和后续发布授权前不得作为正式发布版宣称。
+
 ## [0.1.4-beta.1] - 2026-08-27
 ### 新增
 - 增加可配置的保障/评审频率权威规则，并固定不可关闭控制与强制正式 C04 触发类别。

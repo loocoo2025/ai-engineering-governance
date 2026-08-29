@@ -10,20 +10,22 @@
 - 不得自行关闭自己提出的 Finding；只能由面向新 Review Target 的全新独立 C04 Session 复核关闭
 
 ## 执行槽位与独立性
-- C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
+- C04 是治理角色，不是某个 Model、Runtime、Harness、Session、Reviewer Provider 或 Tool / CLI。
 - `AUXILIARY / ADVISORY != FORMAL C04`；辅助分析不能直接产生正式 Gate 结论。
 - 正式开始前必须按 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节记录 Review Readiness，包括已冻结 Review Target、精确不可变 Commit Hash 或受控版本、独立 Session 和已预先定义的 Review Record 写入位置。
 - 当前或历史 Commit 都可以作为 Target，但必须可读取、可复现，并明确适用 Baseline 和 Review Purpose；`PASS` 只适用于该精确 Commit。
 - 默认使用 `INDEPENDENT_REVIEWER_PRIMARY`；不可用时使用 `INDEPENDENT_REVIEWER_FALLBACK`。
-- Model 和 Harness 的当前值只从 `CURRENT_STATE.md` 读取，不在本角色简报中复制。
+- Model、Runtime 和 Harness 的当前值只从 `CURRENT_STATE.md` 读取，不在本角色简报中复制。
 - 每次评审和每次 fallback 都必须建立新的独立 C04 Session。
 - C00 按 `NEW_INDEPENDENT_SESSION_REQUEST` 发起；默认在当前 AI/Harness 的当前项目创建，外部位置必须由负责人手动配置。
+- C04 必须绑定 `INDEPENDENT_REVIEW / FORMAL_C04`，并记录机器合同要求的新 Session、排除的执行/整改 Session、上下文包、精确 Target、Target 只读、允许写入范围、Git/远程写入禁止以及评审前后 Target 状态证据。
+- “只读”针对被评审对象；允许的唯一写入只能是预定义正式 Review Record，或由 Caller 代为记录返回结果。不得修改 Target、实现、测试或其他项目事实。
 - 不继承实现 AI 的私有推理、自我辩护或实现 Session 上下文。
 - 从项目正式文件和精确 Git Review Target 重建事实。
 - Executor 报告可以作为导航和待核验证据，但不得预先决定 C04 结论；Reviewer 必须独立验证其主张。
-- Reviewer Provider、Model 或 Harness 改变不得改变输入、评审标准或结论格式。
+- Reviewer Provider、Model、Runtime 或 Harness 改变不得改变输入、评审标准或结论格式。
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
-- Reviewer Provider 只是 Model/Harness 运行选择属性，不是新 Owner 或新 Current Truth 来源。
+- Reviewer Provider 只是 Model/Runtime/Harness 运行选择属性，不是新 Owner 或新 Current Truth 来源。
 
 ## Finding Severity 与整改边界
 - `QUESTION_PRIORITY / WORK_PRIORITY` 使用 P0～P3；C04 Finding Severity 使用 S0～S3。Question Priority 定义见工程总则第 10 章，分离边界、Finding Severity 和 Review Decision Matrix 见第 38.7 节。
@@ -34,10 +36,10 @@
 - S2/S3 由 Primary Executor 在现有授权范围内整改，也必须形成新 Review Target 并由新的独立 C04 Session 复审。
 - 任一 Open S0～S3 Finding 都阻断 `PASS`；只有非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 可与 `PASS` 并存。
 - C04 不批准 Exception / Risk Acceptance；只能由新的独立 C04 Session 验证正确 Owner 的批准证据并确认 Finding 关闭。
-- 需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才请求 `HUMAN_PROJECT_OWNER`。
+- 需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才请求 `HUMAN_PROJECT_OWNER`。
 
 ## 开始前
-- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
 - 随后确认已读取 C04 所需的保障节奏、当前状态、Baseline、精确 Git Review Target 和任务相关正式文件。
 - 不读取实现 HANDOFF 或私有推理来替代对冻结 Target 的独立核验。
 

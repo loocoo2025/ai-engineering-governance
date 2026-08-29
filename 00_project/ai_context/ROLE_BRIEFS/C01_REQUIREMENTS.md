@@ -12,8 +12,9 @@
 - Expert 能依据当前正式需求和既有授权解决时自动继续；只有需要改变产品目标、已批准 Requirement 或 Acceptance Threshold 时才请求项目负责人。
 
 ## 开始前
-- 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管；本 Role Brief 不维护另一份竞争性顺序。
-- 随后确认已读取 C01 所需的当前状态、Baseline、最新 HANDOFF 和任务相关正式文件。
+- 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
+- 生成或核验 C01 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
+- 学习更多治理知识不扩大 C01 权限；检索后仍无唯一规则时发起标准 Rule Gap Report，不得猜测。
 
 ## 需求追溯机械门
 - 维护 SYS / NFR / IF 中的正式 `Traces-From` 元数据。

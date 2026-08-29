@@ -65,6 +65,12 @@
 | CI / 质量规则 | YES / NO / UNKNOWN | |
 | 部署 | YES / NO / UNKNOWN | |
 | 运维 | YES / NO / UNKNOWN | |
+| Role / Dynamic Role Profile | YES / NO / UNKNOWN | |
+| Knowledge / Interaction | YES / NO / UNKNOWN | |
+| Authorization / Side Effect | YES / NO / UNKNOWN | |
+| Review Line / C04 独立性 | YES / NO / UNKNOWN | |
+| Enforcement Mode | YES / NO / UNKNOWN | |
+| Formal Seal | YES / NO / UNKNOWN | |
 
 ## 8. 当前允许动作
 -
@@ -104,6 +110,8 @@ YES / NO / PARTIAL
 下一步：
 -
 ```
+
+如变更涉及新系统边界、公共接口、跨系统依赖、安全/数据完整性设计、重大不可逆架构取舍、Formal Seal、重大风险接受或未被精确预授权覆盖的 Baseline Adoption，必须进入 `HUMAN_DETERMINATION`。
 
 > “最后讨论过”不等于“最后正式决定”。只有明确批准的变更才允许覆盖 Current Truth。
 >

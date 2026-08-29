@@ -175,7 +175,8 @@
 | `One Fact, One Owner` | 一个事实、一个权威 Owner | 同一动态事实不得在多个文件重复维护。 |
 | `Baseline` | 受控基线 | 在特定时点被正式接受的需求、决策、设计、代码和测试产物集合。 |
 | `Baseline Anchor` | 基线锚点 | 将基线锁定到精确 Commit 或 Tag 的不可变引用。 |
-| `Baseline Relearn` | 基线重学习 | 新 Session、Model 或 Harness 从当前正式基线重建上下文，而不无限传递历史记忆。 |
+| `Knowledge Continuation` | 知识接续 | Role、Task、Authority、Baseline 与 Gate 不变且上下文连续性可证明时，对新执行单元执行最小接续核验。 |
+| `Baseline Relearn` | 基线重学习 | 连续性无法证明，或 Baseline、Owner、Gate、重大阶段/任务边界变化时，从当前正式基线重建上下文。 |
 | `HANDOFF` | 上下文交接快照 | 用于短期连续工作，不是长期 Current Truth Owner。 |
 | `Gate` | 门禁 | 进入下一阶段或执行发布等动作前必须满足的受控条件。 |
 | `Review Target` | 评审目标 | 被 C04 评审的已冻结对象，必须绑定精确 Commit 或受控版本。 |
@@ -199,14 +200,22 @@
 | `Full Template` | 完整模板 | 适用于长周期、高风险、多阶段或需要正式追溯的项目。 |
 | `Lite` | 轻量模板 | 保留核心治理原则的精简文件集。 |
 
-## 9. Role、Model、Harness 与 Tool
+## 9. Role、Model、Runtime、Harness、Session 与 Tool
 
 | 术语 | 中文含义 | 治理语义 |
 |---|---|---|
 | `Role` | 角色 | 决定职责、权限和 Gate 身份。 |
 | `Model` | 模型 | 提供推理和生成能力，不自动产生审批权。 |
-| `Harness` | Agent 执行环境 | 承载 Agent 执行、上下文、Session 和工具调用。 |
+| `Runtime` | Agent 运行时 | 执行 Agent Loop、权限拦截、状态和调用协议；不自动成为 Harness 或治理 Role。 |
+| `Harness` | Agent 执行环境 | 承载任务编排、上下文、工具接入和用户交互。 |
+| `Session` | 执行会话 | 绑定一次具体上下文、Role Assignment、任务和权限的物理执行实例。 |
 | `Tool / CLI / API` | 工具/命令行/编程接口 | 只是被调用的机制，不因技术上可调用就获得治理角色。 |
+| `Dynamic Role Profile` | 动态岗位责任说明书 | 将固定 Role Brief 投影到当前项目、任务、上下游、工具、权限、知识和执行环境；只能收窄授权。 |
+| `Knowledge Manifest` | 知识清单 | 记录当前岗位和任务最小必读来源、已加载证据、按需检索范围和未解决 Rule Gap。 |
+| `Rule Gap` | 规则缺口 | 必要检索后仍无法获得唯一规则时的失败关闭报告，分为 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`。 |
+| `Interaction Contract` | 岗位交互合同 | 定义受控岗位交互的 Sender、Receiver、Action、Scope、Authority、输入、输出、副作用和终态。 |
+| `Interaction Operation` | 岗位交互实例 | 按某个版本化 Interaction Contract 发起并审计的一次具体交互。 |
+| `Authorization Contract` | 授权合同 | 精确绑定 Authority Owner、Action、Scope、Target、副作用、有效期、消费事件、终态、重试和对账。 |
 | `Primary Executor` | 主执行者 | 承担 C00/C01/C02/C03/C05/C06 的默认连续执行。 |
 | `Expert Escalation` | 专家升级 | 处理复杂、高风险或多次失败的精确技术问题。 |
 | `Independent Reviewer` | 独立评审者 | 使用与实现/整改隔离的全新 C04 Session 执行正式评审。 |
@@ -214,10 +223,26 @@
 | `AUXILIARY` | 辅助输出 | 执行 Session 中调用其他 Model/Tool 所得的辅助分析，不是正式 C04 Gate 结论。 |
 
 ```text
-Role != Model != Harness != Tool
+Role != Model != Runtime != Harness != Session != Tool
 SUBAGENT_PERMISSION <= CALLER_PERMISSION
 AUXILIARY / ADVISORY != FORMAL C04
 ```
+
+## 9.1 审核、裁决与执行保障
+
+| 术语 | 中文含义 | 治理语义 |
+|---|---|---|
+| `INDEPENDENT_REVIEW` | 独立复审线 | 使用隔离的新 Session；分为正式 C04 与不产生 Gate 权威的非正式独立复审。 |
+| `FORMAL_C04` | 正式 C04 | 针对冻结精确 Target、具备独立性证据并形成正式 Review Record 与 Gate Decision。 |
+| `INFORMAL_INDEPENDENT` | 非正式独立复审 | 保持上下文隔离，但输出仅为 Advisory / Observation。 |
+| `CONTEXTUAL_REVIEW` | 带上下文复审 | 在兼容授权和任务绑定下继续/恢复上下文，不产生正式 C04 权威。 |
+| `SELF_REVIEW` | 自审 | 执行者对自身产物做 Diff、检查、构建或测试，不能替代独立 C04。 |
+| `HUMAN_DETERMINATION` | 人类审定 | 由 Human Project Owner 对保留事项作出明确裁定。 |
+| `Human Determination Package` | 人类审定包 | 面向负责人提供事实、选项、风险、后果、推荐、未授权事项和可复制回复格式的唯一待决包。 |
+| `Formal Seal` | 正式封印 | Human Project Owner 对精确不可变 Package 作出的正式接受声明；不由其他 Action 自动推导。 |
+| `PROCEDURAL_FALLBACK` | 程序性后备模式 | 无专用工具时用受控文件、Git、检查表、明确回复和证据执行同一治理规则。 |
+| `TOOL_ENFORCED` | 工具强制模式 | 工具消费正式治理合同并机械检查权限、交互、状态、Gate 和审计。 |
+| `Enforcement Evidence` | 执行保障证据 | 记录当前模式、机械能力、控制证据、降级项、剩余风险和对账要求。 |
 
 ## 10. Autonomy Mode 与授权字段
 
@@ -302,11 +327,11 @@ REVIEW_NOT_READY
 → 评审前置状态，不是 Gate Decision
 ```
 
-## 14. v0.1.4 运行与升级术语
+## 14. v0.1.4+ 运行与升级术语
 
 | 术语 | 中文解释 | 使用边界 |
 |---|---|---|
-| `Owner Decision Package` | 负责人决策包 | 面向负责人概括待决定内容、变化、风险、选项、建议和精确授权边界；原权威文件仍是事实来源。 |
+| `Owner Decision Package` | 负责人决策包 | `Human Determination Package` 的兼容别名；新记录使用后者，原权威文件仍是事实来源。 |
 | `Gate Package` | 门禁包 | 按同一决策边界组织相关产物；不得借合包跳过强制证据、追溯或独立评审。 |
 | `Work Package` | 工作包 | 可递归拆分的有界执行单元，包含目标、边界、输入、输出、风险和完成条件；不自动新增人工 Gate。 |
 | `Assurance Cadence` | 保障/评审频率 | 决定保障活动何时触发及采用何种 Profile；不得关闭非可选控制。 |
@@ -319,3 +344,4 @@ REVIEW_NOT_READY
 | `READY_FOR_BASELINE_ADOPTION` | 可进入 Baseline 采用 | 精确 Candidate 已通过所需 C04，等待按既有 Baseline Owner 规则完成 `CANDIDATE -> CURRENT`。 |
 | `GOVERNANCE_UPGRADE_COMPLETE` | 治理升级完成 | Candidate 已正式采用为 Current，所需 Baseline Relearn 和采用后检查已完成。 |
 | `POST_C04_RECORD_ONLY_DESCENDANT` | C04 后仅记录后代 Commit | 只增加受控评审/迁移/Baseline 状态记录、且机械证明治理产物和产品事实零漂移的精确后代；不是通用免评审规则。 |
+| `vX.Y.Z-candidate` | 内部候选身份 | 表示尚未正式采用或发布的审核候选，可在授权后绑定精确 Candidate Commit，但不是发布 Tag 或已发布 Prerelease。 |

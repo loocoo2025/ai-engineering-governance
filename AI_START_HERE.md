@@ -109,38 +109,39 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 
 ---
 
-# 2. 必须按顺序阅读这些文件
+# 2. 先建立最小充分知识包，再按需检索
 
-如果文件存在，按以下顺序阅读：
+每次任务必须先完成岗位接任和最小知识加载，不要求默认把整个治理仓库全部装入上下文。
 
-1. `AI_START_HERE.md`
-2. `README_START_HERE.md`
-3. `AI_ENGINEERING_RULES_V2.md`
-4. `AI_CONVERSATION_ORCHESTRATION_RULES.md`
-5. `00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md`
-6. `00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml`
-7. `00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`
-8. `00_project/project_overview.md`
-9. `00_project/ai_context/DECISION_INDEX.md`
-10. `00_project/ai_context/CURRENT_STATE.md`
-11. `00_project/ai_context/BASELINE_INDEX.md`
-12. `00_project/ai_context/CONVERSATION_MAP.md`
-13. `00_project/ai_context/OPEN_QUESTIONS.md`
-14. `00_project/ai_context/ACTIVE_TASKS.md`
-15. 当前角色对应的 `ROLE_BRIEFS`
-16. 最新 `HANDOFF`（C04 独立评审除外：使用精确 Git Review Target，不继承实现 HANDOFF 或私有推理）
-17. 当前任务相关 PRD / SRS / ADR / 架构 / 详细设计 / 测试
-18. 当前任务相关代码
-19. 当前任务相关测试
+按以下顺序执行：
 
-如果是老项目，同时阅读：
+1. 完整阅读 `AI_START_HERE.md`；
+2. 读取 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 和 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`，解析固定岗位、动态 Profile、Interaction、授权和执行保障模式；
+3. 读取 `CURRENT_STATE.md`，确认当前阶段、Gate、授权、执行保障模式和运行路由；
+4. 读取 `BASELINE_INDEX.md`、`DECISION_INDEX.md` 和当前 `ACTIVE_TASKS.md` 条目；
+5. 读取当前角色的 Role Brief，并生成或核验本任务的 `DYNAMIC_ROLE_PROFILE` 与 `KNOWLEDGE_MANIFEST`；
+6. 读取 Profile、Interaction、Task 或适用 Gate 明确引用的治理条款；
+7. 读取当前任务直接相关的 PRD / SRS / ADR / 架构 / 设计 /代码 / 测试和证据；
+8. 普通连续 Session 按需读取最新 HANDOFF；正式 C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理；
+9. 知识不足时搜索整个受权治理仓库，加载解决当前问题所需的额外规则；
+10. 仍无唯一规则时输出 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`，停止依赖该规则的动作并请求正确 Owner 裁定。
 
-20. `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`
-21. `00_project/migration/` 下已有迁移资料
+以下文件不必每个任务默认全文加载，但命中其职责时必须读取：
+
+- Session / 交接 / 独立上下文 → `AI_CONVERSATION_ORCHESTRATION_RULES.md`；
+- 保障节奏 / C04 触发 → `PROJECT_ASSURANCE_CADENCE_POLICY.md`；
+- 外部 AI 当前配置 → `EXTERNAL_AI_TRANSFER_CONFIG.yaml`；
+- 测试范围 → `AI_TESTING_GOVERNANCE_RULES.md`；
+- Context Reset / Baseline Relearn → `AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`；
+- 变更 / 升级 / Release → 对应 `13_change_management/` 或 `14_release/` 文件。
+
+如果是老项目，还必须按任务需要读取 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 和 `00_project/migration/` 中的当前迁移资料。
 
 如果某个文件不存在：
 
 > 标记为 `MISSING`，不得编造内容。
+
+读取范围不能扩大权限。了解其他岗位或更多规则，不会自动获得相应 Role、Tool、Action、Gate 或批准权。
 
 ## 2.1 当前事实的“单一权威源”
 
@@ -216,7 +217,7 @@ C06  Bug、现场问题、变更闭环
 → C00
 ```
 
-不得把所有角色长期混在同一个对话里。
+不得把多个执行/评审角色的职责和权限长期混在同一个物理 Session。项目负责人可以持续使用逻辑 C00 控制通道，由 C00 在需要独立性时建立受控子 Session 并收回结果；这不等于把子 Session 的 Role 或权限合并进 C00。
 
 项目负责人可以持续使用逻辑 C00 控制通道。C00 协调 Primary 工作并自动建立需要隔离的 Expert/C04 子 Session；这不等于让同一个物理上下文同时冒充多个独立角色。普通阶段切换不强制关闭逻辑 C00，物理 C00 Session 仍按上下文阈值和完整性规则切换。
 
@@ -224,9 +225,9 @@ C06  Bug、现场问题、变更闭环
 
 > C03 编写的代码，不得在同一个连续上下文中假装成 C04 完成“独立评审”。
 
-## 3.1 Role、Model、Harness 与 Tool 分离
+## 3.1 Role、Model、Runtime、Harness、Session 与 Tool 分离
 
-`Role != Model != Harness != Tool`。`C00～C06` 是工程角色，Model 提供推理能力，Harness 提供 Agent 执行和会话环境，Tool / CLI / API 只是被调用工具。技术上能够调用某个 Model 或 Tool 不会自动获得对应治理角色或审批权限；稳定定义、辅助调用边界和权限继承规则见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、Model/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 和 `ASSURANCE_CADENCE_PROFILE`。
+`Role != Model != Runtime != Harness != Session != Tool`。C00～C06 是固定工程岗位；完整定义、动态岗位 Profile、知识加载、Interaction、授权和执行保障模式见 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md`。技术上能够调用某个 Model、Runtime、Harness 或 Tool，不会自动获得对应治理角色或审批权限。确定角色后，再从 `CURRENT_STATE.md` 读取当前 `AUTONOMY_MODE`、执行槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES`、`ASSURANCE_CADENCE_PROFILE` 和 `ENFORCEMENT_MODE`。
 
 默认路由：
 
@@ -239,7 +240,7 @@ C04
 → 不可用时 INDEPENDENT_REVIEWER_FALLBACK
 ```
 
-Model 或 Harness 替换都不改变 Current Truth。Model/Harness 替换后的新 Session 按工程总则执行 Baseline Relearn，并在 `BASELINE-RELEARN-CHECK` 通过后继续原任务；正式 C04 使用自身 Review Readiness 和精确 Target 重建事实。当前 Model/Harness 路由只由 `CURRENT_STATE.md` 维护。
+Model、Runtime 或 Harness 替换都不改变 Current Truth，也不改变逻辑 C00。物理执行上下文按 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 第 8 节选择 `KNOWLEDGE_CONTINUATION_CHECK` 或 `BASELINE_RELEARN`；正式 C04 始终使用自身 Review Readiness、独立性证据和精确 Target 重建事实。当前运行路由只由 `CURRENT_STATE.md` 维护。
 
 ---
 

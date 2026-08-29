@@ -15,12 +15,14 @@ Assurance cadence
 ```
 
 - 角色职责保持稳定；
-- 项目可以配置角色、阶段、质询、Expert、C04、测试和人工 Gate 的调用节奏；
-- 节奏配置不能通过改名、合并称谓或更换 Model/Harness 绕过强制触发条件；
+- 项目可以配置各固定角色、阶段、质询、Expert、C04、测试和人工 Gate 的调用节奏；
+- 节奏配置不能通过改名、合并称谓或更换 Model/Runtime/Harness/Session 绕过强制触发条件；
 - “频率降低”不等于“适用要求失效”；
 - Gate 可以预授权或自动执行，但不可关闭控制项不能被配置成不存在。
 
 当前采用的 Profile 只在 `CURRENT_STATE.md` 记录；Profile 定义和不可关闭边界只在本文件维护。
+
+固定岗位、动态 Profile、Interaction、通用授权、四条审核/裁决运行线和执行保障模式由 `ROLE_INTERACTION_EXECUTION_POLICY.md` 定义。本文件只决定何时必须触发保障活动。
 
 ---
 
@@ -76,6 +78,8 @@ CUSTOM
 
 配置 `NOT_APPLICABLE` 时必须说明该活动为何对当前范围不适用。不得把应执行的 C04 改名为“专家复核”，或把应执行的正式验证改名为“快速检查”来绕过本文件。
 
+检查或裁决活动必须在执行前明确为 `INDEPENDENT_REVIEW / CONTEXTUAL_REVIEW / SELF_REVIEW / HUMAN_DETERMINATION`。选择 Contextual Review 或 Self Review 不会关闭本文件规定的正式 C04 触发事件；普通任务也不会因为完成 Self Review 就自动触发正式 C04。
+
 ---
 
 ## 4. 不可关闭控制项
@@ -91,6 +95,9 @@ CUSTOM
 7. Public / Production Release 的授权和证据 Gate；
 8. 治理升级的 Readiness、精确源/目标、回滚 Anchor、产品事实保护和明确 Baseline Adoption 结果；
 9. 正式 Baseline、Review、Release、治理迁移的不可变审计 Anchor，禁止改写历史制造成功状态。
+10. 受控副作用动作的精确 Authorization Contract、原子消费、未知结果对账和 Action Class 不互推；
+11. Dynamic Role Profile、Interaction Contract 和 `SUBAGENT_PERMISSION <= CALLER_PERMISSION` 共同限制执行范围；
+12. `PROCEDURAL_FALLBACK` 不得冒充 `TOOL_ENFORCED`，降级时必须记录失去的机械控制和 Remaining Risk。
 
 “不可关闭”不等于“每次都要人工执行”。在 Current Truth、Autonomy Mode 和预授权范围内，可以自动检查、自动整改、自动复审或自动推进；命中负责人保留决策时才转人工。
 
@@ -113,6 +120,8 @@ CUSTOM
 - 不改变公共行为和 Acceptance Threshold 的局部重构；
 - 纯术语、展示、Release Metadata 修改；
 - 经影响分析证明不受上游变化影响的内容。
+
+`INFORMAL_INDEPENDENT`、`CONTEXTUAL_REVIEW` 和 `SELF_REVIEW` 可以按风险或工作需要执行，但它们不替代上述正式 C04 触发，也不产生正式 C04 Gate Decision。
 
 如果项目配置要求更高频率，可以增加 C04，但不得降低 C04 独立性或把辅助模型调用伪装成正式 C04。
 
@@ -149,7 +158,7 @@ OTHER_PREAUTHORIZED_INDEPENDENT_SESSION
 
 `EXPERT_ESCALATION_WITH_SELF_CONTAINED_PACKAGE` 和 `INDEPENDENT_ADVISORY_ANALYSIS` 不是所有 Expert / Advisory 调用的默认模式。只有当前工作已明确要求独立性、最小输入包自足且处于授权范围时，才能使用这些 Reason Code；普通 Expert 咨询或辅助推理可以继续采用当前 Session 内 Tool Call。
 
-普通上下文交接、阶段切换、工具调用、当前 Session 内 Auxiliary/Advisory 调用、Baseline Relearn 或普通 Model/Harness 替换，不因名称本身自动获得“外部独立 Session”资格。
+普通上下文交接、阶段切换、工具调用、当前 Session 内 Auxiliary/Advisory 调用、Knowledge Continuation、Baseline Relearn 或普通 Model/Runtime/Harness 替换，不因名称本身自动获得“外部独立 Session”资格。
 
 ---
 

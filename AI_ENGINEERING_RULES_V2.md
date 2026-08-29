@@ -3409,18 +3409,17 @@ MIGRATION_LOG.md
 
 # 38. Primary Executor + Expert Escalation + Independent Reviewer + Human Authority
 
-> 本章是 Role / Model / Harness / Tool 语义、辅助调用边界、权限继承和正式 C04 身份的唯一权威来源；其他文件只提供入口提示或 Session 编排引用。当前运行槽位和授权值仍只由 `CURRENT_STATE.md` 维护。
+> 本章是执行槽位、Expert Escalation、权限继承和正式 C04 Finding/Decision 的权威来源。固定岗位、动态 Profile、Role / Model / Runtime / Harness / Session / Tool 定义、标准 Interaction、通用授权、四条运行线、Formal Seal 和执行保障模式由 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 唯一定义；机器字段见 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`。当前运行槽位和授权值仍只由 `CURRENT_STATE.md` 维护。
 
-## 38.1 Role != Model != Harness != Tool
+## 38.1 Role != Model != Runtime != Harness != Session != Tool
 
-`C00～C06` 是稳定的工程角色。四个维度必须分离：
+`C00～C06` 是固定标准工程岗位。运行时必须应用：
 
-- Role：决定职责、权限和 Gate 身份；
-- Model：提供推理与生成能力；
-- Harness：承载 Agent 执行、上下文和会话；
-- Tool / CLI / API：只是被 Role 通过 Harness 调用的工具。
+```text
+Role != Model != Runtime != Harness != Session != Tool
+```
 
-角色职责保持不变，Model、Harness 和 Tool 都可以替换。技术上能够调用某个 Model、CLI 或 API，不会自动获得该 Model 在其他场景中通常承担的治理角色、Gate 身份或审批权限。例如：
+各维度的完整定义和动态 Role Profile 规则见岗位交互与可执行治理政策。本章只把该分离规则应用于当前执行槽位和升级路由。技术上能够调用某个 Model、Runtime、Harness、CLI 或 API，不会自动获得其在其他场景中通常承担的治理角色、Gate 身份或审批权限。例如：
 
 ```text
 DeepSeek -> codex exec -> GPT
@@ -3428,7 +3427,7 @@ DeepSeek -> codex exec -> GPT
 C03 -> C04
 ```
 
-Codex 或其他高能力 Model 可以承担高难度产品分析、架构分析、设计建议和独立复核，但其输出是否具有治理效力取决于本次正式分配的 Role 和流程。重大产品需求、系统边界、公共接口、架构及其他需要正式批准的决定，只有经过 `HUMAN_PROJECT_OWNER` 或获得明确授权的 C00 按正式 Gate 批准并冻结后才生效。AI / Model 不得自行把分析、建议或辅助结论提升为正式项目决定。
+Codex 或其他高能力 Model 可以承担高难度产品分析、架构分析、设计建议和独立复核，但其输出是否具有治理效力取决于本次正式分配的 Role、Interaction、Authority 和流程。需要正式批准的决定只有经过正确 Owner 按正式 Gate 批准并冻结后才生效。AI / Model 不得自行把分析、建议或辅助结论提升为正式项目决定。
 
 运行时使用以下可配置槽位：
 
@@ -3441,15 +3440,16 @@ INDEPENDENT_REVIEWER_FALLBACK
 HUMAN_PROJECT_OWNER
 ```
 
-除 `HUMAN_PROJECT_OWNER` 外，每个执行槽位都必须同时解析 Model 与 Harness：
+除 `HUMAN_PROJECT_OWNER` 外，每个执行槽位至少解析 Model 与 Harness；项目使用独立 Runtime 时还必须解析 Runtime：
 
 ```text
 EXECUTION_SLOT:
 MODEL: {{MODEL}}
+RUNTIME: {{RUNTIME_OR_HARNESS_NATIVE}}
 HARNESS: {{HARNESS}}
 ```
 
-Model 和 Harness 均属于当前运行配置，不属于产品 Current Truth。Tool 可用性和实际操作权限受当前授权边界及执行环境约束，也不产生新的治理角色。当前槽位值、Autonomy Mode 和自动授权上限只在 `CURRENT_STATE.md` 维护；不得复制到 `BASELINE_INDEX.md`、`DECISION_INDEX.md`、`CONVERSATION_MAP.md` 或 `ACTIVE_TASKS.md`。
+Model、Runtime 和 Harness 均属于当前运行配置，不属于产品 Current Truth。Session 绑定和 Tool 可用性受 Dynamic Role Profile、Interaction、当前授权和实际执行环境约束，也不产生新的治理角色。当前槽位值、Autonomy Mode 和自动授权上限只在 `CURRENT_STATE.md` 维护；不得复制到 `BASELINE_INDEX.md`、`DECISION_INDEX.md`、`CONVERSATION_MAP.md` 或 `ACTIVE_TASKS.md`。
 
 ## 38.2 C00～C06 默认槽位分配
 
@@ -3503,12 +3503,17 @@ Expert 可以直接解决在现有 Current Truth 和既有授权范围内能够�
 - 改变已批准 Requirement；
 - 改变 Acceptance Threshold；
 - 需要新的重大产品取舍；
+- 裁定新的系统边界、公共接口、跨系统依赖、安全/数据完整性设计或重大不可逆架构取舍；
 - 需要负责人接受重大风险；
-- 建立或替换正式 Baseline，且项目配置要求人工 Gate；
+- 建立或替换正式 Baseline，且不存在满足岗位交互与可执行治理政策第 5.1 节全部条件的精确 C00 预授权；
+- 签发 Formal Seal；
 - 执行未预授权 Release；
+- 当前授权模糊、冲突或可能被解释为扩大副作用范围；
 - 超出当前授权边界的重大操作。
 
 Expert 输出 `HUMAN DECISION REQUIRED = NO` 时，Primary Executor 应在现有授权范围内自动恢复执行，不得把普通技术判断继续上抛给项目负责人。
+
+C02 / Expert 可以分析所有候选架构并在已批准系统边界、公共接口和风险边界内决定普通技术实现。上述重大架构事项的最终裁定必须进入 `HUMAN_DETERMINATION`。Formal Seal 始终由 Human Project Owner 签发，不得预授权给 C00 或 AI。
 
 ## 38.5 Autonomy Mode
 
@@ -3551,7 +3556,7 @@ Primary Executor 可以在既定 Current Truth 和授权范围内，自动跨越
 SUBAGENT_PERMISSION <= CALLER_PERMISSION
 ```
 
-子 Agent、子模型、CLI、API 或其他被调用工具只能在调用者的任务范围、文件范围和副作用权限内工作，不得通过嵌套调用扩大父任务授权。如果调用者当前仅获准 `READ_ONLY / NO_COMMIT / NO_PUSH`，所有被调用执行单元同样不得：
+子 Agent、Model、Runtime、Harness、Session、CLI、API 或其他被调用工具只能在调用者的任务范围、文件范围和副作用权限内工作，不得通过嵌套调用扩大父任务授权。如果调用者当前仅获准 `READ_ONLY / NO_COMMIT / NO_PUSH`，所有被调用执行单元同样不得：
 
 - 擅自修改文件；
 - commit；
@@ -3596,7 +3601,7 @@ HUMAN DECISION REQUIRED = YES/NO
 >
 > 本节是 Review Readiness、Question Priority 与 C04 Finding Severity 的分离边界、C04 Finding Severity、Finding / Advisory 边界和 Review Decision Matrix 的唯一权威来源。Question Priority 的具体定义仍由第 10 章的质询规则维护；其他文件只能引用、执行或记录实例。
 
-执行角色可以在现有授权范围内调用 Codex、DeepSeek、Kimi 或其他 Model / Harness / Tool 进行只读分析、Bug 定位、方案咨询、设计预审或复杂问题辅助推理。这些输出只能视为 `ADVISORY / AUXILIARY`，不能直接作为正式 Gate 结论，也不能因为调用了 `codex exec` 或某个常用于 Reviewer 的 Model 就宣称完成 C04。C04 是治理角色，不是某个 Model、Harness、Reviewer Provider 或 `codex` CLI。
+执行角色可以在现有授权范围内调用 Codex、DeepSeek、Kimi 或其他 Model / Runtime / Harness / Tool 进行只读分析、Bug 定位、方案咨询、设计预审或复杂问题辅助推理。这些输出只能视为 `ADVISORY / AUXILIARY`，不能直接作为正式 Gate 结论，也不能因为调用了 `codex exec` 或某个常用于 Reviewer 的 Model 就宣称完成 C04。C04 是治理角色，不是某个 Model、Runtime、Harness、Session、Reviewer Provider 或 Tool / CLI。
 
 正式 C04 必须由独立评审流程明确发起，针对已冻结的 Review Target，使用精确不可变 Git Commit 或受控版本，与被评审对象的实现和整改过程保持角色独立，并产生正式 C04 Review Record。只有 Review Readiness 为 `READY` 时才能产生正式 `PASS / CHANGES_REQUESTED`。
 
@@ -3683,7 +3688,7 @@ CLOSED_BY_APPROVED_EXCEPTION
 | 存在任一 Open S2 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
 | 存在任一 Open S3 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
 | 适用的 Traceability Gate 未闭合且无正式批准的 Exception | `READY` | `CHANGES_REQUESTED` | 对应现有 Owner 整改 | 通常不需要 |
-| 必须改变已批准需求、产品目标、系统边界、公共接口、架构、Acceptance Threshold 或未预授权 Current Truth | `READY` | `CHANGES_REQUESTED` | C00 按现有权限体系转交保留决策 Owner | 需要 |
+| 必须改变已批准需求、产品目标、系统边界、公共接口、跨系统依赖、安全/数据完整性设计、重大不可逆架构取舍、Acceptance Threshold 或未预授权 Current Truth | `READY` | `CHANGES_REQUESTED` | C00 按现有权限体系转交保留决策 Owner | 需要 |
 | 必须接受重大风险或执行未授权 Release | `READY` | `CHANGES_REQUESTED` | 现有 Risk / Release Owner | 需要 |
 | 仅存在 Advisory / Observation / Future Improvement，无 Open Finding | `READY` | `PASS` | 进入既有下一阶段；非阻断事项可进入后续工作 | 不需要 |
 | 所有适用强制检查完成、证据充分、Open Findings = 0，所有 Exception 已由正确 Owner 批准 | `READY` | `PASS` | C00 / 既有下一阶段 | 不需要 |
@@ -3718,26 +3723,24 @@ C04 必须：
 - 不参与被审对象的整改设计或实现；
 - 不得批准 Exception / Risk Acceptance；
 - 不得自行关闭自己提出的 Finding；Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭；
-- 不因 Reviewer Provider、Model 或 Harness 改变而改变评审输入、审查标准或结论格式。
+- 不因 Reviewer Provider、Model、Runtime 或 Harness 改变而改变评审输入、审查标准或结论格式。
 
 C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，必须由新的独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并由新的独立 C04 Session 复审。
 
-如果某 Expert 实质参与了当前整改方案，C04 优先选择另一 Reviewer Provider。若另一 Provider 不可用，允许使用同 Provider 的全新独立 Session，但上下文必须完全隔离。Reviewer Provider 只是 Reviewer Model/Harness 的运行选择属性，不是新角色、新 Owner 或新 Current Truth 来源。C04 的判断权限来自角色和正式评审规则，不来自具体 Model 或 Harness。
+如果某 Expert 实质参与了当前整改方案，C04 优先选择另一 Reviewer Provider。若另一 Provider 不可用，允许使用同 Provider 的全新独立 Session，但上下文必须完全隔离。Reviewer Provider 只是 Reviewer Model/Runtime/Harness 的运行选择属性，不是新角色、新 Owner 或新 Current Truth 来源。C04 的判断权限来自角色和正式评审规则，不来自具体 Model、Runtime 或 Harness。
 
-## 38.8 Model / Harness Substitution
+## 38.8 Model / Runtime / Harness Substitution
 
-> **MODEL OR HARNESS SUBSTITUTION DOES NOT CHANGE CURRENT TRUTH.**
+> **MODEL, RUNTIME OR HARNESS SUBSTITUTION DOES NOT CHANGE CURRENT TRUTH OR THE LOGICAL C00 CHANNEL.**
 
-更换执行槽位的 Model、Harness 或两者，本身都不构成产品、需求、架构或 Baseline 变更。
+更换执行槽位的 Provider、Model、Runtime、Harness 或其组合，本身都不构成产品、需求、架构或 Baseline 变更，也不产生新的 Role、Tool 权限或独立性。
 
-更换 Model 或 Harness 时必须：
+切换必须固定当前 Git Anchor，记录前后运行身份，并按岗位交互与可执行治理政策第 8 节选择：
 
-1. 固定当前稳定 Git Anchor；
-2. 为新 Model/Harness 组合启动干净 Session；
-3. 执行 Baseline Relearn；
-4. 输出 `BASELINE-RELEARN-CHECK`；
-5. 确认理解一致后继续当前 `ACTIVE_TASK`；
-6. 不重新执行已经正式关闭的阶段。
+- `KNOWLEDGE_CONTINUATION_CHECK`：Role、Task、Scope、Authority、Baseline、Gate 和上下文完整性均兼容时使用；
+- `BASELINE_RELEARN`：上述事实变化、上下文连续性无法证明、发生混淆、高风险政策要求或负责人明确要求时使用。
+
+逻辑 C00 可以在切换后继续服务项目负责人；物理 Session 是否复用由平台能力、上下文完整性和政策决定。正式 C04 无论 Model/Runtime/Harness 是否变化，都必须使用新的独立 Session。
 
 # 41. 面向负责人的审批、变更与工作包治理
 
@@ -3745,19 +3748,24 @@ C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Findi
 
 ## 41.1 不得假设负责人已读完正文
 
-请求项目负责人批准 PRD、SRS、Baseline、架构、阈值、重大风险或 Release 时，不得只给文件名或要求“确认通过”。必须先提供最小 `OWNER_DECISION_PACKAGE`：
+请求项目负责人批准 PRD、SRS、Baseline、架构、阈值、重大风险、Formal Seal、Release 或其他保留决策时，不得只给文件名或要求“确认通过”。必须先提供 `HUMAN_DETERMINATION_PACKAGE`。现有 `OWNER_DECISION_PACKAGE` 作为兼容名称，必须满足同一字段集合：
 
 ```text
-DECISION_ID
-WHAT_IS_BEING_DECIDED
-CONCRETE_SUMMARY
-WHAT_CHANGED
-KEY_RISKS_AND_TRADEOFFS
-APPROVAL_BOUNDARY
-WHAT_APPROVAL_ENABLES
-WHAT_REMAINS_UNAUTHORIZED
-AUTHORITATIVE_SOURCE
+DETERMINATION_ID
+WHAT_MUST_BE_DECIDED
+WHY_HUMAN_AUTHORITY_IS_REQUIRED
+CONFIRMED_FACTS
+OPEN_QUESTIONS
+OPTIONS_AND_DIFFERENCES
+RISKS_AND_TRADEOFFS
 RECOMMENDED_OPTION_AND_REASON
+APPROVED_CONSEQUENCE
+CHANGES_REQUESTED_CONSEQUENCE
+DEFERRED_CONSEQUENCE
+REJECTED_CONSEQUENCE
+EXPLICITLY_NOT_AUTHORIZED
+AUTHORITATIVE_SOURCES
+COPYABLE_RESPONSE_FORMAT
 ```
 
 摘要只帮助负责人理解和决策，不成为第二 Current Truth。正文和正式记录仍是事实 Owner。
@@ -3772,6 +3780,8 @@ REJECTED
 ```
 
 AI 必须解释每个可选决定的直接后果。`DEFERRED` 保持当前 Baseline 有效，可以继续已授权范围，但不得越过被暂缓的边界。
+
+负责人回复只有在能够唯一绑定当前 Package、Action、Scope、Target 和边界时才有效。存在多个待决 Package、Target 不明确或回复可能扩大副作用范围时，AI 必须请求澄清，不能把一句模糊“批准”扩展为文件修改、Commit、Tag、Baseline Adoption、独立 Session 创建、正式 C04 Dispatch、安装、真实 Model 调用、Push、PR、Release、远程修改或 Formal Seal 的组合授权。
 
 ## 41.2 缩写与技术术语
 
