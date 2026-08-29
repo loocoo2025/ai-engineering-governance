@@ -1724,7 +1724,7 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 5. 本地创建失败不得自动 fallback 到外部；应输出 `LOCAL_INDEPENDENT_SESSION_CREATION_UNAVAILABLE` 和可复制的手动创建指令；
 6. 子 Session 权限不得超过 Caller；一个 `request_id` 最多创建一次；失败或超时不得自动再次付费调用；
 7. 正式 C04 还必须满足 Review Readiness，且 `formal_gate_authority` 只能由正式分配的 C04 使用。
-8. `authorization.source_reference` 必须指向适用于本请求的预授权 Gate 或明确确认记录，`valid_for` 必须为 `ONE_INDEPENDENT_SESSION`，`dispatch_limit` 必须为 `1`；外部能力开关、Profile 启用或技术可调用性本身都不是调用授权。
+8. `authorization.source_reference` 必须指向适用于本请求的预授权 Gate 或明确确认记录，`validity` 必须为 `ONE_INDEPENDENT_SESSION`，`dispatch_limit` 必须为 `1`；外部能力开关、Profile 启用或技术可调用性本身都不是调用授权。
 9. 正式 C04 还必须记录 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` 定义的独立性证据：新 Session、排除的实现/整改 Session、上下文包、精确 Target、Target 只读、允许写入范围、Git/远程写入禁止和评审前后 Target 状态。
 
 ## 41.6 当前 Session 外部 AI 调用与独立 Session 的分离
