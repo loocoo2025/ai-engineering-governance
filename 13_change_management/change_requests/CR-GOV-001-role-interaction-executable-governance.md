@@ -148,3 +148,15 @@ OUTPUT_MARKETING_FILES: EXCLUDED_AND_UNTOUCHED
 ```
 
 正式 C04 必须使用新的独立 Session，冻结到步骤 1 形成的完整 Commit Hash，并只输出正式 Review Record 与 `PASS / CHANGES_REQUESTED`。当前 C00 / Primary Executor Session 不得冒充 C04。
+
+## 9. 正式 C04 Finding 整改闭环
+
+针对精确 Review Target `51a7a41cfe5ac22034d1388f010d01efecf0d03a` 的正式 C04 输出 `CHANGES_REQUESTED`，记录见 `05_reviews/C04-GOV-001-v0.1.5-candidate.md`。本轮继续授权唯一绑定以下关闭范围：
+
+- `C04-GOV-001-F001`：拆分独立 Session 创建、正式 C04 Dispatch 与真实 Model 调用的授权表达和适用性校验；
+- `C04-GOV-001-F002`：补齐 Dynamic Role Profile 的当前或适用 Gate、适用事实 Owner 绑定和失败关闭条件；
+- `C04-GOV-001-F003`：统一四类 Review Template 的 Finding 默认路由字段；
+- 记录本次正式 C04、同步必要入口/升级说明与 Template File Index；
+- 形成新的精确 Commit，并针对该 Commit 发起全新独立 C04 复审。
+
+本轮仍不授权 Baseline Adoption、Tag、Push、PR、Release 或 Formal Seal；不得修改 `output/marketing/` 中其他会话的文件。

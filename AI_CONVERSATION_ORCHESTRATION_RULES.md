@@ -1554,7 +1554,7 @@ C04 Independent Review Session
 → 先记录 Review Readiness，只有 READY 时才产生 Gate Decision
 ```
 
-任何受控 Session 执行前必须存在 `DYNAMIC_ROLE_PROFILE` 和 `KNOWLEDGE_MANIFEST`，并与当前 Role、Task、Interaction、Authority、Model/Runtime/Harness/Session 绑定一致。Profile 未就绪时不得通过提示词猜测权限。
+任何受控 Session 执行前必须存在 `DYNAMIC_ROLE_PROFILE` 和 `KNOWLEDGE_MANIFEST`，并与当前 Role、Task、当前或适用 Gate、适用事实 Owner、Interaction、Authority、Model/Runtime/Harness/Session 绑定一致。Profile 未就绪时不得通过提示词猜测权限。
 
 执行角色在 Session 内发起的辅助 Model / CLI / API 调用不是新的治理 Session，沿用调用者 Role 和权限边界，其输出仅为 `ADVISORY / AUXILIARY`。只有按照正式独立评审流程建立的 `C04 Independent Review Session` 才能产生 C04 Gate 结论。
 
@@ -1626,7 +1626,7 @@ Reviewer Provider 只是 Reviewer Model/Runtime/Harness 的运行选择属性，
 
 ```yaml
 NEW_INDEPENDENT_SESSION_REQUEST:
-  schema_version: "1.1"
+  schema_version: "1.2"
   request_id: "{{UNIQUE_REQUEST_ID}}"
   action: "CREATE_INDEPENDENT_SESSION"
   independent_session_required: true
@@ -1682,11 +1682,17 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 
   authorization:
     contract_refs:
-      - "{{INDEPENDENT_SESSION_CREATION_AUTHORIZATION_ID}}"
-      - "{{FORMAL_C04_DISPATCH_OR_REAL_MODEL_INVOCATION_AUTHORIZATION_ID_OR_NOT_APPLICABLE}}"
+      independent_session_creation: "{{INDEPENDENT_SESSION_CREATION_AUTHORIZATION_ID}}"
+      formal_c04_dispatch: "{{FORMAL_C04_DISPATCH_AUTHORIZATION_ID_OR_NOT_APPLICABLE}}"
+      real_model_invocation: "{{REAL_MODEL_INVOCATION_AUTHORIZATION_ID_OR_NOT_APPLICABLE}}"
     required_action_classes:
-      - "INDEPENDENT_SESSION_CREATION"
-      - "{{FORMAL_C04_DISPATCH|REAL_MODEL_INVOCATION|NOT_APPLICABLE}}"
+      independent_session_creation: "INDEPENDENT_SESSION_CREATION"
+      formal_c04_dispatch: "{{FORMAL_C04_DISPATCH|NOT_APPLICABLE}}"
+      real_model_invocation: "{{REAL_MODEL_INVOCATION|NOT_APPLICABLE}}"
+    applicability_evidence:
+      independent_session_creation: "{{ALWAYS_APPLICABLE_EVIDENCE}}"
+      formal_c04_dispatch: "{{APPLICABILITY_OR_NOT_APPLICABLE_EVIDENCE}}"
+      real_model_invocation: "{{APPLICABILITY_OR_NOT_APPLICABLE_EVIDENCE}}"
     authority_owner: "{{AUTHORITY_OWNER}}"
     action_scope_target: "{{ACTION_SCOPE_AND_EXACT_TARGET}}"
     allowed_side_effects: "{{ALLOWED_SIDE_EFFECTS}}"
@@ -1726,6 +1732,10 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 7. 正式 C04 还必须满足 Review Readiness，且 `formal_gate_authority` 只能由正式分配的 C04 使用。
 8. `authorization.source_reference` 必须指向适用于本请求的预授权 Gate 或明确确认记录，`validity` 必须为 `ONE_INDEPENDENT_SESSION`，`dispatch_limit` 必须为 `1`；外部能力开关、Profile 启用或技术可调用性本身都不是调用授权。
 9. 正式 C04 还必须记录 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` 定义的独立性证据：新 Session、排除的实现/整改 Session、上下文包、精确 Target、Target 只读、允许写入范围、Git/远程写入禁止和评审前后 Target 状态。
+10. `INDEPENDENT_SESSION_CREATION` 对本请求始终适用；只创建独立 Session 而不发起正式 C04、也不触发真实 Model 调用时，后两项必须分别标记 `NOT_APPLICABLE` 并给出证据。
+11. 当请求把任务作为正式 C04 发出时，`FORMAL_C04_DISPATCH` 适用；如果该 Operation 只完成 Dispatch、没有触发新的真实 Model 推理调用，则 `REAL_MODEL_INVOCATION` 可以标记 `NOT_APPLICABLE`，但必须给出证据。
+12. 当一次 Operation 同时创建独立 Session、发起正式 C04 并触发真实 Model 调用时，三项 Action Class 必须同时出现，并分别引用各自的有效 Authorization Contract；任何一项不得隐含另一项。
+13. `NOT_APPLICABLE` 不是授权 ID。Schema 校验必须拒绝以下请求：适用 Action Class 缺少独立合同、合同与 Action Class 不匹配，或 `NOT_APPLICABLE` 缺少适用性证据。
 
 ## 41.6 当前 Session 外部 AI 调用与独立 Session 的分离
 

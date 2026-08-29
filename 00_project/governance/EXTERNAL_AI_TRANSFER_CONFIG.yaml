@@ -23,6 +23,8 @@ transfer_review:
   explicit_confirmation_required: true
 
 independent_session_creation:
+  request_contract_ref: "AI_CONVERSATION_ORCHESTRATION_RULES.md#41.5"
+  request_schema_version: "1.2"
   default_target: "CURRENT_AI_ENVIRONMENT"
   default_project_binding: "CURRENT_PROJECT"
   local_auto_create: true

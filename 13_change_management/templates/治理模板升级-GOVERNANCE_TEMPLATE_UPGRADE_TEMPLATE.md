@@ -128,7 +128,7 @@ PREAUTHORIZED_GATES:
 - LOCAL_GIT_COMMIT
 ```
 
-如果当前项目明确要求治理变更经过正式 C04，则允许在具备真正独立 Session 的前提下运行 C04 循环；无法建立独立 C04 时，不得伪造评审结论，应停在 `READY_FOR_INDEPENDENT_C04`。
+如果当前项目明确要求治理变更经过正式 C04，则允许在具备真正独立 Session 的前提下运行 C04 循环；无法建立独立 C04 时，不得伪造评审结论，应停在 `READY_FOR_INDEPENDENT_C04`。发起独立 Session 时必须引用 `AI_CONVERSATION_ORCHESTRATION_RULES.md` 第 41.5 节的当前请求 Schema，并分别证明 `INDEPENDENT_SESSION_CREATION`、适用的 `FORMAL_C04_DISPATCH` 和适用的 `REAL_MODEL_INVOCATION` 授权；本协议不复制请求字段。
 
 ### 1.2 权限继承
 
@@ -149,7 +149,7 @@ AUXILIARY / ADVISORY != FORMAL C04
 - 使用精确、可复现的上游治理版本；
 - 保留当前正式产品事实；
 - 补齐新增治理文件、规则和必要状态字段；
-- 补齐目标版本要求的 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode；
+- 补齐目标版本要求的 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode；Dynamic Role Profile 必须包含当前或适用 Gate 与适用事实 Owner 绑定；
 - 消除旧治理规则与目标版本之间的冲突；
 - 保留项目已经批准的本地治理扩展；
 - 形成独立、可回退的治理升级 Commit；
@@ -625,7 +625,7 @@ Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定
 8. 保持 C 类产品事实不变；
 9. 默认不覆盖 D 类产品仓库文件；
 10. 增加目标版本必需的新治理文件；
-11. 建立或迁移 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode；
+11. 建立或迁移 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode，并对照 Current Truth、Role Brief、Task 与 Authorization 校验当前或适用 Gate 和适用事实 Owner 绑定；
 12. 将现有 Task 映射到目标版本状态机，不自动推进状态；
 13. 受控处理明确的重命名和废弃项；
 14. 检查旧表述是否与目标规则冲突；
@@ -697,7 +697,7 @@ git status --short --branch
 - 没有把 C04 绑定到某个 Model、Runtime、Harness、Session 或 Tool；
 - 没有把辅助调用宣称为正式 C04；
 - 没有扩大子 Agent 或工具权限；
-- Dynamic Role Profile / Knowledge Manifest 不成为新的 Current Truth Owner；
+- Dynamic Role Profile / Knowledge Manifest 不成为新的 Current Truth Owner，且 Profile 的当前或适用 Gate、适用事实 Owner 绑定完整、未过期、无冲突；
 - Interaction / Authorization 的 Action、Scope、Target、Side Effect、消费事件和终态完整；
 - `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 没有形成两套治理语义；
 - Task 状态转换符合目标版本的正式状态机；
@@ -1020,7 +1020,7 @@ GOVERNANCE_BASELINE_CHANGE: YES
 
 ### 13.6.1 可执行治理迁移
 
-- Dynamic Role Profile：
+- Dynamic Role Profile（含当前或适用 Gate、适用事实 Owner 绑定及校验证据）：
 - Knowledge Manifest：
 - 当前 Interaction Contract / Operation：
 - 当前 Authorization Contract / 状态：

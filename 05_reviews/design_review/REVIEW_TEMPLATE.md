@@ -51,9 +51,9 @@ S3: {{COUNT}}
 ADVISORIES: {{COUNT}}
 ```
 
-| Finding ID | Severity | Finding | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Status | Closure Evidence |
-|---|---|---|---|---|---|---|---|
-| REV-001 | S0/S1/S2/S3 | | | | | OPEN | |
+| Finding ID | Severity | Finding | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Default Route | Status | Closure Evidence |
+|---|---|---|---|---|---|---|---|---|
+| REV-001 | S0/S1/S2/S3 | | | | | | OPEN | |
 
 ## Advisory / Observation / Future Improvement
 

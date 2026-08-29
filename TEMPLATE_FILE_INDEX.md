@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：144
+预建文件数：145
 
 ```text
 .gitignore
@@ -59,6 +59,7 @@
 04_design/module_design/MODULE_DESIGN_TEMPLATE.md
 04_design/protocol_design/PROTOCOL_DESIGN_TEMPLATE.md
 04_design/state_machine/STATE_MACHINE_TEMPLATE.md
+05_reviews/C04-GOV-001-v0.1.5-candidate.md
 05_reviews/ai_challenge_records/AI_CHALLENGE_TEMPLATE.md
 05_reviews/architecture_review/REVIEW_TEMPLATE.md
 05_reviews/code_review/CODE_REVIEW_TEMPLATE.md
@@ -109,8 +110,8 @@
 13_change_management/baselines/BASELINE_TEMPLATE.md
 13_change_management/change_requests/CHANGE_REQUEST_TEMPLATE.md
 13_change_management/change_requests/CR-GOV-001-role-interaction-executable-governance.md
-13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
+13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md

@@ -18,6 +18,11 @@
 - Baseline Adoption 仍允许 C00 执行，但只限正确 Owner 对精确 Candidate 和 `BASELINE_ADOPTION` Action 完成预授权、必要 Gate 已通过且 Current Truth 未变化的情形。
 - 新系统边界、公共接口、跨系统依赖、安全/数据完整性设计和重大不可逆架构取舍统一进入 Human Determination。
 
+### 修复
+- 独立 Session 请求改为分别表达 Session 创建、正式 C04 Dispatch 与真实 Model 调用的适用授权，并对 `NOT_APPLICABLE` 进行失败关闭校验。
+- Dynamic Role Profile 机器合同补齐当前或适用 Gate 与适用事实 Owner 绑定及其就绪性校验。
+- Requirement、Architecture、Design 与 Code Review Template 统一支持 Finding 的 `Default Route` 字段。
+
 ### 兼容与升级
 - 不改变 Current Truth、One Fact One Owner、C00～C06 基本职责、V 模型、ADR、Testing Governance、Traceability、C04 Finding/Decision Matrix 或既有产品事实。
 - 从 v0.1.4-beta.1 采用时必须增加两个新治理 Authority / Contract 文件，生成当前 Dynamic Role Profile / Knowledge Manifest，选择 Enforcement Mode，映射现有 Task 状态，并补齐当前 Interaction / Authorization。

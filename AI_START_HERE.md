@@ -119,7 +119,7 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 2. 读取 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 和 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`，解析固定岗位、动态 Profile、Interaction、授权和执行保障模式；
 3. 读取 `CURRENT_STATE.md`，确认当前阶段、Gate、授权、执行保障模式和运行路由；
 4. 读取 `BASELINE_INDEX.md`、`DECISION_INDEX.md` 和当前 `ACTIVE_TASKS.md` 条目；
-5. 读取当前角色的 Role Brief，并生成或核验本任务的 `DYNAMIC_ROLE_PROFILE` 与 `KNOWLEDGE_MANIFEST`；
+5. 读取当前角色的 Role Brief，并生成或核验本任务的 `DYNAMIC_ROLE_PROFILE` 与 `KNOWLEDGE_MANIFEST`；Profile 必须明确绑定当前或适用 Gate 与适用事实 Owner；
 6. 读取 Profile、Interaction、Task 或适用 Gate 明确引用的治理条款；
 7. 读取当前任务直接相关的 PRD / SRS / ADR / 架构 / 设计 /代码 / 测试和证据；
 8. 普通连续 Session 按需读取最新 HANDOFF；正式 C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理；

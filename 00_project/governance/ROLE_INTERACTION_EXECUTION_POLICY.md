@@ -79,8 +79,9 @@ Profile 至少包含：
 
 - Role ID 和稳定 Role Brief 引用；
 - 当前 Task / Work Package；
+- 当前或适用 Gate 绑定及其 Authority Source；
 - 上游与下游岗位；
-- 输入、输出和适用事实 Owner；
+- 输入、输出和适用事实 Owner 绑定；
 - 允许发起的流程；
 - 允许使用的 Tool / Action；
 - 禁止动作和禁止副作用；
@@ -94,11 +95,12 @@ Profile 至少包含：
 
 机械规则：
 
-1. Role Assignment 或 Profile 缺失、不完整、过期或与 Current Truth 冲突时，不得执行受控副作用动作；
+1. Role Assignment 或 Profile 缺失、不完整、过期或与 Current Truth 冲突时，必须标记 `ROLE_PROFILE_NOT_READY`，不得执行受控副作用动作；
 2. Profile 是当前授权和权威文件的受控投影，不是新的 Current Truth Owner；
 3. Task、Gate、授权、Role、执行环境或关键输入变化时必须重新验证，必要时重新生成；
 4. Profile 只能缩小已获授权，不能扩大授权；
 5. 静态 Role Brief 负责稳定职责，动态 Profile 负责本次执行边界，二者不得互相覆盖。
+6. 当前或适用 Gate 绑定、适用事实 Owner 绑定必须分别对照 Current Truth、稳定 Role Brief、当前 Task / Work Package 和 Authorization 校验；任一绑定缺失、过期或冲突时不得声明 `ROLE_PROFILE_READY`。
 
 ---
 
