@@ -1,22 +1,26 @@
-# 反馈闭环记录
+# 现场 / 运行反馈闭环记录
 
-> 本文件实例负责单个反馈项从登记到关闭的可追溯记录。反馈不自动成为正式决定，也不复制项目当前 Gate 或 Baseline 状态。
+> 本文件用于已经由 `12_issues/feedback/FEEDBACK_REGISTER.md` 分流为 `FIELD` 的现场或运行反馈。通用反馈必须先登记为 FB；本文件不维护 FB 当前状态，也不自动成为正式决定或复制项目当前 Gate / Baseline 状态。
 
 ## 1. 基本信息
 
 - Feedback ID：`FB-XXX`
+- FEEDBACK_REGISTER 条目：
+- Field Record ID：`FIELD-XXX`
 - 日期：
 - 适用版本：
 - 来源：
 - 原始内容/引用：
 - 记录 Owner：
 
-## 2. 分类
+## 2. FB 分流依据与现场类别
 
-`EXPLANATION / DEFECT / CHANGE / DECISION / FUTURE_IMPROVEMENT / DUPLICATE / OUT_OF_SCOPE / UNKNOWN`
+- FEEDBACK_REGISTER 类型：
+- FEEDBACK_REGISTER 去向：`FIELD`
+- 分流依据：
+- 现场类别：`INCIDENT / RELIABILITY / PERFORMANCE / USABILITY / ENVIRONMENT / OPERATIONS / OTHER`
 
-本次分类：
-分类理由：
+本文件不得重新定义 FB 的类型、去向或当前状态；需要改变分流结论时回到 `FEEDBACK_REGISTER.md` 更新。
 
 ## 3. 影响
 
@@ -48,7 +52,7 @@
 
 ## 7. 关闭
 
-- 状态：`OPEN / IN_PROGRESS / VERIFIED / CLOSED`
+- Field Record 状态：`OPEN / IN_PROGRESS / VERIFIED / CLOSED`
 - 关闭依据：
 - 关闭人/Owner：
 - 关闭日期：

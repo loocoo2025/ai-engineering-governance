@@ -148,6 +148,7 @@
 | `CI` | Continuous Integration | 持续集成 | 自动执行 Build、Test、Static Analysis、Sanitizer、Coverage 和 Package。 |
 | `CD` | Continuous Delivery / Continuous Deployment | 持续交付/持续部署 | 目录 `10_ci_cd/` 中的交付和部署能力。 |
 | `E2E` | End-to-End | 端到端 | 覆盖多个组件或完整用户链路的测试。 |
+| `ETC` | Easier To Change | 更容易变更 | 正式可变更性质量属性；要求变化可局部实施、独立验证并受控回退，不授权投机性过度设计。 |
 | `KPI` | Key Performance Indicator | 关键绩效指标 | Coverage 在模板中是诊断信号，不应被机械当作 KPI。 |
 | `SLA` | Service Level Agreement | 服务等级协议 | 只有存在明确 SLA 或性能需求时，相关性能测试才自动成为强制项。 |
 | `PR` | Pull Request | 合并请求 | 代码审查和远程仓库协作单元。 |
@@ -166,6 +167,8 @@
 | `Coverage` | Test Coverage | 测试覆盖率 | 用于诊断可能未测试的区域，不直接证明测试质量。 |
 | `Mutation Testing` | Mutation Testing | 变异测试 | 通过人工变更代码检验测试是否能发现错误；不得无目的扩张。 |
 | `Property-Based Testing` | Property-Based Testing | 基于性质的测试 | 使用不变量和自动生成输入检查行为；需有明确目的。 |
+| `Substitution Test` | Substitution Test | 替换性测试 | 替换声明的 Variation Point 后，验证 Stable Core 和批准契约仍成立。 |
+| `Compatibility Test` | Compatibility Test | 兼容性测试 | 验证变化前后的适用接口、数据、配置、部署或升级边界符合批准要求。 |
 
 ## 8. 核心治理专有名词
 
@@ -193,6 +196,9 @@
 | `Edge Consistency` | 关系边一致性 | 检查详细需求中的上游关系与追溯矩阵中的关系是否完全一致。 |
 | `Formal Trace` | 正式追溯关系 | 可用于 Gate 和机械验证的受控追溯边。 |
 | `Iterative V-Model` | 迭代式 V 模型 | 将需求、架构、设计、实现与对应验证活动配对，并通过迭代持续纠错。 |
+| `Stable Core` | 稳定核心 | 对某项已批准变化应保持不变、不得被变化穿透的核心行为、模块、接口或数据边界。 |
+| `Variation Point` | 变化点 | 为已批准变化场景明确预留并受边界约束的可替换或可扩展位置。 |
+| `Change Amplification` | 变更放大 | 一个变化输入实际牵动的模块、接口、数据、事实副本、测试和回退范围；用于判断变化是否保持局部和可控。 |
 | `As-Is` | 当前实际状态 | 已有项目此刻真实存在的结构、行为、接口、数据和部署状态。 |
 | `To-Be` | 目标状态 | 经批准后希望达到的未来结构或行为；不得与 As-Is 混写。 |
 | `Greenfield` | 全新项目 | 从空白或几乎空白状态开始的项目。 |

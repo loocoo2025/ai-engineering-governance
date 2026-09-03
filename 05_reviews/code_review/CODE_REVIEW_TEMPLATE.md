@@ -51,6 +51,12 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 -
 ## 可测试性/测试缺口
 -
+## ETC / Change Amplification（适用时）
+- 变化是否局限在设计声明的模块 / Variation Point：
+- 是否修改了无关 Stable Core：
+- 是否新增需要同步维护的事实副本：
+- 是否具备替换性、兼容性、独立测试和回退证据：
+- 实际影响范围是否超过批准的变更预算：
 
 ## Finding Summary
 
@@ -70,7 +76,7 @@ ADVISORIES: {{COUNT}}
 |---|---|---|---|---|---|---|---|---|
 | C04-CODE-S1-001 | S0/S1/S2/S3 | {{CATEGORY}} | | | | | OPEN | |
 
-Category 可使用：`CORRECTNESS / REQUIREMENT / ARCHITECTURE / INTERFACE / TRACEABILITY / TESTING / SECURITY / SAFETY / RELIABILITY / MAINTAINABILITY / GOVERNANCE / EVIDENCE`。Category 不产生新的治理 Owner。
+Category 可使用：`CORRECTNESS / REQUIREMENT / ARCHITECTURE / INTERFACE / TRACEABILITY / TESTING / SECURITY / SAFETY / RELIABILITY / MAINTAINABILITY / CHANGEABILITY / GOVERNANCE / EVIDENCE`。Category 不产生新的治理 Owner。
 
 Finding Status：
 

@@ -1,5 +1,5 @@
-schema_version: "1.0"
-framework_version: "v0.1.5"
+schema_version: "1.1"
+framework_version: "v0.1.6"
 release_status: "STABLE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
 
@@ -285,11 +285,16 @@ human_determination_package:
     - "determination_id"
     - "what_must_be_decided"
     - "why_human_authority_is_required"
+    - "overall_route_and_current_stage"
+    - "artifact_purpose_and_downstream_use"
+    - "content_summary_changes_and_exclusions"
+    - "terms_thresholds_and_practical_meaning"
     - "confirmed_facts"
     - "open_questions"
     - "options_and_differences"
     - "risks_and_tradeoffs"
     - "recommended_option_and_reason"
+    - "authorization_included"
     - "approved_consequence"
     - "changes_requested_consequence"
     - "deferred_consequence"
@@ -302,6 +307,46 @@ human_determination_package:
     - "CHANGES_REQUESTED"
     - "DEFERRED"
     - "REJECTED"
+  human_facing_requirements:
+    authority: "00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md"
+    required_explanations:
+      - "OVERALL_ROUTE_AND_CURRENT_STAGE"
+      - "ARTIFACT_PURPOSE_AND_DOWNSTREAM_USE"
+      - "CONTENT_CHANGE_AND_EXCLUSIONS"
+      - "TERMS_THRESHOLDS_AND_PRACTICAL_MEANING"
+      - "RISKS_TRADEOFFS_AND_RECOMMENDATION"
+      - "DECISION_OPTIONS_AND_CONSEQUENCES"
+      - "AUTHORIZED_AND_NOT_AUTHORIZED_BOUNDARIES"
+    bare_approval_question_allowed: false
+
+feedback_workflow:
+  contract_id: "FEEDBACK_REGISTER_AND_TRIAGE"
+  owner: "12_issues/feedback/FEEDBACK_REGISTER.md"
+  intake_before_classification: true
+  types:
+    - "QUESTION"
+    - "USABILITY"
+    - "GOVERNANCE_GAP"
+    - "IMPROVEMENT"
+    - "DEFECT_SUSPECTED"
+    - "FIELD_REPORT"
+    - "UNKNOWN"
+  statuses:
+    - "NEW"
+    - "TRIAGED"
+    - "ACTION_PLANNED"
+    - "DEFERRED"
+    - "CLOSED"
+    - "REJECTED"
+  routes:
+    - "EXPLANATION"
+    - "BUG"
+    - "FIELD"
+    - "CR"
+    - "FUTURE_IMPROVEMENT"
+    - "NO_ACTION"
+    - "UNKNOWN"
+  registration_changes_current_truth: false
 
 formal_seal:
   contract_id: "FORMAL_SEAL"

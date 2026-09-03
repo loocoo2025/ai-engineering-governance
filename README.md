@@ -22,7 +22,7 @@ AI Agent 擅长连续工作数小时，而软件项目往往持续数月。长�
 
 用户和 Agent **不需要**为每项任务读取所有模板文件，只需按照 `AI_START_HERE.md` 的路由加载最小必要知识、任务相关的 Current Truth 和工程产物，并在规则不足时按需检索或报告 Rule Gap。
 
-当前已发布基线：**v0.1.5**
+当前已发布基线：**v0.1.6**
 
 ## 为什么需要长程智构
 
@@ -50,6 +50,9 @@ AI 编码 Agent 在单项任务中表现出色，但长周期项目通常会以�
 | **Primary Executor + Expert Escalation** | 常规执行由主要执行者负责，复杂或高不确定问题按规则升级给专家 | 日常工作频繁打断人类，关键问题又缺少权威判断 |
 | **Independent C04 Review** | 使用全新上下文和精确 Git Review Target 独立评审；评审者不能修改对象或关闭自己的 Finding | 自我评审、自我批准、评审目标漂移 |
 | **端到端可追溯** | 建立“需求 → 架构 → 设计 → 代码 → 测试 → 证据”的闭环 | 声称完成却缺少可验证证据 |
+| **Human-readable Approval** | 决定前先解释路线、阶段、产物用途、风险、选项和授权边界 | 负责人在信息不足时被要求只回答“是否批准” |
+| **Feedback Register and Triage** | 疑问、体验问题、治理缺口、建议和疑似缺陷先登记，再分流到解释、BUG、FIELD 或 CR | 反馈在聊天中丢失或过早误分类 |
+| **ETC / Change Amplification** | 从预计变化场景到稳定核心、变化点、局限设计、替换/兼容测试和独立评审建立证据链 | 一个局部变化牵动无关模块、事实副本和大范围回归 |
 | **Brownfield Migration** | 先只读盘点和建立 As-Is 基线，再分批、受控迁移旧项目 | 当前行为与历史意图混杂，迁移过程不可控 |
 | **Bounded Autonomy** | 通过 `SUPERVISED_AUTO`、`FULL_AUTO` 和人类 Gate 明确自动化边界 | 自动化缺少授权范围与停止条件 |
 | **Multi-model Workflow** | 按职责路由主要执行者、专家和独立评审者，同时保持统一 Current Truth | 多模型协作互相覆盖、上下文漂移 |

@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：148
+预建文件数：155
 
 ```text
 .gitignore
@@ -22,6 +22,7 @@
 00_project/development_process.md
 00_project/glossary.md
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
+00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
@@ -106,15 +107,20 @@
 11_validation/validation_reports/README.md
 12_issues/bugs/BUG_TEMPLATE.md
 12_issues/closed/README.md
+12_issues/feedback/FEEDBACK_REGISTER.md
+12_issues/feedback/FEEDBACK_TEMPLATE.md
 12_issues/field_issues/FIELD_ISSUE_TEMPLATE.md
 12_issues/root_cause_analysis/RCA_TEMPLATE.md
 13_change_management/baselines/BASELINE_TEMPLATE.md
 13_change_management/change_requests/CHANGE_REQUEST_TEMPLATE.md
 13_change_management/change_requests/CR-GOV-001-role-interaction-executable-governance.md
+13_change_management/change_requests/CR-GOV-002-human-feedback-etc.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
+13_change_management/impact_analysis/IA-GOV-002-human-feedback-etc.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.5.md
+13_change_management/release_notes/RELEASE_NOTES_v0.1.6.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
 13_change_management/templates/代码实现-IMPLEMENTATION_BUG_FIX_TEMPLATE.md
@@ -126,6 +132,7 @@
 14_release/release_checklist.md
 14_release/release_records/RELEASE_RECORD_TEMPLATE.md
 14_release/release_records/RELEASE_RECORD_v0.1.5.md
+14_release/release_records/RELEASE_RECORD_v0.1.6.md
 15_operations/deployment_manual.md
 15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md
 15_operations/maintenance_manual.md

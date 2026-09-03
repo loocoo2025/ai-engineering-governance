@@ -49,6 +49,15 @@
 - 不执行的验证及理由：
 - 安全/合规/数据完整性是否要求扩大范围：
 
+## ETC / Change Amplification（适用时）
+
+- 对应已批准变化场景 / Requirement：
+- 实际涉及的模块 / 接口 / 数据 / 配置 / 测试：
+- 是否修改无关 Stable Core：`YES / NO / UNKNOWN`
+- 是否需要同步修改多个事实副本：`YES / NO / UNKNOWN`
+- 是否保持独立测试、替换和回退：`YES / NO / UNKNOWN`
+- 是否超过批准的允许影响边界 / 变更预算：`YES / NO / UNKNOWN`
+
 ## Gate 与 Baseline 影响
 
 - 当前 Gate 是否继续有效：`YES / NO / PARTIAL / UNKNOWN`

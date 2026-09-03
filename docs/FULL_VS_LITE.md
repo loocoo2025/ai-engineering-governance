@@ -34,11 +34,14 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/ai_context/CONVERSATION_MAP.md
 00_project/ai_context/ROLE_BRIEFS/*
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
+00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
+12_issues/feedback/FEEDBACK_REGISTER.md
+12_issues/feedback/FEEDBACK_TEMPLATE.md
 ```
 
 使用正式需求追溯时，增加 `09_quality/traceability/validate_traceability.py`。
@@ -53,6 +56,9 @@ Lite 可以减少产物，但不得弱化：
 - 已接受需求和决策的权威性；
 - 独立评审上下文；
 - 人类审批边界；
+- 面向负责人的审批可理解性；
+- 反馈先登记、再分类分流；
+- ETC 变化场景、局限设计和验证链路；
 - 测试范围治理；
 - 保障节奏中的不可关闭控制和强制 C04 触发；
 - 外部 AI 的权限继承、默认关闭、单次授权与本地/外部 Session 放置边界；

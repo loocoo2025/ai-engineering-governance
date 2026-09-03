@@ -3742,23 +3742,68 @@ C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Findi
 
 逻辑 C00 可以在切换后继续服务项目负责人；物理 Session 是否复用由平台能力、上下文完整性和政策决定。正式 C04 无论 Model/Runtime/Harness 是否变化，都必须使用新的独立 Session。
 
+## 38.9 ETC 可变更性质量治理
+
+> 本节是 ETC（Easier To Change，更容易变更）作为正式质量属性、设计输入和评审判据的唯一权威来源。需求、架构、设计、测试和 Review Template 只记录具体项目实例，不得另行定义竞争性 ETC 规则。
+
+ETC 的目标是：在已批准变化场景发生时，以可控、局部、可测试、可回退的方式完成变更，并避免无关核心、事实副本和下游链路被连带修改。ETC 不等于为未知未来进行无限抽象、重构或增加复杂度；没有批准的变化场景、质量要求或风险依据时，不得借 ETC 扩大范围。
+
+项目按以下链路落实 ETC：
+
+```text
+PRD 预计变化场景
+→ SRS 可量化的可变更性要求与验收边界
+→ 架构的稳定核心、变化点和依赖方向
+→ 详细设计的变化局限模块、兼容与回退机制
+→ 替换性测试、兼容性测试和必要回归
+→ C02 / C04 Change Amplification 检查
+→ 验证证据
+```
+
+### 38.9.1 最低输入与产物
+
+- PRD：记录可合理预见的变化触发、受影响行为/数据/接口、预计频率或不确定性，以及必须保持稳定的内容；
+- SRS / Acceptance Criteria：把适用场景转成可验证的影响边界、兼容要求、回退要求或变更预算；
+- 架构：区分 Stable Core（稳定核心）与 Variation Point（变化点），定义依赖方向、隔离边界和禁止穿透的核心；
+- 详细设计：说明每种已批准变化应局限在哪些模块、允许影响哪些接口/数据/配置，以及如何独立测试和回退；
+- 测试：针对适用 ETC 要求执行 Substitution Test（替换性测试）、Compatibility Test（兼容性测试）和必要回归。测试范围仍受 Testing Governance 约束，不因 ETC 自动扩张为全排列。
+
+### 38.9.2 Change Amplification 检查
+
+C02 在架构和设计形成时、C04 在评审适用 Target 时，必须针对已批准变化场景回答：
+
+1. 改一个需求预计需要修改几个模块、接口、数据结构、配置和测试？
+2. 是否修改了与该变化无关的 Stable Core？
+3. 是否需要同步修改多个事实副本，违反 One Fact, One Owner？
+4. 变化是否可以在明确边界内独立实现、测试、回退或替换？
+5. 实际影响范围是否超过批准的变更预算或设计声明？
+
+`Change Amplification` 是变化输入与实际影响范围之间的放大程度。不能只用修改行数判断；应结合受影响模块、公共接口、数据迁移、事实副本、测试范围和回退耦合综合判断。
+
+如果适用的已批准 ETC 要求、架构边界或接受条件被违反，C04 按第 38.7 节形成 Finding 并输出 `CHANGES_REQUESTED`。如果只是没有批准依据的未来优化，应记录为 `ADVISORY / FUTURE_IMPROVEMENT`，不得阻断当前 `PASS`。
+
 # 41. 面向负责人的审批、变更与工作包治理
 
-> 本章是面向项目负责人的批准请求、阈值说明、文档修改分级、语义识别、Gate Package、Work Package、影响驱动重审批和反馈闭环的权威规则。具体实例状态仍由各自产物 Owner 维护。
+> 面向项目负责人的路线说明、阶段说明和审批可理解性由 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 唯一定义。本章维护 Human Determination 的工程衔接、文档修改分级、语义识别、Work Package、影响驱动重审批和反馈闭环；具体实例状态仍由各自产物 Owner 维护。
 
 ## 41.1 不得假设负责人已读完正文
 
-请求项目负责人批准 PRD、SRS、Baseline、架构、阈值、重大风险、Formal Seal、Release 或其他保留决策时，不得只给文件名或要求“确认通过”。必须先提供 `HUMAN_DETERMINATION_PACKAGE`。现有 `OWNER_DECISION_PACKAGE` 作为兼容名称，必须满足同一字段集合：
+请求项目负责人批准 PRD、SRS、Baseline、架构、阈值、重大风险、Formal Seal、Release 或其他保留决策时，不得只给文件名或要求“确认通过”。必须按人机协作及审批可理解性规则解释路线、阶段、产物用途、内容变化、风险、选项和授权边界，并提供 `HUMAN_DETERMINATION_PACKAGE`。现有 `OWNER_DECISION_PACKAGE` 作为兼容名称，必须满足同一字段集合：
 
 ```text
 DETERMINATION_ID
 WHAT_MUST_BE_DECIDED
 WHY_HUMAN_AUTHORITY_IS_REQUIRED
+OVERALL_ROUTE_AND_CURRENT_STAGE
+ARTIFACT_PURPOSE_AND_DOWNSTREAM_USE
+CONTENT_SUMMARY_CHANGES_AND_EXCLUSIONS
+TERMS_THRESHOLDS_AND_PRACTICAL_MEANING
 CONFIRMED_FACTS
 OPEN_QUESTIONS
 OPTIONS_AND_DIFFERENCES
 RISKS_AND_TRADEOFFS
 RECOMMENDED_OPTION_AND_REASON
+AUTHORIZATION_INCLUDED
 APPROVED_CONSEQUENCE
 CHANGES_REQUESTED_CONSEQUENCE
 DEFERRED_CONSEQUENCE
@@ -3785,7 +3830,7 @@ AI 必须解释每个可选决定的直接后果。`DEFERRED` 保持当前 Basel
 
 ## 41.2 缩写与技术术语
 
-面向负责人的聊天、批准包和完成报告中，缩写或专业术语第一次出现时应给出英文全称和中文解释。例如：
+面向负责人的聊天、批准包和完成报告适用 `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 的可理解性要求。缩写或专业术语第一次出现时应给出英文全称和中文解释。例如：
 
 ```text
 SRS (Software Requirements Specification，软件需求规格说明书)
@@ -3795,7 +3840,7 @@ SRS (Software Requirements Specification，软件需求规格说明书)
 
 ## 41.3 阈值批准包
 
-需要负责人批准的 Acceptance Criteria / Threshold 必须同时说明：
+需要负责人批准的 Acceptance Criteria / Threshold 必须按人机协作及审批可理解性规则说明其实际含义，并至少包含：
 
 - 数值和单位；
 - 适用环境和前置条件；
@@ -3825,6 +3870,8 @@ STOP_CONDITIONS
 ```
 
 路线认可不自动授权后续全部阶段。Gate 针对决策边界，不针对文件数量；PRD/SRS 可以形成需求 Baseline Package，架构/ADR/详细设计/测试设计可以形成设计 Baseline Package，但合并审批不得跳过适用证据、Traceability、独立评审或 Current Truth 权限。
+
+面向项目负责人的路线、阶段和 Gate Package 呈现方式归 `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md`；本节字段用于工程衔接，不建立第二套可理解性规则。
 
 ## 41.5 已批准文档的修改分级
 
@@ -3882,19 +3929,21 @@ STATUS
 
 ## 41.9 治理反馈闭环
 
-使用中提出的治理建议不得只在聊天中回答“知道了”。必须进入：
+任何疑问、体验问题、治理缺口、改进建议、疑似缺陷或现场报告，在事实尚未完成判断时必须先登记为 FB，再分类和分流。不得在收到时直接把反馈宣称为 BUG、CR 或正式决定：
 
 ```text
 USER_FEEDBACK
--> FB RECORD
+-> FEEDBACK_REGISTER
 -> CLASSIFICATION
--> EXPLANATION / DEFECT / CHANGE / DECISION / FUTURE_IMPROVEMENT
+-> EXPLANATION / BUG / FIELD / CR / FUTURE_IMPROVEMENT / NO_ACTION
 -> IMPLEMENTATION_OR_DISPOSITION
 -> VERIFICATION
 -> CLOSURE_EVIDENCE
 ```
 
-反馈记录实例归 `15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md`。反馈本身不自动批准模板变化；稳定版保护和预发布规则归 `00_project/versioning_rules.md`。
+FB 当前状态、类型、去向和责任角色只由 `12_issues/feedback/FEEDBACK_REGISTER.md` 维护；复杂反馈可使用同目录 `FEEDBACK_TEMPLATE.md`。C06 负责分流，确认后再建立 BUG、FIELD、CR 或其他下游记录并双向引用。`15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md` 只承载已分流的现场/运行反馈，不是通用反馈登记 Owner。
+
+反馈本身不自动批准模板或产品变化，也不改变 Current Truth、Baseline 或 Gate；稳定版保护和预发布规则归 `00_project/versioning_rules.md`。
 
 ## 41.10 保障节奏和外部 AI 引用
 

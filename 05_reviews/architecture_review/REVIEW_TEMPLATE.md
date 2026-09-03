@@ -39,6 +39,15 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 - 证据：
 - 明确排除：
 
+## ETC 与 Change Amplification 检查（适用时）
+
+- 已批准变化场景 / Requirement：
+- Stable Core 与 Variation Point 是否明确：
+- 依赖方向和隔离边界是否防止变化穿透无关核心：
+- 单个变化预计涉及的模块 / 接口 / 数据 / 配置 / 测试：
+- 是否需要同步维护多个事实副本：
+- 是否可以独立替换、测试和回退：
+
 ## Finding Summary
 
 ```text

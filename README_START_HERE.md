@@ -27,6 +27,9 @@ Lite 保留以下不可弱化的原则：
 - Role != Model != Runtime != Harness != Session != Tool；
 - 独立 C04 评审；
 - 明确的人类权限边界；
+- 可理解的人类审批说明；
+- 反馈先登记、再分类分流；
+- ETC 可变更性质量链路；
 - Dynamic Role Profile、标准 Interaction 与精确 Authorization；
 - 上下文、Model、Runtime 或 Harness 替换后的 Knowledge Continuation / Baseline Relearn。
 

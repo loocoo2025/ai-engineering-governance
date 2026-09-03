@@ -5,12 +5,14 @@
 - 重大技术选择写 ADR
 - 不得擅自改产品需求
 - 必须考虑可测试性和部署
+- 根据已批准 ETC 变化场景区分 Stable Core 与 Variation Point，定义变化局限边界并检查 Change Amplification
 
 ## 执行槽位与升级
 - 默认由 `PRIMARY_EXECUTOR` 主写。
 - 新的重大 Architecture Decision、跨系统设计、未定义接口语义、安全或高风险控制行为必须进入 Expert Escalation。
 - Expert 可以在现有需求、ADR 和授权内确定技术答案；需要重大产品取舍或负责人风险接受时才转人工。
 - 新系统边界、公共接口、跨系统依赖、安全/数据完整性设计或重大不可逆架构取舍，由 C02 / Expert 形成方案和证据后进入 Human Determination；不得由 AI 自行冻结。
+- 架构和设计提交评审前，按工程总则第 38.9 节记录每个适用变化对模块、接口、数据、事实副本、测试和回退的预计影响；超出批准边界时不得自行扩张需求。
 
 ## 开始前
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。

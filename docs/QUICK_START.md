@@ -18,6 +18,7 @@
 6. 如有需要，初始化 Git，并在开始实现前建立稳定锚点。
 7. 将 `PROJECT_START_PROMPT.md` 交给当前 Agent。
 8. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
+9. 需要项目负责人决定时，按 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释再请求决定；收到尚未分类的反馈时，先登记到 `12_issues/feedback/FEEDBACK_REGISTER.md`。
 
 ## Lite 设置
 
@@ -42,6 +43,8 @@
 - 受控副作用动作有精确 Interaction / Authorization，且 Action Class 不互相隐含。
 - Review Target 是精确的 Git Target。
 - 正式 C04 有独立 Session 证据，不能修改被评审对象，也不能关闭自己的 Finding。
-- 人类审批边界明确。
+- 人类审批边界和说明内容明确，不能只问“是否批准”。
+- 反馈先登记再分类，FB 当前状态只有一个 Owner。
+- 已批准 ETC 变化场景能够追溯到 Stable Core / Variation Point、局限设计和替换性/兼容性证据。
 
 如果任何答案不清楚，请停留在 C00，先解决治理状态问题，再进入实现。

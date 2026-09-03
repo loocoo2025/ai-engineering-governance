@@ -132,6 +132,8 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 - 保障节奏 / C04 触发 → `PROJECT_ASSURANCE_CADENCE_POLICY.md`；
 - 外部 AI 当前配置 → `EXTERNAL_AI_TRANSFER_CONFIG.yaml`；
 - 测试范围 → `AI_TESTING_GOVERNANCE_RULES.md`；
+- 面向负责人的路线、阶段说明或审批请求 → `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md`；
+- 反馈登记、分类和分流 → `12_issues/feedback/FEEDBACK_REGISTER.md`；
 - Context Reset / Baseline Relearn → `AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`；
 - 变更 / 升级 / Release → 对应 `13_change_management/` 或 `14_release/` 文件。
 
@@ -162,6 +164,9 @@ ACTIVE_TASKS.md
 
 OPEN_QUESTIONS.md
 → 未决问题明细
+
+12_issues/feedback/FEEDBACK_REGISTER.md
+→ 反馈项当前状态、分类去向与责任角色
 
 CONVERSATION_MAP.md
 → 对话拓扑和对话生命周期

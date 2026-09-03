@@ -1,5 +1,25 @@
 # 变更日志
 
+## [0.1.6] - 2026-09-04
+
+> 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。
+
+### 新增
+- 增加面向项目负责人的人机协作及审批可理解性权威规则，禁止在未解释路线、阶段、产物用途、风险、选项和授权边界时只询问“是否批准”。
+- 增加通用反馈登记表和明细模板，支持疑问、体验问题、治理缺口、改进建议、疑似缺陷和现场报告先登记、后分类分流。
+- 将 ETC（Easier To Change，更容易变更）升级为正式质量属性、设计输入和评审判据，定义 Stable Core、Variation Point 与 Change Amplification。
+
+### 变更
+- PRD、SRS、架构、详细设计、测试和 Review Template 增加可追溯的 ETC 输入、局限边界、替换性/兼容性验证和 C02/C04 检查。
+- 通用 FB 当前状态改由 `12_issues/feedback/FEEDBACK_REGISTER.md` 唯一维护；现场反馈模板仅承载分流后的 FIELD 记录。
+- Human Determination 的授权语义和字段保持不变，新增面向负责人的强制解释与输出前检查。
+- 机器可读治理合同 Schema 升级为 `1.1`，新增审批可理解性约束和反馈工作流枚举。
+
+### 兼容与升级
+- 不改变 Current Truth、C00～C06、C04 Decision Matrix、V 模型、ADR、Traceability、风险驱动 Testing Governance 或产品事实。
+- 既有项目不追溯重写历史产物；以后新建或实质修改的产物按适用 ETC 场景补齐证据链。
+- 正式采用时新增审批可理解性 Authority、反馈 Register / Template，并执行 Baseline Relearn；具体迁移要求见候选 Release Notes。
+
 ## [0.1.5] - 2026-08-29
 
 > 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。

@@ -39,6 +39,14 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 - 证据：
 - 明确排除：
 
+## ETC 与 Change Amplification 检查（适用时）
+
+- 每个已批准变化是否局限到声明的模块和 Variation Point：
+- 是否影响无关 Stable Core：
+- 实际/预计变更范围是否超过批准预算：
+- 兼容、独立测试与回退机制是否可执行：
+- 是否产生多个需要同步维护的事实副本：
+
 ## Finding Summary
 
 ```text

@@ -39,6 +39,13 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 - 证据：
 - 明确排除：
 
+## ETC 需求检查（适用时）
+
+- PRD 是否记录合理可预见的变化场景：
+- SRS / Acceptance Criteria 是否把适用场景转成可验证的影响、兼容或回退边界：
+- 是否避免以“易扩展”等不可验证描述代替 Requirement：
+- 是否避免为未知未来制造投机性范围：
+
 ## Finding Summary
 
 ```text

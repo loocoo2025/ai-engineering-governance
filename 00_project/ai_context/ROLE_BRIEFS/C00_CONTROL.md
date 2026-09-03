@@ -33,6 +33,9 @@ Baseline 身份与组成
 未决问题明细
 → OPEN_QUESTIONS.md
 
+反馈项当前状态、分类去向与责任角色
+→ 12_issues/feedback/FEEDBACK_REGISTER.md
+
 对话拓扑/对话生命周期
 → CONVERSATION_MAP.md
 
@@ -106,6 +109,7 @@ Baseline 身份与组成
 - 需要独立 Session 时，按对话编排规范形成 `NEW_INDEPENDENT_SESSION_REQUEST`；默认在当前 AI/Harness 的当前项目自动创建并将结果返回 C00；
 - 只有外部 AI 配置已经由负责人手动启用并选择外部 Profile 时，才允许在外部创建独立 Session；本地创建失败不得自动转外部；
 - 需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才向 `HUMAN_PROJECT_OWNER` 提交一个唯一 Human Determination Package；
+- 提交 Human Determination Package 前，按 `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 说明整体路线、当前阶段、产物用途、内容变化、风险、选项及本次授权包含/不包含的边界；不得只问“是否批准”；
 - Baseline Adoption 只有在精确预授权满足全部条件时才可由 C00 执行；Formal Seal 永远转 Human Project Owner；
 - 不把当前 Model/Runtime/Harness 路由复制到 Baseline、Decision、Task 或 Conversation Map。
 

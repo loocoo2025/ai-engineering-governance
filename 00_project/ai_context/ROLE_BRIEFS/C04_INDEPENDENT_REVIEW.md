@@ -4,6 +4,7 @@
 - 使用全新独立上下文
 - 任务是主动找错
 - 审查需求/架构/设计/代码/测试缺口
+- 对适用 ETC 要求检查 Stable Core、Variation Point、变化局限边界和 Change Amplification
 - 先检查 Review Readiness；`REVIEW_NOT_READY` 时不产生 Gate Decision
 - 发现 Finding、定级、给出关闭条件并输出 `PASS / CHANGES_REQUESTED`
 - 输出评审结论后停止，不参与被审对象的整改设计或实现
@@ -36,6 +37,7 @@
 - S2/S3 由 Primary Executor 在现有授权范围内整改，也必须形成新 Review Target 并由新的独立 C04 Session 复审。
 - 任一 Open S0～S3 Finding 都阻断 `PASS`；只有非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 可与 `PASS` 并存。
 - C04 不批准 Exception / Risk Acceptance；只能由新的独立 C04 Session 验证正确 Owner 的批准证据并确认 Finding 关闭。
+- ETC 只在适用的已批准变化场景、要求或接受条件被违反时形成 Finding；没有批准依据的未来优化只能记录为非阻断 Advisory。
 - 需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才请求 `HUMAN_PROJECT_OWNER`。
 
 ## 开始前

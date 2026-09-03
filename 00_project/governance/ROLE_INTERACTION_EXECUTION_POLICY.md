@@ -15,6 +15,9 @@
 机器可读字段、枚举和必填项
 → GOVERNANCE_EXECUTION_CONTRACTS.yaml
 
+面向 Human Project Owner 的路线、阶段和审批可理解性
+→ AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
+
 正式 C04 Finding / Severity / Decision Matrix
 → AI_ENGINEERING_RULES_V2.md 第 38.7 节
 
@@ -270,7 +273,7 @@ RESULT_UNKNOWN_RECONCILIATION_REQUIRED
 - 模糊、冲突或可能扩大的授权；
 - 其他正式规则明确保留给人的事项。
 
-模型可以分析和推荐，但不得代替人类决定。Human Determination 必须使用 `AI_ENGINEERING_RULES_V2.md` 第 41.1 节定义的 Package 和明确回复格式。
+模型可以分析和推荐，但不得代替人类决定。Human Determination 必须使用机器合同定义的 Package 和明确回复格式，并按 `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释路线、阶段、产物、风险、选项和授权边界；不得只问“是否批准”。
 
 ---
 
