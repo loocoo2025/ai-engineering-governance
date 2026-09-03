@@ -16,7 +16,7 @@ Authority Owner：`Human Project Owner`
 
 | 检查项 | 结果 | 证据 |
 |---|---|---|
-| 正式 C04 | Release 前强制执行 | `05_reviews/C04-GOV-002-v0.1.6-release-review.md` 与 GitHub Release |
+| 正式 C04 | Release 前强制执行 | `05_reviews/C04-GOV-002-v0.1.6-release-review.md`、`05_reviews/C04-GOV-002-v0.1.6-release-rereview.md` 与 GitHub Release |
 | Open Finding | 必须为 0 | 最终 Review Record |
 | YAML / Markdown / Link / Index | 必须 PASS | Release Gate 机械检查 |
 | Git whitespace / fsck | 必须 PASS | Release Gate 机械检查 |

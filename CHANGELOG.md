@@ -12,7 +12,7 @@
 ### 变更
 - PRD、SRS、架构、详细设计、测试和 Review Template 增加可追溯的 ETC 输入、局限边界、替换性/兼容性验证和 C02/C04 检查。
 - 通用 FB 当前状态改由 `12_issues/feedback/FEEDBACK_REGISTER.md` 唯一维护；现场反馈模板仅承载分流后的 FIELD 记录。
-- Human Determination 的授权语义和字段保持不变，新增面向负责人的强制解释与输出前检查。
+- Human Determination 的既有字段和授权语义保持兼容，并新增 5 项必填解释字段与输出前检查。
 - 机器可读治理合同 Schema 升级为 `1.1`，新增审批可理解性约束和反馈工作流枚举。
 
 ### 兼容与升级

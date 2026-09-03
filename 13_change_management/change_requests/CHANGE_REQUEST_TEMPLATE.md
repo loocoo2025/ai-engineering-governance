@@ -9,11 +9,16 @@
 - Determination ID：
 - 本次具体要决定什么：
 - 为什么需要 Human Project Owner 裁定：
+- `overall_route_and_current_stage`（整体路线与当前阶段）：
+- `artifact_purpose_and_downstream_use`（产物用途与下游影响）：
+- `content_summary_changes_and_exclusions`（内容摘要、主要变化与明确排除）：
+- `terms_thresholds_and_practical_meaning`（术语、阈值与实际含义）：
 - 已确认事实：
 - 未决问题：
 - 选项及差异：
 - 主要收益、风险与取舍：
 - 推荐选项及理由：
+- `authorization_included`（本次明确授权包含）：
 - `APPROVED` 的精确后果与允许边界：
 - `CHANGES_REQUESTED` 的后果：
 - `DEFERRED` 的后果：
@@ -23,6 +28,8 @@
 - 可复制回复格式：`DECISION: APPROVED / CHANGES_REQUESTED / DEFERRED / REJECTED; DETERMINATION_ID: {{ID}}; AUTHORIZED_SCOPE: {{SCOPE_OR_NONE}}`
 
 > “批准”只有在唯一待决 Package、Target、Action、Scope 和后果均明确时才有效；否则必须请求澄清。
+>
+> 上述必填字段不适用时仍须保留，并填写 `NOT_APPLICABLE` 及理由；不得删除字段。
 
 ## 原因
 -
