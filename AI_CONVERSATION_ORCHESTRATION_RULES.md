@@ -1849,7 +1849,8 @@ OLD_SESSION stops writing
 → create Task-local HANDOFF
 → OLD_SESSION: READ_ONLY / FROZEN
 → NEW_SESSION verifies Task / Output / Scope / Authority
-→ WRITE_LEASE transferred once
+→ OLD WRITE_LEASE: FROZEN
+→ NEW WRITE_LEASE: ACTIVE
 → NEW_SESSION continues
 ```
 

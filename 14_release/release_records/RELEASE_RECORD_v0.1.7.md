@@ -16,7 +16,7 @@ Authority Owner：`Human Project Owner`
 
 | 检查项 | 要求 | 证据 |
 |---|---|---|
-| 正式 C04 | Release 前强制执行 | GitHub Release 附件中的 C04-GOV-003-v0.1.7-release-review.md |
+| 正式 C04 | Release 前强制执行 | GitHub Release 附件中的 C04-GOV-003-v0.1.7-release-review.md 与 C04-GOV-003-v0.1.7-release-rereview.md |
 | Open Finding | S0～S3 必须为 0 | 正式 C04 Review Record |
 | YAML / Markdown / Link / Index | PASS | Release Gate 机械检查 |
 | Git whitespace / fsck | PASS | Release Gate 机械检查 |
@@ -29,7 +29,7 @@ Authority Owner：`Human Project Owner`
 - GitHub 自动生成的 Source code archives；
 - `ai-engineering-governance-v0.1.7.tar.gz`，由正式 Tag 使用 `git archive` 生成；
 - Archive SHA-256 在 GitHub Release 和最终发布报告中记录；
-- 正式 C04 Review Record 作为 Release Asset 一并保留。
+- 正式 C04 首轮 Review Record 与独立 Rereview Record 作为 Release Asset 一并保留。
 
 ## Release Notes
 

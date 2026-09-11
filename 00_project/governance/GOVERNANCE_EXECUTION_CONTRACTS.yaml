@@ -448,9 +448,9 @@ system_integration_manifest:
     - "integration_and_system_test_evidence"
     - "system_acceptance_and_risk_evidence"
     - "rollback_combination"
-    - "review_readiness"
+    - "parent_review_readiness"
     - "parent_c04_review_record"
-  readiness_states:
+  parent_review_readiness_states:
     - "READY"
     - "REVIEW_NOT_READY"
   missing_or_stale_child_evidence_result: "REVIEW_NOT_READY"
