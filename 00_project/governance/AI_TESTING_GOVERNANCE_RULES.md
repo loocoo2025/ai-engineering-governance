@@ -62,6 +62,18 @@ AI 在设计、增加、修改或执行测试之前，必须先回答：
 
 这些测试只有在存在正式需求、接受条件或风险来源时才进入强制范围，并仍按 T0～T3 分级。ETC 不授权笛卡尔积、全部 Provider/版本组合或没有现实依据的未来场景测试。
 
+## 2.2 分层项目的测试证据复用
+
+当项目按 Module、Work Package 或 Governed Subproject 分解时，测试范围仍由需求和风险决定，不因层级增加而默认重复全部测试：
+
+- Child / Leaf 内部测试证据只有在绑定精确 Target、适用 Baseline、需求范围和环境，且仍为 `VALID` 时才可向上复用；
+- Parent 默认核验 Child Evidence 的完整性和版本一致性，并执行跨边界接口、集成、系统级 Acceptance Criteria 与组合风险所要求的测试；
+- Parent 不因接收 Child Package 而默认重跑全部 Child 内部测试，也不得用 Child `PASS` 替代系统集成和 Acceptance Test；
+- Child Target、接口、适用需求、环境或风险发生实质变化时，只使受影响证据及必要回归范围失效，不自动宣告所有历史测试失效；
+- 必需 Child Evidence 缺失、过期或无法对应当前 Integration Target 时，必须报告 `REVIEW_NOT_READY / INTEGRATION_BLOCKED`，不得伪造系统级通过结论。
+
+具体分层语义与接受包见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md` 和 `09_quality/quality_reports/CHILD_ACCEPTANCE_PACKAGE_TEMPLATE.md`。
+
 ---
 
 # 3. 测试分级
@@ -423,7 +435,7 @@ AI 可以建议增加、减少、延后测试。
 
 ---
 
-# 19. 最重要的十一条机械规则
+# 19. 最重要的十二条机械规则
 
 1. 每个测试必须有来源。
 2. 测试验证需求，不能制造需求。
@@ -436,6 +448,7 @@ AI 可以建议增加、减少、延后测试。
 9. 达到风险覆盖停止条件后停止新增测试。
 10. 测试目标是降低重大剩余风险，不是最大化测试数量。
 11. 已批准 ETC 要求必须有最小充分的替换性、兼容性和必要回归证据；ETC 不制造测试范围。
+12. 分层项目复用仍有效的 Child Evidence，Parent 只补接口、集成、系统接受和必要风险回归；不得无来源全量重测，也不得跳过系统级验证。
 
 ---
 

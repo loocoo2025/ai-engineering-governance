@@ -33,6 +33,15 @@ Session 创建、隔离、连续、交接和返回
 当前任务实例状态
 → ACTIVE_TASKS.md
 
+项目结构模式、递归分解、父子事实边界和分层接受
+→ PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
+
+当前项目/Module/Subproject 拓扑与关系生命周期
+→ PROJECT_STRUCTURE_MAP.md
+
+Session、Worktree、Write Lease 转移和 Task-local Handoff
+→ AI_CONVERSATION_ORCHESTRATION_RULES.md
+
 当前 Baseline 身份与组成
 → BASELINE_INDEX.md
 ```
@@ -82,6 +91,8 @@ Profile 至少包含：
 
 - Role ID 和稳定 Role Brief 引用；
 - 当前 Task / Work Package；
+- 当前 Project / Subproject / Module 与结构模式绑定；
+- 当前 Work Package Type、Leaf / Integration 属性和 Output Contract；
 - 当前或适用 Gate 绑定及其 Authority Source；
 - 上游与下游岗位；
 - 输入、输出和适用事实 Owner 绑定；
@@ -93,6 +104,7 @@ Profile 至少包含：
 - Knowledge Manifest；
 - 当前 Interaction Contract；
 - Model / Runtime / Harness / Session 绑定；
+- Workspace Access、Git Worktree、Branch、Write Scope 和 Write Lease 绑定；写入不适用时必须显式说明；
 - Enforcement Mode；
 - 生成依据、版本和失效条件。
 
@@ -103,7 +115,8 @@ Profile 至少包含：
 3. Task、Gate、授权、Role、执行环境或关键输入变化时必须重新验证，必要时重新生成；
 4. Profile 只能缩小已获授权，不能扩大授权；
 5. 静态 Role Brief 负责稳定职责，动态 Profile 负责本次执行边界，二者不得互相覆盖。
-6. 当前或适用 Gate 绑定、适用事实 Owner 绑定必须分别对照 Current Truth、稳定 Role Brief、当前 Task / Work Package 和 Authorization 校验；任一绑定缺失、过期或冲突时不得声明 `ROLE_PROFILE_READY`。
+6. 当前或适用 Gate 绑定、适用事实 Owner 绑定必须分别对照 Current Truth、稳定 Role Brief、当前 Task / Work Package 和 Authorization 校验；任一绑定缺失、过期或冲突时不得声明 `ROLE_PROFILE_READY`；
+7. 写入 Profile 还必须满足一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer；只读 Profile 必须将写入字段标记为 `NOT_APPLICABLE` 并说明依据。
 
 ---
 
@@ -118,6 +131,8 @@ MINIMUM_NECESSARY_INITIAL_LOAD
 ```
 
 初始知识包只加载完成当前岗位、任务和 Interaction 所必需的治理内核、Current Truth、Role Brief、任务输入和适用 Gate。不得要求每个 AI 默认把整个治理仓库全部装入上下文。
+
+模块化或联邦项目只加载当前 Leaf / Integration Work Package、Parent–Child Contract、直接依赖接口和适用接受证据。Parent Session 默认消费 Child Acceptance Package，不加载所有 Child 内部代码、旧对话或完整测试日志。
 
 AI 可以并且在需要时必须搜索整个受权治理仓库。知识范围不是权限边界；读取更多规则不会扩大 Role、Tool、Action、Gate 或副作用权限。
 
@@ -386,6 +401,7 @@ RESIDUAL_RISK: PROCEDURAL_ERROR
 → Dynamic Role Profile 就绪
 → 接收标准 Interaction / Task
 → Authorization / Gate 检查
+→ Leaf / Integration Work Package、Output Contract 与 Workspace Binding 检查
 → 执行
 → Self Review 与验证
 → 标准完成报告

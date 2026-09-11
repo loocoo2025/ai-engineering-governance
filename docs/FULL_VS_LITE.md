@@ -32,6 +32,7 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/ai_context/ACTIVE_TASKS.md
 00_project/ai_context/OPEN_QUESTIONS.md
 00_project/ai_context/CONVERSATION_MAP.md
+00_project/ai_context/PROJECT_STRUCTURE_MAP.md
 00_project/ai_context/ROLE_BRIEFS/*
 00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md
 00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
@@ -39,9 +40,18 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
+00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 12_issues/feedback/FEEDBACK_REGISTER.md
 12_issues/feedback/FEEDBACK_TEMPLATE.md
+```
+
+选择 `FEDERATED_PROJECT` 时还必须保留：
+
+```text
+09_quality/quality_reports/CHILD_ACCEPTANCE_PACKAGE_TEMPLATE.md
+09_quality/quality_reports/SYSTEM_INTEGRATION_MANIFEST_TEMPLATE.md
+13_change_management/templates/PARENT_CHILD_PROJECT_CONTRACT_TEMPLATE.md
 ```
 
 使用正式需求追溯时，增加 `09_quality/traceability/validate_traceability.py`。
@@ -59,6 +69,8 @@ Lite 可以减少产物，但不得弱化：
 - 面向负责人的审批可理解性；
 - 反馈先登记、再分类分流；
 - ETC 变化场景、局限设计和验证链路；
+- 项目结构模式、父子事实边界和组合式评审；
+- 单写入 Session、单活动 Leaf Work Package、单 Output Contract、单 Worktree 和单活动 Writer；
 - 测试范围治理；
 - 保障节奏中的不可关闭控制和强制 C04 触发；
 - 外部 AI 的权限继承、默认关闭、单次授权与本地/外部 Session 放置边界；
@@ -78,3 +90,5 @@ Lite 可以减少产物，但不得弱化：
 - 必须治理发布、部署或运行证据。
 
 Lite 不是治理规则的分叉版本。稳定规则仍保留在同一组根目录治理文档中，从而避免 Full 与 Lite 演变为互相竞争的 Current Truth 来源。
+
+同一联邦系统中的 Parent 和 Child 可以分别选择 Full 或 Lite，但每个治理实例都必须保留上述不可弱化规则；Parent 必须记录 Child 的精确治理版本和合同兼容性。

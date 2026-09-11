@@ -3908,24 +3908,27 @@ AI 应识别异名同义，但不得为了“智能”拼凑缺失事实：
 
 ## 41.8 Bounded Work Package
 
-大型项目可以递归拆分 Work Package。每个包必须至少包含：
+大型项目可以按以下逻辑递归分解：
 
 ```text
-WORK_PACKAGE_ID
-OBJECTIVE
-BOUNDARY
-INPUTS
-OUTPUTS
-DEPENDENCIES
-RISKS
-APPLICABLE_REQUIREMENTS_AND_DECISIONS
-VERIFICATION
-DEFINITION_OF_DONE
-OWNER_ROLE
-STATUS
+Project -> Governed Subproject -> Module -> Work Package -> Sub-Work Package -> Leaf Work Package
 ```
 
-任务实例和状态归 `ACTIVE_TASKS.md`。上层包只维护关系、依赖和集成证据；拆包本身不自动增加人工 Gate，也不能把跨包集成风险藏在局部 `DONE` 中。
+只有 `LEAF_EXECUTION / INTEGRATION` 是直接写入执行单元。写入执行必须满足：
+
+```text
+ONE_WRITE_SESSION
+= ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE
+= ONE_OUTPUT_CONTRACT
+= ONE_GIT_WORKTREE
+= ONE_ACTIVE_WRITER
+```
+
+`ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE` 只允许 `LEAF_EXECUTION / INTEGRATION`。
+
+多个并行 Writer 必须使用独立 Worktree 和 Branch；同一 Local Working Directory 同时只能有一个 Writer。Worktree 只提供物理隔离，写入范围重叠、共享接口未冻结或依赖顺序不明确时仍必须串行或建立 Integration Work Package。
+
+父级接受不得重新审查所有子级细节，而应核验仍有效的 Child Acceptance Evidence、接口一致性、集成证据和系统级接受条件；证据缺失或过期时为 `REVIEW_NOT_READY`。任务实例归 `ACTIVE_TASKS.md`，当前结构关系归 `PROJECT_STRUCTURE_MAP.md`，稳定分解、父子事实和组合式评审规则只归 `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`。
 
 ## 41.9 治理反馈闭环
 

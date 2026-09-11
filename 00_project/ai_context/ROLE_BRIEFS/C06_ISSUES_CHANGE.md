@@ -6,6 +6,7 @@
 - 真实 Bug 原则上补回归测试
 - 维护 FB/BUG/RCA/CR，并将已确认现场问题关联到 FIELD 记录
 - 不看到 Bug 就大重写
+- 跨 Module / Child 问题先定位事实 Owner 和受影响链路，分别建立叶子整改包及必要 Integration Work Package；不得让一个 Session 在多个项目中无边界修改
 
 ## 反馈分流
 - 收到反馈时不得直接宣称它是 BUG 或 CR；先登记为 `NEW`，完成证据判断后再标记类型和去向。

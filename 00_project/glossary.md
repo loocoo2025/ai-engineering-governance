@@ -340,6 +340,17 @@ REVIEW_NOT_READY
 | `Owner Decision Package` | 负责人决策包 | `Human Determination Package` 的兼容别名；新记录使用后者，原权威文件仍是事实来源。 |
 | `Gate Package` | 门禁包 | 按同一决策边界组织相关产物；不得借合包跳过强制证据、追溯或独立评审。 |
 | `Work Package` | 工作包 | 可递归拆分的有界执行单元，包含目标、边界、输入、输出、风险和完成条件；不自动新增人工 Gate。 |
+| `Leaf Work Package` | 叶子工作包 | 递归分解后可由一个最小充分上下文执行的末级工作包；只有 `LEAF_EXECUTION / INTEGRATION` 可直接成为写入执行单元。 |
+| `Output Contract` | 输出合同 | 把一个原子交付目的绑定到预期产物、允许路径、输入 Commit、接受条件、验证和集成责任。 |
+| `Git Worktree` | Git 工作树 | 同一 Repository 的独立工作目录；用于隔离并行 Writer，但不解决语义冲突，也不自动授予写入或 Git 副作用权限。 |
+| `Write Lease` | 写入租约 | `ACTIVE_TASKS.md` 中对一个 Session 在一个 Worktree 和 Write Scope 内唯一写入资格的当前绑定。 |
+| `SINGLE_PROJECT` | 单项目模式 | 一个治理实例内完成项目治理，不建立正式 Module / Child 层级。 |
+| `MODULAR_PROJECT` | 模块化项目模式 | 同一治理项目内划分多个 Module，共享项目级 Current Truth 和 Baseline。 |
+| `FEDERATED_PROJECT` | 联邦项目模式 | Root 管理一个或多个拥有独立治理实例、Current Truth 和 Baseline 的 Governed Subproject。 |
+| `Parent–Child Project Contract` | 父子项目合同 | 固定委派边界、事实 Owner、接口、输出、权限、版本 Anchor、失效和升级路线。 |
+| `Child Acceptance Package` | 子级接受包 | Child 向 Parent 返回的精确 Commit、合同、验证、独立评审、Finding、风险和回滚证据包。 |
+| `System Integration Manifest` | 系统集成清单 | Root 精确固定 Child 版本组合、合同、接受证据、接口和系统集成/验证结果的受控清单。 |
+| `Completion Capsule` | 完成胶囊 | 叶子任务向上返回的精简、可验证完成摘要；引用精确产物和证据，不复制全部实现上下文。 |
 | `Assurance Cadence` | 保障/评审频率 | 决定保障活动何时触发及采用何种 Profile；不得关闭非可选控制。 |
 | `Persistent C00 Control Channel` | 持续逻辑 C00 控制通道 | 项目负责人持续使用的逻辑管理通道；底层物理 Session 可受控轮换。 |
 | `Physical Session` | 物理会话 | 具体 AI 环境中的一次上下文实例，达到阈值或隔离触发时可交接到新实例。 |

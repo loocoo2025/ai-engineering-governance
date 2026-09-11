@@ -98,6 +98,8 @@ CUSTOM
 10. 受控副作用动作的精确 Authorization Contract、原子消费、未知结果对账和 Action Class 不互推；
 11. Dynamic Role Profile、Interaction Contract 和 `SUBAGENT_PERMISSION <= CALLER_PERMISSION` 共同限制执行范围；
 12. `PROCEDURAL_FALLBACK` 不得冒充 `TOOL_ENFORCED`，降级时必须记录失去的机械控制和 Remaining Risk。
+13. 多个并行 Writer 的独立 Git Worktree、同一 Local Working Directory 单 Writer、单 Output Write Lease 和冲突失败关闭；
+14. Parent 正式接受 Child Package 时的精确 Child Anchor、有效独立 Review Evidence 和系统集成证据链；不得以父级摘要绕过子级或系统级适用 Gate。
 
 “不可关闭”不等于“每次都要人工执行”。在 Current Truth、Autonomy Mode 和预授权范围内，可以自动检查、自动整改、自动复审或自动推进；命中负责人保留决策时才转人工。
 
@@ -111,6 +113,9 @@ CUSTOM
 2. 验证任一正式 C04 Finding 的关闭；
 3. 接受 Public / Production Release Candidate；
 4. 采用会改变启动、Owner、权限、评审、测试、追溯或 Baseline 语义的治理框架版本。
+5. Parent / Root 准备把 Child Acceptance Package 作为正式可信输入纳入 Parent Baseline 或系统集成 Gate。
+
+同一边界和版本组合下的多个 Child Acceptance Package 可以组成一个冻结的 Parent Review Package；本触发不要求每个微小 Leaf Task 单独执行 Parent C04，也不允许 Parent C04 重复替代已经有效的 Child C04。
 
 以下事项不自动触发正式 C04：
 
@@ -137,6 +142,8 @@ DEFAULT_SESSION_ACTION: CONTINUE_CURRENT_SESSION
 
 只要当前 Role、授权、Review Target、独立性和上下文健康兼容，继续当前 Session。阶段变化本身不强制关闭用户面对的 C00 逻辑控制通道。
 
+该默认仅适用于同一个 Task / Output Contract。写入 Worker 完成当前 Output 后，不得在同一物理 Session 接收新的无关 Output；新的 Leaf / Integration Work Package 使用新隔离 Worker Session。持续逻辑 C00 不受此限制，但不得直接混入多个子任务实现细节。
+
 以下事件无条件要求新建独立 Session：
 
 - 初次正式 C04；
@@ -151,12 +158,15 @@ FORMAL_C04_INITIAL
 FORMAL_C04_REREVIEW
 EXPERT_ESCALATION_WITH_SELF_CONTAINED_PACKAGE
 INDEPENDENT_ADVISORY_ANALYSIS
+BOUNDED_WORK_PACKAGE_EXECUTION
 OTHER_PREAUTHORIZED_INDEPENDENT_SESSION
 ```
 
 `OTHER_PREAUTHORIZED_INDEPENDENT_SESSION` 必须引用精确批准和触发规则，不得作为任意创建外部会话的逃生口。
 
 `EXPERT_ESCALATION_WITH_SELF_CONTAINED_PACKAGE` 和 `INDEPENDENT_ADVISORY_ANALYSIS` 不是所有 Expert / Advisory 调用的默认模式。只有当前工作已明确要求独立性、最小输入包自足且处于授权范围时，才能使用这些 Reason Code；普通 Expert 咨询或辅助推理可以继续采用当前 Session 内 Tool Call。
+
+`BOUNDED_WORK_PACKAGE_EXECUTION` 只适用于已经满足 Leaf / Integration Readiness、Output Contract、Workspace Binding 和授权要求的任务。它建立独立任务上下文，但不产生 C04、Expert 或其他 Gate 权威。
 
 普通上下文交接、阶段切换、工具调用、当前 Session 内 Auxiliary/Advisory 调用、Knowledge Continuation、Baseline Relearn 或普通 Model/Runtime/Harness 替换，不因名称本身自动获得“外部独立 Session”资格。
 

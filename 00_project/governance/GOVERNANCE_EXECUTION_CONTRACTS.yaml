@@ -1,7 +1,11 @@
-schema_version: "1.1"
-framework_version: "v0.1.6"
+schema_version: "1.2"
+framework_version: "v0.1.7"
 release_status: "STABLE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
+additional_semantic_authorities:
+  project_decomposition: "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
+  session_worktree_handoff: "AI_CONVERSATION_ORCHESTRATION_RULES.md"
+  task_instances: "00_project/ai_context/ACTIVE_TASKS.md"
 
 role_system:
   fixed_role_ids:
@@ -28,7 +32,9 @@ dynamic_role_profile:
     - "role_id"
     - "stable_role_brief_ref"
     - "project_ref"
+    - "project_structure_binding"
     - "task_or_work_package_id"
+    - "output_contract_ref"
     - "current_or_applicable_gate_binding"
     - "applicable_fact_owner_bindings"
     - "upstream_roles"
@@ -47,6 +53,7 @@ dynamic_role_profile:
     - "runtime_binding"
     - "harness_binding"
     - "session_binding"
+    - "workspace_binding"
     - "enforcement_mode"
     - "generated_from"
     - "validity"
@@ -63,6 +70,21 @@ dynamic_role_profile:
         - "fact_scope"
         - "fact_owner_ref"
         - "authority_source"
+    project_structure_binding:
+      required_fields:
+        - "project_structure_mode"
+        - "project_id"
+        - "subproject_id_or_not_applicable"
+        - "module_id_or_not_applicable"
+        - "project_structure_map_ref"
+    workspace_binding:
+      required_fields:
+        - "access_mode"
+        - "worktree_id_or_not_applicable"
+        - "branch_or_detached_target_or_not_applicable"
+        - "base_commit"
+        - "write_scope_or_none"
+        - "write_lease_status_or_not_applicable"
   binding_validation_sources:
     - "CURRENT_TRUTH"
     - "STABLE_ROLE_BRIEF"
@@ -84,6 +106,9 @@ knowledge_manifest:
     - "git_anchor"
     - "minimum_required_sources"
     - "task_specific_sources"
+    - "task_local_scope"
+    - "dependency_contracts"
+    - "explicitly_excluded_scopes"
     - "loaded_source_digests"
     - "on_demand_search_allowed"
     - "searched_scopes"
@@ -231,6 +256,232 @@ task_state_machine:
       - "CANCELLED"
     DONE: []
     CANCELLED: []
+
+project_decomposition:
+  contract_id: "PROJECT_DECOMPOSITION"
+  authority: "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
+  current_structure_owner: "00_project/ai_context/PROJECT_STRUCTURE_MAP.md"
+  structure_modes:
+    - "SINGLE_PROJECT"
+    - "MODULAR_PROJECT"
+    - "FEDERATED_PROJECT"
+  node_types:
+    - "PROJECT"
+    - "GOVERNED_SUBPROJECT"
+    - "MODULE"
+    - "WORK_PACKAGE"
+    - "SUB_WORK_PACKAGE"
+    - "LEAF_WORK_PACKAGE"
+  executable_work_package_types:
+    - "LEAF_EXECUTION"
+    - "INTEGRATION"
+  non_execution_work_package_types:
+    - "COORDINATION"
+    - "REVIEW_PACKAGE"
+  required_work_package_fields:
+    - "work_package_id"
+    - "parent_work_package_id_or_not_applicable"
+    - "project_id"
+    - "subproject_id_or_not_applicable"
+    - "module_id_or_not_applicable"
+    - "work_package_type"
+    - "leaf_executable"
+    - "objective"
+    - "boundary"
+    - "inputs"
+    - "outputs"
+    - "output_contract_id"
+    - "dependencies"
+    - "risks"
+    - "applicable_requirements_and_decisions"
+    - "owner_role"
+    - "verification"
+    - "definition_of_done"
+    - "review_package_id_or_not_applicable"
+    - "status"
+  leaf_readiness_required_values:
+    boundary: "EXPLICIT"
+    output_contract: "DEFINED"
+    dependencies: "IDENTIFIED"
+    write_scope: "BOUNDED"
+    verification: "DEFINED"
+    one_session_sufficient: true
+
+parent_child_project_contract:
+  contract_id: "PARENT_CHILD_PROJECT_CONTRACT"
+  required_fields:
+    - "contract_id"
+    - "contract_version"
+    - "status"
+    - "parent_project_id"
+    - "child_project_id"
+    - "parent_git_anchor"
+    - "child_git_anchor_or_not_established"
+    - "authority_owner"
+    - "delegated_objective_and_boundary"
+    - "parent_owned_facts"
+    - "child_owned_facts"
+    - "immutable_parent_constraints"
+    - "inputs_and_interface_contracts"
+    - "required_outputs"
+    - "verification_and_review_requirements"
+    - "allowed_actions_and_write_scope"
+    - "forbidden_actions_and_side_effects"
+    - "integration_owner_and_route"
+    - "validity_and_invalidation_conditions"
+    - "rollback_anchor_and_steps"
+    - "decision_and_evidence"
+
+output_contract:
+  contract_id: "OUTPUT_CONTRACT"
+  owner: "00_project/ai_context/ACTIVE_TASKS.md"
+  required_fields:
+    - "output_contract_id"
+    - "work_package_id"
+    - "objective"
+    - "expected_outputs"
+    - "allowed_paths"
+    - "forbidden_paths"
+    - "input_commit"
+    - "dependency_contracts"
+    - "acceptance_criteria"
+    - "required_validation"
+    - "output_commit_or_not_established"
+    - "merge_target"
+    - "integration_owner"
+    - "status"
+  statuses:
+    - "DRAFT"
+    - "READY"
+    - "IN_PROGRESS"
+    - "OUTPUT_READY"
+    - "ACCEPTED"
+    - "STALE"
+    - "CANCELLED"
+
+workspace_binding_and_write_lease:
+  contract_id: "WORKSPACE_BINDING_AND_WRITE_LEASE"
+  owner: "00_project/ai_context/ACTIVE_TASKS.md"
+  session_authority: "AI_CONVERSATION_ORCHESTRATION_RULES.md"
+  required_fields:
+    - "work_package_id"
+    - "session_id"
+    - "access_mode"
+    - "worktree_id_or_not_applicable"
+    - "worktree_path_or_not_applicable"
+    - "branch_or_detached_target"
+    - "base_commit"
+    - "write_scope_or_none"
+    - "write_lease_status_or_not_applicable"
+    - "active_writer_session_or_not_applicable"
+    - "output_contract_ref"
+  access_modes:
+    - "READ_ONLY"
+    - "SCOPED_WRITE"
+  write_lease_states:
+    - "UNASSIGNED"
+    - "ALLOCATED"
+    - "ACTIVE"
+    - "HANDOFF_PENDING"
+    - "OUTPUT_READY"
+    - "FROZEN"
+    - "INTEGRATED"
+    - "RETIRED"
+    - "NOT_APPLICABLE"
+  invariants:
+    one_write_session_one_active_work_package: true
+    one_write_session_one_output_contract: true
+    one_write_session_one_worktree: true
+    one_worktree_max_active_writer: 1
+    same_local_directory_max_active_writer: 1
+    concurrent_writers_require_distinct_worktrees: true
+    concurrent_writers_require_distinct_branches: true
+    unresolved_write_scope_overlap_blocks_dispatch: true
+    worktree_implies_side_effect_authorization: false
+
+child_acceptance_package:
+  contract_id: "CHILD_ACCEPTANCE_PACKAGE"
+  required_fields:
+    - "package_id"
+    - "child_id"
+    - "parent_id"
+    - "scope"
+    - "status"
+    - "governance_version"
+    - "exact_commit_or_target"
+    - "applicable_baseline"
+    - "parent_child_contract"
+    - "outputs"
+    - "interface_contracts"
+    - "requirement_coverage"
+    - "test_evidence"
+    - "formal_c04_record_and_decision"
+    - "open_findings"
+    - "approved_exceptions"
+    - "residual_risks"
+    - "dependency_impact"
+    - "rollback_anchor"
+    - "validity_and_invalidation"
+    - "parent_receipt"
+  statuses:
+    - "DRAFT"
+    - "READY_FOR_PARENT_REVIEW"
+    - "ACCEPTED"
+    - "STALE"
+    - "REJECTED"
+  required_formal_c04_decision_for_parent_readiness: "PASS"
+  child_pass_implies_parent_acceptance: false
+
+system_integration_manifest:
+  contract_id: "SYSTEM_INTEGRATION_MANIFEST"
+  required_fields:
+    - "manifest_id"
+    - "parent_project_id"
+    - "parent_baseline"
+    - "integration_work_package"
+    - "integration_commit"
+    - "child_inputs_with_exact_anchors"
+    - "parent_child_contracts"
+    - "child_acceptance_packages"
+    - "interface_versions"
+    - "cross_child_traceability"
+    - "integration_and_system_test_evidence"
+    - "system_acceptance_and_risk_evidence"
+    - "rollback_combination"
+    - "review_readiness"
+    - "parent_c04_review_record"
+  readiness_states:
+    - "READY"
+    - "REVIEW_NOT_READY"
+  missing_or_stale_child_evidence_result: "REVIEW_NOT_READY"
+  review_not_ready_is_gate_decision: false
+  parent_review_rechecks_all_child_details_by_default: false
+
+independent_session_request:
+  contract_id: "NEW_INDEPENDENT_SESSION_REQUEST"
+  schema_version: "1.3"
+  authority: "AI_CONVERSATION_ORCHESTRATION_RULES.md#41.5"
+  allowed_reason_codes:
+    - "FORMAL_C04_INITIAL"
+    - "FORMAL_C04_REREVIEW"
+    - "EXPERT_ESCALATION_WITH_SELF_CONTAINED_PACKAGE"
+    - "INDEPENDENT_ADVISORY_ANALYSIS"
+    - "BOUNDED_WORK_PACKAGE_EXECUTION"
+    - "OTHER_PREAUTHORIZED_INDEPENDENT_SESSION"
+  bounded_work_package_required_fields:
+    - "project_structure_ref"
+    - "project_id"
+    - "work_package_id"
+    - "work_package_type"
+    - "output_contract_ref"
+    - "worktree_id"
+    - "worktree_path"
+    - "branch"
+    - "base_commit"
+    - "write_scope"
+    - "write_lease_status"
+    - "active_writer_session"
+  bounded_work_package_formal_gate_authority: "NONE"
 
 review_and_determination_route:
   contract_id: "REVIEW_AND_DETERMINATION_ROUTE"

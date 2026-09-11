@@ -19,3 +19,7 @@
 - [ ] 文档与实现一致
 - [ ] 目标环境验证完成
 - [ ] 已知遗留问题已登记
+- [ ] 如为 Leaf / Integration Work Package，Output Contract 已满足，精确 Commit、验证结果和 Completion Capsule 已形成
+- [ ] 如存在并行写入，当前 Session、Work Package、Output Contract、Worktree、Branch 和 Write Lease 绑定唯一且无重叠 Writer
+- [ ] 如向 Parent 交付，Child Acceptance Package 与精确 Target 一致且未过期，必需独立评审证据已形成
+- [ ] 如为 Parent / System Integration，Child 证据、接口一致性、集成测试、系统级 Acceptance 和剩余风险已核验

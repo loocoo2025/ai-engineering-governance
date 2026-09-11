@@ -13,12 +13,22 @@
 1. 将完整发布 Archive 复制或解压到目标项目根目录。
 2. 如果目标是已有项目，不要覆盖冲突文件；先遵循 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`。
 3. 替换 `{{PROJECT_NAME}}`、日期、Gate 以及与项目相关的其他占位符。
-4. 在 `00_project/ai_context/CURRENT_STATE.md` 中配置当前阶段、授权、`AUTONOMY_MODE`、Model/Runtime/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 和 `ENFORCEMENT_MODE`。
-5. 按 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 为当前 Session 建立 Dynamic Role Profile 与 Knowledge Manifest，并明确绑定当前或适用 Gate 与适用事实 Owner；需要机械执行时，让工具消费 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`。
-6. 如有需要，初始化 Git，并在开始实现前建立稳定锚点。
-7. 将 `PROJECT_START_PROMPT.md` 交给当前 Agent。
-8. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
-9. 需要项目负责人决定时，按 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释再请求决定；收到尚未分类的反馈时，先登记到 `12_issues/feedback/FEEDBACK_REGISTER.md`。
+4. 在 `00_project/ai_context/PROJECT_STRUCTURE_MAP.md` 选择 `SINGLE_PROJECT / MODULAR_PROJECT / FEDERATED_PROJECT`；既有未拆分项目选择 `SINGLE_PROJECT`，不制造 Child 记录。
+5. 在 `00_project/ai_context/CURRENT_STATE.md` 中配置当前阶段、授权、`AUTONOMY_MODE`、Model/Runtime/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 和 `ENFORCEMENT_MODE`。
+6. 按 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 为当前 Session 建立 Dynamic Role Profile 与 Knowledge Manifest，并明确绑定当前或适用 Gate、项目/任务范围与适用事实 Owner；需要机械执行时，让工具消费 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`。
+7. 如有需要，初始化 Git，并在开始实现前建立稳定锚点。
+8. 将 `PROJECT_START_PROMPT.md` 交给当前 Agent。
+9. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
+10. 需要项目负责人决定时，按 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释再请求决定；收到尚未分类的反馈时，先登记到 `12_issues/feedback/FEEDBACK_REGISTER.md`。
+
+## 大型项目与并行写入
+
+1. 先按稳定边界决定使用同一项目内 Module，还是建立独立 Governed Subproject；不得只按文件数量拆分。
+2. 将写入工作拆到 `LEAF_EXECUTION / INTEGRATION` Work Package，并为每项定义一个 Output Contract。
+3. 每个活动 Writer 绑定一个独立 Git Worktree 和 Branch；同一 Local Working Directory 同时只能有一个 Writer。
+4. 写入范围重叠或共享接口未冻结时改为串行，或先完成上游合同并建立 Integration Work Package。
+5. Child 完成后返回精确 Commit、验证和独立评审证据；Parent 通过 Child Acceptance Package 与 System Integration Manifest 组合验收。
+6. 上下文过长时只交接当前未完成 Leaf / Integration Work Package，并一次转移 Write Lease。
 
 ## Lite 设置
 
@@ -34,6 +44,7 @@
 6. 选择 `PROCEDURAL_FALLBACK` 或 `TOOL_ENFORCED`；
 7. 正式 C04 评审时使用全新、独立的 Session 并记录独立性证据；
 8. 切换 Model、Runtime、Harness 或物理上下文时执行 Knowledge Continuation Check；不满足条件时执行 Baseline Relearn。
+9. 配置 `PROJECT_STRUCTURE_MAP.md`；如并行写入，为每个活动任务记录 Output Contract、Worktree、Branch 和 Write Lease。
 
 ## 五分钟核验
 
@@ -46,5 +57,7 @@
 - 人类审批边界和说明内容明确，不能只问“是否批准”。
 - 反馈先登记再分类，FB 当前状态只有一个 Owner。
 - 已批准 ETC 变化场景能够追溯到 Stable Core / Variation Point、局限设计和替换性/兼容性证据。
+- 每个写入 Session 只对应一个活动 Leaf / Integration Work Package 和一个 Output Contract；同一 Worktree 只有一个 Writer。
+- Parent 接受 Child 时能核验精确 Commit、未过期 Acceptance Package、独立 Review Evidence 和系统集成证据，而不是依赖聊天摘要。
 
 如果任何答案不清楚，请停留在 C00，先解决治理状态问题，再进入实现。

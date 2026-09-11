@@ -1,5 +1,24 @@
 # 变更日志
 
+## [0.1.7] - 2026-09-11
+
+> 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。
+
+### 新增
+- 增加 `SINGLE_PROJECT / MODULAR_PROJECT / FEDERATED_PROJECT` 三种项目结构模式和递归 Work Package 分解。
+- 增加 Parent–Child Project Contract、Child Acceptance Package、System Integration Manifest 和当前 Project Structure Map。
+- 增加单写入 Session、单活动 `LEAF_EXECUTION / INTEGRATION` Work Package、单 Output Contract、单 Git Worktree、单活动 Writer 的执行绑定。
+
+### 变更
+- 多个并行写入 Session 必须使用独立 Worktree 和 Branch；同一 Local Working Directory 同时只能有一个 Writer。
+- Context Handoff 只接续当前未完成叶子/集成任务的最小上下文，并显式转移 Write Lease。
+- Parent Review 改为依赖有效 Child Acceptance / Independent Review Evidence，聚焦接口、集成、系统级接受和组合风险；不默认重审所有 Child 内部细节。
+- 分层 Testing Governance 复用仍有效的 Child Evidence，只补系统集成、Acceptance 与必要风险回归。
+
+### 兼容
+- 既有项目默认保持 `SINGLE_PROJECT`，不追溯重写历史任务、Review Record 或 Handoff。
+- 不改变 C00～C06、Current Truth、C04 Decision Matrix、Traceability、风险驱动 Testing Governance、授权边界或 Release Gate。
+
 ## [0.1.6] - 2026-09-04
 
 > 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。

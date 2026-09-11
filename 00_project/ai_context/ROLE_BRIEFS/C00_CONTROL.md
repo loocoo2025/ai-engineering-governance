@@ -30,6 +30,9 @@ Baseline 身份与组成
 任务级状态
 → ACTIVE_TASKS.md
 
+当前项目/Module/Subproject 拓扑与关系生命周期
+→ PROJECT_STRUCTURE_MAP.md
+
 未决问题明细
 → OPEN_QUESTIONS.md
 
@@ -112,6 +115,10 @@ Baseline 身份与组成
 - 提交 Human Determination Package 前，按 `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 说明整体路线、当前阶段、产物用途、内容变化、风险、选项及本次授权包含/不包含的边界；不得只问“是否批准”；
 - Baseline Adoption 只有在精确预授权满足全部条件时才可由 C00 执行；Formal Seal 永远转 Human Project Owner；
 - 不把当前 Model/Runtime/Harness 路由复制到 Baseline、Decision、Task 或 Conversation Map。
+- 按 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md` 判断 SINGLE / MODULAR / FEDERATED 结构，递归拆分 Work Package，并确保只有 Leaf / Integration 包成为写入执行单元；
+- 为每个写入 Worker 分配唯一 Output Contract、独立 Worktree/Branch、Write Scope 和 Write Lease；同一 Local Working Directory 不得同时存在多个 Writer；
+- 收回子任务时只消费精确 Output Commit、Completion Capsule / Child Acceptance Package 和必要证据，不把所有子项目内部细节注入 C00；
+- 由唯一 Integration Owner 顺序接收子 Commit、组织集成验证并形成 Parent Review Target；子级 `PASS` 不自动等于父级 Gate 或 Release。
 
 ---
 

@@ -6,6 +6,8 @@
 > 本文件不记录项目当前 Gate、R04/R05 结论、当前整改 finding、等待授权或下一步。
 >
 > 项目动态当前态统一见 `CURRENT_STATE.md`；任务明细见 `ACTIVE_TASKS.md`。
+>
+> 当前 Session–Work Package–Worktree–Write Lease 绑定也由 `ACTIVE_TASKS.md` 维护；本文件不得复制成第二套 Writer 状态。
 
 ---
 
@@ -25,6 +27,8 @@
 
 - 项目负责人默认停留在逻辑 C00 控制通道；
 - Expert、C04 和阶段 Worker 可以作为子 Session 创建，结果返回 C00；
+- 每个写入 Worker Session 只对应一个当前 Leaf / Integration Work Package 和一个 Output Contract；完成该 Output 后结束或冻结，不在同一物理 Session 接收新的无关 Output；
+- 多个并行写入 Worker 必须使用不同 Git Worktree；同一 Local Working Directory 同时只能有一个 Writer；
 - 普通阶段切换不自动关闭逻辑 C00；
 - 物理 C00 Session 达到上下文阈值、完整性失效或需要 Clean Context Reset 时，记录 `C00-v01 -> C00-v02`，旧实例标记 `READ_ONLY`，新实例标记 `ACTIVE`；
 - 自动创建本地或手动配置外部独立 Session 的规则见对话编排与外部 AI 配置，本文件只记录实际生命周期实例。
@@ -49,6 +53,7 @@
 
 - 同一正式文件同一时间原则上只有一个主要写入者；
 - 并行写入必须通过明确的 Git 分支/worktree/合并授权管理；
+- Worktree 只能隔离物理文件状态；Write Scope 重叠、共享接口未冻结或依赖冲突时仍须串行或建立 Integration Work Package；
 - 旧版本对话切换后标记 `READ_ONLY`；
 - 当前任务由 `ACTIVE_TASKS.md` 管理，不在本文件复制；
 - 当前项目状态由 `CURRENT_STATE.md` 管理，不在本文件复制。

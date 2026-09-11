@@ -16,6 +16,8 @@
 > - 如何避免新 AI 重新发明需求、架构和历史决策；
 > - 如何保证独立评审真的独立；
 > - 如何让项目状态存在文件里，而不是只存在聊天记录里。
+> - 如何让一个明确 Output 只由一个受控 Worker Session 在一个 Git Worktree 中完成；
+> - 如何让多个写入 Session 隔离并行，同时保证同一本地目录只有一个 Writer。
 >
 > **最高原则**
 >
@@ -535,17 +537,19 @@ C06 确认问题闭环
 
 至少记录：
 
-| 对话ID | 角色 | 当前版本 | 状态 | 当前任务 | 允许写入范围 |
+| 对话ID | 角色 | 当前版本 | 生命周期状态 | 主要职责 | 主要写入范围 |
 |---|---|---|---|---|---|
-| C00 | Control | v02 | ACTIVE | 里程碑管理 | 00_project |
-| C01 | Requirements | v03 | ACTIVE | SYS-NET需求 | 01/02 requirements |
-| C02 | Architecture | v02 | ACTIVE | 网络架构 | 03/04 design |
-| C03 | Implementation | v05 | ACTIVE | ConnectionManager | src + unit tests |
-| C04 | Review | v04 | ACTIVE | 网络模块独立审查 | READ ONLY + review |
-| C05 | Verification | v03 | ACTIVE | sanitizer/CI | tests/quality/ci |
-| C06 | Issues | v01 | ACTIVE | BUG-017 | issues/change |
+| C00 | Control | v02 | ACTIVE | 项目控制 | 00_project |
+| C01 | Requirements | v03 | ACTIVE | 需求 | 01/02 requirements |
+| C02 | Architecture | v02 | ACTIVE | 架构/设计 | 03/04 design |
+| C03 | Implementation | v05 | ACTIVE | 实现 | src + unit tests |
+| C04 | Review | v04 | ACTIVE | 独立评审 | READ ONLY + review |
+| C05 | Verification | v03 | ACTIVE | 验证/发布 | tests/quality/ci |
+| C06 | Issues | v01 | ACTIVE | 问题/变更 | issues/change |
 
-同时记录：
+同时记录稳定的对话写入边界和是否允许建立并行实例。当前 Task、Output Contract、Worktree、Branch、Write Scope 和 Write Lease 绑定只在 `ACTIVE_TASKS.md` 维护，不在本文件复制。
+
+需要核对：
 
 - 谁是某个文件或模块当前允许的主要修改者；
 - 是否存在并行实现；
@@ -555,9 +559,11 @@ C06 确认问题闭环
 
 # 12. 一个重要规则：同一正式文件不要让多个对话同时写
 
-除非使用明确的 Git 分支和合并流程，否则：
+所有情况下：
 
 > **同一个权威文档或同一个代码文件，在同一时间只允许一个主要写入者。**
+
+多个写入 Session 并行时必须使用独立 Git Worktree 和不同 Branch；使用 Worktree 也不能允许同一 Local Working Directory 出现两个 Writer。Write Scope 重叠时默认串行，或先建立共享上游/Integration Work Package。
 
 例如：
 
@@ -635,6 +641,7 @@ C06 确认问题闭环
 11. 完成一次大型重构；
 12. 完成一个重要发布版本；
 13. 即将开始一个与前一任务几乎无关的大型子系统。
+14. 写入 Worker 已完成当前 Output Contract，准备接收新的无关 Output；新的 Output 必须使用新的 Worker Session。
 
 ---
 
@@ -723,6 +730,14 @@ C03-v05-to-v06-2026-08-21.md
 当前 Git Commit：
 当前分支：
 
+## 1.1 Task-local 执行绑定
+Project / Subproject / Module：
+Work Package ID：
+Output Contract ID：
+Worktree / Branch / Base Commit：
+Write Scope：
+Write Lease 转移状态：
+
 ## 2. 当前开发阶段
 当前处于：
 当前里程碑：
@@ -794,6 +809,9 @@ C03-v05-to-v06-2026-08-21.md
 ## 18. 权威文件列表
 新 AI 必须优先阅读哪些文件？
 
+## 18.1 明确排除的上下文
+列出无关 Parent、兄弟 Module、已完成任务、旧聊天和不应加载的内部细节。
+
 ## 19. 交接完成检查
 - [ ] 项目状态已更新
 - [ ] 重要决策已落盘
@@ -802,6 +820,8 @@ C03-v05-to-v06-2026-08-21.md
 - [ ] 修改文件已记录
 - [ ] 临时方案已记录
 - [ ] 下一步已明确
+- [ ] 旧 Session 已停止写入，Write Lease 不存在双重占用
+- [ ] 只交接当前未完成 Leaf / Integration Work Package 的最小充分上下文
 ```
 
 ---
@@ -1511,7 +1531,7 @@ D. 验证
 3. **聊天记录不是项目真相，正式文件才是。**
 4. **重要决策必须落盘并编号。**
 5. **作者和独立评审者必须尽量分开。**
-6. **同一个正式文件不要让多个对话同时修改。**
+6. **一个写入 Session 只做一个 Leaf / Integration Output；并行 Writer 必须使用独立 Worktree，同一目录只有一个 Writer。**
 7. **上下文达到 60% 开始交接，70% 不接大任务，80% 必须换；没有百分比时 25 回合检查、40 回合强制换。**
 8. **换对话前必须更新状态并生成 HANDOFF。**
 9. **新对话先读规则、当前状态、基线和交接，不要先读整个旧聊天。**
@@ -1626,7 +1646,7 @@ Reviewer Provider 只是 Reviewer Model/Runtime/Harness 的运行选择属性，
 
 ```yaml
 NEW_INDEPENDENT_SESSION_REQUEST:
-  schema_version: "1.2"
+  schema_version: "1.3"
   request_id: "{{UNIQUE_REQUEST_ID}}"
   action: "CREATE_INDEPENDENT_SESSION"
   independent_session_required: true
@@ -1641,7 +1661,7 @@ NEW_INDEPENDENT_SESSION_REQUEST:
     interaction_id: "{{INTERACTION_ID}}"
 
   governance_identity:
-    target_role: "{{C04|EXPERT|ADVISORY}}"
+    target_role: "{{C01|C02|C03|C04|C05|C06|EXPERT|ADVISORY}}"
     formal_gate_authority: "{{C04_ONLY|NONE}}"
     execution_slot: "{{EXECUTION_SLOT}}"
     runtime: "{{RUNTIME_OR_HARNESS_NATIVE}}"
@@ -1649,6 +1669,13 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 
   task:
     self_contained: true
+    project_structure_ref: "{{PROJECT_STRUCTURE_MAP_REFERENCE}}"
+    project_id: "{{PROJECT_ID}}"
+    subproject_id: "{{ID_OR_NOT_APPLICABLE}}"
+    module_id: "{{ID_OR_NOT_APPLICABLE}}"
+    work_package_id: "{{WORK_PACKAGE_ID}}"
+    work_package_type: "{{LEAF_EXECUTION|INTEGRATION|REVIEW_PACKAGE|EXPERT_ANALYSIS}}"
+    output_contract_ref: "{{OUTPUT_CONTRACT_ID_OR_REVIEW_OUTPUT_CONTRACT}}"
     objective: "{{ONE_PRECISE_OBJECTIVE}}"
     exact_question: "{{QUESTION_TO_ANSWER}}"
     exact_git_target: "{{FULL_COMMIT_HASH_OR_NOT_APPLICABLE}}"
@@ -1675,6 +1702,16 @@ NEW_INDEPENDENT_SESSION_REQUEST:
     pull_request: false
     release: false
     remote_mutation: false
+
+  workspace_binding:
+    access_mode: "{{READ_ONLY|SCOPED_WRITE}}"
+    worktree_id: "{{WORKTREE_ID_OR_NOT_APPLICABLE}}"
+    worktree_path: "{{LOCAL_PATH_OR_NOT_APPLICABLE}}"
+    branch: "{{BRANCH_OR_DETACHED_TARGET_OR_NOT_APPLICABLE}}"
+    base_commit: "{{FULL_COMMIT}}"
+    write_scope: "{{PATHS_OR_NONE}}"
+    write_lease_status: "{{ACTIVE|NOT_APPLICABLE}}"
+    active_writer_session: "{{NEW_SESSION_ID_OR_NOT_APPLICABLE}}"
 
   enforcement:
     mode: "{{PROCEDURAL_FALLBACK|TOOL_ENFORCED}}"
@@ -1736,6 +1773,8 @@ NEW_INDEPENDENT_SESSION_REQUEST:
 11. 当请求把任务作为正式 C04 发出时，`FORMAL_C04_DISPATCH` 适用；如果该 Operation 只完成 Dispatch、没有触发新的真实 Model 推理调用，则 `REAL_MODEL_INVOCATION` 可以标记 `NOT_APPLICABLE`，但必须给出证据。
 12. 当一次 Operation 同时创建独立 Session、发起正式 C04 并触发真实 Model 调用时，三项 Action Class 必须同时出现，并分别引用各自的有效 Authorization Contract；任何一项不得隐含另一项。
 13. `NOT_APPLICABLE` 不是授权 ID。Schema 校验必须拒绝以下请求：适用 Action Class 缺少独立合同、合同与 Action Class 不匹配，或 `NOT_APPLICABLE` 缺少适用性证据。
+14. `BOUNDED_WORK_PACKAGE_EXECUTION` 必须绑定 `LEAF_EXECUTION / INTEGRATION`、唯一 Output Contract、独立 Worktree/Branch、精确 Base Commit、Write Scope 和单一 Write Lease；任一字段缺失、同一目录已有 Writer 或 Write Scope 冲突未关闭时拒绝 Dispatch。
+15. C04 / Expert / Advisory 的只读任务将 Write Lease 标记为 `NOT_APPLICABLE` 并给出只读证据；不得为了满足字段而制造虚假 Worktree 或 Writer。
 
 ## 41.6 当前 Session 外部 AI 调用与独立 Session 的分离
 
@@ -1759,3 +1798,75 @@ INDEPENDENCE_TRIGGER
 前者在配置和当前授权允许时可以静默调用，不创建新的治理 Session，由 Caller 提供上下文、保持任务 Owner、判断结果并继续工作；它不得产生正式 C04 Gate Decision。后者只用于权威规则明确要求独立性、且最小输入包已经自足的任务。
 
 外部 AI 当前调用、确认、预算、重试、并发和放置值只由 `00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护。本文件只维护交互语义和请求格式。
+
+## 41.7 单 Output Worker Session 与 Git Worktree 隔离
+
+项目分解、Leaf / Integration Work Package、Parent–Child Contract 和分层接受语义由 `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md` 维护。本节只规定 Session、Worktree、Writer 和 Handoff 如何执行。
+
+写入 Worker 的机械绑定为：
+
+```text
+ONE_WRITE_SESSION
+= ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE
+= ONE_OUTPUT_CONTRACT
+= ONE_GIT_WORKTREE
+= ONE_ACTIVE_WRITER
+
+ONE_LOCAL_WORKING_DIRECTORY
+<= ONE_ACTIVE_WRITER
+```
+
+`ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE` 只允许 `LEAF_EXECUTION / INTEGRATION`。
+
+规则：
+
+1. 一个写入 Worker Session 完成一个明确 Output Contract 后必须结束或冻结；新的无关 Output 使用新的 Worker Session；
+2. 多个写入 Session 并行必须使用不同 Git Worktree 和不同 Branch；每个 Worktree 在 `ACTIVE_TASKS.md` 只有一个 `ACTIVE` Write Lease；
+3. 单 Writer 串行工作可以使用当前项目 Worktree，但 C00 必须明确绑定；无法建立 Worktree 时不得启动多个 Writer；
+4. 默认项目目录推荐作为 Integration Worktree，由唯一 Integration Owner 接收精确子 Commit、解决冲突、运行集成验证并形成 Parent Review Target；普通 Worker 不直接在该目录并行开发；
+5. Worktree 隔离不扩大授权。文件修改、Commit、Merge/Cherry-pick、Push、PR 和 Release 仍为独立 Action；
+6. 不同 Worktree 的 Write Scope 默认不得重叠。共享文件、接口或事实 Owner 必须先冻结上游合同、串行执行，或建立单独 Integration Work Package；
+7. C04 对精确不可变 Commit 只读评审。它可以使用独立只读 Checkout/Worktree，但不得持有实现 Write Lease，也不得修改 Target；
+8. Session、Worktree、Branch、Base Commit、Write Scope、Output Contract 和 Lease 当前绑定只写入 `ACTIVE_TASKS.md`；`CONVERSATION_MAP.md` 只维护 Session 生命周期。
+
+为边界明确且输入自足的 Leaf / Integration Work Package 建立隔离 Worker Session 时，使用 `NEW_INDEPENDENT_SESSION_REQUEST`，并将：
+
+```text
+reason_code: BOUNDED_WORK_PACKAGE_EXECUTION
+formal_gate_authority: NONE
+```
+
+该 Reason Code 只证明需要独立任务上下文，不产生 C04 身份或 Gate 权威。默认在当前 AI/Harness 的当前项目中创建；只有外部配置已由负责人手动启用并选择 Profile 时，才允许自动创建到外部 AI。
+
+### 41.7.1 Write Lease 转移
+
+上下文耗尽但 Output 尚未完成时，允许新物理 Session 接续同一个 Worktree 和 Output Contract，但禁止新旧 Session 同时写入：
+
+```text
+OLD_SESSION stops writing
+→ WRITE_LEASE: HANDOFF_PENDING
+→ record Git status / diff / branch / base commit
+→ create Task-local HANDOFF
+→ OLD_SESSION: READ_ONLY / FROZEN
+→ NEW_SESSION verifies Task / Output / Scope / Authority
+→ WRITE_LEASE transferred once
+→ NEW_SESSION continues
+```
+
+无法证明旧 Writer 已停止、Git 状态未知或存在双重 Lease 时，标记 `WRITE_LEASE_CONFLICT` 并停止写入。
+
+### 41.7.2 Task-local Handoff 与向上返回
+
+Handoff 只包含当前未完成 Leaf / Integration Work Package 所需的需求、决定、接口、依赖、Diff、测试、风险和下一步。不得默认携带整个 Parent、兄弟 Module、已完成任务、完整聊天或私有推理。
+
+完成的子任务不通过 Handoff 无限向上传递上下文，而是返回：
+
+```text
+OUTPUT_COMMIT
+OUTPUT_CONTRACT_RESULT
+COMPLETION_CAPSULE_OR_CHILD_ACCEPTANCE_PACKAGE
+TEST_AND_REVIEW_EVIDENCE_REFERENCES
+OPEN_RISKS
+```
+
+Parent / C00 消费受控摘要和精确证据；只有命中 Drill-down Trigger 时，才为指定子链路建立新的定向 Session。

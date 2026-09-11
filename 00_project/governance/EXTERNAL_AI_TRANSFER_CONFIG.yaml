@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 
 # 本文件只维护外部 AI 调用与独立 Session 放置的当前配置值。
 # 固定 Role、Dynamic Role Profile、Interaction、通用 Authorization 和六维分离由 ROLE_INTERACTION_EXECUTION_POLICY.md 维护；
@@ -24,7 +24,7 @@ transfer_review:
 
 independent_session_creation:
   request_contract_ref: "AI_CONVERSATION_ORCHESTRATION_RULES.md#41.5"
-  request_schema_version: "1.2"
+  request_schema_version: "1.3"
   default_target: "CURRENT_AI_ENVIRONMENT"
   default_project_binding: "CURRENT_PROJECT"
   local_auto_create: true
@@ -40,6 +40,7 @@ independent_session_creation:
     - "FORMAL_C04_REREVIEW"
     - "EXPERT_ESCALATION_WITH_SELF_CONTAINED_PACKAGE"
     - "INDEPENDENT_ADVISORY_ANALYSIS"
+    - "BOUNDED_WORK_PACKAGE_EXECUTION"
     - "OTHER_PREAUTHORIZED_INDEPENDENT_SESSION"
 
   authorization_policy:

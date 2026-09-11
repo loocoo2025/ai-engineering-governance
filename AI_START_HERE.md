@@ -107,6 +107,18 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 
 > 根据当前状态继续，不重新从头建立项目。
 
+## 1.1 再判断项目结构模式
+
+项目生命周期分类完成后，读取 `00_project/ai_context/PROJECT_STRUCTURE_MAP.md`，确认：
+
+```text
+SINGLE_PROJECT
+MODULAR_PROJECT
+FEDERATED_PROJECT
+```
+
+结构模式、递归 Work Package、父子事实边界和分层接受规则见 `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`。如果当前项目是 Governed Subproject，只加载 Parent–Child Contract、父级精确 Anchor 和当前任务所需接口，不默认学习整个 Parent 或兄弟项目内部细节。
+
 ---
 
 # 2. 先建立最小充分知识包，再按需检索
@@ -118,13 +130,14 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 1. 完整阅读 `AI_START_HERE.md`；
 2. 读取 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 和 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`，解析固定岗位、动态 Profile、Interaction、授权和执行保障模式；
 3. 读取 `CURRENT_STATE.md`，确认当前阶段、Gate、授权、执行保障模式和运行路由；
-4. 读取 `BASELINE_INDEX.md`、`DECISION_INDEX.md` 和当前 `ACTIVE_TASKS.md` 条目；
-5. 读取当前角色的 Role Brief，并生成或核验本任务的 `DYNAMIC_ROLE_PROFILE` 与 `KNOWLEDGE_MANIFEST`；Profile 必须明确绑定当前或适用 Gate 与适用事实 Owner；
-6. 读取 Profile、Interaction、Task 或适用 Gate 明确引用的治理条款；
-7. 读取当前任务直接相关的 PRD / SRS / ADR / 架构 / 设计 /代码 / 测试和证据；
-8. 普通连续 Session 按需读取最新 HANDOFF；正式 C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理；
-9. 知识不足时搜索整个受权治理仓库，加载解决当前问题所需的额外规则；
-10. 仍无唯一规则时输出 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`，停止依赖该规则的动作并请求正确 Owner 裁定。
+4. 读取 `PROJECT_STRUCTURE_MAP.md`，确认项目结构模式、当前 Project / Module / Parent–Child 绑定；
+5. 读取 `BASELINE_INDEX.md`、`DECISION_INDEX.md` 和当前 `ACTIVE_TASKS.md` 条目；
+6. 读取当前角色的 Role Brief，并生成或核验本任务的 `DYNAMIC_ROLE_PROFILE` 与 `KNOWLEDGE_MANIFEST`；Profile 必须明确绑定当前或适用 Gate、适用事实 Owner、当前 Work Package、Output Contract 和 Workspace；
+7. 读取 Profile、Interaction、Task 或适用 Gate 明确引用的治理条款；
+8. 读取当前任务直接相关的 PRD / SRS / ADR / 架构 / 设计 /代码 / 测试和证据；不得默认加载其他 Child / Module 的内部细节；
+9. 普通连续 Session 按需读取最新 Task-local HANDOFF；正式 C04 使用精确 Review Target，不继承实现 HANDOFF 或私有推理；
+10. 知识不足时搜索整个受权治理仓库，加载解决当前问题所需的额外规则；
+11. 仍无唯一规则时输出 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`，停止依赖该规则的动作并请求正确 Owner 裁定。
 
 以下文件不必每个任务默认全文加载，但命中其职责时必须读取：
 
@@ -135,6 +148,7 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 - 面向负责人的路线、阶段说明或审批请求 → `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md`；
 - 反馈登记、分类和分流 → `12_issues/feedback/FEEDBACK_REGISTER.md`；
 - Context Reset / Baseline Relearn → `AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md`；
+- 项目拆分 / Module / Work Package / Child Acceptance / 系统集成 → `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`；
 - 变更 / 升级 / Release → 对应 `13_change_management/` 或 `14_release/` 文件。
 
 如果是老项目，还必须按任务需要读取 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 和 `00_project/migration/` 中的当前迁移资料。
@@ -152,6 +166,9 @@ HANDOFF 用于短期连续；Baseline Relearn 用于长期纠偏。
 ```text
 CURRENT_STATE.md
 → 项目当前阶段 / Gate / 授权 / 当前焦点 / 当前下一步
+
+PROJECT_STRUCTURE_MAP.md
+→ 当前项目、Module、Governed Subproject 拓扑与关系生命周期
 
 BASELINE_INDEX.md
 → 当前 Baseline 身份与组成
@@ -180,6 +197,8 @@ MIGRATION_LOG.md / HANDOFFS/*
 > **只更新 `CURRENT_STATE.md` 和对应正式评审记录；不要把同一句动态状态复制到 BASELINE_INDEX、CONVERSATION_MAP、MIGRATION_LOG 或旧 HANDOFF。**
 
 发生冲突时，先按事实所有权判断哪个文件应该被修正，而不是要求所有文件写成同一句话。
+
+大型项目中，父级只读取有效 Child Acceptance Package、接口、依赖和集成证据；只有明确 Drill-down Trigger 时才加载指定子链路。不得要求单个 Session 默认理解全部子项目实现细节。
 
 ---
 
@@ -229,6 +248,8 @@ C06  Bug、现场问题、变更闭环
 特别是：
 
 > C03 编写的代码，不得在同一个连续上下文中假装成 C04 完成“独立评审”。
+
+写入 Worker 还必须遵循：一个 Session 只绑定一个活动 `LEAF_EXECUTION / INTEGRATION` Work Package 和一个 Output Contract。多个并行 Writer 使用不同 Git Worktree；同一 Local Working Directory 同时最多一个 Writer。C00/C02/C05 的协调或集成 Session 可以跨模块查看抽象合同和证据，但不得把多个模块实现任务混成一个普通 Worker Task。
 
 ## 3.1 Role、Model、Runtime、Harness、Session 与 Tool 分离
 

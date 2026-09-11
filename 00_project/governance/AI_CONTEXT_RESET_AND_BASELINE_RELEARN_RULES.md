@@ -222,6 +222,17 @@ C03-v05
 
 小重置只读取最新一个 HANDOFF，默认不读取更早的 HANDOFF 链。
 
+## 7.1 分层任务的 Task-local Handoff
+
+当项目存在多级 Work Package 时，Context Handoff 只携带当前未完成的 `LEAF_EXECUTION / INTEGRATION` Work Package 所需上下文：
+
+- 当前任务边界、Output Contract 和写入范围；
+- 直接依赖的精确接口、决定、Baseline Anchor 和验证要求；
+- 当前 Worktree、Branch、未提交修改、测试状态和剩余步骤；
+- Write Lease 转移记录。
+
+默认排除已完成兄弟任务的实现细节、全部子项目历史、无关模块代码和旧 Session 私有推理。旧 Session 完成交接后冻结写入，Write Lease 只能一次转移给一个后继 Session；任务未完成不等于允许两个 Session 同时写入同一 Worktree。
+
 ---
 
 # 8. B 类：Baseline Relearn（大重置）
@@ -310,6 +321,7 @@ C00 必须组织一次“当前知识压缩”，确认：
 00_project/ai_context/OPEN_QUESTIONS.md
 00_project/ai_context/ACTIVE_TASKS.md
 00_project/ai_context/CONVERSATION_MAP.md
+00_project/ai_context/PROJECT_STRUCTURE_MAP.md
 02_system_requirements/requirements_traceability.md
 ```
 
@@ -369,6 +381,15 @@ milestone/M3
 在该流程内，必须重新生成或核验 Dynamic Role Profile 与 Knowledge Manifest，并核实当前 Decision、Current State、Baseline、已批准需求、已接受 ADR、架构、详细设计、测试设计、代码、测试、Open Questions 和 Active Tasks；涉及测试时应用 Testing Governance。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
 
 默认不读取旧聊天、旧 HANDOFF 链和 Archive。
+
+## 13.1 分层项目的最小重学习范围
+
+- Child / Leaf Worker 默认只学习自身当前 Baseline、Parent–Child Contract、直接接口、适用要求、任务和验证边界；
+- Parent / Integration Session 默认学习 System Integration Manifest、Child Acceptance Package、接口合同和系统级 Current Truth，不加载全部 Child 内部实现上下文；
+- 只有证据不一致、集成失败、系统 Finding、安全/合规/数据完整性风险或明确审核要求，才对精确 Child Target 定向下钻；
+- Parent 和 Child 各自在自己的治理边界执行 Baseline Relearn；不得用一个无限上下文 Session 代替分层事实与证据。
+
+稳定分解和组合式评审规则见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`。
 
 ---
 

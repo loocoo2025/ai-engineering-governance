@@ -93,6 +93,9 @@ Baseline 身份与组成
 当前任务：
 - 任务 ID / 详情以 `ACTIVE_TASKS.md` 为准
 
+当前项目结构：
+- 结构模式、Parent / Child / Module 拓扑以 `PROJECT_STRUCTURE_MAP.md` 为准
+
 ---
 
 # 3. 当前授权边界
@@ -159,6 +162,8 @@ Project Owner
 `ASSURANCE_CADENCE_PROFILE` 只选择保障节奏 Profile；Profile 定义和不可关闭控制项由 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 维护。外部 AI 的开关、预算和 Session 放置值只由 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护，本文件仅引用，不复制其中字段。
 
 `ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。
+
+项目结构模式和关系只由 `PROJECT_STRUCTURE_MAP.md` 维护；Task / Output Contract / Worktree / Write Lease 当前绑定只由 `ACTIVE_TASKS.md` 维护。不得把这些实例复制到本文件。
 
 ## 3.2 自动允许范围
 

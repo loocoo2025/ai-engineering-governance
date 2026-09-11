@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：156
+预建文件数：165
 
 ```text
 .gitignore
@@ -11,6 +11,7 @@
 00_project/ai_context/DECISION_INDEX.md
 00_project/ai_context/HANDOFFS/HANDOFF_TEMPLATE.md
 00_project/ai_context/OPEN_QUESTIONS.md
+00_project/ai_context/PROJECT_STRUCTURE_MAP.md
 00_project/ai_context/ROLE_BRIEFS/C00_CONTROL.md
 00_project/ai_context/ROLE_BRIEFS/C01_REQUIREMENTS.md
 00_project/ai_context/ROLE_BRIEFS/C02_ARCHITECTURE_DESIGN.md
@@ -27,6 +28,7 @@
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
+00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 00_project/migration/LEGACY_INVENTORY.md
 00_project/migration/LEGACY_STRUCTURE_MAP.md
@@ -92,7 +94,9 @@
 08_tests/test_data/README.md
 08_tests/unit/README.md
 09_quality/coverage/README.md
+09_quality/quality_reports/CHILD_ACCEPTANCE_PACKAGE_TEMPLATE.md
 09_quality/quality_reports/README.md
+09_quality/quality_reports/SYSTEM_INTEGRATION_MANIFEST_TEMPLATE.md
 09_quality/sanitizer/README.md
 09_quality/security/README.md
 09_quality/static_analysis/README.md
@@ -116,13 +120,17 @@
 13_change_management/change_requests/CHANGE_REQUEST_TEMPLATE.md
 13_change_management/change_requests/CR-GOV-001-role-interaction-executable-governance.md
 13_change_management/change_requests/CR-GOV-002-human-feedback-etc.md
+13_change_management/change_requests/CR-GOV-003-scalable-project-decomposition.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IA-GOV-002-human-feedback-etc.md
+13_change_management/impact_analysis/IA-GOV-003-scalable-project-decomposition.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.5.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.6.md
+13_change_management/release_notes/RELEASE_NOTES_v0.1.7.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
+13_change_management/templates/PARENT_CHILD_PROJECT_CONTRACT_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
 13_change_management/templates/代码实现-IMPLEMENTATION_BUG_FIX_TEMPLATE.md
 13_change_management/templates/方案讨论-DISCUSSION_ONLY_TEMPLATE.md
@@ -134,6 +142,7 @@
 14_release/release_records/RELEASE_RECORD_TEMPLATE.md
 14_release/release_records/RELEASE_RECORD_v0.1.5.md
 14_release/release_records/RELEASE_RECORD_v0.1.6.md
+14_release/release_records/RELEASE_RECORD_v0.1.7.md
 15_operations/deployment_manual.md
 15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md
 15_operations/maintenance_manual.md

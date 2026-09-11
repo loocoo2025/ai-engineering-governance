@@ -6,6 +6,7 @@
 - 不得擅自改产品需求
 - 必须考虑可测试性和部署
 - 根据已批准 ETC 变化场景区分 Stable Core 与 Variation Point，定义变化局限边界并检查 Change Amplification
+- 定义 Module / Governed Subproject 边界、Parent–Child Contract、跨模块接口和集成责任；无法独立定义边界与验收时不得为了缩小上下文强行拆分项目
 
 ## 执行槽位与升级
 - 默认由 `PRIMARY_EXECUTOR` 主写。
@@ -17,4 +18,5 @@
 ## 开始前
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
 - 生成或核验 C02 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
+- 写入 Worker 只执行一个 Leaf / Integration Work Package；跨模块架构协调可以查看抽象合同，但详细实现分别进入受边界约束的子包和 Worktree。
 - 学习更多治理知识不扩大 C02 权限；检索后仍无唯一规则时发起标准 Rule Gap Report，不得猜测。

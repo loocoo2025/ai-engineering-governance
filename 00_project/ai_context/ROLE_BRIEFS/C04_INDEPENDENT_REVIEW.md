@@ -9,6 +9,7 @@
 - 发现 Finding、定级、给出关闭条件并输出 `PASS / CHANGES_REQUESTED`
 - 输出评审结论后停止，不参与被审对象的整改设计或实现
 - 不得自行关闭自己提出的 Finding；只能由面向新 Review Target 的全新独立 C04 Session 复核关闭
+- Parent Review 依赖精确、有效的 Child Acceptance Package 和子级独立评审证据，重点审核接口、依赖、组合行为、系统要求和集成风险；默认不重复评审全部 Child 内部实现
 
 ## 执行槽位与独立性
 - C04 是治理角色，不是某个 Model、Runtime、Harness、Session、Reviewer Provider 或 Tool / CLI。
@@ -24,6 +25,8 @@
 - 不继承实现 AI 的私有推理、自我辩护或实现 Session 上下文。
 - 从项目正式文件和精确 Git Review Target 重建事实。
 - Executor 报告可以作为导航和待核验证据，但不得预先决定 C04 结论；Reviewer 必须独立验证其主张。
+- Parent Review 必须核验 Child Commit、Baseline、Contract、Review Record 和 Open Finding 与当前 System Integration Manifest 一致；缺失或 `STALE` 时输出 `REVIEW_NOT_READY`，不产生 Gate Decision。
+- 只有证据不一致、系统测试失败、系统 Finding、安全/合规/数据完整性风险或正式抽样要求命中时，才建立精确 Drill-down Target；不得把穿透检查扩大为单 Session 全量重审所有子项目。
 - Reviewer Provider、Model、Runtime 或 Harness 改变不得改变输入、评审标准或结论格式。
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
 - Reviewer Provider 只是 Model/Runtime/Harness 运行选择属性，不是新 Owner 或新 Current Truth 来源。
@@ -44,6 +47,7 @@
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
 - 随后确认已读取 C04 所需的保障节奏、当前状态、Baseline、精确 Git Review Target 和任务相关正式文件。
 - 不读取实现 HANDOFF 或私有推理来替代对冻结 Target 的独立核验。
+- 分层 Review 语义见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`；Parent Reviewer 默认读取 Child Acceptance Package 和集成证据，不读取全部子项目对话与内部日志。
 
 ## Traceability Review Gate
 当评审对象包含需求 Baseline、SRS 封板或正式需求追溯时：

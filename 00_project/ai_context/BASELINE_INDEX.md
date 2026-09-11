@@ -30,6 +30,8 @@
 当前未决问题状态 → OPEN_QUESTIONS.md
 当前有效决定正文/状态 → DECISION_INDEX.md
 当前对话状态 → CONVERSATION_MAP.md
+当前 Project / Module / Subproject 拓扑 → PROJECT_STRUCTURE_MAP.md
+当前 Worktree / Writer / Task 绑定 → ACTIVE_TASKS.md
 历史过程 → MIGRATION_LOG.md / Git / review records
 ```
 
@@ -67,6 +69,16 @@ Baseline Tag：{{TAG_OR_NONE}}
 | 部署定义 | 未建立 | DRAFT | `10_ci_cd/environments/` |
 | 发布产物 | 未建立 | DRAFT | `14_release/` |
 
+## 2.1 联邦项目精确版本组合（适用时）
+
+> 本表只属于当前 Baseline 的组成；项目关系拓扑仍由 `PROJECT_STRUCTURE_MAP.md` 维护，Child 内部 Current Truth 仍由各 Child 自己维护。
+
+| Child Project ID | Repository / Path Ref | Governance Version | Child Baseline | Commit / Tag | Parent–Child Contract | Child Acceptance Package |
+|---|---|---|---|---|---|---|
+| `NOT_APPLICABLE` | | | | | | |
+
+`SINGLE_PROJECT / MODULAR_PROJECT` 不需要制造虚假 Child 条目。`FEDERATED_PROJECT` 的每个当前 Child 必须固定精确、可读取、可复现的版本；仅记录浮动 Branch / HEAD 不足以形成正式集成 Baseline。
+
 ---
 
 # 3. Baseline 中的 ACCEPTED ADR 集
@@ -101,6 +113,7 @@ Baseline Tag：{{TAG_OR_NONE}}
 - [ ] 测试基线明确；
 - [ ] `DECISION_INDEX.md` 不存在同一主题多个冲突的当前有效决定；
 - [ ] 不存在未说明的 Baseline 内部重大偏差。
+- [ ] 联邦项目的 Child Commit / Tag、Contract、Acceptance Package 和治理版本组合明确且一致（如适用）；
 - [ ] `CANDIDATE -> CURRENT` 存在 Human Project Owner / 既有 Baseline Owner 明确采用证据，或满足 `ROLE_INTERACTION_EXECUTION_POLICY.md` 第 5.1 节的精确 C00 预授权条件；
 
 > 当前项目是否正在 REVIEW / REWORK / READY、是否允许进入下一阶段，不在本文件判定；见 `CURRENT_STATE.md`。

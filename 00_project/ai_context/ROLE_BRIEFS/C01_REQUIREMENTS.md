@@ -6,6 +6,7 @@
 - 不为实现方便弱化需求
 - 重要需求必须可验证并编号
 - 在 PRD 中记录合理可预见的变化场景，并在 SRS / Acceptance Criteria 中形成适用的可验证 ETC 要求；不得用未知未来需求制造投机性范围
+- 在模块化/联邦项目中分配系统需求、跨项目接口和系统级 Acceptance Criteria；Child 只维护被委派范围内的需求，不复制或改写 Parent 拥有的系统事实
 
 ## 执行槽位与升级
 - 默认由 `PRIMARY_EXECUTOR` 主写。
@@ -15,6 +16,7 @@
 ## 开始前
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
 - 生成或核验 C01 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
+- 写入工作只绑定一个 Leaf / Integration Work Package、Output Contract 和 Worktree；跨 Child 需求工作作为 Parent 协调或独立 Integration Package，不混入单个 Child Worker。
 - 学习更多治理知识不扩大 C01 权限；检索后仍无唯一规则时发起标准 Rule Gap Report，不得猜测。
 
 ## 需求追溯机械门

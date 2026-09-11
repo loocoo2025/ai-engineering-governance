@@ -4,6 +4,8 @@
 > 本文件只负责“任务本身”的状态、责任角色、输入和输出。
 >
 > 项目当前阶段、评审/Gate 状态、授权边界和下一步由 `CURRENT_STATE.md` 维护，不要在任务描述中复制成另一套 Current Truth。
+>
+> 本文件同时是 Task / Work Package、Output Contract、Workspace Binding 和 Write Lease 当前状态的唯一实例 Owner。稳定的项目分解语义见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`，Session/Worktree 操作规则见 `AI_CONVERSATION_ORCHESTRATION_RULES.md`。
 
 | Task | 类型 | 责任角色 | 输入 | 输出 | 任务状态 |
 |---|---|---|---|---|---|
@@ -76,21 +78,28 @@ OUTPUT_READY
 
 ## 有边界的 Work Package
 
-大型任务可以递归拆分为 Work Package。每个包的状态仍由本文件维护，不新增任务状态 Owner。
+大型任务可以任意层级递归拆分为 Work Package。每个包的状态仍由本文件维护，不新增任务状态 Owner。
 
 ```text
 WORK_PACKAGE_ID:
 PARENT_WORK_PACKAGE_ID:
+PROJECT_ID:
+SUBPROJECT_ID: {{ID_OR_NOT_APPLICABLE}}
+MODULE_ID: {{ID_OR_NOT_APPLICABLE}}
+WORK_PACKAGE_TYPE: COORDINATION / LEAF_EXECUTION / INTEGRATION / REVIEW_PACKAGE
+LEAF_EXECUTABLE: YES / NO
 OBJECTIVE:
 BOUNDARY:
 INPUTS:
 OUTPUTS:
+OUTPUT_CONTRACT_ID:
 DEPENDENCIES:
 RISKS:
 APPLICABLE_REQUIREMENTS_AND_DECISIONS:
 OWNER_ROLE:
 VERIFICATION:
 DEFINITION_OF_DONE:
+REVIEW_PACKAGE_ID: {{ID_OR_NOT_APPLICABLE}}
 STATUS:
 ```
 
@@ -100,3 +109,59 @@ STATUS:
 - 父包负责跨包关系、集成和剩余风险；
 - 拆包不自动增加人工 Gate；
 - 不得通过拆包隐藏跨包接口、追溯或集成风险。
+- 只有 `LEAF_EXECUTION / INTEGRATION` 可以成为写入执行单元；`COORDINATION / REVIEW_PACKAGE` 不得混入多个子包实现；
+- 跨兄弟包的修改必须拆成各自叶子包，并建立单独的 `INTEGRATION` Work Package；
+- 叶子包进入 `READY` 前必须具备明确 Boundary、Inputs、Output Contract、Dependencies、Write Scope、Verification 和 Definition of Done；
+- `EXECUTION_UNIT != REVIEW_UNIT`：一个 Review Package 可以覆盖多个已冻结叶子包，但子包 `DONE` 不自动产生正式 C04 `PASS`。
+
+## Output Contract
+
+每个写入执行单元只能绑定一个当前 Output Contract：
+
+```text
+OUTPUT_CONTRACT_ID:
+WORK_PACKAGE_ID:
+OBJECTIVE:
+EXPECTED_OUTPUTS:
+ALLOWED_PATHS:
+FORBIDDEN_PATHS:
+INPUT_COMMIT:
+DEPENDENCY_CONTRACTS:
+ACCEPTANCE_CRITERIA:
+REQUIRED_VALIDATION:
+OUTPUT_COMMIT: {{FULL_COMMIT_OR_NOT_ESTABLISHED}}
+MERGE_TARGET:
+INTEGRATION_OWNER:
+STATUS: DRAFT / READY / IN_PROGRESS / OUTPUT_READY / ACCEPTED / STALE / CANCELLED
+```
+
+“一个 Output”可以由共同完成一个原子交付目的的代码、测试和必要文档组成，不等于只能修改一个文件。目标、边界或接受条件发生实质变化时，原 Contract 标记 `STALE`，重新校验 Task、Authorization 和 Workspace Binding。
+
+## Workspace Binding 与 Write Lease
+
+| Work Package | Session | Worktree ID / Path | Branch | Base Commit | Write Scope | Lease Status | Output Contract |
+|---|---|---|---|---|---|---|---|
+| | | | | | | `UNASSIGNED / ALLOCATED / ACTIVE / HANDOFF_PENDING / OUTPUT_READY / FROZEN / INTEGRATED / RETIRED` | |
+
+机械规则：
+
+```text
+ONE_WRITE_SESSION
+= ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE
+= ONE_OUTPUT_CONTRACT
+= ONE_GIT_WORKTREE
+= ONE_ACTIVE_WRITER
+
+ONE_LOCAL_WORKING_DIRECTORY
+<= ONE_ACTIVE_WRITER
+```
+
+`ONE_ACTIVE_EXECUTABLE_WORK_PACKAGE` 只允许 `LEAF_EXECUTION / INTEGRATION`。
+
+- 多个并行写入 Session 必须使用不同 Git Worktree 和不同 Branch；
+- 同一 Worktree / Local Working Directory 同一时间最多一个 `ACTIVE` Writer；
+- 同一 Output Contract 不得由多个 Session 并行写入；上下文接续必须先冻结旧 Session，再转移 Write Lease；
+- 不同 Worktree 的 Write Scope 默认不得重叠；必须修改共享文件或接口时，串行执行或先建立上游/Integration Work Package；
+- 无 Git、无法建立 Worktree 或无法证明 Write Lease 唯一时，禁止并行写入，只能串行单 Writer；
+- Worktree、Commit、Merge、Push 和 Release 分别受权，不因存在 Workspace Binding 自动获得权限；
+- Parent / C00 通过精确 Commit 和 Completion / Acceptance Package 接收结果，不接收未锚定的“已经完成”声明。

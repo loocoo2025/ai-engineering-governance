@@ -16,6 +16,28 @@
 交接时 Git Commit：
 分支：
 
+## Task-local Scope 与执行绑定
+
+```text
+PROJECT_ID:
+SUBPROJECT_ID: {{ID_OR_NOT_APPLICABLE}}
+MODULE_ID: {{ID_OR_NOT_APPLICABLE}}
+WORK_PACKAGE_ID:
+WORK_PACKAGE_TYPE: LEAF_EXECUTION / INTEGRATION
+OUTPUT_CONTRACT_ID:
+OLD_SESSION_ID:
+NEW_SESSION_ID:
+WORKTREE_ID:
+WORKTREE_PATH:
+BRANCH:
+BASE_COMMIT:
+WRITE_SCOPE:
+WRITE_LEASE_BEFORE: ACTIVE / HANDOFF_PENDING
+WRITE_LEASE_AFTER: TRANSFERRED / FROZEN
+```
+
+本 Handoff 只交接当前未完成 Work Package 的最小充分上下文，不携带整个 Parent、兄弟 Module、已完成任务或全部历史对话。
+
 ## 交接时阶段/里程碑快照
 -
 
@@ -37,6 +59,12 @@
 ## 未完成
 -
 
+## 当前未完成任务所需上下文
+- 当前 Requirement / Decision / Interface 精确引用：
+- 当前实现状态和未提交 Diff：
+- 直接依赖：
+- 已排除且新 Session 不应加载的范围：
+
 ## 阻塞
 -
 
@@ -52,6 +80,14 @@
 ## 下一对话第一动作
 -
 
+## Write Lease 转移
+
+- [ ] 旧 Session 已停止写入并标记 `READ_ONLY / FROZEN`
+- [ ] Git Status、未提交修改、Branch 和 Base Commit 已精确记录
+- [ ] 同一本地目录不存在第二个活动 Writer
+- [ ] 新 Session 已核验 Task、Output Contract、Write Scope 和权限
+- [ ] Write Lease 仅在核验通过后转移给新 Session
+
 ## 权威文件引用
 - 当前动态状态：`CURRENT_STATE.md`
 - Baseline：`BASELINE_INDEX.md`
@@ -66,6 +102,8 @@
 - [ ] OPEN_QUESTIONS 中问题状态已更新（如适用）
 - [ ] 未提交修改已记录
 - [ ] 下一步明确
+- [ ] Handoff 未包含无关 Module / Child 内部细节
+- [ ] 已完成子任务通过 Completion / Acceptance Package 引用，不复制其完整上下文
 
 ## 交接时 Baseline 快照
 
