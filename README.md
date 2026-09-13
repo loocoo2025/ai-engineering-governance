@@ -24,6 +24,13 @@ AI Agent 擅长连续工作数小时，而软件项目往往持续数月。长�
 
 当前已发布基线：**v0.1.7**
 
+官方发布地址（机器可读权威值由 `FRAMEWORK_UPDATE_CONFIG.yaml` 维护）：
+
+- GitHub（主发布源）：[loocoo2025/ai-engineering-governance](https://github.com/loocoo2025/ai-engineering-governance)
+- Gitee（官方镜像）：[xiaoyingfengxue/ai-engineering-governance](https://gitee.com/xiaoyingfengxue/ai-engineering-governance)
+
+框架通过 `00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml` 配置只读版本检查。新的物理 C00 Session 启动时可检查稳定版并以中英文双语提醒负责人；只有负责人明确选择升级后，才执行受控升级协议。检查不会静默修改文件，升级不会自动接受 Breaking Change、改变产品 Current Truth、Push 或 Release。
+
 ## 为什么需要长程智构
 
 AI 编码 Agent 在单项任务中表现出色，但长周期项目通常会以一些可预见的方式失控：
@@ -116,6 +123,7 @@ Lite 是一种采用方式，不是第二套治理事实来源。项目可以从
 - `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` — 岗位、知识、交互、授权、审核/裁定运行线和执行保障模式。
 - `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` — 可供工具消费的治理合同字段和枚举。
 - `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md` — 项目分解、父子事实、组合式评审和联邦集成规则。
+- `00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml` — 官方 GitHub/Gitee 发布源、只读版本检查、中英文双语提醒和用户导向更新配置。
 - `00_project/ai_context/` — 当前状态、结构图、Baseline、决策、任务、问题和角色简报。
 - `01_product_requirements/` 至 `15_operations/` — 完整 Full Template 生命周期结构。
 - `09_quality/traceability/` — 机械化追溯校验。

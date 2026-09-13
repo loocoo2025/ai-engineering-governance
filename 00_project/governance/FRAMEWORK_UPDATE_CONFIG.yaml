@@ -1,0 +1,95 @@
+schema_version: "1.0"
+config_owner: "00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml"
+upgrade_protocol: "13_change_management/templates/治理模板升级-GOVERNANCE_TEMPLATE_UPGRADE_TEMPLATE.md"
+
+installed_version:
+  source: "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml#framework_version"
+
+official_sources:
+  github:
+    role: "PRIMARY"
+    repository_url: "https://github.com/loocoo2025/ai-engineering-governance"
+    git_url: "https://github.com/loocoo2025/ai-engineering-governance.git"
+    releases_url: "https://github.com/loocoo2025/ai-engineering-governance/releases"
+  gitee:
+    role: "OFFICIAL_MIRROR"
+    repository_url: "https://gitee.com/xiaoyingfengxue/ai-engineering-governance"
+    git_url: "https://gitee.com/xiaoyingfengxue/ai-engineering-governance.git"
+    releases_url: "https://gitee.com/xiaoyingfengxue/ai-engineering-governance/releases"
+
+source_resolution:
+  primary_source: "github"
+  fallback_source: "gitee"
+  require_exact_semver_tag: true
+  require_full_commit: true
+  require_changelog_entry: true
+  same_tag_commit_mismatch_result: "UPDATE_SOURCE_CONFLICT"
+  mirror_higher_version_result: "UPDATE_SOURCE_CONFLICT"
+  mirror_missing_primary_latest_result: "MIRROR_LAGGING"
+  mirror_lagging_blocks_primary_notification: false
+  floating_branch_is_valid_upgrade_target: false
+
+version_check:
+  enabled: true
+  trigger: "ON_C00_PHYSICAL_SESSION_START"
+  frequency: "ONCE_PER_C00_PHYSICAL_SESSION"
+  channel: "STABLE_ONLY"
+  read_only: true
+  mutate_project_repository: false
+  respect_caller_and_environment_permissions: true
+  unavailable_result: "UPDATE_CHECK_UNAVAILABLE"
+  unavailable_blocks_current_project_work: false
+
+notification:
+  notify_only_when_newer_version_exists: true
+  repeat_within_same_session: false
+  presentation: "BILINGUAL_ZH_CN_EN"
+  title:
+    zh-CN: "发现新的治理框架稳定版本"
+    en: "A new stable governance framework version is available"
+  required_fields:
+    - "installed_version"
+    - "available_version"
+    - "exact_tag"
+    - "full_commit"
+    - "source"
+    - "release_url"
+    - "breaking_change_status"
+    - "available_actions"
+  available_actions:
+    - "VIEW_CHANGES"
+    - "UPGRADE_LATEST_STABLE"
+    - "UPGRADE_EXACT_VERSION"
+    - "SKIP_FOR_CURRENT_SESSION"
+  action_labels:
+    VIEW_CHANGES:
+      zh-CN: "查看版本变化"
+      en: "View changes"
+    UPGRADE_LATEST_STABLE:
+      zh-CN: "升级到最新稳定版"
+      en: "Upgrade to the latest stable version"
+    UPGRADE_EXACT_VERSION:
+      zh-CN: "升级到指定版本"
+      en: "Upgrade to an exact version"
+    SKIP_FOR_CURRENT_SESSION:
+      zh-CN: "本次会话暂不升级"
+      en: "Skip for this session"
+
+upgrade_execution:
+  mode: "USER_DIRECTED"
+  check_does_not_authorize_upgrade: true
+  explicit_user_selection_required: true
+  execute_existing_upgrade_protocol: true
+  default_allow_prerelease: false
+  default_allow_breaking_governance_change: false
+  default_allow_local_commit: true
+  default_allow_push: false
+  default_allow_release: false
+  default_allow_remote_mutation: false
+  preserve_product_current_truth: true
+
+failure_policy:
+  source_conflict: "STOP_AND_REPORT"
+  target_not_exact: "STOP_AND_REPORT"
+  current_version_unknown: "FOLLOW_UPGRADE_PROTOCOL_UNKNOWN_LEGACY_RULES"
+  insufficient_permission: "REPORT_WITHOUT_MUTATION"

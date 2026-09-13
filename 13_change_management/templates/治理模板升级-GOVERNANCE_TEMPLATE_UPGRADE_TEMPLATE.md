@@ -64,7 +64,10 @@
 
 ```text
 UPSTREAM_REPOSITORY:
-https://github.com/loocoo2025/ai-engineering-governance.git
+RESOLVE_FROM_FRAMEWORK_UPDATE_CONFIG
+
+FRAMEWORK_UPDATE_CONFIG:
+00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 
 TARGET_SELECTOR:
 LATEST_STABLE_VERSION
@@ -114,6 +117,8 @@ NO
 - 是否允许本地 Commit。
 
 显式目标必须同时解析到精确 Tag 和完整 Commit。只给出浮动 `main`、`HEAD`、`latest` 分支或网页展示短 Hash，不满足正式升级条件。
+
+未提供替代上游时，官方发布地址、主源/镜像优先级和冲突处理只从 `FRAMEWORK_UPDATE_CONFIG.yaml` 读取。本协议不复制维护官方地址。版本检查提醒本身不构成升级授权；只有调用者明确选择 `UPGRADE_LATEST_STABLE`、`UPGRADE_EXACT_VERSION` 或提供等价明确指令后，才进入本协议。
 
 ### 1.1 本次预授权 Gate
 
@@ -434,7 +439,7 @@ OLD_UPSTREAM
 
 `TARGET_SELECTOR: LATEST_STABLE_VERSION` 的稳定定义：
 
-1. 同时读取可信上游 Git Tags 和可用的 GitHub Release 元数据；
+1. 从 `FRAMEWORK_UPDATE_CONFIG.yaml` 读取官方 GitHub 主源和 Gitee 官方镜像，同时读取可用的 Git Tags 与 Release 元数据；
 2. 候选 Tag 必须严格匹配正式 SemVer `vMAJOR.MINOR.PATCH`，且目标 `CHANGELOG.md` 包含对应版本；
 3. 排除带有 `alpha / beta / rc / preview` 等后缀的 Tag；
 4. 某 Tag 已关联 GitHub Release 时，Draft 或 Prerelease 标记会将其排除；
@@ -442,9 +447,31 @@ OLD_UPSTREAM
 6. 在全部稳定候选中选择 SemVer 最高版本；
 7. 将 Tag 解析为完整不可变 Commit；
 8. 同时记录选择时间、Tag、Tag Object（如适用）和 Commit；
-9. 不使用浮动 `main / HEAD / latest branch` 作为正式目标。
+9. 不使用浮动 `main / HEAD / latest branch` 作为正式目标；
+10. 两个官方源都可用时，同一 Tag 必须解析到同一完整 Commit；不一致时输出 `UPDATE_SOURCE_CONFLICT` 并停止；
+11. Gitee 尚未包含 GitHub 主源的最新稳定 Tag 时记录 `MIRROR_LAGGING`，不阻断主源更新提醒；Gitee 出现主源不存在的更高稳定版本时输出 `UPDATE_SOURCE_CONFLICT` 并停止；
+12. GitHub 主源不可用时可以使用 Gitee 官方镜像解析候选，但在迁移前仍须满足精确 Tag、完整 Commit、CHANGELOG 和目标完整性检查。
 
 如果 Release 元数据、Tag 和 Commit 互相冲突，标记 `UPSTREAM_TARGET_RESOLUTION: UNKNOWN` 并停止。
+
+只读更新检查的输出格式：
+
+```text
+FRAMEWORK_UPDATE_CHECK
+INSTALLED_VERSION:
+AVAILABLE_VERSION:
+EXACT_TAG:
+FULL_COMMIT:
+SOURCE:
+RELEASE_URL:
+BREAKING_CHANGE_STATUS:
+STATUS: CURRENT / UPDATE_AVAILABLE / MIRROR_LAGGING / UPDATE_CHECK_UNAVAILABLE / UPDATE_SOURCE_CONFLICT
+AVAILABLE_ACTIONS: VIEW_CHANGES / UPGRADE_LATEST_STABLE / UPGRADE_EXACT_VERSION / SKIP_FOR_CURRENT_SESSION
+```
+
+上述机器字段和值保持英文不变。向项目负责人展示 `UPDATE_AVAILABLE` 提醒时，必须读取 `FRAMEWORK_UPDATE_CONFIG.yaml` 中的双语标题和动作标签，按“中文 / English”显示，不得只展示机器动作值。
+
+`UPDATE_AVAILABLE` 只产生提醒，不修改项目，也不等于 `UPGRADE_READINESS: READY`。
 
 上游不可访问时，不得把本地缓存自动宣称为最新版本。只有负责人提供并批准精确目标版本、Tag Object（如适用）和 Commit，且可信本地副本能够验证三者关系时才可离线继续。
 

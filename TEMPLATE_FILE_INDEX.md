@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：165
+预建文件数：166
 
 ```text
 .gitignore
@@ -26,6 +26,7 @@
 00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md

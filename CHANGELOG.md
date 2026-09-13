@@ -1,5 +1,14 @@
 # 变更日志
 
+## [Unreleased]
+
+### 新增
+- 增加官方 GitHub 主发布源与 Gitee 镜像配置，以及 C00 Session 启动时的只读稳定版本检查和中英文双语更新提醒。
+- 增加用户导向的受控更新入口；负责人明确选择后复用既有跨版本升级协议，不进行后台静默自更新。
+
+### 兼容
+- 更新检查不修改项目、不改变 Current Truth，也不授权 Breaking Change、Push、Release 或其他远程副作用。
+
 ## [0.1.7] - 2026-09-11
 
 > 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。

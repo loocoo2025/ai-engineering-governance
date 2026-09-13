@@ -119,6 +119,33 @@ FEDERATED_PROJECT
 
 结构模式、递归 Work Package、父子事实边界和分层接受规则见 `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`。如果当前项目是 Governed Subproject，只加载 Parent–Child Contract、父级精确 Anchor 和当前任务所需接口，不默认学习整个 Parent 或兄弟项目内部细节。
 
+## 1.2 检查治理框架更新
+
+逻辑 C00 在每个新的物理 C00 Session 启动时，读取 `00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml`，并按配置执行一次只读版本检查。其他角色或 Worker Session 不重复检查。
+
+版本检查必须：
+
+- 从配置中的官方 GitHub 主源和 Gitee 官方镜像解析稳定 SemVer Tag；
+- 从 `GOVERNANCE_EXECUTION_CONTRACTS.yaml` 读取当前安装版本；
+- 使用精确 Tag 和完整 Commit 比较，不使用浮动 `main / HEAD / latest branch`；
+- 不 fetch、merge、checkout 或修改当前项目仓库；
+- 遵守 Caller 和运行环境权限；网络或源不可用时报告 `UPDATE_CHECK_UNAVAILABLE`，但不阻断当前产品工作；
+- 同一 Tag 在两个官方源解析到不同 Commit 时报告 `UPDATE_SOURCE_CONFLICT`，不得建议自动采用该 Target。
+- Gitee 尚未同步 GitHub 已发布版本时可报告 `MIRROR_LAGGING`，但不阻断基于 GitHub 主源的提醒；Gitee 出现主源不存在的更高版本时按源冲突停止。
+
+发现更高稳定版本时，C00 必须以中文在前、英文在后的双语形式提醒项目负责人，并给出以下操作。机器动作值保持英文不变，以便自动解析：
+
+```text
+发现新的治理框架稳定版本 / A new stable governance framework version is available
+
+VIEW_CHANGES — 查看版本变化 / View changes
+UPGRADE_LATEST_STABLE — 升级到最新稳定版 / Upgrade to the latest stable version
+UPGRADE_EXACT_VERSION — 升级到指定版本 / Upgrade to an exact version
+SKIP_FOR_CURRENT_SESSION — 本次会话暂不升级 / Skip for this session
+```
+
+只读检查和提醒不授权升级。只有负责人明确选择升级后，C00 才能执行 `13_change_management/templates/治理模板升级-GOVERNANCE_TEMPLATE_UPGRADE_TEMPLATE.md`；升级仍必须通过 Readiness、精确 Target、产品事实保护、适用 C04、Baseline Adoption 和 Baseline Relearn，不得静默覆盖或自动接受 Breaking Change。静态模板不运行后台守护进程；“自动提醒”发生在配置规定的 C00 启动检查点或负责人主动要求检查时。
+
 ---
 
 # 2. 先建立最小充分知识包，再按需检索
@@ -144,6 +171,7 @@ FEDERATED_PROJECT
 - Session / 交接 / 独立上下文 → `AI_CONVERSATION_ORCHESTRATION_RULES.md`；
 - 保障节奏 / C04 触发 → `PROJECT_ASSURANCE_CADENCE_POLICY.md`；
 - 外部 AI 当前配置 → `EXTERNAL_AI_TRANSFER_CONFIG.yaml`；
+- 官方发布源、版本检查和用户导向更新 → `FRAMEWORK_UPDATE_CONFIG.yaml`；
 - 测试范围 → `AI_TESTING_GOVERNANCE_RULES.md`；
 - 面向负责人的路线、阶段说明或审批请求 → `AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md`；
 - 反馈登记、分类和分流 → `12_issues/feedback/FEEDBACK_REGISTER.md`；
