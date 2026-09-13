@@ -163,7 +163,7 @@ Harness 支持且权限允许时，C00 可以自动完成本地 `C00-vNext` 建�
 
 ---
 
-\n# 14. 现在立即执行
+# 14. 现在立即执行
 
 如果你是第一次进入本项目：
 
@@ -178,4 +178,3 @@ Harness 支持且权限允许时，C00 可以自动完成本地 `C00-vNext` 建�
 9. 如果存在 `QUESTION_PRIORITY` P0/P1，按工程总则由 Primary Executor / C00 组织 Expert Escalation；C04 Finding 使用 S0～S3，C04 只形成 Finding 和评审结论后停止。如果不存在 `QUESTION_PRIORITY` P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内，直接执行下一项最合理工作。不存在 `QUESTION_PRIORITY` P0/P1 不构成新的阶段授权。
 
 **在完成项目接管报告之前，不得大规模修改代码或目录。**
-\n

@@ -1,6 +1,7 @@
 schema_version: "1.0"
 domain: "ENGINEERING"
 owner: "00_project/governance/modules/engineering/INDEX.yaml"
+trigger_values_are_compared_against: "00_project/governance/GOVERNANCE_ROUTER.yaml#routing_inputs"
 
 rules:
   - id: "ENG-DEVELOPMENT-METHOD-STRUCTURE"
@@ -8,28 +9,28 @@ rules:
     must_read_when: ["PROCESS_OR_DIRECTORY_DECISION"]
   - id: "ENG-REQUIREMENTS-TRACEABILITY"
     path: "00_project/governance/modules/engineering/REQUIREMENTS_AND_TRACEABILITY.md"
-    must_read_when: ["ROLE_C01", "REQUIREMENT_OR_TRACEABILITY_CHANGE"]
+    must_read_when: ["ROLE_C01", "REQUIREMENT_OR_TRACEABILITY_CHANGE", "REQUIREMENTS", "TRACEABILITY"]
   - id: "ENG-ARCHITECTURE-DESIGN"
     path: "00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md"
-    must_read_when: ["ROLE_C02", "ARCHITECTURE_OR_DESIGN_CHANGE"]
+    must_read_when: ["ROLE_C02", "ARCHITECTURE_OR_DESIGN_CHANGE", "ARCHITECTURE", "DESIGN"]
   - id: "ENG-IMPLEMENTATION-CI-VALIDATION"
     path: "00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md"
-    must_read_when: ["ROLE_C03", "IMPLEMENTATION_OR_CI_CHANGE"]
+    must_read_when: ["ROLE_C03", "IMPLEMENTATION_OR_CI_CHANGE", "IMPLEMENTATION", "CI"]
   - id: "ENG-ISSUES-CHANGE"
     path: "00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md"
-    must_read_when: ["ROLE_C06", "BUG_OR_CHANGE_REQUEST"]
+    must_read_when: ["ROLE_C06", "BUG_OR_CHANGE_REQUEST", "ISSUE_OR_CHANGE"]
   - id: "ENG-COMPLETION-RELEASE"
     path: "00_project/governance/modules/engineering/COMPLETION_AND_RELEASE.md"
-    must_read_when: ["DEFINITION_OF_DONE", "PUBLIC_OR_PRODUCTION_RELEASE"]
+    must_read_when: ["DEFINITION_OF_DONE", "PUBLIC_OR_PRODUCTION_RELEASE", "COMPLETION_OR_RELEASE"]
   - id: "ENG-TASK-EXECUTION-PERMISSIONS"
     path: "00_project/governance/modules/engineering/TASK_EXECUTION_AND_PERMISSIONS.md"
     must_read_when: ["IMPLEMENTATION_SIDE_EFFECT", "AUTHORIZATION_CHECK"]
   - id: "ENG-CURRENT-TRUTH-AUTHORITY-REVIEW"
     path: "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
-    must_read_when: ["CURRENT_TRUTH_CHANGE", "FORMAL_C04", "EXPERT_ESCALATION", "AUTONOMY_CHANGE"]
+    must_read_when: ["CURRENT_TRUTH_CHANGE", "FORMAL_C04", "EXPERT_ESCALATION", "AUTONOMY_CHANGE", "C04_REVIEW"]
   - id: "ENG-ETC-QUALITY"
     path: "00_project/governance/modules/engineering/ETC_CHANGEABILITY_QUALITY.md"
-    must_read_when: ["ETC_REQUIREMENT_OR_REVIEW"]
+    must_read_when: ["ETC_REQUIREMENT_OR_REVIEW", "ETC"]
   - id: "ENG-HUMAN-APPROVAL-WORK-PACKAGES"
     path: "00_project/governance/modules/engineering/HUMAN_APPROVAL_AND_WORK_PACKAGES.md"
     must_read_when: ["HUMAN_APPROVAL_PACKAGE", "BOUNDED_WORK_PACKAGE", "GOVERNANCE_FEEDBACK"]

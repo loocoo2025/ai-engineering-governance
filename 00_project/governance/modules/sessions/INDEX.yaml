@@ -1,6 +1,7 @@
 schema_version: "1.0"
 domain: "SESSIONS"
 owner: "00_project/governance/modules/sessions/INDEX.yaml"
+trigger_values_are_compared_against: "00_project/governance/GOVERNANCE_ROUTER.yaml#routing_inputs"
 
 rules:
   - id: "SESSION-ROLE-BOUNDARIES"
@@ -11,16 +12,16 @@ rules:
     must_read_when: ["CROSS_SESSION_COMMUNICATION", "CONVERSATION_MAP_OR_CURRENT_STATE"]
   - id: "SESSION-LIFECYCLE-HANDOFF"
     path: "00_project/governance/modules/sessions/SESSION_LIFECYCLE_AND_HANDOFF.md"
-    must_read_when: ["SESSION_CONTINUATION", "SESSION_SWITCH", "HANDOFF"]
+    must_read_when: ["SESSION_CONTINUATION", "SESSION_SWITCH", "HANDOFF", "SESSION_OR_HANDOFF"]
   - id: "SESSION-PARALLELISM-GIT-ROLE-SEPARATION"
     path: "00_project/governance/modules/sessions/PARALLELISM_GIT_AND_ROLE_SEPARATION.md"
-    must_read_when: ["PARALLEL_EXECUTION", "GIT_OPERATION", "AUTHOR_REVIEWER_SEPARATION"]
+    must_read_when: ["PARALLEL_EXECUTION", "GIT_OPERATION", "AUTHOR_REVIEWER_SEPARATION", "PARALLEL_WRITER"]
   - id: "SESSION-MODEL-ROUTING-INDEPENDENCE"
     path: "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md"
-    must_read_when: ["MODEL_OR_HARNESS_ROUTING", "FORMAL_C04", "NEW_INDEPENDENT_SESSION", "EXTERNAL_AI_SESSION"]
+    must_read_when: ["MODEL_OR_HARNESS_ROUTING", "FORMAL_C04", "NEW_INDEPENDENT_SESSION", "EXTERNAL_AI_SESSION", "INDEPENDENT_SESSION"]
   - id: "SESSION-WORKTREE-WRITE-LEASE-RETURN"
     path: "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
-    must_read_when: ["WRITING_WORKER", "WORKTREE", "WRITE_LEASE", "TASK_LOCAL_RETURN"]
+    must_read_when: ["WRITING_WORKER", "WORKTREE", "WRITE_LEASE", "TASK_LOCAL_RETURN", "WORKTREE_OR_WRITE_LEASE"]
 
 legacy_entry: "AI_CONVERSATION_ORCHESTRATION_RULES.md"
 rules_are_selected_by_trigger_not_read_all_by_default: true

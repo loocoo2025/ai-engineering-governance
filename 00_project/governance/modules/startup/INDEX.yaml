@@ -1,6 +1,7 @@
 schema_version: "1.0"
 domain: "STARTUP"
 owner: "00_project/governance/modules/startup/INDEX.yaml"
+trigger_values_are_compared_against: "00_project/governance/GOVERNANCE_ROUTER.yaml#routing_inputs"
 
 rules:
   - id: "STARTUP-PROJECT-CLASSIFICATION"
@@ -9,12 +10,14 @@ rules:
       - "PROJECT_TAKEOVER"
       - "PROJECT_LIFECYCLE_UNKNOWN"
       - "LEGACY_UNSTANDARDIZED"
+      - "LEGACY_MIGRATION"
   - id: "STARTUP-KNOWLEDGE-ROLE-FACTS"
     path: "00_project/governance/modules/startup/KNOWLEDGE_ROLE_AND_FACTS.md"
     must_read_when:
       - "ROLE_ASSIGNMENT_OR_CURRENT_TRUTH_NEEDED"
       - "KNOWLEDGE_MANIFEST_CREATION"
       - "FACT_CONFLICT"
+      - "SESSION_START"
   - id: "STARTUP-TAKEOVER-TASK-CHECKS"
     path: "00_project/governance/modules/startup/TAKEOVER_AND_TASK_CHECKS.md"
     must_read_when:
@@ -22,5 +25,6 @@ rules:
       - "MEDIUM_OR_LARGE_TASK_START"
       - "TASK_COMPLETION"
       - "CONTEXT_THRESHOLD_REACHED"
+      - "TASK_START_OR_COMPLETION"
 
 rules_are_selected_by_trigger_not_read_all_by_default: true

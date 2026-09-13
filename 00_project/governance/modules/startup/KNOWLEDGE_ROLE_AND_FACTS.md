@@ -194,7 +194,7 @@ Accepted ADR
 
 ---
 
-\n# 当前事实唯一性原则
+# 当前事实唯一性原则
 
 本项目遵守 Current Truth Principle。
 
@@ -282,5 +282,3 @@ MISSING
 ```
 
 ---
-
-\n

@@ -76,7 +76,7 @@ FEDERATED_PROJECT
 ```
 
 结构模式、递归 Work Package、父子事实边界和分层接受规则见 `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`。如果当前项目是 Governed Subproject，只加载 Parent–Child Contract、父级精确 Anchor 和当前任务所需接口，不默认学习整个 Parent 或兄弟项目内部细节。
-\n# 5. 新项目怎么处理目录
+# 5. 新项目怎么处理目录
 
 如果是全新项目：
 
@@ -251,4 +251,3 @@ AI 不得直接自动大规模搬家。
 > **老项目中的“自动归位”是受控迁移，不是自动整理桌面。**
 
 ---
-\n
