@@ -19,13 +19,13 @@
 → AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
 
 正式 C04 Finding / Severity / Decision Matrix
-→ AI_ENGINEERING_RULES_V2.md 第 38.7 节
+→ modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md 第 38.7 节
 
 保障频率、正式 C04 和独立 Session 触发
 → PROJECT_ASSURANCE_CADENCE_POLICY.md
 
 Session 创建、隔离、连续、交接和返回
-→ AI_CONVERSATION_ORCHESTRATION_RULES.md
+→ modules/sessions/INDEX.yaml
 
 当前授权、路由、Profile 和执行保障模式
 → CURRENT_STATE.md
@@ -40,7 +40,7 @@ Session 创建、隔离、连续、交接和返回
 → PROJECT_STRUCTURE_MAP.md
 
 Session、Worktree、Write Lease 转移和 Task-local Handoff
-→ AI_CONVERSATION_ORCHESTRATION_RULES.md
+→ modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md
 
 当前 Baseline 身份与组成
 → BASELINE_INDEX.md

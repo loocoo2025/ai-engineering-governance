@@ -1,0 +1,112 @@
+schema_version: "1.0"
+framework_version: "v0.1.8"
+configuration_owner: "00_project/governance/GOVERNANCE_ROUTER.yaml"
+semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3-岗位知识加载与规则缺口"
+
+purpose: "Machine-readable routing configuration for the minimum sufficient governance knowledge package."
+
+bootstrap:
+  always_read_completely:
+    - "AI_START_HERE.md"
+  then_read:
+    - "00_project/governance/GOVERNANCE_ROUTER.yaml"
+
+routing_inputs:
+  - "project_lifecycle_type"
+  - "project_structure_mode"
+  - "role_id"
+  - "task_or_work_package_type"
+  - "requested_action"
+  - "applicable_gate"
+  - "risk_class"
+  - "enabled_integrations"
+
+loading_policy:
+  strategy: "MINIMUM_SUFFICIENT_PROGRESSIVE_DISCLOSURE"
+  read_all_matching_must_read_rules: true
+  read_declared_dependencies_recursively: true
+  directory_depth_limit: 3
+  indexes_are_normative_routers_not_semantic_owners: true
+  knowledge_scope_does_not_expand_permission: true
+  repository_wide_search_when_unresolved: true
+  load_entire_governance_repository_by_default: false
+
+domains:
+  startup:
+    index: "00_project/governance/modules/startup/INDEX.yaml"
+    match_any:
+      - "SESSION_START"
+      - "PROJECT_TAKEOVER"
+      - "LEGACY_MIGRATION"
+      - "TASK_START_OR_COMPLETION"
+  engineering:
+    index: "00_project/governance/modules/engineering/INDEX.yaml"
+    match_any:
+      - "REQUIREMENTS"
+      - "TRACEABILITY"
+      - "ARCHITECTURE"
+      - "DESIGN"
+      - "IMPLEMENTATION"
+      - "CI"
+      - "ISSUE_OR_CHANGE"
+      - "C04_REVIEW"
+      - "COMPLETION_OR_RELEASE"
+      - "ETC"
+  sessions:
+    index: "00_project/governance/modules/sessions/INDEX.yaml"
+    match_any:
+      - "SESSION_OR_HANDOFF"
+      - "MODEL_OR_HARNESS_ROUTING"
+      - "INDEPENDENT_SESSION"
+      - "PARALLEL_WRITER"
+      - "WORKTREE_OR_WRITE_LEASE"
+  testing:
+    must_read: "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
+    match_any:
+      - "TEST_DESIGN"
+      - "TEST_IMPLEMENTATION"
+      - "CI_VALIDATION"
+      - "QUALITY_ANALYSIS"
+  baseline_relearn:
+    must_read: "00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md"
+    match_any:
+      - "BASELINE_RELEARN"
+      - "CLEAN_CONTEXT_RESET"
+  project_decomposition:
+    must_read: "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
+    match_any:
+      - "MODULAR_PROJECT"
+      - "FEDERATED_PROJECT"
+      - "WORK_PACKAGE_DECOMPOSITION"
+      - "CHILD_ACCEPTANCE"
+  assurance:
+    must_read: "00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md"
+    match_any:
+      - "FORMAL_C04"
+      - "BASELINE_ADOPTION"
+      - "PUBLIC_OR_PRODUCTION_RELEASE"
+      - "ASSURANCE_PROFILE_CHANGE"
+  human_approval:
+    must_read: "00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md"
+    match_any:
+      - "HUMAN_DETERMINATION"
+      - "FORMAL_SEAL"
+      - "RELEASE_AUTHORIZATION"
+  apls:
+    index: "00_project/governance/integrations/apls/INDEX.yaml"
+    match_all:
+      - "ROLE_C02"
+      - "BEHAVIOR_SPECIFICATION_MODE_APLS_ENABLED"
+
+failure_policy:
+  no_route: "RULE_NOT_FOUND"
+  multiple_conflicting_routes: "RULE_CONFLICT"
+  incompatible_rule_versions: "VERSION_AMBIGUOUS"
+  action: "STOP_DEPENDENT_ACTION_AND_REPORT"
+
+knowledge_manifest_requirements:
+  record_loaded_sources: true
+  record_loaded_source_digests: true
+  record_matching_route: true
+  record_explicitly_excluded_scopes: true
+  record_unresolved_rule_gap: true

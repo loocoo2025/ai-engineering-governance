@@ -30,7 +30,7 @@ RESPONSIBLE_OWNER: {{OWNER_OR_NOT_APPLICABLE}}
 RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 ```
 
-`REVIEW_NOT_READY` 时只记录未就绪原因、责任人和重新发起条件，不填写 Finding 或正式 Gate Decision。独立性证据缺失同样属于未就绪。“只读”针对被评审对象，唯一 Scoped Write 只能是预定义 Review Record。完整规则见 `AI_ENGINEERING_RULES_V2.md` 第 38.7 节。
+`REVIEW_NOT_READY` 时只记录未就绪原因、责任人和重新发起条件，不填写 Finding 或正式 Gate Decision。独立性证据缺失同样属于未就绪。“只读”针对被评审对象，唯一 Scoped Write 只能是预定义 Review Record。完整规则见 `00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7 节。
 
 ## Review Scope
 

@@ -19,7 +19,7 @@
 → 00_project/ai_context/ACTIVE_TASKS.md
 
 Session、Worktree、单写入者、交接和结果返回
-→ AI_CONVERSATION_ORCHESTRATION_RULES.md
+→ modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md
 
 当前项目阶段、Gate、授权和执行焦点
 → 00_project/ai_context/CURRENT_STATE.md
@@ -28,7 +28,7 @@ Session、Worktree、单写入者、交接和结果返回
 → 00_project/ai_context/BASELINE_INDEX.md
 
 正式 C04 触发、Readiness、Finding 和 Decision
-→ PROJECT_ASSURANCE_CADENCE_POLICY.md / AI_ENGINEERING_RULES_V2.md
+→ PROJECT_ASSURANCE_CADENCE_POLICY.md / modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md
 
 测试范围与系统集成验证
 → AI_TESTING_GOVERNANCE_RULES.md
@@ -256,7 +256,7 @@ PARENT_REVIEW_READINESS: REVIEW_NOT_READY
 
 ## 9. Session、Worktree 与局部交接
 
-所有写入执行必须遵循 `AI_CONVERSATION_ORCHESTRATION_RULES.md`：
+所有写入执行必须遵循 `00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md`：
 
 ```text
 ONE_WRITE_SESSION

@@ -137,6 +137,7 @@
 | 缩写 | 英文全称 | 中文含义 | 备注 |
 |---|---|---|---|
 | `API` | Application Programming Interface | 应用程序编程接口 | 公共 API 变更通常需要正式影响分析和批准。 |
+| `APLS` | Agent Programming Language Specification | 面向 AI Agent 的声明式软件系统规格语言 | 可选 C02 集成；将受控自然语言编译为唯一、可验证的 Canonical IR。 |
 | `CLI` | Command-Line Interface | 命令行接口 | CLI 只是 Tool，不自动产生治理角色或审批权。 |
 | `UI` | User Interface | 用户界面 | 也用于 C03C 示例子角色。 |
 | `OS` | Operating System | 操作系统 | 环境和项目概览的常用字段。 |
@@ -192,6 +193,10 @@
 | `Exception` | 例外批准 | 由现有权限 Owner 对特定偏差做出范围受控的正式批准；C04 不批准 Exception。 |
 | `Risk Acceptance` | 风险接受 | 由有权 Owner 明确批准接受某项风险，并记录范围、理由和边界。 |
 | `Traceability` | 追溯性 | 建立产品需求、系统需求、设计、实现、测试与证据之间的受控关系。 |
+| `Canonical IR` | 规范化中间表示 | APLS 编译器生成的唯一确定机器契约；只有通过全部检查的 Verified IR 才能作为下游输入。 |
+| `Governance Router` | 治理知识路由器 | 根据 Project、Role、Task、Action、Gate、Risk 和启用集成选择最小充分规则包。 |
+| `Domain INDEX` | 领域规则目录 | 只记录触发条件、原子规则路径和依赖，不复制规则正文。 |
+| `Progressive Disclosure` | 渐进式披露/按需加载 | 先加载最小治理内核，再根据任务逐层加载必要规则，避免默认读取整个治理仓库。 |
 | `Node Coverage` | 节点覆盖 | 检查所有必需 SYS / NFR / IF 节点是否出现在正式追溯集中。 |
 | `Edge Consistency` | 关系边一致性 | 检查详细需求中的上游关系与追溯矩阵中的关系是否完全一致。 |
 | `Formal Trace` | 正式追溯关系 | 可用于 Gate 和机械验证的受控追溯边。 |

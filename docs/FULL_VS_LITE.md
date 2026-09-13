@@ -24,6 +24,10 @@ AGENTS.md
 AI_START_HERE.md
 AI_ENGINEERING_RULES_V2.md
 AI_CONVERSATION_ORCHESTRATION_RULES.md
+00_project/governance/GOVERNANCE_ROUTER.yaml
+00_project/governance/modules/startup/**
+00_project/governance/modules/engineering/**
+00_project/governance/modules/sessions/**
 PROJECT_START_PROMPT.md
 INDEPENDENT_REVIEW_PROMPT.md
 00_project/ai_context/CURRENT_STATE.md
@@ -38,12 +42,19 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md
 00_project/governance/AI_TESTING_GOVERNANCE_RULES.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
+00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 12_issues/feedback/FEEDBACK_REGISTER.md
 12_issues/feedback/FEEDBACK_TEMPLATE.md
+```
+
+仅当 Lite 项目启用 `APLS_ENABLED` 时，再保留：
+
+```text
+00_project/governance/integrations/apls/**
 ```
 
 选择 `FEDERATED_PROJECT` 时还必须保留：
@@ -89,6 +100,6 @@ Lite 可以减少产物，但不得弱化：
 - 计划对旧项目进行结构重组；
 - 必须治理发布、部署或运行证据。
 
-Lite 不是治理规则的分叉版本。稳定规则仍保留在同一组根目录治理文档中，从而避免 Full 与 Lite 演变为互相竞争的 Current Truth 来源。
+Lite 不是治理规则的分叉版本。稳定规则仍由同一 Router、Domain INDEX 和原子规则集拥有，从而避免 Full 与 Lite 演变为互相竞争的 Current Truth 来源。
 
 同一联邦系统中的 Parent 和 Child 可以分别选择 Full 或 Lite，但每个治理实例都必须保留上述不可弱化规则；Parent 必须记录 Child 的精确治理版本和合同兼容性。

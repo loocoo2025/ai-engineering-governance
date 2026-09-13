@@ -2,7 +2,7 @@
 
 本目录为通过 Codex Harness 使用长程智构的用户提供保守的本地默认配置。它是可选的 Harness 适配层，不是第二套项目模板或治理来源。
 
-长程智构的治理基线位于仓库根目录。始终以根目录的 `AI_START_HERE.md`、工程规则、项目文件和角色简报作为项目权威来源。
+长程智构的治理基线位于仓库根目录。始终先完整阅读根目录的最小 `AI_START_HERE.md`，再通过 `00_project/governance/GOVERNANCE_ROUTER.yaml` 和 Domain INDEX 按任务加载工程规则；项目事实和角色简报仍以其各自权威文件为准。
 
 ## 可选的一次性本地设置
 

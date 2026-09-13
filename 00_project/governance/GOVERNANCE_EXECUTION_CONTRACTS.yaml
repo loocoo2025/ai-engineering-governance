@@ -1,11 +1,38 @@
-schema_version: "1.2"
-framework_version: "v0.1.7"
+schema_version: "1.3"
+framework_version: "v0.1.8"
 release_status: "STABLE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
 additional_semantic_authorities:
+  review_decision: "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
+  session_model_routing: "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md"
+  apls_design_allocation: "00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md"
   project_decomposition: "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
-  session_worktree_handoff: "AI_CONVERSATION_ORCHESTRATION_RULES.md"
+  session_worktree_handoff: "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
   task_instances: "00_project/ai_context/ACTIVE_TASKS.md"
+
+governance_knowledge_routing:
+  contract_id: "GOVERNANCE_KNOWLEDGE_ROUTING"
+  semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3"
+  bootstrap: "AI_START_HERE.md"
+  router: "00_project/governance/GOVERNANCE_ROUTER.yaml"
+  strategy: "MINIMUM_SUFFICIENT_PROGRESSIVE_DISCLOSURE"
+  maximum_index_depth: 3
+  index_may_duplicate_semantic_rule: false
+  load_all_matching_must_read_rules: true
+  unresolved_results:
+    - "RULE_NOT_FOUND"
+    - "RULE_CONFLICT"
+    - "VERSION_AMBIGUOUS"
+
+behavior_specification:
+  current_value_owner: "00_project/ai_context/CURRENT_STATE.md"
+  modes:
+    - "DOCUMENT_BASED"
+    - "APLS_ENABLED"
+  default: "DOCUMENT_BASED"
+  apls_integration_index: "00_project/governance/integrations/apls/INDEX.yaml"
+  apls_design_owner_role: "C02"
+  invalid_or_ambiguous_source_may_be_guessed_by_ai: false
 
 role_system:
   fixed_role_ids:
@@ -362,7 +389,7 @@ output_contract:
 workspace_binding_and_write_lease:
   contract_id: "WORKSPACE_BINDING_AND_WRITE_LEASE"
   owner: "00_project/ai_context/ACTIVE_TASKS.md"
-  session_authority: "AI_CONVERSATION_ORCHESTRATION_RULES.md"
+  session_authority: "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
   required_fields:
     - "work_package_id"
     - "session_id"
@@ -460,7 +487,7 @@ system_integration_manifest:
 independent_session_request:
   contract_id: "NEW_INDEPENDENT_SESSION_REQUEST"
   schema_version: "1.3"
-  authority: "AI_CONVERSATION_ORCHESTRATION_RULES.md#41.5"
+  authority: "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md#415-独立-session-请求与自动创建"
   allowed_reason_codes:
     - "FORMAL_C04_INITIAL"
     - "FORMAL_C04_REREVIEW"

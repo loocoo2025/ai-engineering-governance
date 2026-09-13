@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：166
+预建文件数：195
 
 ```text
 .gitignore
@@ -28,9 +28,34 @@
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
+00_project/governance/GOVERNANCE_ROUTER.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
+00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md
+00_project/governance/integrations/apls/INDEX.yaml
+00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md
+00_project/governance/modules/engineering/COMPLETION_AND_RELEASE.md
+00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md
+00_project/governance/modules/engineering/DEVELOPMENT_METHOD_AND_STRUCTURE.md
+00_project/governance/modules/engineering/ETC_CHANGEABILITY_QUALITY.md
+00_project/governance/modules/engineering/HUMAN_APPROVAL_AND_WORK_PACKAGES.md
+00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md
+00_project/governance/modules/engineering/INDEX.yaml
+00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md
+00_project/governance/modules/engineering/REQUIREMENTS_AND_TRACEABILITY.md
+00_project/governance/modules/engineering/TASK_EXECUTION_AND_PERMISSIONS.md
+00_project/governance/modules/sessions/COMMUNICATION_AND_STATE.md
+00_project/governance/modules/sessions/INDEX.yaml
+00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md
+00_project/governance/modules/sessions/PARALLELISM_GIT_AND_ROLE_SEPARATION.md
+00_project/governance/modules/sessions/ROLE_SESSION_BOUNDARIES.md
+00_project/governance/modules/sessions/SESSION_LIFECYCLE_AND_HANDOFF.md
+00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md
+00_project/governance/modules/startup/INDEX.yaml
+00_project/governance/modules/startup/KNOWLEDGE_ROLE_AND_FACTS.md
+00_project/governance/modules/startup/PROJECT_CLASSIFICATION_AND_MIGRATION.md
+00_project/governance/modules/startup/TAKEOVER_AND_TASK_CHECKS.md
 00_project/migration/LEGACY_INVENTORY.md
 00_project/migration/LEGACY_STRUCTURE_MAP.md
 00_project/migration/MIGRATION_LOG.md
@@ -122,14 +147,17 @@
 13_change_management/change_requests/CR-GOV-001-role-interaction-executable-governance.md
 13_change_management/change_requests/CR-GOV-002-human-feedback-etc.md
 13_change_management/change_requests/CR-GOV-003-scalable-project-decomposition.md
+13_change_management/change_requests/CR-GOV-004-modular-knowledge-routing-apls.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IA-GOV-002-human-feedback-etc.md
 13_change_management/impact_analysis/IA-GOV-003-scalable-project-decomposition.md
+13_change_management/impact_analysis/IA-GOV-004-modular-knowledge-routing-apls.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.5.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.6.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.7.md
+13_change_management/release_notes/RELEASE_NOTES_v0.1.8.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/PARENT_CHILD_PROJECT_CONTRACT_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
@@ -144,6 +172,7 @@
 14_release/release_records/RELEASE_RECORD_v0.1.5.md
 14_release/release_records/RELEASE_RECORD_v0.1.6.md
 14_release/release_records/RELEASE_RECORD_v0.1.7.md
+14_release/release_records/RELEASE_RECORD_v0.1.8.md
 15_operations/deployment_manual.md
 15_operations/field_feedback/FIELD_FEEDBACK_TEMPLATE.md
 15_operations/maintenance_manual.md

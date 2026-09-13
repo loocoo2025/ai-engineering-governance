@@ -1,13 +1,22 @@
 # 变更日志
 
-## [Unreleased]
+## [0.1.8] - 2026-09-13
+
+> 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。
 
 ### 新增
 - 增加官方 GitHub 主发布源与 Gitee 镜像配置，以及 C00 Session 启动时的只读稳定版本检查和中英文双语更新提醒。
 - 增加用户导向的受控更新入口；负责人明确选择后复用既有跨版本升级协议，不进行后台静默自更新。
+- 增加 `GOVERNANCE_ROUTER.yaml`、Startup/Engineering/Session Domain INDEX 和按语义拆分的原子规则文件。
+- 增加可选 APLS C02 Design Allocation，固定官方发布源和精确受支持版本，并定义 Verified IR 下游合同。
+
+### 变更
+- `AI_START_HERE.md` 收缩为每个 Session 唯一完整必读的最小治理内核；其余治理知识按 Role、Task、Action、Gate、Risk 和已启用集成加载。
+- 原工程总则和多会话大文件改为旧路径/旧章节兼容入口；历史引用继续有效，不再要求新任务全文加载。
 
 ### 兼容
 - 更新检查不修改项目、不改变 Current Truth，也不授权 Breaking Change、Push、Release 或其他远程副作用。
+- 既有项目默认 `DOCUMENT_BASED`，不会自动启用或依赖 APLS；C00～C06、C04 Decision Matrix、Traceability、Testing Governance 和 Release Gate 不变。
 
 ## [0.1.7] - 2026-09-11
 

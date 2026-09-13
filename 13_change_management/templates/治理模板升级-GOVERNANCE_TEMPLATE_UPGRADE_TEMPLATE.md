@@ -133,7 +133,7 @@ PREAUTHORIZED_GATES:
 - LOCAL_GIT_COMMIT
 ```
 
-如果当前项目明确要求治理变更经过正式 C04，则允许在具备真正独立 Session 的前提下运行 C04 循环；无法建立独立 C04 时，不得伪造评审结论，应停在 `READY_FOR_INDEPENDENT_C04`。发起独立 Session 时必须引用 `AI_CONVERSATION_ORCHESTRATION_RULES.md` 第 41.5 节的当前请求 Schema，并分别证明 `INDEPENDENT_SESSION_CREATION`、适用的 `FORMAL_C04_DISPATCH` 和适用的 `REAL_MODEL_INVOCATION` 授权；本协议不复制请求字段。
+如果当前项目明确要求治理变更经过正式 C04，则允许在具备真正独立 Session 的前提下运行 C04 循环；无法建立独立 C04 时，不得伪造评审结论，应停在 `READY_FOR_INDEPENDENT_C04`。发起独立 Session 时必须引用 `00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md` 第 41.5 节的当前请求 Schema，并分别证明 `INDEPENDENT_SESSION_CREATION`、适用的 `FORMAL_C04_DISPATCH` 和适用的 `REAL_MODEL_INVOCATION` 授权；本协议不复制请求字段。
 
 ### 1.2 权限继承
 
@@ -562,8 +562,8 @@ Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定
 典型包括：
 
 - `AI_START_HERE.md`；
-- `AI_ENGINEERING_RULES_V2.md`；
-- `AI_CONVERSATION_ORCHESTRATION_RULES.md`；
+- `AI_START_HERE.md` 与 `00_project/governance/GOVERNANCE_ROUTER.yaml`；
+- 当前任务命中的 `00_project/governance/modules/**/INDEX.yaml` 和原子规则；
 - Testing Governance；
 - Context Reset / Baseline Relearn Rules；
 - Role Briefs；

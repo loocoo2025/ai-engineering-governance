@@ -116,6 +116,10 @@ ASSURANCE_CADENCE_POLICY: 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY
 
 EXTERNAL_AI_TRANSFER_CONFIG: 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 FRAMEWORK_UPDATE_CONFIG: 00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
+GOVERNANCE_ROUTER: 00_project/governance/GOVERNANCE_ROUTER.yaml
+
+BEHAVIOR_SPECIFICATION_MODE: DOCUMENT_BASED
+APLS_INTEGRATION_POLICY: 00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md
 
 ENFORCEMENT_MODE: PROCEDURAL_FALLBACK
 ROLE_INTERACTION_EXECUTION_POLICY: 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
@@ -158,11 +162,13 @@ HUMAN_PROJECT_OWNER:
 Project Owner
 ```
 
-以上是可替换的当前运行配置，不属于产品 Current Truth。`Role != Model != Runtime != Harness != Session != Tool`；任一运行维度替换本身都不改变需求、架构、Baseline 或 Gate。固定岗位、动态 Profile、Interaction、通用授权和执行保障模式见 `ROLE_INTERACTION_EXECUTION_POLICY.md`；执行槽位、辅助调用、权限继承和正式 C04 见 `AI_ENGINEERING_RULES_V2.md` 第 38 章。
+以上是可替换的当前运行配置，不属于产品 Current Truth。`Role != Model != Runtime != Harness != Session != Tool`；任一运行维度替换本身都不改变需求、架构、Baseline 或 Gate。固定岗位、动态 Profile、Interaction、通用授权和执行保障模式见 `ROLE_INTERACTION_EXECUTION_POLICY.md`；执行槽位、辅助调用、权限继承和正式 C04 见 `00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md`。
 
 `ASSURANCE_CADENCE_PROFILE` 只选择保障节奏 Profile；Profile 定义和不可关闭控制项由 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 维护。外部 AI 的开关、预算和 Session 放置值只由 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 维护，本文件仅引用，不复制其中字段。
 
 官方发布源、版本检查触发和用户导向升级行为只由 `FRAMEWORK_UPDATE_CONFIG.yaml` 维护。本文件不复制最新远程版本或检查结果；发现更新只形成当前 Session 提醒，正式采用结果仍按治理升级协议进入迁移记录和 Baseline。
+
+治理知识如何按需加载只由 `GOVERNANCE_ROUTER.yaml` 和各 Domain INDEX 维护。`BEHAVIOR_SPECIFICATION_MODE` 只记录当前项目是否启用 APLS；默认 `DOCUMENT_BASED` 不加载 APLS，只有明确改为 `APLS_ENABLED` 后 C02 才执行 APLS Design Allocation。APLS 的稳定分配规则由 `APLS_INTEGRATION_POLICY` 维护，本文件不复制规则正文。
 
 `ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。
 

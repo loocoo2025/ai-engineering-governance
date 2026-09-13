@@ -22,7 +22,7 @@ AI Agent 擅长连续工作数小时，而软件项目往往持续数月。长�
 
 用户和 Agent **不需要**为每项任务读取所有模板文件，只需按照 `AI_START_HERE.md` 的路由加载最小必要知识、任务相关的 Current Truth 和工程产物，并在规则不足时按需检索或报告 Rule Gap。
 
-当前已发布基线：**v0.1.7**
+当前已发布基线：**v0.1.8**
 
 官方发布地址（机器可读权威值由 `FRAMEWORK_UPDATE_CONFIG.yaml` 维护）：
 
@@ -64,6 +64,8 @@ AI 编码 Agent 在单项任务中表现出色，但长周期项目通常会以�
 | **Bounded Autonomy** | 通过 `SUPERVISED_AUTO`、`FULL_AUTO` 和人类 Gate 明确自动化边界 | 自动化缺少授权范围与停止条件 |
 | **Multi-model Workflow** | 按职责路由主要执行者、专家和独立评审者，同时保持统一 Current Truth | 多模型协作互相覆盖、上下文漂移 |
 | **Recursive Decomposition & Federated Governance** | 将大型系统递归拆成受控子项目、模块和叶子 Work Package，以精确合同和接受证据向上组合 | 单个 Session 被迫理解全部细节、并行写入冲突、父级重复全量评审 |
+| **Progressive Governance Loading** | 最小启动内核通过 Router、Domain INDEX 和原子规则按任务加载知识 | 大型治理文件在每个 Session 重复消耗上下文 |
+| **Optional APLS Design Allocation** | C02 将行为规格、详细设计、算法规格和 Target Profile 机械分配，并向下游交付 Verified IR | 行为语义被埋进实现文档、AI 对歧义自然语言自行猜测 |
 
 ## 架构
 
@@ -89,6 +91,7 @@ flowchart TD
 4. 要求主要 Agent 首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序；README 不维护另一份缩短清单。
 5. 替换项目占位符，并在 `CURRENT_STATE.md` 中设置当前授权、Model/Runtime/Harness 路由、Dynamic Role Profile 和 Enforcement Mode。
 6. 新项目从 C00/C01 开始；已有项目从旧项目只读盘点流程开始。
+7. 如需声明式、可验证的行为规格，在 `CURRENT_STATE.md` 显式启用 `APLS_ENABLED`；默认项目保持 `DOCUMENT_BASED`。
 
 完整顺序见[快速开始](docs/QUICK_START.md)。
 
@@ -117,9 +120,11 @@ Lite 是一种采用方式，不是第二套治理事实来源。项目可以从
 
 ## 仓库结构
 
-- `AI_START_HERE.md` — Agent 必读入口。
-- `AI_ENGINEERING_RULES_V2.md` — 稳定的工程治理规则。
-- `AI_CONVERSATION_ORCHESTRATION_RULES.md` — 上下文、会话和交接治理规则。
+- `AI_START_HERE.md` — 每个 Session 唯一完整必读的最小治理内核。
+- `00_project/governance/GOVERNANCE_ROUTER.yaml` — 根据 Role、Task、Action、Gate、Risk 和集成选择最小规则包。
+- `00_project/governance/modules/` — Startup、Engineering 和 Session 的 Domain INDEX 与原子规则。
+- `AI_ENGINEERING_RULES_V2.md`、`AI_CONVERSATION_ORCHESTRATION_RULES.md` — 旧路径和旧章节号的兼容入口。
+- `00_project/governance/integrations/apls/` — 可选 APLS C02 Design Allocation；官方项目见 [loocoo2025/apls-language](https://github.com/loocoo2025/apls-language)。
 - `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` — 岗位、知识、交互、授权、审核/裁定运行线和执行保障模式。
 - `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` — 可供工具消费的治理合同字段和枚举。
 - `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md` — 项目分解、父子事实、组合式评审和联邦集成规则。

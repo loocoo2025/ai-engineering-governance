@@ -14,12 +14,17 @@
 2. 如果目标是已有项目，不要覆盖冲突文件；先遵循 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md`。
 3. 替换 `{{PROJECT_NAME}}`、日期、Gate 以及与项目相关的其他占位符。
 4. 在 `00_project/ai_context/PROJECT_STRUCTURE_MAP.md` 选择 `SINGLE_PROJECT / MODULAR_PROJECT / FEDERATED_PROJECT`；既有未拆分项目选择 `SINGLE_PROJECT`，不制造 Child 记录。
-5. 在 `00_project/ai_context/CURRENT_STATE.md` 中配置当前阶段、授权、`AUTONOMY_MODE`、Model/Runtime/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES` 和 `ENFORCEMENT_MODE`。
+5. 在 `00_project/ai_context/CURRENT_STATE.md` 中配置当前阶段、授权、`AUTONOMY_MODE`、Model/Runtime/Harness 槽位、`AUTHORIZED_UNTIL`、`PREAUTHORIZED_GATES`、`ENFORCEMENT_MODE` 和 `BEHAVIOR_SPECIFICATION_MODE`。
 6. 按 `00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md` 为当前 Session 建立 Dynamic Role Profile 与 Knowledge Manifest，并明确绑定当前或适用 Gate、项目/任务范围与适用事实 Owner；需要机械执行时，让工具消费 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml`。
 7. 如有需要，初始化 Git，并在开始实现前建立稳定锚点。
 8. 将 `PROJECT_START_PROMPT.md` 交给当前 Agent。
 9. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
 10. 需要项目负责人决定时，按 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释再请求决定；收到尚未分类的反馈时，先登记到 `12_issues/feedback/FEEDBACK_REGISTER.md`。
+11. Agent 只完整读取最小 `AI_START_HERE.md`，随后通过 `GOVERNANCE_ROUTER.yaml` 和 Domain INDEX 按需加载规则；不要把全部治理文件默认装入上下文。
+
+## 可选 APLS 行为规格
+
+项目需要以可验证的声明式行为规格驱动设计时，将 `BEHAVIOR_SPECIFICATION_MODE` 明确改为 `APLS_ENABLED`，并固定 `https://github.com/loocoo2025/apls-language` 的受支持精确 Tag / Commit。C02 随后按 `00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md` 分配 APLS、Detailed Design、Algorithm Spec 和 Target Profile。默认 `DOCUMENT_BASED` 不引入 APLS 依赖。
 
 ## 大型项目与并行写入
 
@@ -49,6 +54,7 @@
 ## 五分钟核验
 
 - Agent 能说明当前 Role、Dynamic Role Profile、当前或适用 Gate、适用事实 Owner、授权和下一项任务。
+- Agent 能说明本任务命中的 Router 路径、实际加载规则和明确排除范围。
 - 每个动态事实只有一个所有者文件。
 - 当前 Model/Runtime/Harness 路由和 Enforcement Mode 只存在于 `CURRENT_STATE.md`。
 - 受控副作用动作有精确 Interaction / Authorization，且 Action Class 不互相隐含。

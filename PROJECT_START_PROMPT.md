@@ -3,7 +3,7 @@
 ```text
 你现在参与一个新的正式软件项目。第一步不要写代码。
 
-必须首先完整阅读 `AI_START_HERE.md`，然后严格按照该文件维护的权威启动顺序继续。不得在本提示词中建立另一份竞争性的阅读顺序。
+必须首先完整阅读 `AI_START_HERE.md`，再读取 `00_project/governance/GOVERNANCE_ROUTER.yaml`，根据当前 Role、Task、Action、Gate、Risk 和启用的集成加载 Domain INDEX 标记的最小规则包。不得默认全文读取全部治理文件，也不得在本提示词中建立另一份竞争性的阅读顺序。
 
 本项目采用：迭代式 V 模型 + 需求追溯 + ADR + AI 独立评审 + 自动化验证 + 真实环境验证 + 多对话交接。
 
@@ -18,6 +18,8 @@ Role != Model != Runtime != Harness != Session != Tool。C00～C06 是固定标�
 默认由 Primary Executor 在已授权范围内连续执行；`QUESTION_PRIORITY / WORK_PRIORITY` 为 P0/P1 的问题或其他复杂问题，由 Primary Executor / C00 形成最小 Escalation Package 交给 Expert。C04 Finding 使用 S0～S3；C04 形成 S0/S1 Finding 时只记录 Finding、关闭条件和 `CHANGES_REQUESTED` 后停止，不参与整改设计，也不得自行关闭 Finding。需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，使用 Human Determination Package 请求项目负责人。
 
 重要需求、决策、质询、测试结果、Bug 和变更必须落入正式项目文件。
+
+如果 `CURRENT_STATE.md` 明确配置 `BEHAVIOR_SPECIFICATION_MODE: APLS_ENABLED`，C02 必须加载 APLS 集成目录并先完成 Design Allocation；默认 `DOCUMENT_BASED` 时不得无故加载或强制使用 APLS。
 
 先输出：
 - 当前角色

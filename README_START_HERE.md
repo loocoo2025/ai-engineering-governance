@@ -35,7 +35,9 @@ Lite 保留以下不可弱化的原则：
 
 ## Agent 首次必读入口
 
-首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本说明不维护另一份可能漂移的阅读清单。
+首先完整阅读最小入口 `AI_START_HERE.md`，再读取 `00_project/governance/GOVERNANCE_ROUTER.yaml`，通过命中的 Domain INDEX 按需加载原子规则。本说明不维护另一份可能漂移的阅读清单。
+
+需要声明式行为规格时，可由项目在 `CURRENT_STATE.md` 显式选择 `APLS_ENABLED`；默认 `DOCUMENT_BASED` 不加载 APLS 集成规则。
 
 新项目从 C00/C01 开始。已有项目先按 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 盘点，再移动或改写文件。
 

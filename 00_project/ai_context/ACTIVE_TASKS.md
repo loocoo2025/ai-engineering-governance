@@ -5,7 +5,7 @@
 >
 > 项目当前阶段、评审/Gate 状态、授权边界和下一步由 `CURRENT_STATE.md` 维护，不要在任务描述中复制成另一套 Current Truth。
 >
-> 本文件同时是 Task / Work Package、Output Contract、Workspace Binding 和 Write Lease 当前状态的唯一实例 Owner。稳定的项目分解语义见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`，Session/Worktree 操作规则见 `AI_CONVERSATION_ORCHESTRATION_RULES.md`。
+> 本文件同时是 Task / Work Package、Output Contract、Workspace Binding 和 Write Lease 当前状态的唯一实例 Owner。稳定的项目分解语义见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`，Session/Worktree 操作规则见 `00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md`。
 
 | Task | 类型 | 责任角色 | 输入 | 输出 | 任务状态 |
 |---|---|---|---|---|---|

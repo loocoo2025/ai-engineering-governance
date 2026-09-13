@@ -1,0 +1,34 @@
+schema_version: "1.0"
+integration_id: "APLS"
+owner: "00_project/governance/integrations/apls/INDEX.yaml"
+
+official_source:
+  repository_url: "https://github.com/loocoo2025/apls-language"
+  supported_release: "v0.1.0"
+  exact_release_commit: "fd8b59536fcdfdff2f3b199b882c15d97edb1993"
+  floating_branch_is_valid: false
+  vendored_into_framework: false
+
+activation:
+  current_value_owner: "00_project/ai_context/CURRENT_STATE.md#BEHAVIOR_SPECIFICATION_MODE"
+  disabled_value: "DOCUMENT_BASED"
+  enabled_value: "APLS_ENABLED"
+  default: "DOCUMENT_BASED"
+
+role_routes:
+  C02:
+    must_read:
+      - "00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md"
+    trigger: "APLS_ENABLED"
+  C03:
+    consume: "FROZEN_APLS_SOURCE_AND_VERIFIED_IR_PLUS_APPROVED_DESIGN"
+  C04:
+    review: "ALLOCATION_AND_CONFORMANCE_WHEN_IN_REVIEW_SCOPE"
+  C05:
+    validate: "APLS_ACCEPTANCE_AND_TRACEABILITY_WHEN_APPLICABLE"
+
+failure_codes:
+  - "APLS_INPUT_NOT_READY"
+  - "APLS_PROFILE_GAP"
+  - "SPEC_GAP"
+  - "APLS_CONFORMANCE_FAILED"
