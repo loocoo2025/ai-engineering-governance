@@ -222,6 +222,49 @@
           "file": "09_quality/non_regression/test_validate_non_regression.py"
         }
       ]
+    },
+    {
+      "id": "NRC-FWK-005",
+      "scope": "FRAMEWORK",
+      "subject": "active_supersession_chain_ends_in_locked",
+      "statement": "Every SUPERSEDED invariant chain in FRAMEWORK or PROJECT scope ends in an active LOCKED successor; a PROPOSED invariant cannot replace an active invariant.",
+      "status": "LOCKED",
+      "introduced_by": "v0.1.9",
+      "source": "C04-GOV-005-F001",
+      "change_requires": [
+        "EXPLICIT_CHANGE_DECISION",
+        "IMPACT_ANALYSIS",
+        "NEW_INVARIANT_ID",
+        "FORMAL_C04"
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "guards": [
+        {
+          "id": "NRG-SUPERSESSION-005-A",
+          "kind": "TEXT_CONTAINS",
+          "file": "09_quality/non_regression/validate_non_regression.py",
+          "value": "if rule[\"status\"] != \"SUPERSEDED\":"
+        },
+        {
+          "id": "NRG-SUPERSESSION-005-B",
+          "kind": "TEXT_CONTAINS",
+          "file": "09_quality/non_regression/test_validate_non_regression.py",
+          "value": "test_superseded_project_chain_must_end_locked"
+        },
+        {
+          "id": "NRG-SUPERSESSION-005-C",
+          "kind": "TEXT_CONTAINS",
+          "file": "09_quality/non_regression/test_validate_non_regression.py",
+          "value": "test_future_framework_chain_must_end_locked"
+        },
+        {
+          "id": "NRG-SUPERSESSION-005-D",
+          "kind": "TEXT_CONTAINS",
+          "file": "09_quality/non_regression/test_validate_non_regression.py",
+          "value": "test_valid_project_supersession_chain_passes"
+        }
+      ]
     }
   ],
   "project_invariants": []

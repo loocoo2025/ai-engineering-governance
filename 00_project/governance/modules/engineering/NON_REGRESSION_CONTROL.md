@@ -82,6 +82,8 @@ SUPERSEDED
 → 新精确 Target 的正式 C04
 ```
 
+无论 `FRAMEWORK` 还是 `PROJECT` scope，旧 Invariant 只有在替代者已经进入 `LOCKED` 后才能标记为 `SUPERSEDED`。任一 `SUPERSEDED` 链的当前终点必须是 `LOCKED`；`PROPOSED` 不能接管已生效 Invariant，也不能使旧 Guard 提前停止执行。
+
 不得通过删除 Guard、降低期望值、扩大 Exception、修改验证器使其不再检查，来伪造非回退通过。
 
 ## 42.5 单调历史

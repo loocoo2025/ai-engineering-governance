@@ -27,7 +27,7 @@ python3 09_quality/non_regression/test_validate_non_regression.py
 - `TEXT_NOT_CONTAINS`；
 - `REGEX_COUNT`。
 
-验证器还会固定核验 Contract Owner、语义 Authority、不可原地改写策略、必需核心框架 Invariant ID 和 Supersession 链，避免通过删除核心规则或把 `LOCKED` 偷改为 `PROPOSED` 绕过 Guard。
+验证器还会固定核验 Contract Owner、语义 Authority、不可原地改写策略、必需核心框架 Invariant ID，以及所有 `FRAMEWORK / PROJECT` scope 的有效 Supersession 链，避免通过删除核心规则、把 `LOCKED` 偷改为 `PROPOSED` 或使用 `SUPERSEDED → PROPOSED` 绕过 Guard。
 
 退出码：
 

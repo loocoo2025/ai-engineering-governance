@@ -8,6 +8,7 @@
 - 增加 Non-Regression Control 权威规则、机器可读 Invariant Contract、无第三方依赖验证器及其最小回归测试。
 - 增加 Finding→Invariant→Regression Guard 闭环，以及 `REGRESSION_OF` 单调历史关系。
 - 增加 C04 的 Current Change Validation 与 Non-Regression Validation 两个证据维度，最终 Gate Decision 仍保持 `PASS / CHANGES_REQUESTED`。
+- 增加所有 `FRAMEWORK / PROJECT` Invariant 的 Supersession fail-closed 检查，禁止 `SUPERSEDED → PROPOSED` 产生错误 PASS。
 
 ### 变更
 - Authorization Contract 补齐 `dispatch_limit`，并机械锁定 `ONE_INDEPENDENT_SESSION → dispatch_limit: 1 + NO_AUTOMATIC_RETRY`。

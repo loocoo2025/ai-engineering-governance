@@ -41,6 +41,7 @@ REQUIRED_FRAMEWORK_INVARIANTS = {
     "NRC-FWK-002",
     "NRC-FWK-003",
     "NRC-FWK-004",
+    "NRC-FWK-005",
 }
 REQUIRED_REPLACEMENT_CONTROLS = {
     "EXPLICIT_CHANGE_DECISION",
@@ -197,6 +198,8 @@ def validate_contract_shape(data: dict) -> list[dict]:
                 predecessor is None
                 or predecessor["scope"] != rule["scope"]
                 or predecessor["superseded_by"] != rule["id"]
+                or predecessor["status"] != "SUPERSEDED"
+                or rule["status"] == "PROPOSED"
             ):
                 raise ContractError(f"{rule['id']}: invalid supersedes relationship")
         if successor_id is not None:
@@ -207,6 +210,21 @@ def validate_contract_shape(data: dict) -> list[dict]:
                 or successor["supersedes"] != rule["id"]
             ):
                 raise ContractError(f"{rule['id']}: invalid superseded_by relationship")
+
+    for rule in rules:
+        if rule["status"] != "SUPERSEDED":
+            continue
+        current = rule
+        visited: set[str] = set()
+        while current["status"] == "SUPERSEDED":
+            if current["id"] in visited:
+                raise ContractError(f"{rule['id']}: supersession cycle detected")
+            visited.add(current["id"])
+            current = by_id[current["superseded_by"]]
+        if current["status"] != "LOCKED":
+            raise ContractError(
+                f"{rule['id']}: active supersession chain must end in LOCKED"
+            )
 
     for required_id in REQUIRED_FRAMEWORK_INVARIANTS:
         current = by_id[required_id]

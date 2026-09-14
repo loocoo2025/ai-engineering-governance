@@ -23,6 +23,7 @@
 - 已关闭 C04 Finding 不得原地重开，复发必须创建新 ID；
 - Task 的 `DONE / CANCELLED` 保持终态；
 - 正式 C04 必须同时核验本轮变化和历史非回退，同时保持二值 Gate Decision。
+- 所有 `FRAMEWORK / PROJECT` scope 的 `SUPERSEDED` 活跃链必须终止于 `LOCKED`，`PROPOSED` 不得接管已生效 Invariant。
 
 ## 兼容性
 
