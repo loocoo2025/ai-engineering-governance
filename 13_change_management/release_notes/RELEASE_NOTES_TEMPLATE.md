@@ -10,5 +10,9 @@
 -
 ## 兼容性
 -
+## Non-Regression
+- `LOCKED` Invariant 状态：
+- Regression Guard 结果：
+- 已受控替代的 Invariant / Guard：
 ## 升级说明
 -

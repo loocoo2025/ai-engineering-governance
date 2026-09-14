@@ -21,6 +21,9 @@
 正式 C04 Finding / Severity / Decision Matrix
 → modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md 第 38.7 节
 
+Locked Invariant、Finding→Guard、Pre-C04 Non-Regression Validation
+→ modules/engineering/NON_REGRESSION_CONTROL.md
+
 保障频率、正式 C04 和独立 Session 触发
 → PROJECT_ASSURANCE_CADENCE_POLICY.md
 
@@ -404,6 +407,7 @@ RESIDUAL_RISK: PROCEDURAL_ERROR
 → Leaf / Integration Work Package、Output Contract 与 Workspace Binding 检查
 → 执行
 → Self Review 与验证
+→ 适用 Non-Regression Guard
 → 标准完成报告
 → 适用的 Independent / Contextual Review 或 Human Determination
 → Commit / Baseline / 状态收口

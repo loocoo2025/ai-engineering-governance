@@ -652,15 +652,16 @@ Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定
 8. 保持 C 类产品事实不变；
 9. 默认不覆盖 D 类产品仓库文件；
 10. 增加目标版本必需的新治理文件；
-11. 建立或迁移 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode，并对照 Current Truth、Role Brief、Task 与 Authorization 校验当前或适用 Gate 和适用事实 Owner 绑定；
-12. 将现有 Task 映射到目标版本状态机，不自动推进状态；
-13. 受控处理明确的重命名和废弃项；
-14. 检查旧表述是否与目标规则冲突；
-15. 检查 One Fact One Owner；
-16. 记录所有保留的项目扩展和 Remaining Risks；
-17. 根据第 9 节执行验证；
-18. 根据第 10 节形成独立本地 Commit；
-19. 输出最终报告后停止，不继续产品开发。
+11. 如目标版本包含 Non-Regression Control，迁移其权威规则、Contract 和 Validator；已有项目的 `project_invariants` 只能字段级合并并保留，不得用公开模板的空集合覆盖；
+12. 建立或迁移 Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization 和 Enforcement Mode，并对照 Current Truth、Role Brief、Task 与 Authorization 校验当前或适用 Gate 和适用事实 Owner 绑定；
+13. 将现有 Task 映射到目标版本状态机，不自动推进状态；
+14. 受控处理明确的重命名和废弃项；
+15. 检查旧表述是否与目标规则冲突；
+16. 检查 One Fact One Owner；
+17. 记录所有保留的项目扩展和 Remaining Risks；
+18. 根据第 9 节执行验证；
+19. 根据第 10 节形成独立本地 Commit；
+20. 输出最终报告后停止，不继续产品开发。
 
 ### 8.1 历史 Review Record
 
@@ -683,7 +684,7 @@ Prerelease 只允许作为显式精确终点，不得作为中间“最新稳定
 
 不得按文件数量或版本号机械判断。语义影响不明确时标记 `UNKNOWN` 并停止，由正确 Owner 裁决。
 
-本协议引入 Persistent C00、独立 Session 路由、保障频率或外部 AI 权限配置等运行语义的版本，`BASELINE_RELEARN` 必须为 `REQUIRED`。旧聊天记忆不得覆盖新治理规则。
+本协议引入 Persistent C00、独立 Session 路由、保障频率、外部 AI 权限配置或 Non-Regression Control 等运行语义的版本，`BASELINE_RELEARN` 必须为 `REQUIRED`。旧聊天记忆不得覆盖新治理规则。
 
 ---
 
@@ -729,6 +730,8 @@ git status --short --branch
 - `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 没有形成两套治理语义；
 - Task 状态转换符合目标版本的正式状态机；
 - 历史 Review Record 未被重写；
+- 目标版本要求的 Non-Regression Policy、Contract 和 Validator 已建立，项目既有 `project_invariants` 已保留；
+- 所有适用 `LOCKED` Invariant 仍满足，Regression Guard 执行结果为 `PASS`；
 - `GOV-MIG` 记录完整。
 
 ### 9.3 测试边界
@@ -741,6 +744,14 @@ git status --short --branch
 2. 运行能够验证本次治理工具变化的最小目标测试；
 3. 不借升级扩大产品测试范围；
 4. 记录命令和结果。
+
+目标版本包含 `09_quality/non_regression/validate_non_regression.py` 时，升级验证必须执行：
+
+```bash
+python3 09_quality/non_regression/validate_non_regression.py
+```
+
+退出码 `1` 表示发现必须关闭的 Non-Regression Finding；退出码 `2` 表示 Contract 无效或不可执行，必须按 `REVIEW_NOT_READY` 停止。不得跳过、伪造或把失败降级为 Advisory。
 
 ### 9.4 变更范围检查
 
@@ -807,7 +818,7 @@ Baseline 采用是否需要 Human Project Owner 再次批准，由项目当前 B
 1. 将升级内容 Commit 作为冻结 Candidate Review Target；
 2. 立即记录其完整不可变 Commit Hash；
 3. 使用新的独立 C04 Session，不继承迁移实现 Session 的私有上下文；
-4. C04 只执行 Finding、Severity、关闭条件和 `PASS / CHANGES_REQUESTED`；
+4. C04 只执行 Finding、Severity、关闭条件和 `PASS / CHANGES_REQUESTED`，并分别记录 `CURRENT_CHANGE_VALIDATION` 与 `NON_REGRESSION_VALIDATION`；
 5. C04 对精确 Candidate Commit 输出 `PASS` 后，才能进入 `READY_FOR_BASELINE_ADOPTION`；
 6. `CHANGES_REQUESTED` 后由 C00 / Primary Executor 在授权内整改并形成新 Commit；
 7. 新 Commit 必须作为新的 Review Target，由新的独立 C04 Session 复审；
@@ -855,6 +866,8 @@ Baseline 采用是否需要 Human Project Owner 再次批准，由项目当前 B
 - 必须接受重大风险；
 - 必须执行未授权 Release 或远程操作；
 - 目标文件与项目批准扩展发生无法自动裁决的冲突；
+- `LOCKED` Invariant 与目标版本冲突、被原地修改，或无法证明其受控替代关系；
+- 必需 Regression Guard 缺失、不可执行或验证失败；
 - 无法区分治理规则与项目事实；
 - 验证失败；
 - 独立 C04 为项目硬要求但无法建立真正独立 Session。
@@ -920,6 +933,9 @@ ARCHITECTURE_CHANGED:
 CODE_CHANGED:
 TEST_SCOPE_CHANGED:
 REVIEW_GOVERNANCE_STATUS:
+NON_REGRESSION_CONTRACT:
+NON_REGRESSION_VALIDATION:
+LOCKED_INVARIANTS_PRESERVED:
 BASELINE_RELEARN_STATUS:
 VALIDATION_COMMANDS:
 VALIDATION_RESULTS:
@@ -1053,6 +1069,8 @@ GOVERNANCE_BASELINE_CHANGE: YES
 - 当前 Authorization Contract / 状态：
 - Enforcement Mode：`PROCEDURAL_FALLBACK / TOOL_ENFORCED`
 - Tool Enforcement / Procedural Evidence：
+- Non-Regression Contract / Policy / Validator：
+- 保留的 `project_invariants`：
 - 现有 Task 状态映射：
 - Rule Gap / Compatibility Alias：
 
@@ -1082,6 +1100,8 @@ BASELINE_RELEARN_STATUS: NOT_STARTED / IN_PROGRESS / COMPLETE / NOT_APPLICABLE
 - One Fact One Owner：
 - 产品文件未修改：
 - 必要的治理工具测试：
+- Non-Regression Validation：
+- `LOCKED` Invariant 保留证据：
 - Remaining Risks：
 
 ### 13.10 迁移后状态
@@ -1100,6 +1120,8 @@ BASELINE_RELEARN_STATUS: NOT_STARTED / IN_PROGRESS / COMPLETE / NOT_APPLICABLE
 - 治理升级 Commit：由本记录所在 Git Commit / 最终报告解析
 - 正式 C04 Review Target：
 - 正式 C04 Decision / Record：
+- `CURRENT_CHANGE_VALIDATION`：
+- `NON_REGRESSION_VALIDATION`：
 - `POST_C04_RECORD_ONLY_DESCENDANT`：`NO / YES`
 - Record-only 文件白名单与零漂移证据：
 - 当前 PRD：

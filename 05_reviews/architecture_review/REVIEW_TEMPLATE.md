@@ -64,6 +64,24 @@ ADVISORIES: {{COUNT}}
 |---|---|---|---|---|---|---|---|---|
 | REV-001 | S0/S1/S2/S3 | | | | | | OPEN | |
 
+## Non-Regression / 防回退
+
+```text
+APPLICABLE_NON_REGRESSION_INVARIANTS: {{IDS_OR_NOT_APPLICABLE_WITH_REASON}}
+REGRESSION_GUARD_COMMAND: {{COMMAND_OR_NOT_APPLICABLE}}
+REGRESSION_GUARD_RESULT: PASS / FAIL / NOT_RUN
+PRIOR_CLOSED_FINDINGS_STATUS: REMAIN_CLOSED / REGRESSION_FOUND / NOT_APPLICABLE
+CURRENT_CHANGE_VALIDATION: PASS / FAIL
+NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE
+NON_REGRESSION_EVIDENCE: {{EVIDENCE}}
+```
+
+| Finding ID | Regression Of | Guard Disposition | Invariant / Guard ID | Reason |
+|---|---|---|---|---|
+| | {{PRIOR_FINDING_ID_OR_NOT_APPLICABLE}} | REQUIRED/NOT_REQUIRED | | |
+
+完整规则见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。框架治理变更不得标记为 `NOT_APPLICABLE`。
+
 ## Advisory / Observation / Future Improvement
 
 | Advisory ID | Type | Observation | Suggested Follow-up | Non-blocking Confirmation |
@@ -78,8 +96,10 @@ ADVISORIES: {{COUNT}}
 ALL_APPLICABLE_MANDATORY_CHECKS_COMPLETED: YES / NO
 REQUIRED_EVIDENCE_COMPLETE: YES / NO
 ALL_APPLICABLE_EXCEPTIONS_APPROVED_BY_CORRECT_OWNER: YES / NO / NOT_APPLICABLE
+CURRENT_CHANGE_VALIDATION: PASS / FAIL
+NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE
 FORMAL_DECISION: PASS / CHANGES_REQUESTED
 DECISION_BASIS: {{SUMMARY}}
 ```
 
-任一 Open Finding 都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
+任一 Open Finding 或适用 Non-Regression Validation 失败都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。

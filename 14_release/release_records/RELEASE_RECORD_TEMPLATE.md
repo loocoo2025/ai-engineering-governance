@@ -12,6 +12,12 @@ Authority Owner：
 -
 ## 测试报告
 -
+## 防回退验证
+- Non-Regression Contract：
+- Validator 命令与结果：
+- `LOCKED` Invariant 状态：
+- `CURRENT_CHANGE_VALIDATION`：
+- `NON_REGRESSION_VALIDATION`：
 ## 已知问题
 -
 ## 回滚点

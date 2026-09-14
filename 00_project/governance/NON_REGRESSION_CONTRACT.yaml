@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0",
+  "framework_version": "v0.1.9",
+  "contract_owner": "00_project/governance/NON_REGRESSION_CONTRACT.yaml",
+  "semantic_authority": "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md",
+  "format_note": "This file uses the JSON subset of YAML 1.2 so the bundled validator needs no third-party YAML dependency.",
+  "validator": "09_quality/non_regression/validate_non_regression.py",
+  "allowed_statuses": [
+    "PROPOSED",
+    "LOCKED",
+    "SUPERSEDED"
+  ],
+  "allowed_guard_kinds": [
+    "FILE_EXISTS",
+    "TEXT_CONTAINS",
+    "TEXT_NOT_CONTAINS",
+    "REGEX_COUNT"
+  ],
+  "required_invariant_fields": [
+    "id",
+    "scope",
+    "subject",
+    "statement",
+    "status",
+    "introduced_by",
+    "source",
+    "change_requires",
+    "supersedes",
+    "superseded_by",
+    "guards"
+  ],
+  "change_policy": {
+    "locked_in_place_semantic_edit": "FORBIDDEN",
+    "replacement_requires": [
+      "EXPLICIT_CHANGE_DECISION",
+      "IMPACT_ANALYSIS",
+      "NEW_INVARIANT_ID",
+      "FORMAL_C04"
+    ],
+    "recurring_closed_finding": "CREATE_NEW_FINDING_ID_WITH_REGRESSION_OF"
+  },
+  "framework_invariants": [
+    {
+      "id": "NRC-FWK-001",
+      "scope": "FRAMEWORK",
+      "subject": "one_shot_independent_session_authorization",
+      "statement": "An authorization valid for one independent session has dispatch_limit 1 and no automatic retry; session creation, formal C04 dispatch, and real model invocation remain independent action classes.",
+      "status": "LOCKED",
+      "introduced_by": "v0.1.9",
+      "source": "C04 governance clarification and accepted non-regression requirement",
+      "change_requires": [
+        "EXPLICIT_CHANGE_DECISION",
+        "IMPACT_ANALYSIS",
+        "NEW_INVARIANT_ID",
+        "FORMAL_C04"
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "guards": [
+        {
+          "id": "NRG-AUTH-001-A",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "    - \"dispatch_limit\""
+        },
+        {
+          "id": "NRG-AUTH-001-B",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "required_dispatch_limit: 1"
+        },
+        {
+          "id": "NRG-AUTH-001-C",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "required_retry_policy: \"NO_AUTOMATIC_RETRY\""
+        },
+        {
+          "id": "NRG-AUTH-001-D",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md",
+          "value": "    dispatch_limit: 1"
+        },
+        {
+          "id": "NRG-AUTH-001-E",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml",
+          "value": "    dispatch_limit: 1"
+        },
+        {
+          "id": "NRG-AUTH-001-F",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml",
+          "value": "  automatic_retry: false"
+        }
+      ]
+    },
+    {
+      "id": "NRC-FWK-002",
+      "scope": "FRAMEWORK",
+      "subject": "closed_c04_finding_history_is_immutable",
+      "statement": "A closed C04 Finding is not reopened in place; recurrence creates a new Finding ID with REGRESSION_OF, and closed states are terminal.",
+      "status": "LOCKED",
+      "introduced_by": "v0.1.9",
+      "source": "C04 finding closure and monotonic history rules",
+      "change_requires": [
+        "EXPLICIT_CHANGE_DECISION",
+        "IMPACT_ANALYSIS",
+        "NEW_INVARIANT_ID",
+        "FORMAL_C04"
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "guards": [
+        {
+          "id": "NRG-C04-002-A",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "recurrence_creates_new_finding_id: true"
+        },
+        {
+          "id": "NRG-C04-002-B",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "required_recurrence_relation: \"REGRESSION_OF\""
+        },
+        {
+          "id": "NRG-C04-002-C",
+          "kind": "REGEX_COUNT",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "pattern": "(?m)^    CLOSED_BY_(?:FIX|APPROVED_EXCEPTION): \\[\\]$",
+          "expected_count": 2
+        },
+        {
+          "id": "NRG-C04-002-D",
+          "kind": "TEXT_CONTAINS",
+          "file": "05_reviews/code_review/CODE_REVIEW_TEMPLATE.md",
+          "value": "REGRESSION_OF"
+        }
+      ]
+    },
+    {
+      "id": "NRC-FWK-003",
+      "scope": "FRAMEWORK",
+      "subject": "task_terminal_states_do_not_reopen",
+      "statement": "DONE and CANCELLED Task records are terminal; later work uses a new Task instead of rewriting terminal history.",
+      "status": "LOCKED",
+      "introduced_by": "v0.1.9",
+      "source": "TASK_STATE_MACHINE",
+      "change_requires": [
+        "EXPLICIT_CHANGE_DECISION",
+        "IMPACT_ANALYSIS",
+        "NEW_INVARIANT_ID",
+        "FORMAL_C04"
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "guards": [
+        {
+          "id": "NRG-TASK-003-A",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "    DONE: []"
+        },
+        {
+          "id": "NRG-TASK-003-B",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml",
+          "value": "    CANCELLED: []"
+        }
+      ]
+    },
+    {
+      "id": "NRC-FWK-004",
+      "scope": "FRAMEWORK",
+      "subject": "formal_c04_requires_non_regression_evidence",
+      "statement": "Formal C04 records current-change validation and non-regression validation while preserving PASS or CHANGES_REQUESTED as the only Gate Decision.",
+      "status": "LOCKED",
+      "introduced_by": "v0.1.9",
+      "source": "Formal C04 non-regression requirement",
+      "change_requires": [
+        "EXPLICIT_CHANGE_DECISION",
+        "IMPACT_ANALYSIS",
+        "NEW_INVARIANT_ID",
+        "FORMAL_C04"
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "guards": [
+        {
+          "id": "NRG-C04-004-A",
+          "kind": "TEXT_CONTAINS",
+          "file": "05_reviews/code_review/CODE_REVIEW_TEMPLATE.md",
+          "value": "CURRENT_CHANGE_VALIDATION: PASS / FAIL"
+        },
+        {
+          "id": "NRG-C04-004-B",
+          "kind": "TEXT_CONTAINS",
+          "file": "05_reviews/code_review/CODE_REVIEW_TEMPLATE.md",
+          "value": "NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE"
+        },
+        {
+          "id": "NRG-C04-004-C",
+          "kind": "TEXT_CONTAINS",
+          "file": "05_reviews/code_review/CODE_REVIEW_TEMPLATE.md",
+          "value": "FORMAL_DECISION: PASS / CHANGES_REQUESTED"
+        },
+        {
+          "id": "NRG-C04-004-D",
+          "kind": "TEXT_CONTAINS",
+          "file": "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md",
+          "value": "NEW_TARGET = ACCEPTED_PREDECESSOR + EXPLICIT_CHANGE_SET"
+        },
+        {
+          "id": "NRG-C04-004-E",
+          "kind": "FILE_EXISTS",
+          "file": "09_quality/non_regression/validate_non_regression.py"
+        },
+        {
+          "id": "NRG-C04-004-F",
+          "kind": "FILE_EXISTS",
+          "file": "09_quality/non_regression/test_validate_non_regression.py"
+        }
+      ]
+    }
+  ],
+  "project_invariants": []
+}

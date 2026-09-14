@@ -44,9 +44,12 @@ INDEPENDENT_REVIEW_PROMPT.md
 00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml
 00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
+00_project/governance/NON_REGRESSION_CONTRACT.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
+09_quality/non_regression/README.md
+09_quality/non_regression/validate_non_regression.py
 12_issues/feedback/FEEDBACK_REGISTER.md
 12_issues/feedback/FEEDBACK_TEMPLATE.md
 ```
@@ -90,6 +93,7 @@ Lite 可以减少产物，但不得弱化：
 - `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 使用同一治理语义；
 - 上下文重置、Knowledge Continuation 和 Baseline Relearn；
 - 基于 Git 的 Review Target 和历史记录。
+- Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation。
 
 ## 何时升级到 Full
 

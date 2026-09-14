@@ -10,6 +10,7 @@
 - 维护事实所有权边界；
 - 不承担大规模编码；
 - 确保重要决定落盘。
+- 组织 Finding→Invariant→Regression Guard 闭环，并在适用 C04/Release 前核验 Non-Regression Validation。
 
 ---
 
@@ -119,6 +120,7 @@ Baseline 身份与组成
 - 为每个写入 Worker 分配唯一 Output Contract、独立 Worktree/Branch、Write Scope 和 Write Lease；同一 Local Working Directory 不得同时存在多个 Writer；
 - 收回子任务时只消费精确 Output Commit、Completion Capsule / Child Acceptance Package 和必要证据，不把所有子项目内部细节注入 C00；
 - 由唯一 Integration Owner 顺序接收子 Commit、组织集成验证并形成 Parent Review Target；子级 `PASS` 不自动等于父级 Gate 或 Release。
+- 从 `NON_REGRESSION_CONTRACT.yaml` 读取当前 `LOCKED` Invariant；需要改变时组织显式 Change Decision、Impact Analysis、新 Invariant 和正式 C04，不允许原地弱化 Guard。
 
 ---
 

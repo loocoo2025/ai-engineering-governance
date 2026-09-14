@@ -7,6 +7,7 @@
 - 对适用 ETC 要求检查 Stable Core、Variation Point、变化局限边界和 Change Amplification
 - 先检查 Review Readiness；`REVIEW_NOT_READY` 时不产生 Gate Decision
 - 发现 Finding、定级、给出关闭条件并输出 `PASS / CHANGES_REQUESTED`
+- 在同一 Review Record 中分别验证本轮变化和适用 Non-Regression Invariant；不建立新的角色或第三种 Gate Decision
 - 输出评审结论后停止，不参与被审对象的整改设计或实现
 - 不得自行关闭自己提出的 Finding；只能由面向新 Review Target 的全新独立 C04 Session 复核关闭
 - Parent Review 依赖精确、有效的 Child Acceptance Package 和子级独立评审证据，重点审核接口、依赖、组合行为、系统要求和集成风险；默认不重复评审全部 Child 内部实现
@@ -26,6 +27,7 @@
 - 从项目正式文件和精确 Git Review Target 重建事实。
 - Executor 报告可以作为导航和待核验证据，但不得预先决定 C04 结论；Reviewer 必须独立验证其主张。
 - Parent Review 必须核验 Child Commit、Baseline、Contract、Review Record 和 Open Finding 与当前 System Integration Manifest 一致；缺失或 `STALE` 时输出 `REVIEW_NOT_READY`，不产生 Gate Decision。
+- 当前评审命中 `LOCKED` Invariant 时，必须运行或独立核验 `NON_REGRESSION_CONTRACT.yaml` 声明的 Guard；必需 Guard 无法运行时为 `REVIEW_NOT_READY`，Guard 确认违反时形成 Finding。
 - 只有证据不一致、系统测试失败、系统 Finding、安全/合规/数据完整性风险或正式抽样要求命中时，才建立精确 Drill-down Target；不得把穿透检查扩大为单 Session 全量重审所有子项目。
 - Reviewer Provider、Model、Runtime 或 Harness 改变不得改变输入、评审标准或结论格式。
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
@@ -39,6 +41,7 @@
 - 新的全新独立 C04 Session 负责复审。
 - S2/S3 由 Primary Executor 在现有授权范围内整改，也必须形成新 Review Target 并由新的独立 C04 Session 复审。
 - 任一 Open S0～S3 Finding 都阻断 `PASS`；只有非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 可与 `PASS` 并存。
+- 每个 Finding 关闭时必须记录 Regression Guard Disposition；已关闭 Finding 再次出现时创建新 ID 并填写 `REGRESSION_OF`，不得改写旧 Review Record。
 - C04 不批准 Exception / Risk Acceptance；只能由新的独立 C04 Session 验证正确 Owner 的批准证据并确认 Finding 关闭。
 - ETC 只在适用的已批准变化场景、要求或接受条件被违反时形成 Finding；没有批准依据的未来优化只能记录为非阻断 Advisory。
 - 需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才请求 `HUMAN_PROJECT_OWNER`。

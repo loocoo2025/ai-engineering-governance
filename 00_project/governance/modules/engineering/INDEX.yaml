@@ -34,6 +34,9 @@ rules:
   - id: "ENG-HUMAN-APPROVAL-WORK-PACKAGES"
     path: "00_project/governance/modules/engineering/HUMAN_APPROVAL_AND_WORK_PACKAGES.md"
     must_read_when: ["HUMAN_APPROVAL_PACKAGE", "BOUNDED_WORK_PACKAGE", "GOVERNANCE_FEEDBACK"]
+  - id: "ENG-NON-REGRESSION-CONTROL"
+    path: "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
+    must_read_when: ["FORMAL_C04", "GOVERNANCE_FINDING_CLOSURE", "NON_REGRESSION", "PUBLIC_OR_PRODUCTION_RELEASE"]
 
 legacy_entry: "AI_ENGINEERING_RULES_V2.md"
 rules_are_selected_by_trigger_not_read_all_by_default: true

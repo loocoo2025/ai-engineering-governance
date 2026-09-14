@@ -19,6 +19,7 @@
 8. 一个写入 Session 只绑定一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer。
 9. 在需求、设计和授权不清楚时不得直接编码；在没有证据时不得声称完成。
 10. 历史由 Git 和 Archive 保留，日常工作只加载当前任务需要的事实。
+11. 已接受事实和已关闭问题不得被后续变更静默带回；可重复、长期有效且可机械判断的根因必须转成 `LOCKED` Invariant 和永久 Regression Guard。
 
 禁止一上来写代码、大规模移动目录、重构项目或把聊天当作唯一事实来源。
 
@@ -117,6 +118,7 @@ FEDERATED_PROJECT
 - 项目分解与联邦 → `00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`；
 - 外部 AI → `00_project/governance/EXTERNAL_AI_TRANSFER_CONFIG.yaml`；
 - 框架更新 → `00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml`。
+- 防回退、Locked Invariant、Finding→Guard 和 Pre-C04 验证 → `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。
 
 兼容入口 `AI_ENGINEERING_RULES_V2.md` 和 `AI_CONVERSATION_ORCHESTRATION_RULES.md` 只提供旧章节到新模块的映射，不要求默认完整读取。
 
@@ -159,7 +161,7 @@ SKIP_FOR_CURRENT_SESSION — 本次会话暂不升级 / Skip for this session
 
 任何测试设计、测试代码、CI、验证或质量分析前，必须完整阅读 `00_project/governance/AI_TESTING_GOVERNANCE_RULES.md`，只执行由需求和风险证明必要的最小验证。
 
-任务完成前必须检查：产物、验证、追溯、文档、状态、Remaining Risk 和 Definition of Done。未达到 DoD 不得声明完成。
+任务完成前必须检查：产物、验证、追溯、文档、状态、适用 Non-Regression Guard、Remaining Risk 和 Definition of Done。未达到 DoD 不得声明完成。
 
 物理 Session 上下文阈值：
 

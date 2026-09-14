@@ -1,5 +1,5 @@
-schema_version: "1.3"
-framework_version: "v0.1.8"
+schema_version: "1.4"
+framework_version: "v0.1.9"
 release_status: "STABLE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
 additional_semantic_authorities:
@@ -9,6 +9,7 @@ additional_semantic_authorities:
   project_decomposition: "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
   session_worktree_handoff: "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
   task_instances: "00_project/ai_context/ACTIVE_TASKS.md"
+  non_regression_control: "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
 
 governance_knowledge_routing:
   contract_id: "GOVERNANCE_KNOWLEDGE_ROUTING"
@@ -213,6 +214,7 @@ authorization_contract:
     - "consumption_event"
     - "terminal_state"
     - "retry_policy"
+    - "dispatch_limit"
     - "escalation"
     - "status"
     - "audit_reference"
@@ -239,6 +241,14 @@ authorization_contract:
     - "FORMAL_SEAL"
     - "RELEASE"
   implication_between_action_classes: false
+  one_independent_session_invariant:
+    applies_to_action_classes:
+      - "INDEPENDENT_SESSION_CREATION"
+      - "FORMAL_C04_DISPATCH"
+      - "REAL_MODEL_INVOCATION"
+    when_validity: "ONE_INDEPENDENT_SESSION"
+    required_dispatch_limit: 1
+    required_retry_policy: "NO_AUTOMATIC_RETRY"
 
 task_state_machine:
   contract_id: "TASK_STATE_MACHINE"
@@ -283,6 +293,25 @@ task_state_machine:
       - "CANCELLED"
     DONE: []
     CANCELLED: []
+
+c04_finding_state_machine:
+  contract_id: "C04_FINDING_STATE_MACHINE"
+  states:
+    - "OPEN"
+    - "CLOSED_BY_FIX"
+    - "CLOSED_BY_APPROVED_EXCEPTION"
+  terminal_states:
+    - "CLOSED_BY_FIX"
+    - "CLOSED_BY_APPROVED_EXCEPTION"
+  transitions:
+    OPEN:
+      - "CLOSED_BY_FIX"
+      - "CLOSED_BY_APPROVED_EXCEPTION"
+    CLOSED_BY_FIX: []
+    CLOSED_BY_APPROVED_EXCEPTION: []
+  recurrence_creates_new_finding_id: true
+  required_recurrence_relation: "REGRESSION_OF"
+  historical_review_record_mutation: "FORBIDDEN"
 
 project_decomposition:
   contract_id: "PROJECT_DECOMPOSITION"
@@ -556,6 +585,38 @@ formal_c04_independence_evidence:
     review_target_access: "READ_ONLY"
     git_write_allowed: false
     remote_mutation_allowed: false
+
+non_regression_control:
+  contract_id: "NON_REGRESSION_CONTROL"
+  semantic_authority: "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
+  invariant_registry: "00_project/governance/NON_REGRESSION_CONTRACT.yaml"
+  validator: "09_quality/non_regression/validate_non_regression.py"
+  invariant_states:
+    - "PROPOSED"
+    - "LOCKED"
+    - "SUPERSEDED"
+  finding_guard_dispositions:
+    - "REQUIRED"
+    - "NOT_REQUIRED"
+  formal_c04_required_fields:
+    - "applicable_non_regression_invariants"
+    - "regression_guard_command"
+    - "regression_guard_result"
+    - "prior_closed_findings_status"
+    - "current_change_validation"
+    - "non_regression_validation"
+  validator_exit_codes:
+    pass: 0
+    invariant_violation: 1
+    invalid_or_not_executable: 2
+  exit_code_2_result: "REVIEW_NOT_READY"
+  exit_code_1_result: "FINDING_AND_CHANGES_REQUESTED"
+  locked_in_place_semantic_edit: "FORBIDDEN"
+  recurring_closed_finding: "NEW_FINDING_ID_WITH_REGRESSION_OF"
+  framework_governance_change_may_be_not_applicable: false
+  final_gate_decisions:
+    - "PASS"
+    - "CHANGES_REQUESTED"
 
 human_determination_package:
   contract_id: "HUMAN_DETERMINATION_PACKAGE"

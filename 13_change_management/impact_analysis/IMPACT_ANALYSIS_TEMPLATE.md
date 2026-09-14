@@ -23,6 +23,7 @@
 - [ ] Review Line / C04 Independence
 - [ ] Enforcement Mode / Evidence
 - [ ] Formal Seal
+- [ ] Non-Regression Invariant / Regression Guard
 
 ## 受影响链路
 
@@ -69,6 +70,9 @@
 - 是否需要新/更新 Dynamic Role Profile：`YES / NO`
 - Enforcement Mode 是否受影响：`YES / NO / UNKNOWN`
 - Formal Seal 是否要求或失效：`YES / NO / NOT_APPLICABLE / UNKNOWN`
+- 是否影响现有 `LOCKED` Invariant：`YES / NO / UNKNOWN`
+- 是否需要新增、更新或废弃 Regression Guard：`YES / NO / UNKNOWN`
+- 如需替代 `LOCKED` Invariant，Change Decision、旧新 ID 和 `SUPERSEDED_BY / SUPERSEDES` 是否完整：`YES / NO / NOT_APPLICABLE`
 
 ## 结论
 

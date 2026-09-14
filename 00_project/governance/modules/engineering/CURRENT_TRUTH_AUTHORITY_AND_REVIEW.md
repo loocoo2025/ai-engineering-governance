@@ -166,6 +166,7 @@ MIGRATION_LOG.md
 - [ ] 项目级动态状态没有在 `BASELINE_INDEX / CONVERSATION_MAP / MIGRATION_LOG / 旧 HANDOFF` 中重复维护；
 - [ ] 没有仅存在于聊天中、尚未正式落盘的重要决定；
 - [ ] 当前实现没有继续依赖已经 `SUPERSEDED` 的需求、ADR 或设计。
+- [ ] 当前 Target 命中的 `LOCKED` Invariant 已执行 Non-Regression Guard，且不存在未经显式 Change Decision 的语义回退。
 
 ---
 
@@ -395,6 +396,7 @@ REVIEW_READINESS: READY / REVIEW_NOT_READY
 - 必要输入或证据缺失；
 - 无法建立全新独立 C04 Session；
 - Formal Review Record 写入位置未定义；
+- 当前评审命中 `LOCKED` Invariant，但 Non-Regression Contract、必需 Guard 或可执行输入缺失；
 - 权威 Current Truth 来源之间存在实质冲突，导致无法确定适用判定标准。
 
 `REVIEW_NOT_READY` 是正式评审的前置状态，不是 Gate Decision。此时 Review Record shell 只记录未就绪原因、缺失输入、后续责任人和重新发起条件，不输出 `PASS`、`CHANGES_REQUESTED` 或正式 Finding。
@@ -438,6 +440,8 @@ CLOSED_BY_FIX
 CLOSED_BY_APPROVED_EXCEPTION
 ```
 
+Finding 关闭时还必须按 `NON_REGRESSION_CONTROL.md` 记录 `REGRESSION_GUARD_DISPOSITION`。已经关闭的 Finding 不得在原 Review Record 中重新打开；同类问题再次出现时使用新的 Finding ID，并通过 `REGRESSION_OF` 引用历史 Finding。
+
 ### 38.7.4 Review Decision Matrix
 
 | 条件 | Readiness | 正式 Gate Decision | 默认后续路由 | Human Project Owner |
@@ -450,6 +454,7 @@ CLOSED_BY_APPROVED_EXCEPTION
 | 存在任一 Open S2 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
 | 存在任一 Open S3 Finding | `READY` | `CHANGES_REQUESTED` | Primary Executor 整改 → 新 Review Target → 新 C04 | 通常不需要 |
 | 适用的 Traceability Gate 未闭合且无正式批准的 Exception | `READY` | `CHANGES_REQUESTED` | 对应现有 Owner 整改 | 通常不需要 |
+| 必需 Non-Regression Guard 已执行并确认违反 `LOCKED` Invariant | `READY` | `CHANGES_REQUESTED` | Primary Executor 按 Invariant 来源整改 → 新 Target → 新 C04 | 只有改变 Invariant 或超出授权时 |
 | 必须改变已批准需求、产品目标、系统边界、公共接口、跨系统依赖、安全/数据完整性设计、重大不可逆架构取舍、Acceptance Threshold 或未预授权 Current Truth | `READY` | `CHANGES_REQUESTED` | C00 按现有权限体系转交保留决策 Owner | 需要 |
 | 必须接受重大风险或执行未授权 Release | `READY` | `CHANGES_REQUESTED` | 现有 Risk / Release Owner | 需要 |
 | 仅存在 Advisory / Observation / Future Improvement，无 Open Finding | `READY` | `PASS` | 进入既有下一阶段；非阻断事项可进入后续工作 | 不需要 |
@@ -470,6 +475,10 @@ AND ALL_APPLICABLE_MANDATORY_CHECKS_COMPLETED
 AND OPEN_FINDINGS = 0
 AND REQUIRED_EVIDENCE_COMPLETE
 AND ALL_APPLICABLE_EXCEPTIONS_APPROVED_BY_CORRECT_OWNER
+AND (
+  NON_REGRESSION_VALIDATION = PASS
+  OR (NON_REGRESSION_VALIDATION = NOT_APPLICABLE AND NOT_APPLICABLE_REASON_COMPLETE)
+)
 → PASS
 ```
 
@@ -485,6 +494,8 @@ C04 必须：
 - 不参与被审对象的整改设计或实现；
 - 不得批准 Exception / Risk Acceptance；
 - 不得自行关闭自己提出的 Finding；Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭；
+- 在同一个 Review Record 中分别记录 `CURRENT_CHANGE_VALIDATION` 和 `NON_REGRESSION_VALIDATION`；不得把它们升级成新的角色、Owner 或第三种 Gate Decision；
+- 核验适用 `LOCKED` Invariant、先前关闭 Finding 和 Guard 证据；框架治理变更不得把非回退验证标记为 `NOT_APPLICABLE`；
 - 不因 Reviewer Provider、Model、Runtime 或 Harness 改变而改变评审输入、审查标准或结论格式。
 
 C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，必须由新的独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并由新的独立 C04 Session 复审。

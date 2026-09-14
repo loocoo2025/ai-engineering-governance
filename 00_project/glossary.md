@@ -52,6 +52,8 @@
 | `FIELD-xxx` | Field Issue | 现场问题 | `FIELD-XXX` |
 | `TASK-xxx` | Task | 任务记录 | `TASK-001` |
 | `GOV-MIG-xxx` | Governance Migration | 治理模板迁移/升级记录 | `GOV-MIG-XXX` |
+| `NRC-xxx` | Non-Regression Contract Invariant | 防回退合同不可变量 | `NRC-FWK-001`；记录长期有效且可机械验证的受保护语义。 |
+| `NRG-xxx` | Non-Regression Guard | 防回退机械检查 | `NRG-AUTH-001-A`；验证某项 Locked Invariant。 |
 | `xxx / XXX` | Placeholder Sequence | 待项目替换的顺序号占位符 | 正式使用时替换为项目实际编号。 |
 
 ## 3. AI 治理角色与会话代码
@@ -204,6 +206,11 @@
 | `Stable Core` | 稳定核心 | 对某项已批准变化应保持不变、不得被变化穿透的核心行为、模块、接口或数据边界。 |
 | `Variation Point` | 变化点 | 为已批准变化场景明确预留并受边界约束的可替换或可扩展位置。 |
 | `Change Amplification` | 变更放大 | 一个变化输入实际牵动的模块、接口、数据、事实副本、测试和回退范围；用于判断变化是否保持局部和可控。 |
+| `Non-Regression Control` | 防回退控制 | 将可重复、长期有效且可机械判断的根因转为 Invariant 和永久 Guard，防止后续变更静默带回已解决问题。 |
+| `Invariant` | 不可变量/稳定约束 | 在声明范围内必须持续成立的受控语义；改变时必须走显式替代，而不是原地弱化。 |
+| `Locked Invariant` | 锁定不可变量 | 当前正式生效且必须继承、验证的 Invariant；只能通过显式 Change Decision 和新 ID 替代。 |
+| `Regression Guard` | 防回退机械检查 | 对 Locked Invariant 执行的确定性检查；不替代产品测试或 C04 语义评审。 |
+| `REGRESSION_OF` | 回退关联 | 新 Finding 用于引用被重新引入的历史已关闭 Finding；不得把旧记录原地改回 OPEN。 |
 | `As-Is` | 当前实际状态 | 已有项目此刻真实存在的结构、行为、接口、数据和部署状态。 |
 | `To-Be` | 目标状态 | 经批准后希望达到的未来结构或行为；不得与 As-Is 混写。 |
 | `Greenfield` | 全新项目 | 从空白或几乎空白状态开始的项目。 |

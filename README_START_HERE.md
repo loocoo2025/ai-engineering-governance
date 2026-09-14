@@ -32,6 +32,7 @@ Lite 保留以下不可弱化的原则：
 - ETC 可变更性质量链路；
 - Dynamic Role Profile、标准 Interaction 与精确 Authorization；
 - 上下文、Model、Runtime 或 Harness 替换后的 Knowledge Continuation / Baseline Relearn。
+- Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation。
 
 ## Agent 首次必读入口
 

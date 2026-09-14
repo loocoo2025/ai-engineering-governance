@@ -21,6 +21,7 @@
 9. 新项目从 C00/C01 开始，在进入架构或实现前先建立产品需求。
 10. 需要项目负责人决定时，按 `00_project/governance/AI_HUMAN_COLLABORATION_AND_APPROVAL_RULES.md` 先解释再请求决定；收到尚未分类的反馈时，先登记到 `12_issues/feedback/FEEDBACK_REGISTER.md`。
 11. Agent 只完整读取最小 `AI_START_HERE.md`，随后通过 `GOVERNANCE_ROUTER.yaml` 和 Domain INDEX 按需加载规则；不要把全部治理文件默认装入上下文。
+12. 正式 C04、Finding 关闭或 Release 前运行 `python3 09_quality/non_regression/validate_non_regression.py`；退出码 `1` 表示 Invariant 违反，退出码 `2` 表示证据无效。
 
 ## 可选 APLS 行为规格
 
@@ -65,5 +66,6 @@
 - 已批准 ETC 变化场景能够追溯到 Stable Core / Variation Point、局限设计和替换性/兼容性证据。
 - 每个写入 Session 只对应一个活动 Leaf / Integration Work Package 和一个 Output Contract；同一 Worktree 只有一个 Writer。
 - Parent 接受 Child 时能核验精确 Commit、未过期 Acceptance Package、独立 Review Evidence 和系统集成证据，而不是依赖聊天摘要。
+- 当前适用 Locked Invariant、Regression Guard 和 Guard 运行证据可以从唯一 Contract 与质量/Review 记录中定位。
 
 如果任何答案不清楚，请停留在 C00，先解决治理状态问题，再进入实现。

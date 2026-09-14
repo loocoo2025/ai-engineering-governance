@@ -27,6 +27,7 @@
 | §38.7 Review Decision Matrix | `modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md#387-c04-独立评审治理` |
 | §38.9 ETC | `modules/engineering/ETC_CHANGEABILITY_QUALITY.md` |
 | §41 | `modules/engineering/HUMAN_APPROVAL_AND_WORK_PACKAGES.md` |
+| §42 Non-Regression Control | `modules/engineering/NON_REGRESSION_CONTROL.md` |
 
 旧 Review Record、历史 Commit 和旧版本文档中对本文件章节号的引用继续按本表解释，不追溯改写历史证据。
 

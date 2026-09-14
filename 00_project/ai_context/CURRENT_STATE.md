@@ -124,6 +124,7 @@ APLS_INTEGRATION_POLICY: 00_project/governance/integrations/apls/APLS_DESIGN_ALL
 ENFORCEMENT_MODE: PROCEDURAL_FALLBACK
 ROLE_INTERACTION_EXECUTION_POLICY: 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
 GOVERNANCE_EXECUTION_CONTRACTS: 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
+NON_REGRESSION_CONTRACT: 00_project/governance/NON_REGRESSION_CONTRACT.yaml
 
 CURRENT_ROLE_ASSIGNMENT: {{ROLE_ASSIGNMENT_ID_OR_NOT_ESTABLISHED}}
 CURRENT_DYNAMIC_ROLE_PROFILE: {{PROFILE_ID_OR_NOT_ESTABLISHED}}
@@ -171,6 +172,8 @@ Project Owner
 治理知识如何按需加载只由 `GOVERNANCE_ROUTER.yaml` 和各 Domain INDEX 维护。`BEHAVIOR_SPECIFICATION_MODE` 只记录当前项目是否启用 APLS；默认 `DOCUMENT_BASED` 不加载 APLS，只有明确改为 `APLS_ENABLED` 后 C02 才执行 APLS Design Allocation。APLS 的稳定分配规则由 `APLS_INTEGRATION_POLICY` 维护，本文件不复制规则正文。
 
 `ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。
+
+当前有效 `LOCKED` Invariant 及其 Guard 只由 `NON_REGRESSION_CONTRACT` 维护。本文件不复制 Invariant，也不维护本次 Guard 运行结果；运行证据进入对应质量记录或正式 Review Record。
 
 项目结构模式和关系只由 `PROJECT_STRUCTURE_MAP.md` 维护；Task / Output Contract / Worktree / Write Lease 当前绑定只由 `ACTIVE_TASKS.md` 维护。不得把这些实例复制到本文件。
 

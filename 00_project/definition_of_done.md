@@ -23,3 +23,4 @@
 - [ ] 如存在并行写入，当前 Session、Work Package、Output Contract、Worktree、Branch 和 Write Lease 绑定唯一且无重叠 Writer
 - [ ] 如向 Parent 交付，Child Acceptance Package 与精确 Target 一致且未过期，必需独立评审证据已形成
 - [ ] 如为 Parent / System Integration，Child 证据、接口一致性、集成测试、系统级 Acceptance 和剩余风险已核验
+- [ ] 如适用 Non-Regression Control，所有 `LOCKED` Invariant 满足、Regression Guard PASS，且 Finding 的 Guard Disposition 已记录

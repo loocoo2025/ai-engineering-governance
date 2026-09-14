@@ -10,6 +10,7 @@ Commit：
 - [ ] Integration PASS
 - [ ] System PASS
 - [ ] Regression PASS
+- [ ] 适用 Non-Regression Guard PASS，并绑定当前精确 Target
 - [ ] Static Analysis PASS
 - [ ] ASan/UBSan PASS（如适用）
 - [ ] 真实环境验证 PASS

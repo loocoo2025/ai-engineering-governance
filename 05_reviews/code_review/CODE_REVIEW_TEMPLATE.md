@@ -86,6 +86,30 @@ CLOSED_BY_FIX
 CLOSED_BY_APPROVED_EXCEPTION
 ```
 
+已关闭 Finding 再次出现时不得修改旧记录，必须创建新的 Finding ID，并填写：
+
+```text
+REGRESSION_OF: {{PRIOR_FINDING_ID_OR_NOT_APPLICABLE}}
+```
+
+## Non-Regression / 防回退
+
+```text
+APPLICABLE_NON_REGRESSION_INVARIANTS: {{IDS_OR_NOT_APPLICABLE_WITH_REASON}}
+REGRESSION_GUARD_COMMAND: {{COMMAND_OR_NOT_APPLICABLE}}
+REGRESSION_GUARD_RESULT: PASS / FAIL / NOT_RUN
+PRIOR_CLOSED_FINDINGS_STATUS: REMAIN_CLOSED / REGRESSION_FOUND / NOT_APPLICABLE
+CURRENT_CHANGE_VALIDATION: PASS / FAIL
+NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE
+NON_REGRESSION_EVIDENCE: {{EVIDENCE}}
+```
+
+| Finding ID | Repeatable Root Cause | Stable Invariant | Machine Checkable | Guard Disposition | Invariant / Guard ID | Reason |
+|---|---|---|---|---|---|---|
+| | YES/NO | YES/NO | YES/NO | REQUIRED/NOT_REQUIRED | | |
+
+Guard 判定、`LOCKED` Invariant 和退出码语义见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。框架治理变更不得把 `NON_REGRESSION_VALIDATION` 标记为 `NOT_APPLICABLE`。
+
 ## Advisory / Observation / Future Improvement
 
 | Advisory ID | Type | Observation | Suggested Follow-up | Non-blocking Confirmation |
@@ -100,9 +124,11 @@ CLOSED_BY_APPROVED_EXCEPTION
 ALL_APPLICABLE_MANDATORY_CHECKS_COMPLETED: YES / NO
 REQUIRED_EVIDENCE_COMPLETE: YES / NO
 ALL_APPLICABLE_EXCEPTIONS_APPROVED_BY_CORRECT_OWNER: YES / NO / NOT_APPLICABLE
+CURRENT_CHANGE_VALIDATION: PASS / FAIL
+NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE
 FORMAL_DECISION: PASS / CHANGES_REQUESTED
 DECISION_BASIS: {{SUMMARY}}
 FORMAL_REVIEW_RECORD: {{PATH_OR_ID}}
 ```
 
-任一 Open Finding 都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
+任一 Open Finding 或适用 Non-Regression Validation 失败都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。

@@ -14,6 +14,7 @@ T2/T3 测试不得自行升级为当前必须完成项。
 - 保证测试和发布产物可追溯
 - 对已批准 ETC 要求设计最小充分的替换性、兼容性和必要回归测试，验证变化是否局限且可回退
 - 分层验证 Child 内部行为、跨 Child 接口和系统级组合行为；Parent 复用有效 Child 测试证据，但不得以局部 PASS 替代集成、系统或 Acceptance 验证
+- 执行当前 Target 适用的 Non-Regression Guard，并把命令、Target、退出码和证据提供给 C04/Release Gate
 
 ## 执行槽位与升级
 - 默认由 `PRIMARY_EXECUTOR` 执行。
@@ -25,4 +26,5 @@ T2/T3 测试不得自行升级为当前必须完成项。
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
 - 生成或核验 C05 的 Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization；随后按需读取当前状态、Baseline、必要 HANDOFF 和任务相关正式文件。
 - Release、Formal Seal、Acceptance Threshold 和重大风险接受分别需要自身精确授权，不得由测试通过或其他动作推导。
+- Guard 退出码 `1` 表示已确认违反 Invariant；退出码 `2` 表示验证无效。两者都不得写成 PASS，也不得通过删除或降低 Guard 使结果变绿。
 - 联邦系统验证必须绑定 System Integration Manifest 中的精确 Child Commit / Tag、接口版本和 Child Acceptance Package；任一输入变化后重新计算受影响验证范围。

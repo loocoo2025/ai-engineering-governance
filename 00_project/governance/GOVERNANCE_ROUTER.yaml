@@ -1,5 +1,5 @@
 schema_version: "1.0"
-framework_version: "v0.1.8"
+framework_version: "v0.1.9"
 configuration_owner: "00_project/governance/GOVERNANCE_ROUTER.yaml"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3-岗位知识加载与规则缺口"
 
@@ -52,6 +52,7 @@ domains:
       - "C04_REVIEW"
       - "COMPLETION_OR_RELEASE"
       - "ETC"
+      - "NON_REGRESSION"
   sessions:
     index: "00_project/governance/modules/sessions/INDEX.yaml"
     match_any:

@@ -100,6 +100,7 @@ CUSTOM
 12. `PROCEDURAL_FALLBACK` 不得冒充 `TOOL_ENFORCED`，降级时必须记录失去的机械控制和 Remaining Risk。
 13. 多个并行 Writer 的独立 Git Worktree、同一 Local Working Directory 单 Writer、单 Output Write Lease 和冲突失败关闭；
 14. Parent 正式接受 Child Package 时的精确 Child Anchor、有效独立 Review Evidence 和系统集成证据链；不得以父级摘要绕过子级或系统级适用 Gate。
+15. 当前适用 `LOCKED` Invariant 的 Pre-C04 Non-Regression Guard；Guard 未运行或输入无效时不得开始正式判定，Guard 确认违反时不得 `PASS`。
 
 “不可关闭”不等于“每次都要人工执行”。在 Current Truth、Autonomy Mode 和预授权范围内，可以自动检查、自动整改、自动复审或自动推进；命中负责人保留决策时才转人工。
 
@@ -114,6 +115,7 @@ CUSTOM
 3. 接受 Public / Production Release Candidate；
 4. 采用会改变启动、Owner、权限、评审、测试、追溯或 Baseline 语义的治理框架版本。
 5. Parent / Root 准备把 Child Acceptance Package 作为正式可信输入纳入 Parent Baseline 或系统集成 Gate。
+6. 接受会新增、替代、删除或弱化 `LOCKED` Invariant / Regression Guard 的治理变更。
 
 同一边界和版本组合下的多个 Child Acceptance Package 可以组成一个冻结的 Parent Review Package；本触发不要求每个微小 Leaf Task 单独执行 Parent C04，也不允许 Parent C04 重复替代已经有效的 Child C04。
 

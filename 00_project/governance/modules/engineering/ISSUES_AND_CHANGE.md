@@ -157,6 +157,8 @@ BUG-xxx
 
 > 防止未来另一个 AI 或程序员再次把同一个问题写回来。
 
+正式 C04 Finding 关闭时还必须按 `NON_REGRESSION_CONTROL.md` 判断根因是否可重复、长期有效且可机械验证。满足条件时，修复必须同时登记 `LOCKED` Invariant 并增加永久 Regression Guard；不满足时记录 `REGRESSION_GUARD_DISPOSITION: NOT_REQUIRED` 及理由。已经关闭的 Finding 再次出现时创建新 Finding，并使用 `REGRESSION_OF` 关联旧记录，不得篡改历史关闭状态。
+
 ---
 
 # 23. 变更必须进行影响分析

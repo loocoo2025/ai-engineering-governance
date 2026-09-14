@@ -1,5 +1,22 @@
 # 变更日志
 
+## [0.1.9] - 2026-09-14
+
+> 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。
+
+### 新增
+- 增加 Non-Regression Control 权威规则、机器可读 Invariant Contract、无第三方依赖验证器及其最小回归测试。
+- 增加 Finding→Invariant→Regression Guard 闭环，以及 `REGRESSION_OF` 单调历史关系。
+- 增加 C04 的 Current Change Validation 与 Non-Regression Validation 两个证据维度，最终 Gate Decision 仍保持 `PASS / CHANGES_REQUESTED`。
+
+### 变更
+- Authorization Contract 补齐 `dispatch_limit`，并机械锁定 `ONE_INDEPENDENT_SESSION → dispatch_limit: 1 + NO_AUTOMATIC_RETRY`。
+- 正式 C04、Finding 关闭和 Release 前必须运行适用 Locked Invariant Guard；无效验证为 `REVIEW_NOT_READY`，确认违反为 Finding。
+
+### 兼容
+- 不改变 C00～C06、Current Truth、Baseline、Traceability、Testing Governance、Worktree 或 Release Owner。
+- 不追溯改写历史 Review Record；不把所有 Finding 自动锁定；下游产品事实只进入项目自己的 Invariant 区域。
+
 ## [0.1.8] - 2026-09-13
 
 > 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。

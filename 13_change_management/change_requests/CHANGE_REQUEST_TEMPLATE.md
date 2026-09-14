@@ -39,6 +39,13 @@
 -
 ## 影响需求/ADR/接口/数据/代码/测试
 -
+## Non-Regression 影响
+- 受影响的 Invariant / Guard ID：
+- 是否修改或替代 `LOCKED` Invariant：`YES / NO`
+- 明确 Change Set：
+- 未列入 Change Set、必须保持不变的语义：
+- Finding 关闭时的 Guard Disposition：`REQUIRED / NOT_REQUIRED`
+- 计划的 Guard 动作：`ADD / UPDATE / NONE_WITH_REASON`
 ## 兼容性
 -
 ## 部署/迁移

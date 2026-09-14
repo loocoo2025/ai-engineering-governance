@@ -19,6 +19,8 @@ Role != Model != Runtime != Harness != Session != Tool。C00～C06 是固定标�
 
 重要需求、决策、质询、测试结果、Bug 和变更必须落入正式项目文件。
 
+已接受事实和已关闭问题不得被后续变更静默带回。命中 `NON_REGRESSION`、Finding 关闭、正式 C04 或 Release 时，加载 `NON_REGRESSION_CONTROL.md` 和 `NON_REGRESSION_CONTRACT.yaml`；可重复、长期有效且可机械判断的根因必须转成 `LOCKED` Invariant 和永久 Guard。必需 Guard 未运行或无效时不得进入正式 C04 判定，Guard 确认违反时不得 `PASS`。
+
 如果 `CURRENT_STATE.md` 明确配置 `BEHAVIOR_SPECIFICATION_MODE: APLS_ENABLED`，C02 必须加载 APLS 集成目录并先完成 Design Allocation；默认 `DOCUMENT_BASED` 时不得无故加载或强制使用 APLS。
 
 先输出：
@@ -34,4 +36,5 @@ Role != Model != Runtime != Harness != Session != Tool。C00～C06 是固定标�
 - 下一步
 - 是否存在需要 Expert Escalation 的 `QUESTION_PRIORITY` P0/P1 问题
 - 是否存在必须由 Human Project Owner 决策的事项
+- 当前适用 Non-Regression Invariant 与 Guard 状态
 ```

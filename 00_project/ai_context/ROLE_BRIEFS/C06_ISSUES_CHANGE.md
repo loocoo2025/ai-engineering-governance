@@ -4,6 +4,7 @@
 - 先复现分类再决定修改哪一层
 - 维护 `12_issues/feedback/FEEDBACK_REGISTER.md`，所有疑问、体验问题、治理缺口、改进建议、疑似缺陷和现场报告先登记为 FB，再分类分流
 - 真实 Bug 原则上补回归测试
+- 正式 Finding 关闭前记录 Regression Guard Disposition；可重复、长期有效且可机械判断时登记 Invariant 和永久 Guard
 - 维护 FB/BUG/RCA/CR，并将已确认现场问题关联到 FIELD 记录
 - 不看到 Bug 就大重写
 - 跨 Module / Child 问题先定位事实 Owner 和受影响链路，分别建立叶子整改包及必要 Integration Work Package；不得让一个 Session 在多个项目中无边界修改

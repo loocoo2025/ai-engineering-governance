@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：195
+预建文件数：203
 
 ```text
 .gitignore
@@ -29,6 +29,7 @@
 00_project/governance/FRAMEWORK_UPDATE_CONFIG.yaml
 00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml
 00_project/governance/GOVERNANCE_ROUTER.yaml
+00_project/governance/NON_REGRESSION_CONTRACT.yaml
 00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md
 00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md
 00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md
@@ -43,6 +44,7 @@
 00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md
 00_project/governance/modules/engineering/INDEX.yaml
 00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md
+00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md
 00_project/governance/modules/engineering/REQUIREMENTS_AND_TRACEABILITY.md
 00_project/governance/modules/engineering/TASK_EXECUTION_AND_PERMISSIONS.md
 00_project/governance/modules/sessions/COMMUNICATION_AND_STATE.md
@@ -120,6 +122,9 @@
 08_tests/test_data/README.md
 08_tests/unit/README.md
 09_quality/coverage/README.md
+09_quality/non_regression/README.md
+09_quality/non_regression/test_validate_non_regression.py
+09_quality/non_regression/validate_non_regression.py
 09_quality/quality_reports/CHILD_ACCEPTANCE_PACKAGE_TEMPLATE.md
 09_quality/quality_reports/README.md
 09_quality/quality_reports/SYSTEM_INTEGRATION_MANIFEST_TEMPLATE.md
@@ -148,16 +153,19 @@
 13_change_management/change_requests/CR-GOV-002-human-feedback-etc.md
 13_change_management/change_requests/CR-GOV-003-scalable-project-decomposition.md
 13_change_management/change_requests/CR-GOV-004-modular-knowledge-routing-apls.md
+13_change_management/change_requests/CR-GOV-005-non-regression-control.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IA-GOV-002-human-feedback-etc.md
 13_change_management/impact_analysis/IA-GOV-003-scalable-project-decomposition.md
 13_change_management/impact_analysis/IA-GOV-004-modular-knowledge-routing-apls.md
+13_change_management/impact_analysis/IA-GOV-005-non-regression-control.md
 13_change_management/impact_analysis/IMPACT_ANALYSIS_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_TEMPLATE.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.5.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.6.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.7.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.8.md
+13_change_management/release_notes/RELEASE_NOTES_v0.1.9.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/PARENT_CHILD_PROJECT_CONTRACT_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
