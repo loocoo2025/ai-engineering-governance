@@ -34,6 +34,9 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 
 ## Review Scope
 
+- 评审目的：
+- 当前任务 / 变化：
+- 核心接受关注点：
 - 适用需求 / Baseline：
 - 适用决策 / ADR：
 - 证据：
@@ -49,7 +52,7 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 ## Finding Summary
 
 ```text
-OPEN_FINDINGS:
+OPEN_IN_SCOPE_FINDINGS:
 S0: {{COUNT}}
 S1: {{COUNT}}
 S2: {{COUNT}}
@@ -58,9 +61,9 @@ S3: {{COUNT}}
 ADVISORIES: {{COUNT}}
 ```
 
-| Finding ID | Severity | Finding | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Default Route | Status | Closure Evidence |
-|---|---|---|---|---|---|---|---|---|
-| REV-001 | S0/S1/S2/S3 | | | | | | OPEN | |
+| Finding ID | Severity | Finding | Current Task / Core Acceptance Relation | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Default Route | Status | Closure Evidence |
+|---|---|---|---|---|---|---|---|---|---|
+| REV-001 | S0/S1/S2/S3 | | CORE / IN_SCOPE | | | | | OPEN | |
 
 ## Non-Regression / 防回退
 
@@ -78,13 +81,13 @@ NON_REGRESSION_EVIDENCE: {{EVIDENCE}}
 |---|---|---|---|---|
 | | {{PRIOR_FINDING_ID_OR_NOT_APPLICABLE}} | REQUIRED/NOT_REQUIRED | | |
 
-完整规则见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。框架治理变更不得标记为 `NOT_APPLICABLE`。
+完整规则见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。只有当前变化命中适用 `LOCKED` Invariant、既有 Guard 或 Target Manifest 的强制检查时才必须执行；不得仅因对象属于治理文件就自动扩大全量防回退审查。
 
 ## Advisory / Observation / Future Improvement
 
-| Advisory ID | Type | Observation | Suggested Follow-up | Non-blocking Confirmation |
-|---|---|---|---|---|
-| ADV-001 | ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT | | | YES |
+| Advisory ID | Type | Observation | Feedback ID / Disposition Owner | Suggested Follow-up | Non-blocking Confirmation |
+|---|---|---|---|---|---|
+| ADV-001 | ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT | | | | YES |
 
 ## Formal Decision
 
@@ -100,7 +103,7 @@ FORMAL_DECISION: PASS / CHANGES_REQUESTED
 DECISION_BASIS: {{SUMMARY}}
 ```
 
-任一 Open Finding 或适用 Non-Regression Validation 失败都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
+当前冻结评审范围内的任一 Open Finding，或适用 Non-Regression Validation 失败，都阻断 `PASS`。已实际发现的非核心、关联但非阻断或范围外可信问题必须登记为 Feedback 并交由正确 Owner 处置，但不因其存在自动阻断当前 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
 
 ## 需求追溯机械门（适用于需求 Baseline / SRS 封板）
 

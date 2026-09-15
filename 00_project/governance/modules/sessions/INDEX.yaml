@@ -3,6 +3,13 @@ domain: "SESSIONS"
 owner: "00_project/governance/modules/sessions/INDEX.yaml"
 trigger_values_are_compared_against: "00_project/governance/GOVERNANCE_ROUTER.yaml#routing_inputs"
 
+selection_policy:
+  evaluate_in_list_order: true
+  load_only_rules_whose_trigger_is_currently_true: true
+  stop_when_selected_rule_resolves_the_session_action: true
+  leaf_may_not_add_undisclosed_sibling_exclusions: true
+  no_match: "RULE_NOT_FOUND"
+
 rules:
   - id: "SESSION-ROLE-BOUNDARIES"
     path: "00_project/governance/modules/sessions/ROLE_SESSION_BOUNDARIES.md"

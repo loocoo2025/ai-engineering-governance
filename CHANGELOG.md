@@ -1,5 +1,23 @@
 # 变更日志
 
+## [0.2.0] - Unreleased
+
+> 候选开发中；尚未形成正式 Tag、Release 或已发布 Baseline。
+
+### 简化
+- 所有治理学习、升级和 Baseline Relearn 改为按需加载：先匹配目录级排除条件和最小路由，当前信息足够时立即停止。
+- 治理升级改为“当前精确版本 + 目标精确版本 + 累计 Delta + 目标 Manifest”，不再逐版本重放、全仓重学或重审未变化文件。
+- Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization Contract、Task / Worktree 等控制只在触发条件成立或负责人选择采用时实例化。
+
+### 评审与问题处置
+- C04 聚焦冻结 Review Scope 内与当前任务和核心接受条件相关的 Finding；实际发现的其他可信问题进入 Feedback，不自动阻断当前 `PASS`。
+- 是否构成产品问题、是否修复、延期、接受风险或不处理，最终由正确 Human Project Owner / Decision Owner / Risk Owner 裁定。
+- Non-Regression Guard 改为风险与成本成比例，仅保护重复、高影响、长期有效且可机械判断的关键问题。
+
+### 可选 APLS
+- 在 `optional/apls/` 随附精确 Commit 固定的 APLS 0.1 说明书、Schema 与参考编译器。
+- APLS 默认禁用；只有显式选择 `APLS_ENABLED` 才按需读取、构建或运行，不改变 C00～C06、Current Truth、权限或正式 Gate。
+
 ## [0.1.9] - 2026-09-14
 
 > 正式稳定版本；Tag、GitHub Release 与完整 Commit 必须保持一致。

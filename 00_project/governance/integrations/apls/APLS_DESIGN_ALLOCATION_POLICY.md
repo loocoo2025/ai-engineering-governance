@@ -104,4 +104,4 @@ C05 根据已批准 APLS Acceptance、需求和风险选择最小充分验证；
 - 改变 APLS 规范行为必须回到正确 Requirement/Decision Owner；
 - APLS Profile 或编译器版本变化必须做兼容性和影响分析；
 - 技术上能运行 APLS CLI 不扩大 Role、文件写入、Commit、Push、Release 或远程权限；
-- 框架只引用 APLS 官方发布，不复制 APLS 源码或把本机路径写入模板。
+- 框架在 `optional/apls/` 随附精确 Commit 固定的可选说明书、Schema 与编译器快照；上游 APLS 仓库仍是该语言的来源 Owner，导入边界由 `optional/apls/SOURCE_MANIFEST.yaml` 维护。默认 `DOCUMENT_BASED` 不读取、构建或运行该 Bundle，且模板不得记录任何本机路径。

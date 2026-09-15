@@ -86,11 +86,24 @@ Role != Model != Runtime != Harness != Session != Tool
 
 ---
 
-## 2. Dynamic Role Profile
+## 2. 按需激活的执行控制
 
-每个物理 Session 在承担受控工作前，必须拥有一个与当前项目、岗位、任务、Gate 和授权相匹配的 `DYNAMIC_ROLE_PROFILE`。工具可自动生成；无专用工具时由 C00 / Primary Executor 按合同声明并检查。
+Dynamic Role Profile、Knowledge Manifest、Interaction Contract、Authorization Contract、Task Contract、Worktree 和 Write Lease 都是可用的治理能力，不是每个普通任务都必须实例化的表单。项目负责人可以在项目开始时或运行中采用；权威触发条件命中时自动适用。
 
-Profile 至少包含：
+| 控制 | 必须启用的典型条件 | 普通单 Session、本地、低风险任务 |
+|---|---|---|
+| Dynamic Role Profile | 角色组合复杂、正式 C04、高风险任务、跨 Session 或负责人要求 | 可不建立独立 Artifact |
+| Knowledge Manifest | 正式 C04、Baseline Relearn、正式 Handoff、多模块高风险任务 | 复用当前有效路由知识即可 |
+| Interaction Contract | 跨 Role/Session 的正式交付、独立评审或工具强制交互 | 当前 Session 内普通协作不需要 |
+| Authorization Contract | Release、远程/破坏性操作、正式独立 Session、明确要求审计的重大副作用 | 当前用户明确授权范围内的本地可逆操作不需要另建文件 |
+| Task / Output Contract | 多级分解、正式 Child 交付、并行或复杂集成 | 一个清楚的当前任务即可 |
+| Worktree / Write Lease | 多个并行 Writer、独立写入 Session | 单个 Local Working Directory 单 Writer 不需要额外 Lease Artifact |
+
+未启用的可选控制不得产生“缺少 Artifact”的阻断，也不得为了完备形式消耗 Token。启用任何控制都不能扩大调用者已有权限。
+
+当触发条件命中时，物理 Session 必须拥有一个与当前项目、岗位、任务、Gate 和授权相匹配的 `DYNAMIC_ROLE_PROFILE`。工具可自动生成；无专用工具时由 C00 / Primary Executor 按合同声明并检查。
+
+启用后的 Profile 至少包含：
 
 - Role ID 和稳定 Role Brief 引用；
 - 当前 Task / Work Package；
@@ -113,13 +126,13 @@ Profile 至少包含：
 
 机械规则：
 
-1. Role Assignment 或 Profile 缺失、不完整、过期或与 Current Truth 冲突时，必须标记 `ROLE_PROFILE_NOT_READY`，不得执行受控副作用动作；
+1. 只有 Profile 已被触发或明确采用时，其缺失、不完整、过期或与 Current Truth 冲突才标记 `ROLE_PROFILE_NOT_READY`；未触发时不得以缺少 Profile 阻断普通任务；
 2. Profile 是当前授权和权威文件的受控投影，不是新的 Current Truth Owner；
 3. Task、Gate、授权、Role、执行环境或关键输入变化时必须重新验证，必要时重新生成；
 4. Profile 只能缩小已获授权，不能扩大授权；
 5. 静态 Role Brief 负责稳定职责，动态 Profile 负责本次执行边界，二者不得互相覆盖。
 6. 当前或适用 Gate 绑定、适用事实 Owner 绑定必须分别对照 Current Truth、稳定 Role Brief、当前 Task / Work Package 和 Authorization 校验；任一绑定缺失、过期或冲突时不得声明 `ROLE_PROFILE_READY`；
-7. 写入 Profile 还必须满足一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer；只读 Profile 必须将写入字段标记为 `NOT_APPLICABLE` 并说明依据。
+7. 多 Session、分解任务或并行写入命中 Task / Worktree 控制时，写入 Profile 还必须满足一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer；普通单 Session 本地 Writer 可以将未触发字段标记为 `NOT_APPLICABLE`，但仍必须明确实际写入目录和范围。只读 Profile 必须将写入字段标记为 `NOT_APPLICABLE` 并说明依据。
 
 ---
 
@@ -129,7 +142,9 @@ Profile 至少包含：
 
 ```text
 MINIMUM_NECESSARY_INITIAL_LOAD
-→ ON_DEMAND_GOVERNANCE_SEARCH
+→ FIRST_SUFFICIENT_ROUTE
+→ STOP_READING
+→ ON_DEMAND_GOVERNANCE_SEARCH_IF_NEEDED
 → RULE_GAP_REPORT_IF_UNRESOLVED
 ```
 
@@ -137,7 +152,11 @@ MINIMUM_NECESSARY_INITIAL_LOAD
 
 模块化或联邦项目只加载当前 Leaf / Integration Work Package、Parent–Child Contract、直接依赖接口和适用接受证据。Parent Session 默认消费 Child Acceptance Package，不加载所有 Child 内部代码、旧对话或完整测试日志。
 
-AI 可以并且在需要时必须搜索整个受权治理仓库。知识范围不是权限边界；读取更多规则不会扩大 Role、Tool、Action、Gate 或副作用权限。
+有效且未变化的已加载知识可以作为当前 Session 缓存复用。只有当前 INDEX 无法给出唯一答案时才继续下钻；只有选中的 INDEX 和直接依赖仍无法解决时，才允许搜索整个受权治理仓库。知识范围不是权限边界；读取更多规则不会扩大 Role、Tool、Action、Gate 或副作用权限。
+
+每级 INDEX 必须在本级公开全部互斥、排除和停止条件。Leaf 文档不得引入会改变兄弟路线或上层权限判断、但未在 INDEX 声明的隐藏条件。发现此类条件时报告 `RULE_CONFLICT`，由 C00 把条件提升到正确 Router Owner。
+
+Human Project Owner 可以在执行中纠正 AI 的过度阅读、过度验证或过度治理，并要求缩小到当前任务与直接依赖。AI 必须立即执行范围收缩；如果该纠正触及安全、数据完整性、不可逆操作、明确权限边界或正式 Gate，只说明冲突与后果并请求精确裁决，不得静默绕过。
 
 禁止猜测规则。完成必要检索后仍不能得到唯一适用答案时，必须发起 `RULE_GAP_REPORT`：
 
@@ -401,10 +420,11 @@ RESIDUAL_RISK: PROCEDURAL_ERROR
 岗位接任
 → 最小知识加载
 → Current Truth 检查
-→ Dynamic Role Profile 就绪
+→ 命中即停止继续读取
+→ 仅核验已触发或已采用的执行控制
 → 接收标准 Interaction / Task
 → Authorization / Gate 检查
-→ Leaf / Integration Work Package、Output Contract 与 Workspace Binding 检查
+→ 仅在多级分解或并行写入时检查 Work Package、Output Contract 与 Workspace Binding
 → 执行
 → Self Review 与验证
 → 适用 Non-Regression Guard
@@ -413,4 +433,4 @@ RESIDUAL_RISK: PROCEDURAL_ERROR
 → Commit / Baseline / 状态收口
 ```
 
-任何一步失败或无法证明时进入显式 Blocked / Unknown 状态，不得跳步制造成功结论。
+只有当前动作实际适用的步骤失败或无法证明时才进入显式 Blocked / Unknown。未启用的可选控制不构成失败；关键事实和权限不得通过“可选”跳过。

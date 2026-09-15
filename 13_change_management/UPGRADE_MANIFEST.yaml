@@ -1,0 +1,114 @@
+schema_version: "1.1"
+framework_version: "v0.2.0-candidate"
+change_id: "CR-GOV-006"
+source_compatibility:
+  supported_known_versions:
+    - "v0.1.0"
+    - "v0.1.1"
+    - "v0.1.2"
+    - "v0.1.3"
+    - "v0.1.4"
+    - "v0.1.4-beta.1"
+    - "v0.1.5"
+    - "v0.1.6"
+    - "v0.1.7"
+    - "v0.1.8"
+    - "v0.1.9"
+  unknown_legacy: "BLOCK_AND_REQUEST_EXACT_SOURCE_IDENTIFICATION"
+
+upgrade_strategy:
+  type: "CUMULATIVE_EXACT_DIFF"
+  read_intermediate_release_notes: false
+  read_target_manifest: true
+  review_unchanged_files: false
+  product_files_may_change: false
+  default_commit: "LOCAL_ONLY_WHEN_AUTHORIZED"
+  default_push: false
+
+delta_path_scope:
+  affected_authorities:
+    - "AI_START_HERE.md"
+    - "00_project/governance/GOVERNANCE_ROUTER.yaml"
+    - "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
+    - "00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml"
+    - "00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md"
+    - "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
+    - "00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md"
+    - "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
+    - "00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md"
+    - "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
+    - "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md"
+    - "12_issues/feedback/FEEDBACK_REGISTER.md"
+    - "13_change_management/templates/治理模板升级-GOVERNANCE_TEMPLATE_UPGRADE_TEMPLATE.md"
+  affected_templates_and_routes:
+    - "00_project/governance/modules/*/INDEX.yaml"
+    - "00_project/ai_context/ROLE_BRIEFS/C04_INDEPENDENT_REVIEW.md"
+    - "00_project/ai_context/CURRENT_STATE.md"
+    - "05_reviews/*/"
+    - "INDEPENDENT_REVIEW_PROMPT.md"
+    - "PROJECT_START_PROMPT.md"
+    - "AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md"
+    - "AGENTS.md"
+  public_adoption_docs:
+    - "README.md"
+    - "README_START_HERE.md"
+    - "docs/FULL_VS_LITE.md"
+    - "docs/QUICK_START.md"
+    - "CHANGELOG.md"
+    - "TEMPLATE_FILE_INDEX.md"
+    - ".gitignore"
+  optional_feature_paths:
+    - "00_project/governance/integrations/apls/"
+    - "optional/apls/"
+  change_control_records:
+    - "13_change_management/change_requests/CR-GOV-006-v0.2.0-simplification-apls.md"
+    - "13_change_management/impact_analysis/IA-GOV-006-v0.2.0-simplification-apls.md"
+    - "13_change_management/UPGRADE_MANIFEST.yaml"
+    - "13_change_management/release_notes/RELEASE_NOTES_v0.2.0.md"
+  unchanged_product_content_must_not_be_read_or_modified_by_default: true
+
+semantic_changes:
+  - id: "GOV-READ-001"
+    summary: "Stop reading after the first sufficient route; directory indexes own their mutually exclusive and exclusion conditions."
+  - id: "GOV-OPTIONAL-001"
+    summary: "Dynamic profiles, manifests, interaction contracts, authorization contracts, task contracts, and worktree controls are instantiated only when their trigger applies or the Human Project Owner adopts them."
+  - id: "GOV-REVIEW-001"
+    summary: "Formal C04 findings are limited to core acceptance blockers within the frozen review scope; other credible issues are registered as non-blocking feedback."
+  - id: "GOV-UPGRADE-001"
+    summary: "Governance upgrades use the cumulative source-to-target delta and do not reread or rereview every intermediate version."
+  - id: "APLS-OPTIONAL-001"
+    summary: "A pinned APLS manual and compiler snapshot is included but remains disabled unless APLS_ENABLED is selected."
+
+required_migration_actions:
+  - "Replace unchanged framework-owned governance files with the target versions."
+  - "Three-way merge locally customized governance files only where the cumulative diff touches them."
+  - "Field-merge project-owned Current Truth, Baseline, Decision, Task, and Feedback records; never overwrite their current values."
+  - "Keep product requirements, architecture, interfaces, code, tests, and release facts unchanged."
+  - "Adopt optional controls only when their target trigger applies or the Human Project Owner explicitly selects them."
+  - "Keep BEHAVIOR_SPECIFICATION_MODE as DOCUMENT_BASED unless APLS_ENABLED is explicitly selected."
+
+mandatory_validation:
+  - "git diff --check"
+  - "changed-path ownership check"
+  - "project-fact preservation check"
+  - "target-declared validator or focused test when an executable tool changed"
+
+targeted_validation:
+  yaml_parse: "all changed YAML files"
+  framework_non_regression: "only invariants and guards hit by the cumulative delta"
+  apls_source_identity: "verify pinned commit, selected paths, and Apache-2.0 license"
+  apls_compiler: "cargo test --manifest-path optional/apls/07_src/Cargo.toml --workspace --locked"
+  full_product_test_suite: false
+
+formal_c04:
+  required_for_this_upgrade: true
+  scope: "CUMULATIVE_GOVERNANCE_DELTA_AND_DIRECTLY_AFFECTED_AUTHORITIES_ONLY"
+  full_repository_rereview: false
+
+baseline_relearn:
+  mode: "AFFECTED_GOVERNANCE_DELTA_ONLY"
+  full_product_relearn: false
+  read_all_governance_files: false
+  read_intermediate_release_history: false
+  stop_when_current_task_is_safely_decidable: true
+  later_conflict_route: "REGISTER_THEN_READ_UNIQUE_OWNER_ON_DEMAND"

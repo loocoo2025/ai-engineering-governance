@@ -58,6 +58,7 @@ INDEPENDENT_REVIEW_PROMPT.md
 
 ```text
 00_project/governance/integrations/apls/**
+optional/apls/**
 ```
 
 选择 `FEDERATED_PROJECT` 时还必须保留：
@@ -84,16 +85,16 @@ Lite 可以减少产物，但不得弱化：
 - 反馈先登记、再分类分流；
 - ETC 变化场景、局限设计和验证链路；
 - 项目结构模式、父子事实边界和组合式评审；
-- 单写入 Session、单活动 Leaf Work Package、单 Output Contract、单 Worktree 和单活动 Writer；
+- 多 Session、任务分解或并行写入命中控制时的单活动 Leaf Work Package、单 Output Contract、单 Worktree 和单活动 Writer；
 - 测试范围治理；
 - 保障节奏中的不可关闭控制和强制 C04 触发；
 - 外部 AI 的权限继承、默认关闭、单次授权与本地/外部 Session 放置边界；
-- Dynamic Role Profile、最小知识加载、Rule Gap、标准 Interaction 与通用 Authorization；
+- 最小知识加载和 Rule Gap；Dynamic Role Profile、标准 Interaction 与通用 Authorization 只在触发或负责人采用时要求；
 - `Role != Model != Runtime != Harness != Session != Tool`；
 - `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 使用同一治理语义；
 - 上下文重置、Knowledge Continuation 和 Baseline Relearn；
 - 基于 Git 的 Review Target 和历史记录。
-- Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation。
+- 对关键、重复、高影响且防御成本合理的问题使用 Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation；普通问题只记录并由正确 Owner 处置。
 
 ## 何时升级到 Full
 

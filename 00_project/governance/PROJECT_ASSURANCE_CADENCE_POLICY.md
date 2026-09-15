@@ -89,7 +89,7 @@ CUSTOM
 1. Current Truth 冲突停止，以及保留决策由正确 Owner 批准；
 2. `SUBAGENT_PERMISSION <= CALLER_PERMISSION`，以及远程、破坏性、Release 等重大副作用的明确授权；
 3. 正式 C04 被发起时的 Review Readiness、精确不可变 Target、独立上下文和正式 Review Record；
-4. 任一 Open S0～S3 Finding 阻断 `PASS`，关闭后由新独立 C04 针对新精确 Target 验证；
+4. 当前冻结 Review Scope 内任一 Open S0～S3 Finding 阻断 `PASS`，关闭后由新独立 C04 针对新精确 Target 验证；非阻断 Feedback / Advisory 不阻断；
 5. 建立或实质修改正式需求 Baseline / 追溯关系时的 Traceability Gate；
 6. 适用的 T0、Acceptance Criteria / Threshold、安全、合规、数据完整性验证，且不得为了通过而降低阈值；
 7. Public / Production Release 的授权和证据 Gate；
@@ -103,6 +103,8 @@ CUSTOM
 15. 当前适用 `LOCKED` Invariant 的 Pre-C04 Non-Regression Guard；Guard 未运行或输入无效时不得开始正式判定，Guard 确认违反时不得 `PASS`。
 
 “不可关闭”不等于“每次都要人工执行”。在 Current Truth、Autonomy Mode 和预授权范围内，可以自动检查、自动整改、自动复审或自动推进；命中负责人保留决策时才转人工。
+
+保障活动必须服从风险与治理成本比例：关键且不可逆的问题优先预防；重要但可恢复的问题重点检测与修复；普通、低影响问题先登记后按需处理。不得为了证明“没有任何问题”扩大普通任务、C04、测试或 Relearn 的范围。
 
 ---
 
@@ -131,6 +133,8 @@ CUSTOM
 `INFORMAL_INDEPENDENT`、`CONTEXTUAL_REVIEW` 和 `SELF_REVIEW` 可以按风险或工作需要执行，但它们不替代上述正式 C04 触发，也不产生正式 C04 Gate Decision。
 
 如果项目配置要求更高频率，可以增加 C04，但不得降低 C04 独立性或把辅助模型调用伪装成正式 C04。
+
+正式 C04 的 Scope 默认限于当前 Task/Change、直接受影响 Owner、批准 Acceptance Criteria 和关键风险。治理升级只评审累计治理 Delta 与直接受影响的权威规则，不重新评审未变化历史；Public / Production Release 也只加载证明适用 Release Gate 所需的证据，而不是默认全文审计仓库。
 
 ---
 

@@ -9,7 +9,7 @@ For every task:
 1. Read `AI_START_HERE.md`.
 2. Determine the smallest set of project documents needed for the task.
 3. Read only those relevant documents.
-4. If the task changes code or tests, read `00_project/governance/AI_TESTING_GOVERNANCE_RULES.md` before testing.
+4. If the task changes code or tests, use `GOVERNANCE_ROUTER.yaml#domains.testing.section_selection` to read only the applicable sections of `00_project/governance/AI_TESTING_GOVERNANCE_RULES.md` before testing.
 5. Inspect the relevant implementation before editing.
 6. Make the smallest change that satisfies the requirement.
 7. Run only the minimum validation justified by the change.

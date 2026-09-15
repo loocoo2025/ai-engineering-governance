@@ -2,8 +2,8 @@
 
 ## 职责
 - 使用全新独立上下文
-- 任务是主动找错
-- 审查需求/架构/设计/代码/测试缺口
+- 在冻结的 Review Purpose、Review Scope 和 Core Acceptance Concerns 内主动找错
+- 只审查与当前任务和核心接受条件相关的需求、架构、设计、代码或测试缺口；证据充分后停止扩展读取
 - 对适用 ETC 要求检查 Stable Core、Variation Point、变化局限边界和 Change Amplification
 - 先检查 Review Readiness；`REVIEW_NOT_READY` 时不产生 Gate Decision
 - 发现 Finding、定级、给出关闭条件并输出 `PASS / CHANGES_REQUESTED`
@@ -27,7 +27,7 @@
 - 从项目正式文件和精确 Git Review Target 重建事实。
 - Executor 报告可以作为导航和待核验证据，但不得预先决定 C04 结论；Reviewer 必须独立验证其主张。
 - Parent Review 必须核验 Child Commit、Baseline、Contract、Review Record 和 Open Finding 与当前 System Integration Manifest 一致；缺失或 `STALE` 时输出 `REVIEW_NOT_READY`，不产生 Gate Decision。
-- 当前评审命中 `LOCKED` Invariant 时，必须运行或独立核验 `NON_REGRESSION_CONTRACT.yaml` 声明的 Guard；必需 Guard 无法运行时为 `REVIEW_NOT_READY`，Guard 确认违反时形成 Finding。
+- 当前评审命中适用 `LOCKED` Invariant、既有 Guard 或 Target Manifest 强制检查时，才运行或独立核验对应 Guard；必需 Guard 无法运行时为 `REVIEW_NOT_READY`，Guard 确认违反时形成 Finding。未命中时允许记录有依据的 `NOT_APPLICABLE`。
 - 只有证据不一致、系统测试失败、系统 Finding、安全/合规/数据完整性风险或正式抽样要求命中时，才建立精确 Drill-down Target；不得把穿透检查扩大为单 Session 全量重审所有子项目。
 - Reviewer Provider、Model、Runtime 或 Harness 改变不得改变输入、评审标准或结论格式。
 - 若某 Expert 实质参与当前整改方案，优先选择另一 Reviewer Provider；另一 Provider 不可用时，可使用同 Provider 的全新独立 Session，但上下文必须完全隔离。
@@ -40,7 +40,7 @@
 - Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target。
 - 新的全新独立 C04 Session 负责复审。
 - S2/S3 由 Primary Executor 在现有授权范围内整改，也必须形成新 Review Target 并由新的独立 C04 Session 复审。
-- 任一 Open S0～S3 Finding 都阻断 `PASS`；只有非阻断 `ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT` 可与 `PASS` 并存。
+- 当前冻结范围内任一 Open S0～S3 Finding 都阻断 `PASS`；已实际发现的非核心、关联但非阻断或范围外可信问题必须登记为 Feedback，由正确 Human Owner / Decision Owner / Risk Owner 决定其性质和处置，但不自动阻断当前 `PASS`。
 - 每个 Finding 关闭时必须记录 Regression Guard Disposition；已关闭 Finding 再次出现时创建新 ID 并填写 `REGRESSION_OF`，不得改写旧 Review Record。
 - C04 不批准 Exception / Risk Acceptance；只能由新的独立 C04 Session 验证正确 Owner 的批准证据并确认 Finding 关闭。
 - ETC 只在适用的已批准变化场景、要求或接受条件被违反时形成 Finding；没有批准依据的未来优化只能记录为非阻断 Advisory。
@@ -48,7 +48,7 @@
 
 ## 开始前
 - 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载流程完成接管；本 Role Brief 不维护另一份竞争性顺序。
-- 随后确认已读取 C04 所需的保障节奏、当前状态、Baseline、精确 Git Review Target 和任务相关正式文件。
+- 随后从 C04 的 Review Purpose、Review Scope、Core Acceptance Concerns、精确 Git Review Target 和直接受影响 Owner 开始；当前证据足以形成结论时不得继续读取无关治理或产品文件。
 - 不读取实现 HANDOFF 或私有推理来替代对冻结 Target 的独立核验。
 - 分层 Review 语义见 `PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md`；Parent Reviewer 默认读取 Child Acceptance Package 和集成证据，不读取全部子项目对话与内部日志。
 

@@ -3,7 +3,7 @@
 
 > 本文件是每个物理 Session 唯一必须完整阅读的最小启动内核。
 >
-> **完整阅读本文件后，必须通过 `00_project/governance/GOVERNANCE_ROUTER.yaml` 按 Role、Task、Action、Gate、Risk 和已启用集成加载治理模块；不得默认全文读取全部治理文件。**
+> **本文件是唯一默认完整必读文件。其余文档都采用按需加载：当前已知信息足以正确决定和执行时必须停止继续读取；只有 Router 明确命中、输入不足、事实变化或出现冲突时才读取下一份文件。**
 
 ---
 
@@ -16,10 +16,11 @@
 5. 未经授权不得修改产品目标、公共接口、Accepted ADR、Acceptance Threshold、重大风险、Release 或远程系统。
 6. 规则缺失、冲突或版本不唯一时输出 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`，停止依赖该规则的动作，不得猜测。
 7. 正式 C04 必须使用新的独立 Session、冻结的精确 Target 和预定义 Review Record；实现者的自检不能冒充 C04。
-8. 一个写入 Session 只绑定一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer。
+8. 多 Session、分解任务或并行写入命中 Work Package 控制时，一个写入 Session 只绑定一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer；普通单 Session 本地任务不要求为此制造空合同。
 9. 在需求、设计和授权不清楚时不得直接编码；在没有证据时不得声称完成。
 10. 历史由 Git 和 Archive 保留，日常工作只加载当前任务需要的事实。
-11. 已接受事实和已关闭问题不得被后续变更静默带回；可重复、长期有效且可机械判断的根因必须转成 `LOCKED` Invariant 和永久 Regression Guard。
+11. 已接受事实和已关闭问题不得被后续变更静默带回；只有关键、重复、高影响、长期有效、可机械判断且防御成本合理的根因才转成 `LOCKED` Invariant 和 Regression Guard。
+12. 所有实际发现且有可信依据的问题先登记、再分类、再决定是否处理；治理不要求消灭所有问题，只阻止与当前任务及批准接受条件直接相关的核心问题进入下一 Gate。
 
 禁止一上来写代码、大规模移动目录、重构项目或把聊天当作唯一事实来源。
 
@@ -30,18 +31,21 @@
 每个 Session 必须按顺序执行：
 
 ```text
-完整阅读 AI_START_HERE.md
+首次进入或现有路由缓存失效时完整阅读 AI_START_HERE.md
 → 读取 GOVERNANCE_ROUTER.yaml
 → 识别 Project Type / Role / Task / Action / Gate / Risk / Integration
-→ 读取所有命中的 Domain INDEX
-→ 读取 INDEX 标记的 MUST_READ 规则及其依赖
-→ 加载当前任务的 Current Truth 和事实输入
-→ 生成或核验 Dynamic Role Profile 与 Knowledge Manifest
+→ 先检查排除、互斥和停止条件
+→ 在每个适用 Domain 使用首个充分匹配
+→ 只读取该匹配明确要求且当前尚未知的规则或事实
+→ 信息足以执行时立即停止加载
+→ 仅在触发条件命中时生成或核验可选治理合同
 → 执行授权检查
 → 开始任务
 ```
 
-`Knowledge Manifest` 必须记录实际加载的规则、版本或摘要、明确排除范围和未解决缺口。了解更多规则不会扩大权限。
+这采用与缓存、按需换页和写时复制相同的思想：有效且未变化的当前知识可以复用；缺页时只加载需要的文档；已接受事实只通过显式 Delta 改变。不得为了“更保险”预读整个目录。
+
+`Dynamic Role Profile`、`Knowledge Manifest`、`Interaction Contract`、`Authorization Contract`、Task Contract、Worktree 和 Write Lease 只在对应触发条件命中或 Human Project Owner 明确采用时实例化。普通单 Session、单任务、本地低风险工作不得因为这些可选记录不存在而阻断。
 
 索引层级最多为：
 
@@ -55,17 +59,19 @@
 
 ## 2. 最小当前事实包
 
-根据 Router 命中范围，至少读取：
+根据 Router 命中范围和当前 Session 已有的有效知识，只读取完成当前动作缺少的事实：
 
-- `00_project/ai_context/CURRENT_STATE.md`：阶段、Gate、授权、当前焦点和运行配置；
-- `00_project/ai_context/PROJECT_STRUCTURE_MAP.md`：项目、Module、Subproject 拓扑；
-- `00_project/ai_context/BASELINE_INDEX.md`：当前 Baseline 身份和组成；
-- `00_project/ai_context/DECISION_INDEX.md`：当前有效决定；
-- `00_project/ai_context/ACTIVE_TASKS.md`：Task、Output Contract、Workspace Binding 和 Write Lease；
-- 当前 Role Brief；
+- `00_project/ai_context/CURRENT_STATE.md`：新的物理 Session、状态可能变化或需要核验阶段/Gate/授权时读取；
+- `00_project/ai_context/PROJECT_STRUCTURE_MAP.md`：涉及 Module、Subproject、并行或集成边界时读取；
+- `00_project/ai_context/BASELINE_INDEX.md`：需要确认适用 Baseline 时读取；
+- `00_project/ai_context/DECISION_INDEX.md`：任务依赖正式决定或出现决定冲突时读取；
+- `00_project/ai_context/ACTIVE_TASKS.md`：开始、交接、完成或改变 Task 时读取；
+- 当前 Role Brief：角色职责在本 Session 尚未确定或发生变化时读取；
 - 当前任务直接相关的需求、ADR、设计、接口、测试和证据。
 
-`OPEN_QUESTIONS`、`FEEDBACK_REGISTER`、HANDOFF、历史 Review、Archive 和其他模块只在当前任务命中时读取。大型项目默认只加载当前 Work Package、直接依赖接口、Parent–Child Contract 和有效接受证据，不加载全部兄弟模块内部细节。
+`OPEN_QUESTIONS`、`FEEDBACK_REGISTER`、HANDOFF、历史 Review、Archive 和其他模块只在当前任务命中且当前知识不足时读取。大型项目默认只加载当前 Work Package、直接依赖接口、Parent–Child Contract 和有效接受证据，不加载全部兄弟模块内部细节。
+
+Human Project Owner 可以随时要求停止扩大阅读、验证或治理记录范围。AI 必须立即收缩普通工作范围；只有命中第 0 节的关键权限、安全、不可逆或正式 Gate 边界时，才说明冲突并请求明确裁决。
 
 ---
 
@@ -134,6 +140,8 @@ DOCUMENT_BASED
 
 APLS_ENABLED
 → C02 加载 integrations/apls/INDEX.yaml
+→ 按 INDEX 只读取 `optional/apls/` 中当前语法问题需要的说明章节
+→ 需要机械验证时才构建或运行内置编译器
 → 先完成 Design Allocation
 → 再形成 APLS / Detailed Design / Algorithm Spec / Target Profile
 ```
@@ -159,9 +167,9 @@ SKIP_FOR_CURRENT_SESSION — 本次会话暂不升级 / Skip for this session
 
 ## 7. 测试、完成和上下文
 
-任何测试设计、测试代码、CI、验证或质量分析前，必须完整阅读 `00_project/governance/AI_TESTING_GOVERNANCE_RULES.md`，只执行由需求和风险证明必要的最小验证。
+任何测试设计、测试代码、CI、验证或质量分析前，必须从 `00_project/governance/AI_TESTING_GOVERNANCE_RULES.md` 定位并读取当前测试决策所需章节，只执行由需求和风险证明必要的最小验证；不得因“涉及测试”就预读全部测试专题。
 
-任务完成前必须检查：产物、验证、追溯、文档、状态、适用 Non-Regression Guard、Remaining Risk 和 Definition of Done。未达到 DoD 不得声明完成。
+任务完成前只检查当前任务适用的产物、验证、追溯、状态、关键风险和 Definition of Done。非阻断问题进入 Feedback，不要求为了推进当前任务先消灭所有已知问题。
 
 物理 Session 上下文阈值：
 

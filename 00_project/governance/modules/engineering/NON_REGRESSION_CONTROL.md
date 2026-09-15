@@ -36,7 +36,7 @@ Finding / Bug
 
 ## 42.3 哪些 Finding 必须形成 Guard
 
-每个正式 Finding 关闭前都必须记录：
+只有准备建立或评估永久 Guard 的正式 Finding 才需要完整记录下列字段；普通一次性问题可以直接记录 `REGRESSION_GUARD_DISPOSITION: NOT_REQUIRED`，无需为了填满表格继续分析：
 
 ```text
 REGRESSION_GUARD_DISPOSITION: REQUIRED / NOT_REQUIRED
@@ -52,7 +52,7 @@ GUARD_ID: {{ID_OR_NOT_APPLICABLE}}
 3. 可以通过确定性机械检查判断是否满足；
 4. Guard 的维护成本与被防止的风险相称。
 
-S0/S1 Finding 只要可以机械判断，默认必须建立 Guard；不建立时必须说明为什么不满足上述条件。S2 Finding 满足上述四项时同样必须建立。S3 或一次性编辑问题可以选择 `NOT_REQUIRED`，但必须给出理由。Severity 不单独决定是否建立 Guard；重复风险和可机械判断性才是最终依据。
+S0/S1 Finding 同时满足可重复、长期有效、可机械判断且成本相称时，默认建立 Guard。S2 只有重复发生或后果明显高于长期检查成本时才建立。S3、一次性编辑问题和非阻断 Feedback 默认 `NOT_REQUIRED`，不要求额外论证。Severity 不单独决定是否建立 Guard；预期损失与长期治理成本的比较才是最终依据。
 
 真实产品 Bug 继续适用 Testing Governance 的最小回归测试规则。治理 Guard 不替代产品测试，产品测试也不自动证明治理 Invariant 成立。
 
@@ -150,12 +150,12 @@ CURRENT_CHANGE_VALIDATION: PASS / FAIL
 NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE
 ```
 
-`NOT_APPLICABLE` 必须说明当前 Target 为什么不存在适用的 `LOCKED` Invariant。框架治理变更默认至少适用 `framework_invariants`，不得标记为 `NOT_APPLICABLE`。
+`NOT_APPLICABLE` 必须说明当前 Target 为什么没有命中适用的 `LOCKED` Invariant、既有 Guard 或 Target Manifest 强制项。框架治理变更也只核验与本次 Delta 和 Review Scope 有关的 Invariant；不得仅因文件属于治理框架就把全部 `framework_invariants` 自动加入范围。
 
-C04 至少核验：
+C04 只核验当前 Review Scope 实际适用的项目：
 
 - 所有适用 Guard 已运行且绑定当前精确 Target；
-- 先前已关闭 Finding 仍满足关闭条件，或本次出现的新问题使用新 Finding ID 并引用 `REGRESSION_OF`；
+- 与本次 Delta 直接相关的先前已关闭 Finding 仍满足关闭条件，或本次出现的新问题使用新 Finding ID 并引用 `REGRESSION_OF`；
 - 已接受的 Baseline / Current Truth 没有在 Change Set 之外改变；
 - `LOCKED` Invariant 未被删除、弱化或原地改写；
 - 需要改变 Invariant 时存在正确 Owner 的 Change Decision、影响分析和替代链。
@@ -182,6 +182,6 @@ CHANGES_REQUESTED
 
 ```text
 不要要求 AI 永久记住已经修过的问题；
-把可重复、可机械判断的正确性转成 LOCKED Invariant 和永久 Guard，
+把值得长期防御的关键、重复且可机械判断的正确性转成 LOCKED Invariant 和 Guard，
 让后续版本只能显式改变，不能静默回退。
 ```

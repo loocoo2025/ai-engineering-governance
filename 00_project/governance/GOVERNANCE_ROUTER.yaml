@@ -1,5 +1,5 @@
-schema_version: "1.0"
-framework_version: "v0.1.9"
+schema_version: "2.0"
+framework_version: "v0.2.0-candidate"
 configuration_owner: "00_project/governance/GOVERNANCE_ROUTER.yaml"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3-岗位知识加载与规则缺口"
 
@@ -20,16 +20,31 @@ routing_inputs:
   - "applicable_gate"
   - "risk_class"
   - "enabled_integrations"
+  - "testing_action"
+  - "baseline_relearn_action"
 
 loading_policy:
-  strategy: "MINIMUM_SUFFICIENT_PROGRESSIVE_DISCLOSURE"
-  read_all_matching_must_read_rules: true
-  read_declared_dependencies_recursively: true
+  strategy: "FIRST_SUFFICIENT_MATCH_WITH_PROGRESSIVE_DISCLOSURE"
+  evaluate_exclusions_before_inclusions: true
+  read_all_matching_must_read_rules: false
+  stop_loading_when_current_information_is_sufficient: true
+  read_declared_dependencies_only_when_required_by_selected_route: true
+  reuse_valid_session_knowledge_cache: true
   directory_depth_limit: 3
   indexes_are_normative_routers_not_semantic_owners: true
   knowledge_scope_does_not_expand_permission: true
-  repository_wide_search_when_unresolved: true
+  repository_wide_search_only_when_selected_indexes_cannot_resolve: true
   load_entire_governance_repository_by_default: false
+  leaf_rules_may_not_introduce_undisclosed_sibling_exclusions: true
+  every_index_must_declare_its_mutually_exclusive_conditions: true
+
+decision_order:
+  - "REUSE_VALID_KNOWN_FACT_OR_RULE"
+  - "APPLY_EXPLICIT_EXCLUSION_OR_DISABLED_OPTION"
+  - "SELECT_FIRST_SUFFICIENT_ROUTE_PER_APPLICABLE_DOMAIN"
+  - "LOAD_ONLY_MISSING_INPUTS_REQUIRED_BY_SELECTED_ROUTE"
+  - "STOP_READING_WHEN_ACTION_IS_DECIDABLE"
+  - "REPORT_RULE_GAP_IF_STILL_UNRESOLVED"
 
 domains:
   startup:
@@ -62,14 +77,33 @@ domains:
       - "PARALLEL_WRITER"
       - "WORKTREE_OR_WRITE_LEASE"
   testing:
-    must_read: "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
+    authority: "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
+    read_entire_authority_by_default: false
+    section_selection:
+      TEST_SCOPE_OR_BUDGET: ["0", "1", "2", "3", "4", "10", "13", "18", "19"]
+      TEST_FAILURE_OR_STOP: ["13", "14", "18"]
+      ADVANCED_TEST_TOOL: ["7", "8", "9", "11", "17", "18"]
+      BUG_OR_GOVERNANCE_REGRESSION: ["12", "13", "18"]
+      C05_OUTPUT: ["15", "16"]
+    section_selection_keys_are_mutually_exclusive_unless_task_has_multiple_explicit_test_actions: true
+    stop_after_selected_sections_resolve_the_test_decision: true
     match_any:
       - "TEST_DESIGN"
       - "TEST_IMPLEMENTATION"
       - "CI_VALIDATION"
       - "QUALITY_ANALYSIS"
   baseline_relearn:
-    must_read: "00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md"
+    authority: "00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md"
+    read_entire_authority_by_default: false
+    section_selection:
+      HANDOFF: ["6", "7", "7.1", "17"]
+      RELEARN_DECISION: ["0", "6", "8", "8.1", "14", "15"]
+      RELEARN_EXECUTION: ["2", "8", "9", "11", "13", "14", "27"]
+      HISTORY_LOOKUP: ["18", "19", "23"]
+      ARCHIVE_CONTROL: ["3", "4", "5", "20", "21"]
+      CURRENT_TRUTH_CONFLICT: ["32.1", "32.2", "32.2A", "32.6"]
+    section_selection_keys_are_mutually_exclusive_unless_task_has_multiple_explicit_relearn_actions: true
+    stop_after_selected_sections_restore_current_task_sufficiency: true
     match_any:
       - "BASELINE_RELEARN"
       - "CLEAN_CONTEXT_RESET"
@@ -106,8 +140,14 @@ failure_policy:
   action: "STOP_DEPENDENT_ACTION_AND_REPORT"
 
 knowledge_manifest_requirements:
-  record_loaded_sources: true
-  record_loaded_source_digests: true
-  record_matching_route: true
-  record_explicitly_excluded_scopes: true
-  record_unresolved_rule_gap: true
+  activation: "CONDITIONAL"
+  required_when:
+    - "FORMAL_C04"
+    - "BASELINE_RELEARN"
+    - "CROSS_SESSION_HANDOFF"
+    - "HIGH_RISK_OR_MULTI_MODULE_TASK"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
+  ordinary_local_single_task_artifact_required: false
+  when_active_record_loaded_sources: true
+  when_active_record_matching_route: true
+  when_active_record_unresolved_rule_gap: true

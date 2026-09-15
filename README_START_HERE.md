@@ -30,15 +30,15 @@ Lite 保留以下不可弱化的原则：
 - 可理解的人类审批说明；
 - 反馈先登记、再分类分流；
 - ETC 可变更性质量链路；
-- Dynamic Role Profile、标准 Interaction 与精确 Authorization；
+- 在触发条件成立或负责人选择时启用 Dynamic Role Profile、标准 Interaction 与精确 Authorization；
 - 上下文、Model、Runtime 或 Harness 替换后的 Knowledge Continuation / Baseline Relearn。
-- Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation。
+- 对关键、重复且值得机械防御的问题使用 Locked Invariant、Finding→Regression Guard 和 Pre-C04 Non-Regression Validation。
 
 ## Agent 首次必读入口
 
 首先完整阅读最小入口 `AI_START_HERE.md`，再读取 `00_project/governance/GOVERNANCE_ROUTER.yaml`，通过命中的 Domain INDEX 按需加载原子规则。本说明不维护另一份可能漂移的阅读清单。
 
-需要声明式行为规格时，可由项目在 `CURRENT_STATE.md` 显式选择 `APLS_ENABLED`；默认 `DOCUMENT_BASED` 不加载 APLS 集成规则。
+需要声明式行为规格时，可由项目在 `CURRENT_STATE.md` 显式选择 `APLS_ENABLED`，再从 `optional/apls/README.md` 按需加载随框架固定的说明书和编译器；默认 `DOCUMENT_BASED` 不读取、构建或运行 APLS。
 
 新项目从 C00/C01 开始。已有项目先按 `AI_LEGACY_PROJECT_STANDARDIZATION_GUIDE.md` 盘点，再移动或改写文件。
 

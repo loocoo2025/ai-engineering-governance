@@ -34,6 +34,9 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 
 ## Review Scope
 
+- Review Purpose：
+- Current Task / Change：
+- Core Acceptance Concerns：
 - Included Files / Components：
 - Applicable Requirements / Architecture / Interface / ADR：
 - Applicable Tests and Evidence：
@@ -61,7 +64,7 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 ## Finding Summary
 
 ```text
-OPEN_FINDINGS:
+OPEN_IN_SCOPE_FINDINGS:
 S0: {{COUNT}}
 S1: {{COUNT}}
 S2: {{COUNT}}
@@ -72,9 +75,9 @@ ADVISORIES: {{COUNT}}
 
 ## Standard Finding Record
 
-| Finding ID | Severity | Category | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Default Route | Status | Closure Evidence |
-|---|---|---|---|---|---|---|---|---|
-| C04-CODE-S1-001 | S0/S1/S2/S3 | {{CATEGORY}} | | | | | OPEN | |
+| Finding ID | Severity | Category | Current Task / Core Acceptance Relation | Evidence | Violated Basis / Acceptance Impact | Required Closure Condition | Default Route | Status | Closure Evidence |
+|---|---|---|---|---|---|---|---|---|---|
+| C04-CODE-S1-001 | S0/S1/S2/S3 | {{CATEGORY}} | | | | | | OPEN | |
 
 Category 可使用：`CORRECTNESS / REQUIREMENT / ARCHITECTURE / INTERFACE / TRACEABILITY / TESTING / SECURITY / SAFETY / RELIABILITY / MAINTAINABILITY / CHANGEABILITY / GOVERNANCE / EVIDENCE`。Category 不产生新的治理 Owner。
 
@@ -108,13 +111,13 @@ NON_REGRESSION_EVIDENCE: {{EVIDENCE}}
 |---|---|---|---|---|---|---|
 | | YES/NO | YES/NO | YES/NO | REQUIRED/NOT_REQUIRED | | |
 
-Guard 判定、`LOCKED` Invariant 和退出码语义见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。框架治理变更不得把 `NON_REGRESSION_VALIDATION` 标记为 `NOT_APPLICABLE`。
+Guard 判定、`LOCKED` Invariant 和退出码语义见 `00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md`。只有当前变化命中适用 `LOCKED` Invariant、既有 Guard 或 Target Manifest 的强制检查时才必须执行；不得仅因对象属于治理文件就自动扩大全量防回退审查。
 
 ## Advisory / Observation / Future Improvement
 
-| Advisory ID | Type | Observation | Suggested Follow-up | Non-blocking Confirmation |
-|---|---|---|---|---|
-| ADV-001 | ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT | | | YES |
+| Advisory ID | Type | Observation | Feedback ID / Disposition Owner | Suggested Follow-up | Non-blocking Confirmation |
+|---|---|---|---|---|---|
+| ADV-001 | ADVISORY / OBSERVATION / FUTURE_IMPROVEMENT | | | | YES |
 
 ## Formal Decision
 
@@ -131,4 +134,4 @@ DECISION_BASIS: {{SUMMARY}}
 FORMAL_REVIEW_RECORD: {{PATH_OR_ID}}
 ```
 
-任一 Open Finding 或适用 Non-Regression Validation 失败都阻断 `PASS`。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。
+当前冻结 Review Scope 内任一 Open Finding 或适用 Non-Regression Validation 失败都阻断 `PASS`。范围外或非阻断问题必须登记为 Feedback / Advisory，但不阻断当前 PASS。Finding 不得由提出它的 C04 Session 自行关闭；整改或正式 Exception 批准后，必须由面向新精确 Review Target 的全新独立 C04 Session 复核。

@@ -16,7 +16,9 @@
 >
 > > Git 保留完整历史，AI 不默认背负完整历史。
 >
-> > 历史必须可追溯，但 AI 默认只学习“当前批准基线”。
+> > 历史必须可追溯，但 AI 默认只学习当前任务实际需要的“当前批准基线”部分。
+>
+> 本文件按 `GOVERNANCE_ROUTER.yaml#domains.baseline_relearn.section_selection` 选择章节；当前任务已经能够安全继续时停止读取，不要求每次 Baseline Relearn 全文学习本文件。
 >
 > > 需要解释历史时，再按需读取 Git、ADR、Archive 和历史评审记录。
 
@@ -75,7 +77,7 @@ Git 应用于：
 
 新 AI 或新对话必须首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的权威启动顺序。本文件不维护另一份竞争性的默认读取清单。
 
-Baseline Relearn 期间，在该权威顺序内只使用当前正式治理规则、Current Truth、Baseline、有效决定、当前需求/架构/设计/代码/测试和 Open 问题；默认不扩展到旧聊天、历史 HANDOFF 链、Archive 或 `SUPERSEDED` 内容。
+Baseline Relearn 也必须遵守按需原则：只重新加载受影响的治理 Delta、当前任务、直接依赖以及继续工作所缺少的 Current Truth / Baseline 引用。当前信息足以执行时停止读取，不要求先学习全部需求、架构、设计、代码、测试或 Open 问题；默认不扩展到旧聊天、历史 HANDOFF 链、Archive 或 `SUPERSEDED` 内容。
 
 默认不读取：
 
@@ -239,7 +241,7 @@ C03-v05
 
 Baseline Relearn 是：
 
-> 清空 AI 历史负担，从项目当前事实重新学习。
+> 丢弃不再可信的上下文缓存，从当前正式事实按需重建能够完成当前任务的最小知识工作集。
 
 适用于：
 
@@ -265,9 +267,9 @@ Knowledge Continuation 只确认当前岗位和任务能够安全续接，不清
 
 ---
 
-# 9. 大重置前必须执行知识压缩
+# 9. 大重置前的按需知识压缩
 
-C00 必须组织一次“当前知识压缩”，确认：
+C00 只压缩本次 Relearn 原因、当前任务和受影响事实。下列内容仅在本次任务或变化实际涉及时确认，不得作为默认全量清单：
 
 ```text
 1. 当前产品需求是什么？
@@ -284,7 +286,7 @@ C00 必须组织一次“当前知识压缩”，确认：
 12. 当前下一步是什么？
 ```
 
-目标：一个完全没有参加过旧聊天的新 AI，只通过当前正式文件就能正确理解项目。
+目标：一个完全没有参加过旧聊天的新 AI，可以从最小入口开始工作，并在遇到具体缺口或冲突时定位到正确 Owner 继续学习。
 
 ---
 
@@ -310,9 +312,9 @@ C00 必须组织一次“当前知识压缩”，确认：
 
 ---
 
-# 11. 大重置必须重新生成或核实这些文件
+# 11. 大重置只核实受影响 Owner
 
-至少检查并更新：
+只检查和更新本次 Relearn 原因、当前任务或治理 Delta 实际命中的 Owner：
 
 ```text
 00_project/ai_context/CURRENT_STATE.md
@@ -325,7 +327,7 @@ C00 必须组织一次“当前知识压缩”，确认：
 02_system_requirements/requirements_traceability.md
 ```
 
-必要时更新：
+对应内容实际变化或冲突时才更新：
 
 ```text
 01_product_requirements/
@@ -338,9 +340,9 @@ C00 必须组织一次“当前知识压缩”，确认：
 
 ---
 
-# 12. 建立 Baseline Snapshot
+# 12. Baseline Snapshot
 
-每次大重置建议建立正式基线记录，例如：
+只有 Baseline 身份/组成实际改变、里程碑要求或负责人明确要求时才建立新的正式基线记录。单纯清理上下文缓存不得制造新 Baseline，例如：
 
 ```text
 13_change_management/baselines/BASELINE-2026-08-v1.2.md
@@ -378,7 +380,7 @@ milestone/M3
 
 首先完整阅读 `AI_START_HERE.md`，再严格遵循它维护的最小知识加载与按需检索流程。本文件只补充 Baseline Relearn 的校验行为，不复制启动顺序。
 
-在该流程内，必须重新生成或核验 Dynamic Role Profile 与 Knowledge Manifest，并核实当前 Decision、Current State、Baseline、已批准需求、已接受 ADR、架构、详细设计、测试设计、代码、测试、Open Questions 和 Active Tasks；涉及测试时应用 Testing Governance。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
+在该流程内，只核实受影响治理 Delta、当前任务、权限、适用 Gate 和直接依赖事实。Dynamic Role Profile 与 Knowledge Manifest 仅在其触发条件命中或负责人已采用时生成或核验。需求、ADR、架构、设计、代码、测试、Open Questions 和其他事实只有当前任务实际依赖时才读取。C04 仍使用精确 Review Target，不继承实现 HANDOFF 或私有推理。
 
 默认不读取旧聊天、旧 HANDOFF 链和 Archive。
 
@@ -395,28 +397,20 @@ milestone/M3
 
 # 14. 大重置后的上下文校验
 
-新 AI 读完后必须先输出：
+新 AI 完成最小加载后只输出本次实际需要的字段；未加载的领域明确列入排除范围，不得为了填表继续读取：
 
 ```text
 BASELINE-RELEARN-CHECK
 
 当前项目：
 当前阶段：
-当前产品版本：
 当前 Git Commit：
-当前产品需求基线：
-当前系统需求基线：
-当前 ACCEPTED ADR：
-当前架构：
-当前详细设计：
-当前测试基线：
 当前正在进行的任务：
-当前未决问题：
-当前重大风险：
-当前 Dynamic Role Profile：
-当前 Knowledge Manifest：
-当前 Enforcement Mode：
-以下历史内容我默认没有加载：
+本次 Relearn 原因 / 受影响 Delta：
+实际加载的事实与规则：
+明确未加载的领域：
+当前权限与适用 Gate：
+当前发现的冲突：
 我认为当前下一步是：
 ```
 
@@ -452,7 +446,7 @@ BASELINE-RELEARN-CHECK
 检查 BASELINE_INDEX、DECISION_INDEX、文档状态和 Archive。
 
 ## 每个正式发布
-推荐执行 Baseline Relearn。
+只评估当前 Session 的知识缓存是否仍适用。发布本身不自动触发全量 Relearn；发布改变了当前任务、Baseline 或适用治理语义时，只重学受影响 Delta。
 
 ## 长期没有发布
 至少每累计 3～5 次 HANDOFF 做一次大重置。
@@ -633,28 +627,15 @@ C03 编码时默认只使用当前基线。
 
 ```text
 1. 停止接受新的大型任务
-2. 确保当前修改状态明确
-3. 记录 Git Commit / 分支 / 未提交内容
-4. 更新当前需求
-5. 更新 ACCEPTED ADR
-6. 更新当前架构
-7. 更新当前详细设计
-8. 更新测试基线
-9. 更新需求追溯
-10. 更新 CURRENT_STATE
-11. 更新 BASELINE_INDEX
-12. 更新 DECISION_INDEX
-13. 更新 OPEN_QUESTIONS
-14. 更新 ACTIVE_TASKS
-15. Archive 已废弃历史文件
-16. 创建 Baseline Snapshot
-17. 必要时创建 Git Tag
-18. 关闭旧对话
-19. 新建干净对话
-20. 新 AI 从 `AI_START_HERE.md` 的权威启动顺序重新读取
-21. 输出 BASELINE-RELEARN-CHECK
-22. 生成或核验 Dynamic Role Profile 与 Knowledge Manifest
-23. 校验正确后继续开发
+2. 记录 Relearn 原因、当前未完成任务和直接依赖
+3. 记录 Git Commit / 分支 / Worktree / 未提交内容，不改变或丢弃它们
+4. 通过 Router 确认本次受影响的治理规则与事实 Owner
+5. 只更新实际变化或冲突的 Owner；未变化领域不读取、不改写
+6. 只有 Baseline 身份或组成实际改变时才更新 Baseline / Snapshot
+7. 旧 Session 停止写入；需要交接时只交接当前未完成任务
+8. 新 Session 完整读取最小 `AI_START_HERE.md`，再按需加载缺少内容
+9. 只在触发时生成或核验 Dynamic Role Profile、Knowledge Manifest 等可选控制
+10. 输出 BASELINE-RELEARN-CHECK；足以安全继续当前任务后停止学习并开始执行
 ```
 
 ---
@@ -667,20 +648,16 @@ C03 编码时默认只使用当前基线。
 目标不是继续传递旧聊天摘要，而是让下一代 AI 从当前正式项目事实重新学习。
 
 请停止新的大型工作，并严格执行：
-1. 检查所有重要新决策是否已写入正式文件；
-2. 核实当前 APPROVED 产品和系统需求；
-3. 核实所有 ACCEPTED ADR；
-4. 核实当前架构和详细设计；
-5. 核实当前测试基线和需求追溯；
-6. 按事实所有权更新真正发生变化的权威文件；禁止为了“同步”而无差别改写 CURRENT_STATE、BASELINE_INDEX、DECISION_INDEX、OPEN_QUESTIONS、ACTIVE_TASKS；
-7. 将已替代但需保留的历史文档标记 SUPERSEDED 并归档；
-8. 创建新的 Baseline Snapshot；
-9. 记录当前 Git Commit、分支、版本和测试结果；
-10. 不要删除 Git 历史；
-11. 不要把旧聊天内容继续作为下一代 AI 的默认上下文；
-12. 完成后将当前对话设为 READ ONLY。
+1. 记录本次 Relearn 原因、当前任务和受影响治理/事实 Delta；
+2. 只读取继续当前任务所缺少的正式规则和事实；
+3. 当前信息足以执行时立即停止读取；
+4. 按事实所有权只更新真正发生变化的权威文件；
+5. 发现缺口或冲突时先登记，再定向读取正确 Owner，不得猜测；
+6. 不要默认读取旧聊天、历史 HANDOFF、Archive 或无关模块；
+7. 不要删除 Git 历史，也不要为了 Relearn 自动建立新 Baseline；
+8. 输出实际加载、明确排除、未解决冲突和下一步。
 
-最后输出：当前基线、已归档内容、当前未决问题、风险、新 AI 应读取的文件清单、新 AI 第一项工作。
+最后只输出：本次原因、当前任务、实际加载、明确排除、实际更新、未解决冲突、权限/Gate 和下一步；不得为了填充报告再读取其他领域。
 ```
 
 ---
@@ -691,13 +668,12 @@ C03 编码时默认只使用当前基线。
 这是一次 Baseline Relearn 后的新干净对话。
 
 不要读取或依赖旧聊天。
-请只从当前项目正式文件重新学习。
+请只从当前项目正式文件按需重新学习。
 
 首先完整阅读 `AI_START_HERE.md`，按其最小知识加载与按需检索流程读取；本规则第 13 节只补充 Baseline Relearn 校验范围。
 默认不要读取旧聊天、历史 HANDOFF 链、Archive、SUPERSEDED ADR、旧 PRD、旧架构。
 
-读取完成后先输出 BASELINE-RELEARN-CHECK。
-只有确认当前基线理解正确后，才继续工作。
+从当前任务和受影响 Delta 开始；当前知识足以执行时停止读取。运行中遇到新缺口或冲突时先登记，再读取对应 Owner 并调整。完成最小加载后输出 BASELINE-RELEARN-CHECK，然后继续工作。
 ```
 
 ---
@@ -710,8 +686,8 @@ C03 编码时默认只使用当前基线。
 4. 小重置用最新 HANDOFF。
 5. 大重置不继承旧聊天和 HANDOFF 链。
 6. 连续 3 次 HANDOFF 开始考虑大重置，5 次原则上必须大重置。
-7. 每次正式发布推荐执行 Baseline Relearn。
-8. 大重置前必须更新 CURRENT_STATE 和 BASELINE_INDEX。
+7. 正式发布只触发 Relearn 适用性评估，不触发默认全量读取。
+8. 只更新本次变化命中的事实 Owner；未变化的 CURRENT_STATE 或 BASELINE_INDEX 不改。
 9. 新 AI 先从当前源文件学习，需要历史时才按需回溯。
 10. 历史回溯不能偷偷改变当前基线；改变基线必须走正式变更流程。
 
@@ -755,7 +731,7 @@ DECISION-CONFLICT
 
 ## 32.2 Current Truth 必须一致，但不得重复维护同一状态
 
-每次 Baseline Relearn 前后必须同时核实：
+每次 Baseline Relearn 前后只核实本次原因、当前任务和已发现冲突实际涉及的 Owner。下列文件是路由表，不是默认全部读取清单：
 
 ```text
 CURRENT_STATE.md
@@ -832,7 +808,7 @@ Context Handoff 用于短期接力；Baseline Relearn 用于长期纠偏。
 
 - 旧 HANDOFF 可以归档或按需查阅；
 - 新 AI 默认不读取旧 HANDOFF 链；
-- 新 AI 从 `CURRENT_STATE + BASELINE_INDEX + DECISION_INDEX + 当前正式源文件` 重新建立当前事实。
+- 新 AI 从 `AI_START_HERE + Router + 当前任务所需事实` 建立最小工作集；只有任务依赖或冲突命中时才读取 `CURRENT_STATE / BASELINE_INDEX / DECISION_INDEX` 等具体 Owner。
 
 ## 32.4 工作树保持当前，Git 保存过去
 
@@ -863,7 +839,7 @@ Git / Archive 继续保存历史
 ↓
 旧 HANDOFF 链停止无限传递
 ↓
-新 AI 从当前事实集重新学习
+新 AI 从当前任务所需的最小当前事实集重新学习
 ```
 
 清的是 AI 的历史负担，不是工程的历史证据。
@@ -872,4 +848,4 @@ Git / Archive 继续保存历史
 
 成功不是“新 AI 记住了以前所有事情”，而是：
 
-> **一个完全没参加过旧聊天的新 AI，只读取当前正式项目文件，就能准确恢复当前项目事实，并继续工作。**
+> **一个完全没参加过旧聊天的新 AI 能用最小正式知识开始当前任务，并在使用过程中发现缺口或冲突时，先登记、再定位正确 Owner、按需补学和调整。**

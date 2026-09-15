@@ -1,6 +1,6 @@
-schema_version: "1.4"
-framework_version: "v0.1.9"
-release_status: "STABLE"
+schema_version: "1.5"
+framework_version: "v0.2.0-candidate"
+release_status: "CANDIDATE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
 additional_semantic_authorities:
   review_decision: "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
@@ -16,10 +16,13 @@ governance_knowledge_routing:
   semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3"
   bootstrap: "AI_START_HERE.md"
   router: "00_project/governance/GOVERNANCE_ROUTER.yaml"
-  strategy: "MINIMUM_SUFFICIENT_PROGRESSIVE_DISCLOSURE"
+  strategy: "FIRST_SUFFICIENT_MATCH_WITH_PROGRESSIVE_DISCLOSURE"
   maximum_index_depth: 3
   index_may_duplicate_semantic_rule: false
-  load_all_matching_must_read_rules: true
+  load_all_matching_must_read_rules: false
+  stop_when_current_information_is_sufficient: true
+  reuse_valid_session_knowledge_cache: true
+  leaf_may_add_undisclosed_sibling_exclusion: false
   unresolved_results:
     - "RULE_NOT_FOUND"
     - "RULE_CONFLICT"
@@ -32,6 +35,8 @@ behavior_specification:
     - "APLS_ENABLED"
   default: "DOCUMENT_BASED"
   apls_integration_index: "00_project/governance/integrations/apls/INDEX.yaml"
+  bundled_apls_root: "optional/apls"
+  load_or_execute_bundle_when_disabled: false
   apls_design_owner_role: "C02"
   invalid_or_ambiguous_source_may_be_guessed_by_ai: false
 
@@ -52,8 +57,22 @@ role_system:
     - "SESSION"
     - "TOOL"
 
+optional_control_activation:
+  authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#2"
+  default_for_ordinary_local_single_session_task: "NOT_INSTANTIATED"
+  human_project_owner_may_adopt_during_project: true
+  absence_blocks_only_when_triggered: true
+  optionality_may_expand_permission: false
+  critical_controls_remain_mandatory: true
+
 dynamic_role_profile:
   contract_id: "DYNAMIC_ROLE_PROFILE"
+  activation: "CONDITIONAL"
+  required_when:
+    - "FORMAL_C04"
+    - "HIGH_RISK_OR_COMPLEX_ROLE_ASSIGNMENT"
+    - "CROSS_SESSION_CONTROLLED_WORK"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "profile_id"
     - "schema_version"
@@ -128,6 +147,13 @@ dynamic_role_profile:
 
 knowledge_manifest:
   contract_id: "KNOWLEDGE_MANIFEST"
+  activation: "CONDITIONAL"
+  required_when:
+    - "FORMAL_C04"
+    - "BASELINE_RELEARN"
+    - "CONTROLLED_HANDOFF"
+    - "HIGH_RISK_OR_MULTI_MODULE_TASK"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "manifest_id"
     - "governance_version"
@@ -148,6 +174,12 @@ knowledge_manifest:
 
 interaction_contract:
   contract_id: "INTERACTION_CONTRACT"
+  activation: "CONDITIONAL"
+  required_when:
+    - "FORMAL_CROSS_ROLE_OR_CROSS_SESSION_DELIVERY"
+    - "FORMAL_C04"
+    - "TOOL_ENFORCED_INTERACTION"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "interaction_contract_id"
     - "contract_version"
@@ -202,6 +234,13 @@ interaction_operation:
 
 authorization_contract:
   contract_id: "AUTHORIZATION_CONTRACT"
+  activation: "CONDITIONAL"
+  required_when:
+    - "REMOTE_OR_DESTRUCTIVE_OPERATION"
+    - "RELEASE_OR_FORMAL_SEAL"
+    - "FORMAL_INDEPENDENT_SESSION_OR_C04_DISPATCH"
+    - "AUDITED_MAJOR_SIDE_EFFECT"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "authorization_id"
     - "authority_owner"
@@ -391,6 +430,11 @@ parent_child_project_contract:
 output_contract:
   contract_id: "OUTPUT_CONTRACT"
   owner: "00_project/ai_context/ACTIVE_TASKS.md"
+  activation: "CONDITIONAL"
+  required_when:
+    - "MULTI_SESSION_OR_DECOMPOSED_WORK_PACKAGE"
+    - "PARALLEL_OR_HANDOFF_CONTROLLED_WRITE"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "output_contract_id"
     - "work_package_id"
@@ -419,6 +463,12 @@ workspace_binding_and_write_lease:
   contract_id: "WORKSPACE_BINDING_AND_WRITE_LEASE"
   owner: "00_project/ai_context/ACTIVE_TASKS.md"
   session_authority: "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
+  activation: "CONDITIONAL"
+  required_when:
+    - "MULTIPLE_WRITING_SESSIONS"
+    - "BOUNDED_WORK_PACKAGE_IN_SEPARATE_WORKTREE"
+    - "CONTROLLED_WRITE_HANDOFF"
+    - "HUMAN_PROJECT_OWNER_REQUIRES"
   required_fields:
     - "work_package_id"
     - "session_id"
@@ -560,6 +610,20 @@ review_and_determination_route:
     - "INFORMAL_INDEPENDENT"
   ambiguity_result: "WAIT_FOR_HUMAN"
 
+formal_c04_scope:
+  contract_id: "FORMAL_C04_SCOPE"
+  required_fields:
+    - "review_purpose"
+    - "review_scope"
+    - "current_task_or_change"
+    - "core_acceptance_concerns"
+    - "explicit_exclusions"
+  finding_must_be_in_scope_acceptance_blocker: true
+  discovered_non_blocking_or_out_of_scope_issue_route: "FEEDBACK_REGISTER"
+  require_exhaustive_unknown_issue_search: false
+  stop_expanding_read_scope_when_evidence_is_sufficient: true
+  final_issue_disposition_authority: "CORRECT_HUMAN_PROJECT_OWNER_OR_DECISION_OR_RISK_OWNER"
+
 formal_c04_independence_evidence:
   contract_id: "FORMAL_C04_INDEPENDENCE_EVIDENCE"
   required_fields:
@@ -613,7 +677,9 @@ non_regression_control:
   exit_code_1_result: "FINDING_AND_CHANGES_REQUESTED"
   locked_in_place_semantic_edit: "FORBIDDEN"
   recurring_closed_finding: "NEW_FINDING_ID_WITH_REGRESSION_OF"
-  framework_governance_change_may_be_not_applicable: false
+  framework_governance_change_may_be_not_applicable: true
+  applicability_rule: "REQUIRED_ONLY_WHEN_CURRENT_SCOPE_HITS_A_LOCKED_INVARIANT_EXISTING_GUARD_OR_TARGET_MANIFEST_REQUIREMENT"
+  full_history_or_repository_scan_by_default: false
   final_gate_decisions:
     - "PASS"
     - "CHANGES_REQUESTED"
@@ -686,6 +752,9 @@ feedback_workflow:
     - "NO_ACTION"
     - "UNKNOWN"
   registration_changes_current_truth: false
+  register_all_credible_issues_actually_discovered: true
+  non_blocking_feedback_blocks_current_pass: false
+  final_problem_and_disposition_authority: "CORRECT_HUMAN_PROJECT_OWNER_OR_DECISION_OR_RISK_OWNER"
 
 formal_seal:
   contract_id: "FORMAL_SEAL"

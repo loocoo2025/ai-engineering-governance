@@ -6,19 +6,35 @@ official_source:
   repository_url: "https://github.com/loocoo2025/apls-language"
   supported_release: "v0.1.0"
   exact_release_commit: "fd8b59536fcdfdff2f3b199b882c15d97edb1993"
+  bundled_snapshot_commit: "25c38b494e4e52dfe16945d8930f7d47088eb6de"
   floating_branch_is_valid: false
-  vendored_into_framework: false
+  vendored_into_framework: true
+  bundled_root: "optional/apls"
+  source_manifest: "optional/apls/SOURCE_MANIFEST.yaml"
+  user_manual: "optional/apls/docs/APLS_0.1_USER_TUTORIAL.md"
+  compiler_manifest: "optional/apls/07_src/Cargo.toml"
 
 activation:
   current_value_owner: "00_project/ai_context/CURRENT_STATE.md#BEHAVIOR_SPECIFICATION_MODE"
   disabled_value: "DOCUMENT_BASED"
   enabled_value: "APLS_ENABLED"
   default: "DOCUMENT_BASED"
+  disabled_behavior:
+    read_bundle: false
+    build_compiler: false
+    run_compiler: false
+
+selection_policy:
+  strategy: "FIRST_SUFFICIENT_MATCH"
+  stop_when_current_question_is_answered: true
+  read_full_bundle_by_default: false
+  start_at: "optional/apls/README.md"
 
 role_routes:
   C02:
     must_read:
       - "00_project/governance/integrations/apls/APLS_DESIGN_ALLOCATION_POLICY.md"
+      - "optional/apls/README.md"
     trigger: "APLS_ENABLED"
   C03:
     consume: "FROZEN_APLS_SOURCE_AND_VERIFIED_IR_PLUS_APPROVED_DESIGN"

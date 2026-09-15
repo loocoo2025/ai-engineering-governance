@@ -1,0 +1,64 @@
+schema_version: "1.0"
+bundle_id: "OPTIONAL_APLS_0_1"
+bundle_status: "PINNED_OPTIONAL"
+default_activation: "DISABLED"
+
+upstream:
+  repository: "https://github.com/loocoo2025/apls-language"
+  license: "Apache-2.0"
+  release_tag: "v0.1.0"
+  release_tag_commit: "fd8b59536fcdfdff2f3b199b882c15d97edb1993"
+  bundle_snapshot_commit: "25c38b494e4e52dfe16945d8930f7d47088eb6de"
+  selected_upstream_archive_sha256: "309636fdf195132b603fc7a1703b05078ec4de5b5e6c6a8bbf56617d87c16651"
+  floating_branch_allowed: false
+  compiler_matches_release_tag: true
+  snapshot_note: "The pinned post-release snapshot adds or updates documentation while the bundled compiler remains identical to v0.1.0."
+
+activation:
+  authority: "00_project/ai_context/CURRENT_STATE.md#BEHAVIOR_SPECIFICATION_MODE"
+  disabled_value: "DOCUMENT_BASED"
+  enabled_value: "APLS_ENABLED"
+  read_build_or_run_when_disabled: false
+
+included:
+  - "LICENSE"
+  - "docs/APLS_0.1_USER_TUTORIAL.md"
+  - "04_design/language/APLS_0.1_CNL_AMBIGUITY_BOUNDARY.md"
+  - "04_design/language/APLS_0.1_CNL_SEMANTIC_VALIDATION_PROFILE.md"
+  - "04_design/language/APLS_0.1_SEMANTIC_FRAME_PROFILE.md"
+  - "04_design/language/APLS_0.1_ZH_CN_GRAMMAR.ebnf"
+  - "04_design/language/APLS_0.1_ZH_CN_LANGUAGE_PROFILE.md"
+  - "04_design/ir/APLS_0.1_CNL_CANONICAL_IR.md"
+  - "04_design/ir/apls-cnl-ir-0.1.schema.json"
+  - "04_design/diagnostics/APLS_0.1_CNL_DIAGNOSTICS.md"
+  - "04_design/diagnostics/apls-cnl-diagnostic-0.1.schema.json"
+  - "04_design/compiler/APLS_0.1_COMPILER_MVP_DESIGN.md"
+  - "07_src/Cargo.toml"
+  - "07_src/Cargo.lock"
+  - "07_src/rust-toolchain.toml"
+  - "07_src/crates/apls-cli/"
+  - "07_src/crates/apls-compiler/Cargo.toml"
+  - "07_src/crates/apls-compiler/build.rs"
+  - "07_src/crates/apls-compiler/src/apls_grammar.lalrpop"
+  - "07_src/crates/apls-compiler/src/cnl_ast.rs"
+  - "07_src/crates/apls-compiler/src/cnl_lexer.rs"
+  - "07_src/crates/apls-compiler/src/cnl_pipeline.rs"
+  - "07_src/crates/apls-compiler/src/diagnostic.rs"
+  - "07_src/crates/apls-compiler/src/lib.rs"
+  - "07_src/crates/apls-compiler/src/limits.rs"
+  - "07_src/crates/apls-compiler/src/pipeline.rs"
+  - "07_src/crates/apls-compiler/src/resource.rs"
+  - "07_src/crates/apls-compiler/src/validate.rs"
+
+excluded:
+  - "Upstream project governance, Current Truth, reviews, issues, releases, and project-specific records"
+  - "Legacy language, IR, and diagnostics documents superseded by the selected CNL profile"
+  - "Legacy compiler modules not referenced by the pinned compiler crate"
+  - "Build output and local environment files"
+
+update_policy:
+  automatic_replacement: false
+  require_exact_new_source_commit: true
+  require_license_check: true
+  require_compatibility_and_targeted_validation: true
+  require_human_adoption_for_activation: true

@@ -1,6 +1,7 @@
 /build/
 /out/
 /dist/
+optional/apls/07_src/target/
 *.o
 *.obj
 *.so

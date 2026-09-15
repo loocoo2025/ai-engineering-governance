@@ -3,6 +3,14 @@ domain: "ENGINEERING"
 owner: "00_project/governance/modules/engineering/INDEX.yaml"
 trigger_values_are_compared_against: "00_project/governance/GOVERNANCE_ROUTER.yaml#routing_inputs"
 
+selection_policy:
+  evaluate_in_list_order: true
+  load_only_rules_whose_trigger_is_currently_true: true
+  allow_multiple_only_when_the_task_has_multiple_explicit_engineering_actions: true
+  stop_when_selected_rules_are_sufficient_for_the_action: true
+  leaf_may_not_add_undisclosed_sibling_exclusions: true
+  no_match: "RULE_NOT_FOUND"
+
 rules:
   - id: "ENG-DEVELOPMENT-METHOD-STRUCTURE"
     path: "00_project/governance/modules/engineering/DEVELOPMENT_METHOD_AND_STRUCTURE.md"
@@ -36,7 +44,7 @@ rules:
     must_read_when: ["HUMAN_APPROVAL_PACKAGE", "BOUNDED_WORK_PACKAGE", "GOVERNANCE_FEEDBACK"]
   - id: "ENG-NON-REGRESSION-CONTROL"
     path: "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
-    must_read_when: ["FORMAL_C04", "GOVERNANCE_FINDING_CLOSURE", "NON_REGRESSION", "PUBLIC_OR_PRODUCTION_RELEASE"]
+    must_read_when: ["APPLICABLE_LOCKED_INVARIANT", "GOVERNANCE_FINDING_GUARD_DECISION", "MANIFEST_REQUIRES_NON_REGRESSION", "NON_REGRESSION"]
 
 legacy_entry: "AI_ENGINEERING_RULES_V2.md"
 rules_are_selected_by_trigger_not_read_all_by_default: true

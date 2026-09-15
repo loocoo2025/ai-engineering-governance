@@ -171,7 +171,7 @@ Project Owner
 
 治理知识如何按需加载只由 `GOVERNANCE_ROUTER.yaml` 和各 Domain INDEX 维护。`BEHAVIOR_SPECIFICATION_MODE` 只记录当前项目是否启用 APLS；默认 `DOCUMENT_BASED` 不加载 APLS，只有明确改为 `APLS_ENABLED` 后 C02 才执行 APLS Design Allocation。APLS 的稳定分配规则由 `APLS_INTEGRATION_POLICY` 维护，本文件不复制规则正文。
 
-`ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。
+`ENFORCEMENT_MODE` 只记录当前采用的 `PROCEDURAL_FALLBACK / TOOL_ENFORCED` 值；两种模式的稳定含义由岗位交互与可执行治理政策维护。Role Assignment、Dynamic Role Profile、Knowledge Manifest、当前 Interaction 和 Authorization 只记录当前引用，具体实例不得在本文件复制形成第二套 Task、Authorization 或 Interaction 状态。它们是按触发条件或 Human Project Owner 选择采用的控制；普通本地、低风险、单 Session 任务没有触发时，`NOT_ESTABLISHED / NOT_APPLICABLE` 是有效状态，不得为了形式完整自动生成全部合同。
 
 当前有效 `LOCKED` Invariant 及其 Guard 只由 `NON_REGRESSION_CONTRACT` 维护。本文件不复制 Invariant，也不维护本次 Guard 运行结果；运行证据进入对应质量记录或正式 Review Record。
 
@@ -193,7 +193,7 @@ AUTO_ALLOWED:
 - fix test defects
 - resolve P2/P3 within approved scope
 - update fact-owned records
-- perform Baseline Relearn
+- perform applicable on-demand Baseline Relearn
 - prepare review candidate
 ```
 

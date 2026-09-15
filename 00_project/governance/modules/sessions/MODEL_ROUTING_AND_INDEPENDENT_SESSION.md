@@ -72,7 +72,7 @@ Primary Executor / C00
 
 C04 不得加入被审对象的整改设计 Session，也不得自行关闭自己提出的 Finding。Finding 只能由面向新精确 Review Target 的全新独立 C04 Session 复核关闭。
 
-S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并启动全新独立 C04 Session 复审。Severity 只决定风险表达、优先顺序和默认路由；任一 Open Finding 都阻断 `PASS`。
+当前冻结 Review Scope 内的 S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并启动全新独立 C04 Session 复审。Severity 只决定风险表达、优先顺序和默认路由；只有当前冻结范围内的 Open Finding 阻断 `PASS`，其他实际发现的可信问题进入 Feedback，由正确 Owner 处置。
 
 ## 41.3 C04 Provider 与独立性
 
