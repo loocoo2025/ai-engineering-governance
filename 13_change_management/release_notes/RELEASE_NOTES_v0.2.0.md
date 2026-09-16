@@ -23,6 +23,8 @@
 - In-scope acceptance Findings block `PASS`. Other credible issues actually discovered are registered as Feedback and routed to the correct Owner without automatically blocking the current task.
 - Human Owners retain the final decision on whether an item is a product problem and whether it should be fixed, deferred, accepted as risk, or rejected.
 - Regression Guards are reserved for repeatable, high-impact, durable, machine-checkable problems whose prevention cost is justified.
+- Code entering the formal product Baseline must retain risk-proportionate, recoverable Design Intent. Ordinary implementation code may provide As-Is evidence, but it cannot be the sole implicit normative source for state machines, public interface contracts, error semantics, safety constraints, recovery rules, or critical invariants.
+- Spikes, emergency fixes, generated code, and Brownfield recovery remain supported through bounded exceptions; formal acceptance restores the required intent without forcing line-by-line design documentation.
 
 ## Faster upgrades
 

@@ -8,7 +8,7 @@ CHANGE_CLASS: GOVERNANCE_CHANGE
 SOURCE_VERSION: v0.1.9
 TARGET_IDENTITY: v0.2.0-candidate
 DATE: 2026-09-15
-STATUS: IMPLEMENTED_AWAITING_COMMIT_AND_FORMAL_C04
+STATUS: IMPLEMENTED_AWAITING_UPDATED_COMMIT_AND_FORMAL_C04
 AUTHORITY_OWNER: Human Project Owner
 ```
 
@@ -30,6 +30,7 @@ AUTHORITY_OWNER: Human Project Owner
 8. 升级只读取精确目标 Manifest 和累计 Delta，不逐版本重读全部 Release Notes，不全量复审未变化内容。
 9. APLS 默认 `DOCUMENT_BASED`；只有明确选择 `APLS_ENABLED` 才允许加载内置说明书或运行编译器。
 10. 所有学习都遵守按需原则，包括升级采用后的 Baseline Relearn；只重建当前任务所需最小知识集，允许后续在实际使用中发现、登记并解决冲突。
+11. 任何进入正式产品 Baseline 的新增或行为变更代码必须具有与风险相称、可恢复的设计意图；普通实现代码可以作为 `As-Is Evidence`，但不得成为状态机、公共接口合同、错误语义、安全约束、恢复规则或关键不变量的唯一隐式规范来源。
 
 ## 4. 范围
 
@@ -39,6 +40,7 @@ AUTHORITY_OWNER: Human Project Owner
 - 限制 Non-Regression Guard 的长期治理成本；
 - 内置固定、可追溯、Apache-2.0 的 APLS 说明书和编译器快照；
 - 增加 `v0.2.0` Upgrade Manifest、最小验证和迁移说明。
+- 收口 Design Intent 与规范系统语义的权威边界，同时保留 Brownfield、Spike、紧急修复和生成代码的风险相称处理。
 
 ## 5. 不在范围
 
@@ -72,6 +74,7 @@ AUTHORITY_OWNER: Human Project Owner
 - C04 只让当前范围内的核心 Finding 阻断，其他可信问题进入 Feedback；
 - APLS 默认关闭且未命中时不读取、不构建、不运行；
 - APLS 快照绑定精确来源、许可证和验证命令；
+- 正式 Baseline 的行为变化能够追溯到与风险相称的 Design Intent，关键系统语义不只隐含在普通实现代码中；
 - 所有现有关键 Non-Regression Guard 继续通过；
 - 无具体产品事实、本机路径、凭据或内部项目名称进入模板；
 - `git diff --check` 通过。

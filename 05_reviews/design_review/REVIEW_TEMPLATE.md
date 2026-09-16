@@ -50,6 +50,12 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 - 兼容、独立测试与回退机制是否可执行：
 - 是否产生多个需要同步维护的事实副本：
 
+## Design Intent 与规范语义（适用时）
+
+- Review Scope 内准备进入正式 Baseline 的行为是否具有与风险相称、可恢复的设计意图：
+- 状态机、公共接口合同、错误语义、安全约束、恢复规则和关键不变量是否具有独立规范表达，而不是只隐含在普通实现代码中：
+- Brownfield / Spike / 紧急修复 / 生成代码是否满足 `ARCHITECTURE_AND_DESIGN.md` 第 12.1 节的适用边界：
+
 ## Finding Summary
 
 ```text

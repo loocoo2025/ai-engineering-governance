@@ -45,7 +45,11 @@ RESTART_CONDITIONS: {{CONDITIONS_OR_NOT_APPLICABLE}}
 ## 需求一致性
 -
 ## 设计一致性
--
+- Review Scope 内的新增或行为变更代码是否可追溯到与风险相称的 Design Intent：
+- 关键系统语义是否具有独立规范表达，而不是只由普通实现代码隐式定义：
+- 代码与规范语义存在差异时，是否已经登记并由正确 Owner 处置：
+
+权威规则见 `00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md` 第 12.1 节。不得借此全量重建未变化代码的设计文档。
 ## 正确性/边界
 -
 ## 并发/生命周期/资源

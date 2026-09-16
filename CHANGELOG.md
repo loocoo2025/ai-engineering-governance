@@ -13,6 +13,7 @@
 - C04 聚焦冻结 Review Scope 内与当前任务和核心接受条件相关的 Finding；实际发现的其他可信问题进入 Feedback，不自动阻断当前 `PASS`。
 - 是否构成产品问题、是否修复、延期、接受风险或不处理，最终由正确 Human Project Owner / Decision Owner / Risk Owner 裁定。
 - Non-Regression Guard 改为风险与成本成比例，仅保护重复、高影响、长期有效且可机械判断的关键问题。
+- 增加 `No Baselined Code Without Recoverable Design Intent`：正式 Baseline 的新增或行为变更代码必须保留与风险相称的设计意图，普通实现代码不得成为关键系统语义的唯一隐式规范来源；Brownfield、Spike、紧急修复和生成代码按受控例外处理。
 
 ### 可选 APLS
 - 在 `optional/apls/` 随附精确 Commit 固定的 APLS 0.1 说明书、Schema 与参考编译器。

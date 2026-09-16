@@ -35,6 +35,8 @@ delta_path_scope:
     - "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
     - "00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md"
     - "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
+    - "00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md"
+    - "00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md"
     - "00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md"
     - "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
     - "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md"
@@ -76,6 +78,8 @@ semantic_changes:
     summary: "Formal C04 findings are limited to core acceptance blockers within the frozen review scope; other credible issues are registered as non-blocking feedback."
   - id: "GOV-UPGRADE-001"
     summary: "Governance upgrades use the cumulative source-to-target delta and do not reread or rereview every intermediate version."
+  - id: "GOV-DESIGN-INTENT-001"
+    summary: "New or behavior-changing code entering the formal product baseline retains risk-proportionate, recoverable design intent; ordinary implementation code is not the sole implicit normative owner of critical system semantics."
   - id: "APLS-OPTIONAL-001"
     summary: "A pinned APLS manual and compiler snapshot is included but remains disabled unless APLS_ENABLED is selected."
 
@@ -86,6 +90,7 @@ required_migration_actions:
   - "Keep product requirements, architecture, interfaces, code, tests, and release facts unchanged."
   - "Adopt optional controls only when their target trigger applies or the Human Project Owner explicitly selects them."
   - "Keep BEHAVIOR_SPECIFICATION_MODE as DOCUMENT_BASED unless APLS_ENABLED is explicitly selected."
+  - "Apply the Design Intent rule prospectively to new or behavior-changing baselined code; do not force retrospective documentation of unchanged legacy code."
 
 mandatory_validation:
   - "git diff --check"

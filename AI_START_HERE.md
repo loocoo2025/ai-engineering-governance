@@ -17,7 +17,7 @@
 6. 规则缺失、冲突或版本不唯一时输出 `RULE_NOT_FOUND / RULE_CONFLICT / VERSION_AMBIGUOUS`，停止依赖该规则的动作，不得猜测。
 7. 正式 C04 必须使用新的独立 Session、冻结的精确 Target 和预定义 Review Record；实现者的自检不能冒充 C04。
 8. 多 Session、分解任务或并行写入命中 Work Package 控制时，一个写入 Session 只绑定一个活动 Leaf / Integration Work Package、一个 Output Contract、一个 Worktree 和一个活动 Writer；普通单 Session 本地任务不要求为此制造空合同。
-9. 在需求、设计和授权不清楚时不得直接编码；在没有证据时不得声称完成。
+9. 在需求、设计和授权不清楚时不得直接编码；任何进入正式产品 Baseline 的新增或行为变更代码必须具有与风险相称、可恢复的设计意图，普通实现代码不得成为规范系统语义的唯一 Owner；在没有证据时不得声称完成。
 10. 历史由 Git 和 Archive 保留，日常工作只加载当前任务需要的事实。
 11. 已接受事实和已关闭问题不得被后续变更静默带回；只有关键、重复、高影响、长期有效、可机械判断且防御成本合理的根因才转成 `LOCKED` Invariant 和 Regression Guard。
 12. 所有实际发现且有可信依据的问题先登记、再分类、再决定是否处理；治理不要求消灭所有问题，只阻止与当前任务及批准接受条件直接相关的核心问题进入下一 Gate。

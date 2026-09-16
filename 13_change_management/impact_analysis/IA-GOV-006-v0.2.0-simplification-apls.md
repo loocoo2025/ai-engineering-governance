@@ -21,6 +21,7 @@ IMPACT_TYPE: GOVERNANCE_SIMPLIFICATION_AND_OPTIONAL_TOOLCHAIN
 | Feedback | 非阻断问题完整登记并保留处置历史 | 正确 Owner 最终裁决 |
 | Non-Regression | 高价值 Guard，普通问题默认不永久化 | 已有 Locked Invariant 不弱化 |
 | APLS | 内置可选说明书和编译器 | 默认关闭、C02 Owner、权限边界 |
+| Design Intent / Semantic Authority | 正式 Baseline 行为变化必须可恢复；普通代码不是规范语义的唯一 Owner | 风险分级、Brownfield As-Is、Spike 和紧急修复仍可受控处理 |
 
 ## 3. 主要兼容性变化
 
@@ -45,11 +46,12 @@ BASELINE_RELEARN: AFFECTED_GOVERNANCE_DELTA_ONLY
 | APLS 增加默认 Token/依赖成本 | 默认关闭；Router 未命中时禁止读取、构建和运行 |
 | APLS 快照漂移 | 精确 Commit、文件清单、许可证和 Digest 固定 |
 | 升级 Fast Path 覆盖项目事实 | 累计 Diff 分类、项目 Owner 文件字段级合并、产品文件禁止修改 |
+| Design Intent 被机械扩大成全量文档负担 | 只约束新增或行为变更代码；深度按风险分级；C04 不重建未变化代码设计 |
 
 ## 5. 验证边界
 
 - Router / INDEX 结构与停止条件；
-- C04 Decision Matrix 和 Feedback 分流一致性；
+- C04 Decision Matrix、Feedback 分流及 Design Intent / 规范语义边界一致性；
 - 可选控制的激活条件；
 - Upgrade Manifest 与简化协议；
 - APLS 快照来源、文件清单、Cargo Build/Test；
