@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：240
+预建文件数：241
 
 ```text
 .gitignore
@@ -94,6 +94,7 @@
 05_reviews/C04-GOV-001-v0.1.5-candidate.md
 05_reviews/C04-GOV-002-v0.1.6-release-review.md
 05_reviews/C04-GOV-005-v0.1.9-candidate.md
+05_reviews/C04-GOV-006-v0.2.0-candidate.md
 05_reviews/ai_challenge_records/AI_CHALLENGE_TEMPLATE.md
 05_reviews/architecture_review/REVIEW_TEMPLATE.md
 05_reviews/code_review/CODE_REVIEW_TEMPLATE.md
