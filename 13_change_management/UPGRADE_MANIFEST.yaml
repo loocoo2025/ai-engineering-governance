@@ -76,6 +76,8 @@ semantic_changes:
     summary: "Dynamic profiles, manifests, interaction contracts, authorization contracts, task contracts, and worktree controls are instantiated only when their trigger applies or the Human Project Owner adopts them."
   - id: "GOV-REVIEW-001"
     summary: "Formal C04 findings are limited to core acceptance blockers within the frozen review scope; other credible issues are registered as non-blocking feedback."
+  - id: "GOV-REVIEW-RECORD-001"
+    summary: "Record-only review archival uses source fidelity and reference checks without recursively triggering C04; future packages declare explicit exclusions and closure rereviews cover closure conditions plus direct regressions."
   - id: "GOV-UPGRADE-001"
     summary: "Governance upgrades use the cumulative source-to-target delta and do not reread or rereview every intermediate version."
   - id: "GOV-DESIGN-INTENT-001"

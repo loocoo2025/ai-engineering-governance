@@ -10,6 +10,8 @@
 - Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization Contract、Task / Worktree 等控制只在触发条件成立或负责人选择采用时实例化。
 
 ### 评审与问题处置
+- RC 后澄清：纯评审结果归档、引用状态与派生索引同步采用来源 Hash/差异及引用一致性检查，不因记录动作递归触发 C04；PASS 仍绑定原精确 Target。
+- 后续评审包显式填写排除项；关闭复审聚焦原关闭条件与直接回归，按实际接受影响区分 Finding 与措辞偏好。
 - C04 聚焦冻结 Review Scope 内与当前任务和核心接受条件相关的 Finding；实际发现的其他可信问题进入 Feedback，不自动阻断当前 `PASS`。
 - 是否构成产品问题、是否修复、延期、接受风险或不处理，最终由正确 Human Project Owner / Decision Owner / Risk Owner 裁定。
 - Non-Regression Guard 改为风险与成本成比例，仅保护重复、高影响、长期有效且可机械判断的关键问题。

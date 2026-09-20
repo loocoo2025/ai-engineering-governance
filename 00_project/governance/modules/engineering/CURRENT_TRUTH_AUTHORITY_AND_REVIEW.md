@@ -393,6 +393,8 @@ REVIEW_READINESS: READY / REVIEW_NOT_READY
 
 `FORMAL_REVIEW_RECORD_LOCATION_DEFINED` 只要求 Review Record ID、模板或写入位置已预先定义，不要求记录在评审开始前已完成。允许先建立 Review Record shell。
 
+`EXPLICIT_EXCLUSIONS` 必须在评审开始前填写具体排除项；确无排除项时写 `NONE` 并说明理由，不得保留空白或占位符。缺少该边界时先补齐范围再进入正式评审，不追溯改写历史评审包。排除项可以排除纯排版和措辞偏好，但不得用来豁免当前接受所需的 Target 身份、结论保真、授权或适用安全边界。
+
 精确 Git Review Target 必须记录不可变的完整 Commit Hash。当前 Commit 或历史 Commit 都可以作为正式 C04 Target，但必须可读取、可复现，并明确适用 Baseline 和 Review Purpose；结论只适用于该精确 Commit，不自动覆盖后代或当前 `HEAD`。如果输入使用 `HEAD`，必须立即解析并记录其完整 Hash；只记录可移动的 `HEAD` 不满足正式评审条件。非 Git 文档必须记录可唯一定位的受控版本。具体触发与 Target 边界见 `00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md`。
 
 以下任一情况必须记录 `REVIEW_NOT_READY`：
@@ -454,6 +456,8 @@ Finding 关闭时还必须按 `NON_REGRESSION_CONTROL.md` 记录 `REGRESSION_GUA
 
 ### 38.7.4 Review Decision Matrix
 
+先按 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 第 5 节判断是否触发正式 C04；纯评审记录归档按其第 5.1 节执行机械检查，不进入本矩阵制造新的 Gate Decision。
+
 | 条件 | Readiness | 正式 Gate Decision | 默认后续路由 | Human Project Owner |
 |---|---|---|---|---|
 | Review Target 未冻结/不可复现、无精确版本、必要输入缺失、独立 Session 或 Record Location 未建立 | `REVIEW_NOT_READY` | 无 | Primary Executor / C00 补齐后重新发起 C04 | 通常不需要 |
@@ -493,6 +497,8 @@ AND (
 ```
 
 ### 38.7.5 C04 独立性与复审
+
+关闭复审以原 Finding 的关闭条件及整改直接引入的实质回归为边界。纯措辞偏好不构成 Finding；措辞、计数或可机械修正的问题若影响接受结论、授权或证据真实性，仍按第 38.7.2～38.7.3 节判断，不一律降级为 Advisory。保存已形成的关闭结论按 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 第 5.1 节处理，不把归档动作递归视为新的关闭验证。
 
 C04 必须：
 

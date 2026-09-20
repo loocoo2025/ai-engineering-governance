@@ -8,7 +8,7 @@ CHANGE_CLASS: GOVERNANCE_CHANGE
 SOURCE_VERSION: v0.1.9
 TARGET_IDENTITY: v0.2.0-candidate
 DATE: 2026-09-15
-STATUS: FORMAL_C04_PASS_AWAITING_RELEASE_AUTHORIZATION
+STATUS: POST_RC_CLARIFICATION_AWAITING_INCREMENTAL_C04
 AUTHORITY_OWNER: Human Project Owner
 ```
 
@@ -224,3 +224,28 @@ TARGET_DISPOSITION: ACCEPTED_BY_FORMAL_C04
 ```
 
 正式记录保存在 `05_reviews/C04-GOV-006-v0.2.0-rereview-01.md`。该记录明确不授权后续 Baseline Adoption、Formal Seal、Tag、Push 或 Release。
+
+## 10. v0.2.0-rc.1 后的最小评审语义澄清
+
+2026-09-21，Human Project Owner 授权采取已讨论的必要措施并创建本地 Commit，为 v0.2.0 正式版准备。
+
+- 保障触发与归档保真规则由 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 第 5.1 节唯一维护。
+- 评审排除项、关闭复审边界及 Finding 接受影响判定由 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7 节维护；启动提示仅引用，Manifest 和 Changelog 记录迁移变化。
+- 本轮不引入三轮强制重构、不改造 Current Truth 存储、不改变 S0/S1 停止规则，也不将所有措辞或计数问题一律降级。
+- 本轮包含治理语义澄清，不适用纯记录归档豁免。发布前需要针对该增量及直接影响执行独立 C04；第 9.2 节的历史 PASS 仍仅绑定原 Target，不覆盖本轮。
+
+本次执行前授权记录：
+
+```text
+AUTHORITY_OWNER: Human Project Owner
+AUDIT_REFERENCE: 2026-09-21 “采取一下，然后commit一下，为将来发布v0.2.0正式版做准备”
+ACTION_1: FILE_MODIFICATION
+SCOPE: 本节列明的两份权威规则、INDEPENDENT_REVIEW_PROMPT.md、UPGRADE_MANIFEST.yaml、CHANGELOG.md 与本 CR，共六个已有文件
+ACTION_2: COMMIT
+TARGET: 一个本地 Commit，直接父为 1245c8299855ab66a3bc8bc68e6e3ce2c20b991c
+ALLOWED_SIDE_EFFECTS: 上述文件修改、最小验证、一个本地 Commit
+FORBIDDEN_SIDE_EFFECTS: Push、Tag、Release、Baseline Adoption、Formal Seal、历史改写、产品事实修改
+VALIDITY: ONE_IMPLEMENTATION_EXECUTION
+CONSUMPTION_EVENT: 包含本节的本地 Commit 创建成功
+RETRY_POLICY: NO_AUTOMATIC_RETRY
+```

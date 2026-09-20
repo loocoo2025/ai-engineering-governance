@@ -5,6 +5,8 @@
 
 首先完整阅读 `AI_START_HERE.md`，按其权威启动顺序完成接管，并应用 C04 不继承实现 HANDOFF 或私有推理的例外。
 
+发起前按 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 第 5 节确认触发事件；纯记录归档适用第 5.1 节。评审包及 Review Record 必须显式填写 `EXPLICIT_EXCLUSIONS`（具体排除项，或 `NONE` 及理由），按 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7.1 节核验。关闭复审遵循第 38.7.5 节的关闭条件与直接回归边界。
+
 Role != Model != Runtime != Harness != Session != Tool。C04 是治理角色，不是某个 Model、Runtime、Harness、Reviewer Provider 或 `codex` CLI；`AUXILIARY / ADVISORY != FORMAL C04`。本次路线必须明确为 `INDEPENDENT_REVIEW / FORMAL_C04`。按 CURRENT_STATE.md 使用 INDEPENDENT_REVIEWER_PRIMARY；不可用时使用 INDEPENDENT_REVIEWER_FALLBACK。无论运行实现如何替换，都必须建立全新独立 C04 Session，且不得改变评审标准。
 
 开始前按 `00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7 节记录 Review Readiness，并按 `00_project/governance/GOVERNANCE_EXECUTION_CONTRACTS.yaml` 记录独立性证据：新 Session、排除的执行/整改 Session、未继承私有上下文、受控上下文包、精确不可变 Target、Target 只读、允许写入范围、Git/远程写入禁止和评审前 Target 状态。当前或历史 Commit 均可作为 Target，但必须可读取、可复现并明确适用 Baseline 和 Review Purpose；结论只适用于该精确 Commit。如果输入使用 `HEAD`，必须立即解析并记录完整 Commit Hash。缺少任一成立条件时，在 Review Record shell 中记录 `REVIEW_NOT_READY`、缺失输入、后续责任人和重新发起条件，不得输出正式 Finding、`PASS` 或 `CHANGES_REQUESTED`。
