@@ -1,5 +1,5 @@
 schema_version: "2.0"
-framework_version: "v0.2.0-candidate"
+framework_version: "v0.2.0"
 configuration_owner: "00_project/governance/GOVERNANCE_ROUTER.yaml"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md#3-岗位知识加载与规则缺口"
 

@@ -8,7 +8,7 @@ CHANGE_CLASS: GOVERNANCE_CHANGE
 SOURCE_VERSION: v0.1.9
 TARGET_IDENTITY: v0.2.0-candidate
 DATE: 2026-09-15
-STATUS: POST_RC_CLARIFICATION_AWAITING_INCREMENTAL_C04
+STATUS: C04_PASS_RELEASE_READY
 AUTHORITY_OWNER: Human Project Owner
 ```
 
@@ -290,3 +290,45 @@ RETRY_POLICY: NO_AUTOMATIC_RETRY
 - 首次压缩目标不得跳过验证；AUTO_DELEGATE 不得推导 Commit / Push / Release / 外部会话或独立 C04 授权。
 - 验证仅含变更 Diff、YAML 解析、文档围栏与引用/索引、目标措辞一致性及正式评审前适用现有 Guard；不重跑未改 APLS 编译器或产品测试。
 - 当前状态仍为 POST_RC_CLARIFICATION_AWAITING_INCREMENTAL_C04；候选准备完成不宣称正式版已发布。
+
+## 12. 正式版发布准备与评审保真归档
+
+本节接续第 11 节的发布授权；第 11 节状态是当时的历史快照。负责人返回新的网页正式记录后，本次精确评审结果为：
+
+```text
+REVIEW_ID: C04-GOV-006-v0.2.0-final-incremental
+REVIEW_TARGET: 0a168ab46acf593fc145559fe2989626e13ce7ae
+REVIEW_READINESS: READY
+CURRENT_CHANGE_VALIDATION: PASS
+NON_REGRESSION_VALIDATION: PASS
+OPEN_IN_SCOPE_FINDINGS: 0
+FORMAL_DECISION: PASS
+FORMAL_REVIEW_RECORD: 05_reviews/C04-GOV-006-v0.2.0-final-incremental.md
+```
+
+归档提取边界：去除附件标题之前的 Caller 导语，从 `# Code Review — Formal C04` 起至附件末尾；正文 UTF-8 字节及末尾换行保持原样，不编辑 Reviewer 原文。
+
+```text
+SOURCE_ATTACHMENT_SHA256: 24a69fa86adeb058310784fd6370f462273802d0b8494b361103deb95d1e732f
+PRE_EDIT_SELECTED_BODY_SHA256: 58b15dbbab2b096685132d0fc83f9f7b7fe5f588d976fc2bd35eb13c12f48baf
+NORMALIZATION: NONE
+```
+
+执行前绑定以下动作；来源为负责人第 11 节发布请求，不把 C04 PASS 当作新增授权：
+
+```text
+AUTHORIZATION_ID: AUTH-GOV-006-STABLE-PUBLICATION
+AUTHORITY_OWNER: Human Project Owner
+ACTION_FILE_MODIFICATION: 仅新增上述正式评审原文；更新本 CR、TEMPLATE_FILE_INDEX、README 发布版本、CHANGELOG 日期、Release Notes 发布元数据、Router 与 Upgrade Manifest 版本值
+ACTION_COMMIT: 创建一个直接位于 0a168ab46acf593fc145559fe2989626e13ce7ae 之后的本地归档与版本元数据 Commit
+ACTION_TAG: 将新的 annotated v0.2.0 绑定至上述精确元数据 Commit；不得移动既有 Tag
+ACTION_PUSH: 向 origin 快进 main 并推送新 v0.2.0 Tag，不 force push
+ACTION_RELEASE: 在 loocoo2025/ai-engineering-governance 创建 v0.2.0 正式 GitHub Release，英文说明，附该 Tag 的 git archive 与 SHA-256
+PRECONDITIONS: 归档保真、完整 Diff 无治理语义变化、精确 Target/Tag 核对、发布文件/索引校验通过
+FORBIDDEN_SIDE_EFFECTS: 新治理语义、产品事实、管理系统 API、Baseline Adoption、Formal Seal、历史改写、其他仓库写入
+VALIDITY: ONE_V0_2_0_PUBLICATION
+CONSUMPTION_EVENT: 各 Action 对应产物首次成功形成
+RETRY_POLICY: NO_AUTOMATIC_RETRY; 结果未知先只读对账
+```
+
+发布内容为已评审治理树加上本次保真归档、文件索引和版本元数据。原 PASS 仍仅绑定原 Target，不虚构新 Commit 获得独立 PASS。本次无实质治理变化，按保障政策第 5/5.1 节做来源比对与机械检查，不递归 C04。最终 GitHub Release URL、Tag 和资产是远程发布结果的凭据；本节只记录执行前授权及准备状态，不预称远程成功。

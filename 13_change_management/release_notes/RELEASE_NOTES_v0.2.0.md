@@ -2,7 +2,7 @@
 
 # AI 软件工程治理框架 v0.2.0
 
-> Release candidate notes. `v0.2.0` has not been tagged or released.
+> Stable release notes for `v0.2.0`. The release tag identifies the exact published revision.
 
 ## What this release changes
 

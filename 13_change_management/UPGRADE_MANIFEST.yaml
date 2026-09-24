@@ -1,5 +1,5 @@
 schema_version: "1.1"
-framework_version: "v0.2.0-candidate"
+framework_version: "v0.2.0"
 change_id: "CR-GOV-006"
 source_compatibility:
   supported_known_versions:
