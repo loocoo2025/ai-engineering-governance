@@ -85,13 +85,10 @@ Baseline 身份与组成
 - 无 / 待建立
 
 当前执行焦点：
-- 无
+- 当前任务 ID 引用；名称、状态和产出以 `ACTIVE_TASKS.md` 为准，不在此复述
 
 当前责任角色：
 - C00
-
-当前任务：
-- 任务 ID / 详情以 `ACTIVE_TASKS.md` 为准
 
 当前项目结构：
 - 结构模式、Parent / Child / Module 拓扑以 `PROJECT_STRUCTURE_MAP.md` 为准
@@ -104,6 +101,8 @@ Baseline 身份与组成
 
 ```text
 AUTONOMY_MODE: SUPERVISED_AUTO
+
+MULTI_AGENT_MODE: OFF
 
 AUTHORIZED_UNTIL:
 {{GATE_OR_MILESTONE}}
@@ -176,6 +175,8 @@ Project Owner
 当前有效 `LOCKED` Invariant 及其 Guard 只由 `NON_REGRESSION_CONTRACT` 维护。本文件不复制 Invariant，也不维护本次 Guard 运行结果；运行证据进入对应质量记录或正式 Review Record。
 
 项目结构模式和关系只由 `PROJECT_STRUCTURE_MAP.md` 维护；Task / Output Contract / Worktree / Write Lease 当前绑定只由 `ACTIVE_TASKS.md` 维护。不得把这些实例复制到本文件。
+
+`MULTI_AGENT_MODE` 的含义和派发边界只见 `00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md` 第 41.7.3 节；本文件只维护当前选择。
 
 ## 3.2 自动允许范围
 
@@ -342,3 +343,5 @@ SUPERSEDED ADR：默认不读
 则不得为了“同步文字”而在本文件重复抄写全部明细。
 
 > **一个事实只维护一个权威位置；其他文件只引用，不复制。**
+
+此原则也适用于本文件内部：阶段和里程碑只在第 1 节维护，授权终点只在第 3.1 节维护，当前下一步只在第 6 节维护。执行焦点引用任务 ID；叙述只解释背景和原因，不再次复述当前状态。其他文件引用对应 Owner；确需展示副本时由工具从 Owner 生成并标明来源，不手工维护。历史快照保留原时点身份，不冒充当前状态。不为去重新增结构化 Owner 文件或 Locked Guard。

@@ -26,6 +26,20 @@
 - Code entering the formal product Baseline must retain risk-proportionate, recoverable Design Intent. Ordinary implementation code may provide As-Is evidence, but it cannot be the sole implicit normative source for state machines, public interface contracts, error semantics, safety constraints, recovery rules, or critical invariants.
 - Spikes, emergency fixes, generated code, and Brownfield recovery remain supported through bounded exceptions; formal acceptance restores the required intent without forcing line-by-line design documentation.
 
+## Post-RC clarifications
+
+- Faithful archival of an existing formal review result does not recursively trigger another C04. Source fidelity and reference checks remain required; PASS remains bound to its original exact target.
+- Review packages declare exclusions before review. Closure rereviews cover the original closure criteria and directly introduced substantive regressions, not wording preferences.
+- Current dynamic facts have one authoritative location, including within the same document. Prose references status instead of maintaining another copy.
+- Completion and release use impact-based, risk-proportionate validation and applicable evidence reuse; they do not default to full retesting.
+
+## Context-bounded work and optional multi-agent execution
+
+- Existing leaf/integration work packages can be sized as self-contained work slices, aiming to finish before first context compaction without turning that aim into an acceptance gate or a token ledger.
+- `MULTI_AGENT_MODE` defaults to `OFF`. Owners may explicitly select `AUTO_DELEGATE` for independent, bounded tasks; the Root coordinates dependencies, integration and necessary validation.
+- Existing permission inheritance, single-writer/worktree isolation, external-session configuration and formal C04 independence remain applicable. A Subagent is not automatically a formal reviewer.
+- Projects upgrading from `v0.2.0-rc.1` use the same cumulative-delta upgrade protocol. The new option is not automatically enabled.
+
 ## Faster upgrades
 
 The version-agnostic upgrade protocol now uses:

@@ -14,6 +14,7 @@ source_compatibility:
     - "v0.1.7"
     - "v0.1.8"
     - "v0.1.9"
+    - "v0.2.0-rc.1"
   unknown_legacy: "BLOCK_AND_REQUEST_EXACT_SOURCE_IDENTIFICATION"
 
 upgrade_strategy:
@@ -34,6 +35,9 @@ delta_path_scope:
     - "00_project/governance/AI_CONTEXT_RESET_AND_BASELINE_RELEARN_RULES.md"
     - "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
     - "00_project/governance/PROJECT_ASSURANCE_CADENCE_POLICY.md"
+    - "00_project/governance/PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY.md"
+    - "00_project/governance/modules/engineering/COMPLETION_AND_RELEASE.md"
+    - "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
     - "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
     - "00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md"
     - "00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md"
@@ -70,6 +74,14 @@ delta_path_scope:
   unchanged_product_content_must_not_be_read_or_modified_by_default: true
 
 semantic_changes:
+  - id: "GOV-SINGLE-STATE-001"
+    summary: "Dynamic facts have one authoritative location even within CURRENT_STATE; prose and other files reference values instead of manually duplicating them."
+  - id: "GOV-BOUNDED-SLICE-001"
+    summary: "Plan self-contained work slices to finish before first context compaction where practical; this is not a new gate or mandatory token ledger."
+  - id: "GOV-MULTI-AGENT-001"
+    summary: "Optional AUTO_DELEGATE reuses existing work packages, permissions and writer isolation; missing MULTI_AGENT_MODE defaults to OFF."
+  - id: "GOV-PROPORTIONAL-VALIDATION-001"
+    summary: "Completion and release use impact-based sufficient validation and valid evidence reuse, not unconditional full retesting."
   - id: "GOV-READ-001"
     summary: "Stop reading after the first sufficient route; directory indexes own their mutually exclusive and exclusion conditions."
   - id: "GOV-OPTIONAL-001"
@@ -86,6 +98,8 @@ semantic_changes:
     summary: "A pinned APLS manual and compiler snapshot is included but remains disabled unless APLS_ENABLED is selected."
 
 required_migration_actions:
+  - "Keep an existing project MULTI_AGENT_MODE selection; if absent, treat it as OFF. Enable AUTO_DELEGATE only on explicit owner selection."
+  - "Deduplicate only current dynamic fact copies touched by the delta; preserve their values, original owners and historical snapshots."
   - "Replace unchanged framework-owned governance files with the target versions."
   - "Three-way merge locally customized governance files only where the cumulative diff touches them."
   - "Field-merge project-owned Current Truth, Baseline, Decision, Task, and Feedback records; never overwrite their current values."

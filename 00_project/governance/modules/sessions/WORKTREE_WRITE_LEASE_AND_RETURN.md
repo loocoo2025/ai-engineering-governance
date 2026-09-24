@@ -72,3 +72,25 @@ OPEN_RISKS
 ```
 
 Parent / C00 消费受控摘要和精确证据；只有命中 Drill-down Trigger 时，才为指定子链路建立新的定向 Session。
+
+### 41.7.3 可选 Multi-agent 自动委派
+
+本节是自动委派的稳定规则 Owner。当前选择只由 `CURRENT_STATE.md` 的 `MULTI_AGENT_MODE: OFF | AUTO_DELEGATE` 维护；字段缺失按 `OFF` 处理，不追溯改变既有任务或要求下游自动启用。
+
+负责人明确启用 `AUTO_DELEGATE` 后，Root 可以在当前任务授权和已批准资源边界内，自行将适合并行的 Bounded Task / 工作切片交给 Subagents，无需逐次重复询问普通派发。`OFF` 不自动委派；单次显式委派授权仅对该次有效，不永久改变开关。
+
+Root / Subagent 是执行关系，不是新增 C00～C06 岗位、审批 Owner 或项目结构模式；多 Agent 使用现有任务、Output、Session、Worktree 和结果返回记录，不增加第二套任务体系。
+
+派发前确认：
+
+1. 子任务产出和接受条件明确，输入自足，只需当前切片及直接依赖；
+2. 依赖已稳定，写入范围不冲突，并行收益大于上下文、协调及集成成本；
+3. 强依赖或需要连续上下文的工作优先留在 Root；前置输入稳定后可以再委派下游，不为并行而拆碎小任务；
+4. 写入 Worker 复用第 41.7 节的独立 Session、Worktree 和单 Writer 规则；共享目录的 Harness 不能保障写入隔离时，只并行派发只读任务，写入改为串行。只读任务不为形式创建 Worktree，不持有 Write Lease；
+5. Root 不得在子 Writer 所占目录同时写入；Root 亲自实现或集成时也须绑定一个适用的执行包与写入范围。
+
+`SUBAGENT_PERMISSION <= CALLER_PERMISSION` 始终成立。启用开关不等于授予 Commit、Merge、Push、PR、Release、远程/破坏性动作或额外模型费用权限。默认使用当前 AI/Harness 项目；自动创建外部 AI Session 仍受 `EXTERNAL_AI_TRANSFER_CONFIG.yaml` 的负责人选择约束。不支持所需工具或超出资源边界时，报告限制并退回串行，不伪装已经派发。
+
+Root 负责协调、核验返回证据、处理冲突、集成和风险相称的最终验证，不默认重读所有子实现或重跑已有有效内部测试。子任务结论缺少证据时不能自动接受；正式 Child Acceptance、Baseline、Release 仍适用原保障触发。
+
+Subagent 自检、Root 集成核验及普通辅助审阅均不自动成为正式 C04。派发工具的“新 Agent”不证明上下文独立；正式 C04 仍需单独发起、冻结精确 Target、核验隔离、满足授权并形成正式记录。

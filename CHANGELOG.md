@@ -5,6 +5,9 @@
 > 候选开发中；尚未形成正式 Tag、Release 或已发布 Baseline。
 
 ### 简化
+- RC 后收口：动态事实在文件内外只维护一次；叙述引用状态，工具展示副本不成为新 Owner。
+- 完成和发布规则移除无条件全量验证口径，按影响范围、风险和有效证据采用最小充分验证。
+- 工作切片以首次上下文压缩前完成闭环为规划目标，不设新 Gate 或 Token 台账。
 - 所有治理学习、升级和 Baseline Relearn 改为按需加载：先匹配目录级排除条件和最小路由，当前信息足够时立即停止。
 - 治理升级改为“当前精确版本 + 目标精确版本 + 累计 Delta + 目标 Manifest”，不再逐版本重放、全仓重学或重审未变化文件。
 - Dynamic Role Profile、Knowledge Manifest、Interaction / Authorization Contract、Task / Worktree 等控制只在触发条件成立或负责人选择采用时实例化。
@@ -20,6 +23,10 @@
 ### 可选 APLS
 - 在 `optional/apls/` 随附精确 Commit 固定的 APLS 0.1 说明书、Schema 与参考编译器。
 - APLS 默认禁用；只有显式选择 `APLS_ENABLED` 才按需读取、构建或运行，不改变 C00～C06、Current Truth、权限或正式 Gate。
+
+### 可选 Multi-agent
+- `MULTI_AGENT_MODE` 默认 OFF，负责人可启用 AUTO_DELEGATE；Root 将独立切片交由 Subagent，保留强依赖工作并负责集成和必要验证。
+- 复用既有任务、权限继承、独立 Worktree 和证据机制，不增加岗位，不把普通 Subagent 视为正式 C04。
 
 ## [0.1.9] - 2026-09-14
 

@@ -76,6 +76,7 @@ domains:
       - "INDEPENDENT_SESSION"
       - "PARALLEL_WRITER"
       - "WORKTREE_OR_WRITE_LEASE"
+      - "MULTI_AGENT_DELEGATION"
   testing:
     authority: "00_project/governance/AI_TESTING_GOVERNANCE_RULES.md"
     read_entire_authority_by_default: false

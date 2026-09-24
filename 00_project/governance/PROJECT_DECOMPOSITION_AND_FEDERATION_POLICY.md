@@ -101,6 +101,17 @@ VERIFICATION: DEFINED
 ONE_SESSION_CAN_EXECUTE_WITH_MINIMUM_SUFFICIENT_CONTEXT: YES
 ```
 
+### 2.1 上下文受限工作切片（Context-Bounded Work Slice）
+
+工作切片是已有 Leaf / Integration Work Package 的粒度选择，不是新的任务类型、状态机或合同。普通单 Session 本地小任务仍按启动内核的条件激活原则执行，不为切片额外实例化完整 Work Package 控制。
+
+- 一个切片以一个可验收产出为中心，包含明确输入、有限直接依赖、实现或分析、必要验证及收尾；不得仅按文件数量切断工作。
+- 规划目标是在执行 Session 首次上下文压缩前完成切片。按实际可用上下文估计，考虑已有知识、必要输入、工具输出、正常返工和收尾余量；不把标称最大窗口当作日常预算。不要求精确 Token 预测或额外台账。
+- 此目标不是新的 Gate；压缩本身不代表任务失败或证据失效。不得为避免压缩省略验证、隐瞒未完成项或降低接受条件。
+- 预计无法完成时先停止范围扩张；能形成独立产出则进一步拆分，否则按现有上下文阈值及 Task-local Handoff 接续未完成部分，不等待上下文耗尽。
+- 执行切片可止于实现、自检与评审输入就绪；正式 C04 是否需要及如何独立执行仍由保障政策决定，不要求每个切片单独 C04。
+- Bounded Task 可由 Subagent 执行；启用、权限、Session 与写入隔离规则只见 `modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md` 第 41.7.3 节。父级只加载产出、直接接口与有效证据，按第 7 节触发条件定向下钻。
+
 ---
 
 ## 3. Execution Unit 与 Review Unit 分离

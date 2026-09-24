@@ -249,3 +249,44 @@ VALIDITY: ONE_IMPLEMENTATION_EXECUTION
 CONSUMPTION_EVENT: 包含本节的本地 Commit 创建成功
 RETRY_POLICY: NO_AUTOMATIC_RETRY
 ```
+
+## 11. 正式版前的累计收口（2026-09-24）
+
+Human Project Owner 要求整理 rc.1 后已采纳的讨论并发布 v0.2.0。本节仅记录本次新增授权，不复用历史已消费授权。
+
+```text
+AUTHORIZATION_ID: AUTH-GOV-006-FINAL-PREPARATION
+AUTHORITY_OWNER: Human Project Owner
+AUDIT_REFERENCE: 2026-09-24 “整理一下，然后发布一个v0.2.0的release版本”及七项批注
+ACTION_1: FILE_MODIFICATION
+SCOPE: 本 CR、IA-GOV-006、CHANGELOG、v0.2.0 Release Notes、UPGRADE_MANIFEST；CURRENT_STATE；PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY；WORKTREE_WRITE_LEASE_AND_RETURN；sessions/INDEX；GOVERNANCE_ROUTER；COMPLETION_AND_RELEASE
+ACTION_2: COMMIT
+TARGET: 一个本地候选 Commit，直接父为 f3256b0a167c3aa1a7be17ac922f299c92a8f3df
+ALLOWED_SIDE_EFFECTS: 上述精确文件修改、针对性验证、本地候选 Commit、output 下独立增量评审材料
+FORBIDDEN_SIDE_EFFECTS: 产品仓库修改、历史改写、自动启用下游 Multi-agent、冒充正式 C04 PASS
+VALIDITY: ONE_CANDIDATE_PREPARATION
+CONSUMPTION_EVENT: 本地候选 Commit 创建成功
+RETRY_POLICY: NO_AUTOMATIC_RETRY
+```
+
+正式发布意图已获授权，但 Tag / Push / Release 的执行须等本次精确候选获得新独立 C04 PASS、发布证据及精确目标核对完成；本轮先完成候选准备。正式 C04 继续由负责人在新的网页会话执行，不在实现 Session 内自审为 PASS。最终发布动作执行前绑定通过评审的精确 Target，不挪动 rc.1 Tag。
+
+### 11.1 已采纳的收口清单与 Owner
+
+| 事项 | 唯一规则 Owner / 本轮处理 |
+|---|---|
+| 纯评审归档不递归触发 C04、预先声明排除项、关闭复审限原条件及直接回归 | 第 10 节已实现；纳入正式版累计 Delta，不追溯改写旧包 |
+| 动态事实文件内外去重、叙述不重复状态 | CURRENT_STATE 第 9 节；保留原 Owner，不新增 JSON Owner 或 Guard |
+| 风险相称的最小充分验证 | COMPLETION_AND_RELEASE 引用现有 Testing Governance；修正无条件全量验证措辞 |
+| 首次压缩前尽量完成上下文受限工作切片 | PROJECT_DECOMPOSITION_AND_FEDERATION_POLICY 第 2.1 节；规划目标而非 Gate，不建 Token 台账 |
+| 可选 Multi-agent 自动委派、Bounded Task 由 Subagent 完成 | WORKTREE_WRITE_LEASE_AND_RETURN 第 41.7.3 节；当前开关只在 CURRENT_STATE，默认 OFF |
+
+不纳入：Dashboard 代码和产品接口、未来管理系统稳定 API、三轮自动重构、全量审计、新的事实 Owner、自动正式 C04。管理系统兼容架构仍是独立产品设计议题，不在本次框架发布中承诺。
+
+### 11.2 接受与增量评审边界
+
+- 范围为 rc.1 精确 Commit 到本次候选的累计 Delta，以及直接受影响规则；历史 v0.1.9 到 rc.1 的未变化内容复用既有证据。
+- 单事实 Owner、六类强制 C04 事件、C00～C06、写入隔离及权限继承不变。
+- 首次压缩目标不得跳过验证；AUTO_DELEGATE 不得推导 Commit / Push / Release / 外部会话或独立 C04 授权。
+- 验证仅含变更 Diff、YAML 解析、文档围栏与引用/索引、目标措辞一致性及正式评审前适用现有 Guard；不重跑未改 APLS 编译器或产品测试。
+- 当前状态仍为 POST_RC_CLARIFICATION_AWAITING_INCREMENTAL_C04；候选准备完成不宣称正式版已发布。
