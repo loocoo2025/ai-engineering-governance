@@ -126,6 +126,8 @@ EXECUTION_UNIT != REVIEW_UNIT
 - 只有项目保障策略命中正式 C04 触发，或上层准备把子包作为正式可信输入接受时，才形成正式 C04；
 - 子包 `DONE` 不等于 Review Package `PASS`，Review Package `PASS` 也不等于父包或系统 Gate 通过。
 
+普通子任务结果汇总不等于正式 Child Acceptance；任务树增加层级不自动增加 Gate。正式接受的触发边界及同一 Target 的合并条件统一见 `PROJECT_ASSURANCE_CADENCE_POLICY.md` 第 5 节；不得因此跳过系统级集成或接受证据。
+
 ---
 
 ## 4. 父项目与子项目事实所有权

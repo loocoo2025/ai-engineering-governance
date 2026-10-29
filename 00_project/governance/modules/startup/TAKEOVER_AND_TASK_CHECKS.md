@@ -66,7 +66,7 @@
 
 如果存在 `QUESTION_PRIORITY` P0/P1：
 
-> Primary Executor / C00 先形成最小 Escalation Package 交给 Expert。Expert 能依据现有 Current Truth 和授权解决时，自动返回执行。C04 Finding 不使用 P0～P3；C04 形成 S0/S1 Finding 时，只输出 Finding、定级、关闭条件和 `CHANGES_REQUESTED` 后停止，不得自行关闭 Finding；由 Primary Executor / C00 组织 Expert Escalation 和受控整改，产生新 Review Target 后再启动全新 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向项目负责人一次提出一个最重要问题。
+> Primary Executor / C00 先形成最小 Escalation Package 交给 Expert。Expert 能依据现有 Current Truth 和授权解决时，自动返回执行。C04 Finding 不使用 P0～P3；S0/S1 的即时报告与剩余检查停止条件遵循 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7.5 节，不参与整改或自行关闭 Finding；本轮结论返回后，由 Primary Executor / C00 组织 Expert Escalation 和受控整改，产生新 Review Target 后再启动全新 C04 Session 复审。需要修改 Current Truth、改变产品目标、降低 Acceptance Threshold、接受重大风险，或执行未预授权重大 Gate/Release 时，才向项目负责人一次提出一个最重要问题。
 
 如果不存在 `QUESTION_PRIORITY` P0/P1，且下一步位于 `CURRENT_STATE.md` 已明确授权范围内：
 

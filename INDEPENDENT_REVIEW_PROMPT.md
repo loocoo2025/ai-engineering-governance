@@ -25,7 +25,7 @@ Primary Executor 的完成报告、变更摘要和自检结果只能作为导航
 
 在同一个 Review Record 中明确输出 `CURRENT_CHANGE_VALIDATION: PASS / FAIL` 与 `NON_REGRESSION_VALIDATION: PASS / FAIL / NOT_APPLICABLE`；它们只是正式 C04 的两个证据维度，最终 Gate Decision 仍然只有 `PASS / CHANGES_REQUESTED`。
 
-C04 形成 S0/S1 Finding 时，记录 Finding、给出关闭条件和 `CHANGES_REQUESTED` 后立即停止。由 Primary Executor / C00 根据 Finding 启动 Expert Escalation、完成受控整改并产生新的精确 Review Target；随后由全新独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，也必须产生新 Review Target 并由全新独立 C04 Session 复审。需要修改 Current Truth、改变产品目标或 Acceptance Threshold、裁定新的系统边界/公共接口/跨系统依赖/安全或数据完整性设计/重大不可逆架构取舍、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才标记 HUMAN DECISION REQUIRED = YES。
+C04 形成 S0/S1 Finding 后，按 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7.5 节立即报告，依剩余检查有效性在冻结范围和预算内结束本轮评审；不得因发现一个就机械结束，也不得要求穷尽所有问题。本轮结论返回后由 Primary Executor / C00 启动 Expert Escalation、完成受控整改并产生新精确 Review Target，随后由全新独立 C04 Session 复审。S2/S3 由 Primary Executor 在现有授权范围内整改，同样由全新独立 C04 复审；同一冻结整改 Target 的多个 Finding 可以合并关闭验证。需要改变 Current Truth、产品目标、Acceptance Threshold、重大系统/架构/安全边界、接受重大风险、签发 Formal Seal，或执行未获精确预授权的 Baseline Adoption / Release / 重大副作用时，才标记 HUMAN DECISION REQUIRED = YES；完整保留决策边界见第 38.4 节。
 
 权威 Current Truth 来源之间冲突、导致无法确定评审标准时，记录 `REVIEW_NOT_READY`；Review Target 与清晰、已冻结的 Current Truth 冲突时，记录 Finding 并输出 `CHANGES_REQUESTED`。
 

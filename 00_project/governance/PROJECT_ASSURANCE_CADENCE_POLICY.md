@@ -115,11 +115,19 @@ CUSTOM
 1. 接受或替换包含实质性需求、系统边界、公共接口、架构、安全、合规或数据完整性变化的正式 Baseline；
 2. 验证任一正式 C04 Finding 的关闭；
 3. 接受 Public / Production Release Candidate；
-4. 采用会改变启动、Owner、权限、评审、测试、追溯或 Baseline 语义的治理框架版本。
+4. 采用会实质改变启动、Owner、权限、评审、测试、追溯或 Baseline 控制语义的治理框架版本；纯执行维护的边界见本节下文。
 5. Parent / Root 准备把 Child Acceptance Package 作为正式可信输入纳入 Parent Baseline 或系统集成 Gate。
-6. 接受会新增、替代、删除或弱化 `LOCKED` Invariant / Regression Guard 的治理变更。
+6. 接受会新增、替代、删除或弱化 `LOCKED` Invariant、改变其适用条件，或新增、替代、删除、弱化其已登记必需 Regression Guard 定义或门禁效力的治理变更。
+
+实质改变包括事实 Owner/批准权归属、权限上限、强制活动适用条件、Gate 的触发/阻断与接受标准，以及安全、数据完整性、追溯或 Baseline 保护效力的变化。只调整文档组织、检索效率或非强制汇总批次，且不改变必须获知的规则、适用控制及上述语义时，记录影响依据并做针对性机械检查或普通复核，不因治理文件/版本名称自动触发 C04。目标 Manifest 或项目批准要求仍可要求正式 C04；本例外不得用于免除本节其他事件。
+
+未登记为 `LOCKED` 必需 Guard 的辅助测试，不因被称为“Guard”就自动触发第 6 项。等价检查实现维护仅限于既有 LOCKED 条目、已登记 Guard 定义/绑定、适用输入、覆盖义务、判定标准、退出码及门禁效力均不变，且有针对性验证证明的情形。不得原地改写 LOCKED 声明、Guard 定义或替代链；正式替代仍遵循 `NON_REGRESSION_CONTROL.md` 第 42.4 节。无法证明不改变受保护语义时，不使用该维护例外，按正式路径处理。
+
+同一精确不可变 Target、兼容的判定标准和明确范围下，可以用一次 C04 覆盖多个已列明的触发事件；Review Record 必须说明各事件所需证据和接受条件如何得到覆盖，不能把一次普通代码 Review 当成所有 Gate 已通过。不同 Target 或缺失的系统集成/发布证据不得通过合并豁免。
 
 同一边界和版本组合下的多个 Child Acceptance Package 可以组成一个冻结的 Parent Review Package；本触发不要求每个微小 Leaf Task 单独执行 Parent C04，也不允许 Parent C04 重复替代已经有效的 Child C04。
+
+任务分解层级不等于 Gate 层级。普通任务结果汇总、内部依赖交接或目录层级变化，不因出现 Parent/Child 名称就触发第 5 项；只有实际纳入正式 Parent Baseline 或系统集成 Gate 的可信接受才触发。子级内部有效证据按范围复用，父级仍验证跨边界组合和系统接受条件。
 
 以下事项不自动触发正式 C04：
 

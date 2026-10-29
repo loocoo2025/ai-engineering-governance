@@ -122,6 +122,13 @@ Lite 是一种采用方式，不是第二套治理事实来源。项目可以从
 
 这些组合只是示例，不是强制要求。用户可以替换任意模型、Harness 或服务商，而不改变工程角色、治理边界或 Current Truth。
 
+## 可选工控工程 Profile
+
+- [PLC 工控程序专用约束](docs/profiles/PLC_ENGINEERING_PROFILE.md)：扫描与顺控、保持数据、输出仲裁、容量和现场维护。
+- [单片机工控程序专用约束](docs/profiles/MCU_ENGINEERING_PROFILE.md)：裸机/RTOS 选择、中断与并发、资源、时限及故障恢复。
+
+两份附件由项目选择采用，只补充平台工程要求，不增加通用岗位或 Gate。采用方式及最短指令见各文件第 0、8 节；已有项目定制约束保留并按需合并。
+
 ## 仓库结构
 
 - `AI_START_HERE.md` — 每个 Session 唯一完整必读的最小治理内核。

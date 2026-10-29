@@ -1,6 +1,6 @@
 schema_version: "1.1"
-framework_version: "v0.2.0"
-change_id: "CR-GOV-006"
+framework_version: "v0.2.1-candidate"
+change_id: "CR-GOV-007"
 source_compatibility:
   supported_known_versions:
     - "v0.1.0"
@@ -15,6 +15,7 @@ source_compatibility:
     - "v0.1.8"
     - "v0.1.9"
     - "v0.2.0-rc.1"
+    - "v0.2.0"
   unknown_legacy: "BLOCK_AND_REQUEST_EXACT_SOURCE_IDENTIFICATION"
 
 upgrade_strategy:
@@ -40,10 +41,12 @@ delta_path_scope:
     - "00_project/governance/modules/sessions/WORKTREE_WRITE_LEASE_AND_RETURN.md"
     - "00_project/governance/modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md"
     - "00_project/governance/modules/engineering/ARCHITECTURE_AND_DESIGN.md"
+    - "00_project/governance/modules/engineering/DEVELOPMENT_METHOD_AND_STRUCTURE.md"
     - "00_project/governance/modules/engineering/IMPLEMENTATION_CI_AND_VALIDATION.md"
     - "00_project/governance/modules/engineering/ISSUES_AND_CHANGE.md"
     - "00_project/governance/modules/engineering/NON_REGRESSION_CONTROL.md"
     - "00_project/governance/modules/sessions/MODEL_ROUTING_AND_INDEPENDENT_SESSION.md"
+    - "00_project/governance/modules/startup/TAKEOVER_AND_TASK_CHECKS.md"
     - "12_issues/feedback/FEEDBACK_REGISTER.md"
     - "13_change_management/templates/治理模板升级-GOVERNANCE_TEMPLATE_UPGRADE_TEMPLATE.md"
   affected_templates_and_routes:
@@ -66,14 +69,26 @@ delta_path_scope:
   optional_feature_paths:
     - "00_project/governance/integrations/apls/"
     - "optional/apls/"
+    - "docs/profiles/PLC_ENGINEERING_PROFILE.md"
+    - "docs/profiles/MCU_ENGINEERING_PROFILE.md"
   change_control_records:
     - "13_change_management/change_requests/CR-GOV-006-v0.2.0-simplification-apls.md"
     - "13_change_management/impact_analysis/IA-GOV-006-v0.2.0-simplification-apls.md"
     - "13_change_management/UPGRADE_MANIFEST.yaml"
     - "13_change_management/release_notes/RELEASE_NOTES_v0.2.0.md"
+    - "13_change_management/change_requests/CR-GOV-007-v0.2.1-review-cadence.md"
+    - "13_change_management/release_notes/RELEASE_NOTES_v0.2.1.md"
   unchanged_product_content_must_not_be_read_or_modified_by_default: true
 
 semantic_changes:
+  - id: "GOV-REVIEW-CADENCE-002"
+    summary: "Stage questioning is not an automatic formal gate; compatible trigger events on one exact target may share one review, and task-tree depth does not create gate depth."
+  - id: "GOV-REVIEW-STOP-002"
+    summary: "Report S0/S1 immediately, stop affected acceptance/progression, and finish only still-valid independent in-scope checks within the existing budget; no mandatory first-finding stop or exhaustive search."
+  - id: "GOV-MAINTENANCE-002"
+    summary: "Non-semantic governance maintenance and proven equivalent check implementation maintenance do not automatically trigger C04; protected definitions, coverage, thresholds, permissions and mandatory gates remain unchanged."
+  - id: "INDUSTRIAL-PROFILES-001"
+    summary: "Optional PLC and MCU industrial engineering profiles are bundled as project-level supplements, not automatically adopted or loaded."
   - id: "GOV-SINGLE-STATE-001"
     summary: "Dynamic facts have one authoritative location even within CURRENT_STATE; prose and other files reference values instead of manually duplicating them."
   - id: "GOV-BOUNDED-SLICE-001"
@@ -98,6 +113,9 @@ semantic_changes:
     summary: "A pinned APLS manual and compiler snapshot is included but remains disabled unless APLS_ENABLED is selected."
 
 required_migration_actions:
+  - "Update all directly affected C04 role, prompt and session references together; do not leave old unconditional S0/S1 stopping instructions active."
+  - "Treat this release as a governance review-semantics change requiring incremental C04; do not use its maintenance exception to self-exempt this adoption."
+  - "Ship PLC/MCU profile attachments without automatically adopting them or adding project startup routes. Preserve existing locally customized profiles and adoption decisions; use a three-way merge or owner determination for same-path conflicts."
   - "Keep an existing project MULTI_AGENT_MODE selection; if absent, treat it as OFF. Enable AUTO_DELEGATE only on explicit owner selection."
   - "Deduplicate only current dynamic fact copies touched by the delta; preserve their values, original owners and historical snapshots."
   - "Replace unchanged framework-owned governance files with the target versions."
@@ -118,7 +136,9 @@ targeted_validation:
   yaml_parse: "all changed YAML files"
   framework_non_regression: "only invariants and guards hit by the cumulative delta"
   apls_source_identity: "verify pinned commit, selected paths, and Apache-2.0 license"
+  apls_source_identity_when: "only when the cumulative delta changes the bundled snapshot or its source metadata"
   apls_compiler: "cargo test --manifest-path optional/apls/07_src/Cargo.toml --workspace --locked"
+  apls_compiler_when: "only when explicitly enabled and the cumulative delta changes compiler code, tests or schemas"
   full_product_test_suite: false
 
 formal_c04:

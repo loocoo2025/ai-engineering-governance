@@ -60,7 +60,7 @@ Primary 命中工程总则的 Expert Escalation 触发条件时：
 
 Primary 执行中 `QUESTION_PRIORITY / WORK_PRIORITY` 为 P0/P1 的问题首先触发 Expert Escalation，不直接等同于人工阻塞。P2/P3 在当前批准范围内默认由 Primary 自动处理。P0～P3 不是 C04 Finding Severity。
 
-C04 形成 S0/S1 Finding 时只记录 Finding、给出关闭条件和 `CHANGES_REQUESTED`，然后停止。后续编排必须为：
+C04 形成 S0/S1 Finding 时按 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7.5 节立即报告，并按剩余检查有效性结束本轮评审；不参与整改。本轮结论返回后的编排必须为：
 
 ```text
 Primary Executor / C00

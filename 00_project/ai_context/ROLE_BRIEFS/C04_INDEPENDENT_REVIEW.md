@@ -35,7 +35,7 @@
 
 ## Finding Severity 与整改边界
 - `QUESTION_PRIORITY / WORK_PRIORITY` 使用 P0～P3；C04 Finding Severity 使用 S0～S3。Question Priority 定义见 `modules/engineering/ARCHITECTURE_AND_DESIGN.md` 第 10 章，分离边界、Finding Severity 和 Review Decision Matrix 见 `modules/engineering/CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7 节。
-- C04 形成 S0/S1 Finding、给出关闭条件和 `CHANGES_REQUESTED` 后停止。
+- C04 形成 S0/S1 Finding 后，按 `CURRENT_TRUTH_AUTHORITY_AND_REVIEW.md` 第 38.7.5 节立即报告，并根据剩余检查的有效性在冻结范围内结束本轮评审；不要求发现一个就结束，也不要求穷尽所有问题。
 - C04 不得因此参与被审对象的整改设计。
 - Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target。
 - 新的全新独立 C04 Session 负责复审。

@@ -254,7 +254,7 @@ Primary Executor
 → 只有需要负责人权威时才转 HUMAN_PROJECT_OWNER
 ```
 
-C04 不是上述整改链的执行者。C04 形成 S0/S1 Finding 后停止，由 Primary Executor 或 C00 启动 Expert Escalation、完成受控整改并形成新的精确 Review Target，再启动全新独立 C04 Session 复审。
+C04 不是上述整改链的执行者。S0/S1 Finding 的即时报告、本轮剩余检查与停止条件按第 38.7.5 节执行；正式结论返回后，由 Primary Executor 或 C00 启动 Expert Escalation、完成受控整改并形成新的精确 Review Target，再启动全新独立 C04 Session 复审。
 
 Expert 可以直接解决在现有 Current Truth 和既有授权范围内能够确定答案的技术问题，但不得因为“更合理”而自行改变已批准需求、验收阈值、产品行为或正式 Baseline。
 
@@ -516,7 +516,9 @@ C04 必须：
 - 只有当前变化命中适用 `LOCKED` Invariant、既有 Guard 或 Target Manifest 强制项时，才核验对应历史 Finding 和 Guard 证据；未命中时允许记录有依据的 `NOT_APPLICABLE`，不得仅因对象属于治理文件就扩大全量历史审查；
 - 不因 Reviewer Provider、Model、Runtime 或 Harness 改变而改变评审输入、审查标准或结论格式。
 
-C04 形成 S0/S1 Finding 后必须停止。Primary Executor 或 C00 根据 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，必须由新的独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样必须形成新的精确 Review Target 并由新的独立 C04 Session 复审。非阻断反馈不触发该复审循环。
+C04 形成 S0/S1 Finding 后，立即记录问题、影响及关闭条件，报告 C00，明确当前 Target 不可接受并停止受影响的推进。若问题使后续检查失去有效前提，或检查本身存在无法隔离的安全风险，则记录未完成检查及原因，输出 `CHANGES_REQUESTED` 后停止；否则可在冻结 Scope 和已有评审预算内完成仍有效、与该问题无依赖的只读检查，集中返回本轮已确认问题后结束。不得参与整改、扩大范围或以“穷尽所有问题”为结束条件；当前信息足够判断本轮接受结论且继续检查没有实际价值时停止。若新证据表明 Target 身份或判定标准本来不成立，仍按第 38.7.1 节处理 `REVIEW_NOT_READY`，不伪造正式判定。
+
+本轮正式结论返回后，Primary Executor 或 C00 根据 S0/S1 Finding 启动 Expert Escalation，完成受控整改并形成新的精确 Review Target 后，由新的独立 C04 Session 复审。S2/S3 Finding 由 Primary Executor 在现有授权范围内整改，同样形成新的精确 Review Target 并由新的独立 C04 Session 复审。同一冻结整改 Target 的多个 Finding 可以一次合并验证关闭；非阻断反馈不触发该复审循环。
 
 如果某 Expert 实质参与了当前整改方案，C04 优先选择另一 Reviewer Provider。若另一 Provider 不可用，允许使用同 Provider 的全新独立 Session，但上下文必须完全隔离。Reviewer Provider 只是 Reviewer Model/Runtime/Harness 的运行选择属性，不是新角色、新 Owner 或新 Current Truth 来源。C04 的判断权限来自角色和正式评审规则，不来自具体 Model、Runtime 或 Harness。
 

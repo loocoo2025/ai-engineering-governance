@@ -1,5 +1,5 @@
 schema_version: "1.5"
-framework_version: "v0.2.0-candidate"
+framework_version: "v0.2.1-candidate"
 release_status: "CANDIDATE"
 semantic_authority: "00_project/governance/ROLE_INTERACTION_EXECUTION_POLICY.md"
 additional_semantic_authorities:

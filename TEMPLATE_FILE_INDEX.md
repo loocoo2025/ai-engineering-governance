@@ -1,6 +1,6 @@
 # 模板文件索引
 
-预建文件数：243
+预建文件数：247
 
 ```text
 .gitignore
@@ -160,6 +160,7 @@
 13_change_management/change_requests/CR-GOV-004-modular-knowledge-routing-apls.md
 13_change_management/change_requests/CR-GOV-005-non-regression-control.md
 13_change_management/change_requests/CR-GOV-006-v0.2.0-simplification-apls.md
+13_change_management/change_requests/CR-GOV-007-v0.2.1-review-cadence.md
 13_change_management/impact_analysis/IA-GOV-001-role-interaction-executable-governance.md
 13_change_management/impact_analysis/IA-GOV-002-human-feedback-etc.md
 13_change_management/impact_analysis/IA-GOV-003-scalable-project-decomposition.md
@@ -174,6 +175,7 @@
 13_change_management/release_notes/RELEASE_NOTES_v0.1.8.md
 13_change_management/release_notes/RELEASE_NOTES_v0.1.9.md
 13_change_management/release_notes/RELEASE_NOTES_v0.2.0.md
+13_change_management/release_notes/RELEASE_NOTES_v0.2.1.md
 13_change_management/templates/CHANGE_CLASSIFICATION_HEADER_TEMPLATE.md
 13_change_management/templates/PARENT_CHILD_PROJECT_CONTRACT_TEMPLATE.md
 13_change_management/templates/README_CHANGE_TEMPLATES.md
@@ -214,6 +216,8 @@ codex_project_template/global_codex_home/AGENTS.md
 codex_project_template/global_codex_home/config.toml
 docs/FULL_VS_LITE.md
 docs/QUICK_START.md
+docs/profiles/MCU_ENGINEERING_PROFILE.md
+docs/profiles/PLC_ENGINEERING_PROFILE.md
 optional/apls/04_design/compiler/APLS_0.1_COMPILER_MVP_DESIGN.md
 optional/apls/04_design/diagnostics/APLS_0.1_CNL_DIAGNOSTICS.md
 optional/apls/04_design/diagnostics/apls-cnl-diagnostic-0.1.schema.json
