@@ -1,6 +1,6 @@
 # AI Software Engineering Governance Framework v0.2.1
 
-> Candidate release notes. Publication is pending an independent incremental C04 review; this file does not claim a published release or a review PASS.
+> Stable release notes for `v0.2.1`. The release tag identifies the exact published revision.
 
 ## What changes
 
@@ -24,6 +24,8 @@ Copying or upgrading does not adopt a profile. Projects explicitly select the ap
 ## Controls retained
 
 C00–C06, Current Truth ownership, exact immutable review targets, fresh independent formal review sessions, PASS/CHANGES_REQUESTED, in-scope finding closure verification, applicable traceability and regression guards, permission boundaries and release authorization remain in force. Faithful review-record archival continues to use mechanical checks without recursively triggering C04.
+
+The independent incremental C04 returned PASS with no open findings for candidate Commit `6fb867df3f9eec9ca7557a6c285b291752e71dd4`. The release adds faithful review archival and version metadata without changing the reviewed governance semantics.
 
 ## Upgrade
 

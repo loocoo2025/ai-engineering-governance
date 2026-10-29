@@ -8,9 +8,9 @@ CHANGE_CLASS: GOVERNANCE_CLARIFICATION / TEMPLATE_CHANGE
 SOURCE_VERSION: v0.2.0
 SOURCE_COMMIT: 54c05933f21f7e129ae08b22e1437f465427c0a8
 IMPLEMENTATION_BASE_COMMIT: 95a4f1e7eccd903abe1f34f4a503adda7e29588c
-TARGET_IDENTITY: v0.2.1-candidate
+TARGET_IDENTITY: v0.2.1
 DATE: 2026-10-29
-STATUS: CANDIDATE_CONTENT_READY
+STATUS: C04_PASS_RELEASE_READY
 AUTHORITY_OWNER: Human Project Owner
 ```
 
@@ -77,6 +77,8 @@ STATUS: ISSUED_UNUSED
 
 ## 4. 评审与发布状态
 
+本节保留候选提交前快照；最新评审结果及发布准备见第 5 节。
+
 候选提交前准备检查：修改的三份 YAML 可解析且候选版本一致；累计文件索引 247 项准确包含两份 Profile 和本轮两份新记录；旧的无条件全量验证及 S0/S1 即停表述已在活动入口替换；`git diff --check` 无空白错误。现有轻量 Non-Regression 验证器一次执行 5 条 Locked Invariant / 22 个 Guard，结果 PASS、退出码 0；这些是机械检查，不是正式 C04。未改校验器、产品代码或 APLS，不执行其全量测试。
 
 本轮独立评审目标为 v0.2.0 精确 Commit 到本候选的累计 Delta，包括已提交的两个 Profile。评审记录位置预定义为 `05_reviews/C04-GOV-007-v0.2.1-incremental.md`，无需在发起前填入结论。
@@ -87,3 +89,32 @@ PUBLICATION_STATUS: PENDING_INCREMENTAL_C04
 ```
 
 收到结果后按保障政策 §5.1 保真归档并登记精确 Target。归档、版本登记本身不递归触发 C04；混入实质整改时重新判断。历史 v0.2.0 PASS 不能替代本轮结论。
+
+## 5. 独立 C04 结果、保真归档与正式版准备
+
+候选提交后，负责人明确改为“给 mydot 吧，别给网页了”，并要求使用 Codex 内的入口。该后续要求替代第 3 节的原网页递交路线，不改变候选内容和判定标准。mydot 随后调度全新独立 Session，在只读精确候选后返回正式记录；本实现会话未代替 Reviewer 判定。
+
+```text
+REVIEW_ID: C04-GOV-007-v0.2.1-incremental
+REVIEW_TARGET: 6fb867df3f9eec9ca7557a6c285b291752e71dd4
+REVIEW_READINESS: READY
+CURRENT_CHANGE_VALIDATION: PASS
+NON_REGRESSION_VALIDATION: PASS
+OPEN_IN_SCOPE_FINDINGS: 0
+FORMAL_DECISION: PASS
+FORMAL_REVIEW_RECORD: 05_reviews/C04-GOV-007-v0.2.1-incremental.md
+SOURCE_REVIEW_THREAD: 01a18778-5963-7317-998f-98e3cbeba027
+PRE_EDIT_SOURCE_BODY_SHA256: 79806ed26b32f599d41bb20fd046d1295cd11a736b230471061c3ea825cccdde
+ARCHIVED_BODY_SHA256: 79806ed26b32f599d41bb20fd046d1295cd11a736b230471061c3ea825cccdde
+BODY_BYTES: 21108
+BODY_LINES: 267
+NORMALIZATION: NONE；UTF-8、LF、一个末尾LF
+```
+
+正文提取边界为 Reviewer 返回的 BEGIN_FORMAL_C04_RECORD / END_FORMAL_C04_RECORD 标记之间，从 `# Code Review` 开始至正文末尾 LF，不含标记和交付导语。来源为该 Session 实际发送参数及其完整正式回复，归档字节与 Reviewer 在发送前提供的 Hash 相同；未编辑原文或补造独立性证据。
+
+按第 3 节已有授权，当前只新增上述评审原文，并更新本 CR、文件索引、README 基线、Changelog 日期、Release Notes、Router/执行合同/Upgrade Manifest 的正式版本元数据。保障/评审规则、两份 Profile、Locked Contract 和校验器保持已评审候选字节。执行合同的 `release_status` 随版本从 CANDIDATE 登记为 STABLE，不改变授权或控制语义。
+
+这属于保障政策 §5.1 的保真归档及版本登记，不递归触发 C04；原 PASS 仍只绑定原候选。正式发布 Commit 是上述候选之后唯一的归档/元数据 Commit，创建后在 `output/v0.2.1-release/PUBLICATION_TARGET.json` 记录完整 Hash，随后才创建新 annotated `v0.2.1`、快进两端 main 和 Tag，并创建英文 GitHub Release。该输出记录不是新的事实 Owner；Git/Tag/Release 产物提供最终身份。
+
+本节记录执行前发布准备，不预称远端成功。远端结果以实际引用、Release URL 和可下载 archive 的 SHA-256 为凭据；不得把发布失败登记为成功，也不得移动已发布版本修复问题。
